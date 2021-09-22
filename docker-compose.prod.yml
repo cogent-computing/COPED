@@ -6,6 +6,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.prod
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/app/web/staticfiles
     expose:
       - 8000
     env_file:
@@ -20,6 +22,8 @@ services:
       - ./.env.prod.db
   nginx:
       build: ./nginx
+      volumes:
+        - static_volume:/home/app/web/staticfiles
       ports:
         - 1337:80
       depends_on:
@@ -27,3 +31,4 @@ services:
 
 volumes:
   frontend_data:
+  static_volume:
