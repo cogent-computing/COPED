@@ -1,23 +1,23 @@
 version: "3.9"
 
 services:
-  frontend:
-    build: ./frontend
+  web:
+    build: ./web
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./frontend/:/usr/src/app/
+      - ./web/:/usr/src/app/
     ports:
       - "8000:8000"
     env_file:
       - ./.env.dev
     depends_on:
-      - frontend-db
-  frontend-db:
+      - db
+  db:
     image: postgres:13-alpine
     volumes:
-      - frontend_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     env_file:
       - ./.env.dev.db
 
 volumes:
-  frontend_data:
+  postgres_data:

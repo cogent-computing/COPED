@@ -1,9 +1,9 @@
 version: "3.9"
 
 services:
-  frontend:
+  web:
     build:
-      context: ./frontend
+      context: ./web
       dockerfile: Dockerfile.prod
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
     volumes:
@@ -13,11 +13,11 @@ services:
     env_file:
       - ./.env.prod
     depends_on:
-      - frontend-db
-  frontend-db:
+      - db
+  db:
     image: postgres:13-alpine
     volumes:
-      - frontend_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     env_file:
       - ./.env.prod.db
   nginx:
@@ -27,8 +27,8 @@ services:
       ports:
         - 1337:80
       depends_on:
-        - frontend
+        - web
 
 volumes:
-  frontend_data:
+  postgres_data:
   static_volume:
