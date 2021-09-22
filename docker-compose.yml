@@ -12,12 +12,22 @@ services:
       - ./.env.dev
     depends_on:
       - db
+      - couch
   db:
     image: postgres:13-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
       - ./.env.dev.db
+  couch:
+    image: couchdb:3.1
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+    ports:
+      - "5984:5984"
+    env_file:
+      - ./.env.dev.couch
 
 volumes:
   postgres_data:
+  couchdb_data:
