@@ -16,10 +16,8 @@ services:
     image: postgres:13-alpine
     volumes:
       - frontend_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: coped
-      POSTGRES_PASSWORD: coped
-      POSTGRES_DB: coped_dev
+    env_file:
+      - ./.env.dev.db
 
 volumes:
   frontend_data:

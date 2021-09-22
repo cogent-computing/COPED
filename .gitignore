@@ -1,6 +1,5 @@
 data/
-.env.prod
-.env.prod.db
+.env.prod*
 .DS_Store
 *.pyc
 __pycache__/
