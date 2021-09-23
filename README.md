@@ -8,6 +8,8 @@ The architecture is a skeleton and contains no COPED application code. Instead, 
 
 ## Launching COPED microservices
 
+_Note that the first `up` command will also build and cache the images. This will take a few minutes. Subsequent `up` commands use the cache and take a couple of seconds._
+
 ### Development
 
 Steps:
@@ -40,6 +42,9 @@ Summary:
 * does not migrate databases automatically, to protect existing data
     - run migrations manually in a container shell or with `docker-compose ... exec ...`
 
+### Rebuilds
+
+Docker will notice changes and rebuild and recache images when necessary. To force an image rebuild, add the `--build` flag to the `docker-compose` commands above.
 
 ## TODOs
 
