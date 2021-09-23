@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - ./.env.dev
+      - ./envs/dev/web
     depends_on:
       - db
       - couch
@@ -16,7 +16,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
-      - ./.env.dev.db
+      - ./envs/dev/db
   couch:
     image: couchdb:3.1
     volumes:
@@ -24,8 +24,9 @@ services:
     ports:
       - "5984:5984"
     env_file:
-      - ./.env.dev.couch
+      - ./envs/dev/couch
 
 volumes:
   postgres_data:
   couchdb_data:
+  
