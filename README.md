@@ -23,6 +23,7 @@ Summary:
 * access the web server on `localhost:8000`
 * automatically migrates the development database when spun up
     - to avoid this behaviour comment out the relevant lines in `web/empty_app/entrypoints.sh`.
+* limits memory usage by the Elasticsearch service to avoid slowdowns
 
 ### Production
 
