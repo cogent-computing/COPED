@@ -48,6 +48,7 @@ Docker will notice changes and rebuild and recache images when necessary. To for
 
 ## TODOs
 
+- Ensure Elasticsearch is protected with environment-specific credentials (currently no auth)
 - Split the Docker internal networking:
     1. data microservices (Elasticsearch etc.)
     2. web and API containers exposed to the host 
