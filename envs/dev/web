@@ -9,3 +9,7 @@ SQL_PASSWORD=coped
 SQL_HOST=db
 SQL_PORT=5432
 DATABASE=postgres
+
+# Elasticsearch connection details
+ELASTIC_HOSTNAME=elasticsearch
+ELASTIC_PORT=9200
