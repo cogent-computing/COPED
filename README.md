@@ -49,6 +49,10 @@ Docker will notice changes and rebuild and recache images when necessary. To for
 
 ## TODOs
 
+- **IMPORTANT** switch away from the `alpine` base images for containers
+    - These have only short term support in terms of security
+    - More practically, they do not fully support ARM architectures (e.g. new Macs)
+    - Need to move to Debian-based images such as `buster` or `buster-slim`
 - Ensure Elasticsearch is protected with environment-specific credentials (currently no auth)
 - Split the Docker internal networking:
     1. data microservices (Elasticsearch etc.)
