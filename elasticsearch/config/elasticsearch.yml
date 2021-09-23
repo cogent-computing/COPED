@@ -5,5 +5,5 @@
 #   - use environment files for these
 
 discovery.type: single-node
-cluster.name: "docker-cluster"
+cluster.name: "coped-docker-cluster"
 network.host: 0.0.0.0
