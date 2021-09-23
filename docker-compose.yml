@@ -1,4 +1,5 @@
 services:
+
   web:
     build: ./web
     command: python manage.py runserver 0.0.0.0:8000
@@ -11,12 +12,15 @@ services:
     depends_on:
       - db
       - couch
+      - elasticsearch
+
   db:
     image: postgres:13-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
       - ./envs/dev/db
+
   couch:
     image: couchdb:3.1
     volumes:
@@ -26,7 +30,23 @@ services:
     env_file:
       - ./envs/dev/couch
 
+  elasticsearch:
+    build: ./elasticsearch
+    volumes:
+      - type: bind
+        source: ./elasticsearch/config/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: volume
+        source: elasticsearch
+        target: /usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    env_file:
+      - ./envs/dev/elasticsearch
+
 volumes:
   postgres_data:
   couchdb_data:
-  
+  elasticsearch:

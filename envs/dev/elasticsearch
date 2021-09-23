@@ -1,0 +1,7 @@
+# Elasticsearch options that are specific to development
+
+# Ensure memory use is limited
+ES_JAVA_OPTS=-Xmx256m -Xms256m
+
+# Dev password
+ELASTIC_PASSWORD=password
