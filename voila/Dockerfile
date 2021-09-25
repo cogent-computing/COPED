@@ -17,4 +17,4 @@ RUN conda install --file requirements.txt
 # mount some shared jupyter notebooks here
 WORKDIR /usr/share/voila/notebooks
 
-CMD ["voila"]
+CMD ["voila", "--no-browser"]
