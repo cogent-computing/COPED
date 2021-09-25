@@ -14,7 +14,12 @@ RUN conda config --set channel_priority strict
 COPY ./requirements.txt .
 RUN conda install --file requirements.txt
 
+# copy entrypoint.prod.sh
+COPY ./entrypoint.prod.sh .
+RUN sed -i 's/\r$//g'  entrypoint.prod.sh
+RUN chmod +x entrypoint.prod.sh
+
 # mount some shared jupyter notebooks here
 WORKDIR /usr/share/voila/notebooks
 
-CMD ["voila", "--no-browser"]
+ENTRYPOINT ["/usr/src/app/entrypoint.prod.sh"]
