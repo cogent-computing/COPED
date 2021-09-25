@@ -66,3 +66,4 @@ Docker will notice changes and rebuild and recache images when necessary. To for
 - Implement a non-root user for the `db` and `nginx` containers to improve security.
     - See `./web/Dockerfile.prod` for an example of how this is done
 - Check for other [container anti-patterns](https://codefresh.io/containers/docker-anti-patterns/) and mitigate them.
+- Ensure the Voila container is properly configured to cull idle or slow kernels.

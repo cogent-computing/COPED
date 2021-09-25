@@ -1,0 +1,14 @@
+voila=0.2.14
+notebook=6.4.4
+bqplot
+ipympl
+ipyvolume
+ipywidgets
+numpy
+pandas
+scipy
+voila-gridstack
+voila-material
+voila-reveal
+voila-vuetify
+# put additional libraries to support notebook execution here
