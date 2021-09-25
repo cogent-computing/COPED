@@ -1,25 +1,26 @@
-FROM continuumio/miniconda3:4.10.3
+## COMPILE ##
 
-# files will run from here
-WORKDIR /usr/src/app
+FROM python:3.9-slim-bullseye as compile-image
 
-# keep python running smoothly
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends build-essential gcc
+
+WORKDIR /root
+
+RUN pip install --user --upgrade pip
+COPY ./requirements.txt ./
+RUN pip install --user -r requirements.txt
+
+## USE ##
+
+FROM python:3.9-slim-bullseye as runtime-image
+
+COPY --from=compile-image /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN conda config --add channels conda-forge
-RUN conda config --set channel_priority strict
+COPY ./entrypoint.prod.sh /root/
 
-# new environment voila-notebook-server
-COPY ./requirements.txt .
-RUN conda install --file requirements.txt
-
-# copy entrypoint.prod.sh
-COPY ./entrypoint.prod.sh .
-RUN sed -i 's/\r$//g'  entrypoint.prod.sh
-RUN chmod +x entrypoint.prod.sh
-
-# mount some shared jupyter notebooks here
-WORKDIR /usr/share/voila/notebooks
-
-ENTRYPOINT ["/usr/src/app/entrypoint.prod.sh"]
+ENTRYPOINT ["/root/entrypoint.prod.sh"]

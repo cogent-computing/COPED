@@ -1,5 +1,5 @@
-voila=0.2.14
-notebook=6.4.4
+voila==0.2.14
+notebook==6.4.4
 bqplot
 ipympl
 ipyvolume
