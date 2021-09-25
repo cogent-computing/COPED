@@ -4,7 +4,8 @@ services:
     build: ./web
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./web/:/usr/src/app/
+      - ./web:/usr/src/app
+      - ./dashboards_test:/usr/share/voila/notebooks
     ports:
       - "8000:8000"
     env_file:
@@ -45,6 +46,16 @@ services:
       - "9300:9300"
     env_file:
       - ./envs/dev/elasticsearch
+
+  voila:
+    build: ./voila
+    volumes:
+      - type: bind
+        source: ./dashboards_test
+        target: /usr/share/voila/notebooks
+        read_only: true
+    ports:
+      - "8866:8866"
 
 volumes:
   postgres_data:
