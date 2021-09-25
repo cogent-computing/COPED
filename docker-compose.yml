@@ -19,8 +19,14 @@ services:
     image: postgres:13-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - ./envs/dev/db
+    secrets:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    environment:
+      - POSTGRES_USER_FILE=/run/secrets/POSTGRES_USER
+      - POSTGRES_PASSWORD_FILE=/run/secrets/POSTGRES_PASSWORD
+      - POSTGRES_DB_FILE=/run/secrets/POSTGRES_DB
 
   couch:
     image: couchdb:3.1
@@ -56,6 +62,14 @@ services:
         read_only: true
     ports:
       - "8866:8866"
+
+secrets:
+  POSTGRES_USER:
+    file: ./${SECRETS_DIRECTORY}/POSTGRES_USER
+  POSTGRES_PASSWORD:
+    file: ./${SECRETS_DIRECTORY}/POSTGRES_PASSWORD
+  POSTGRES_DB:
+    file: ./${SECRETS_DIRECTORY}/POSTGRES_DB
 
 volumes:
   postgres_data:
