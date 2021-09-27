@@ -70,6 +70,7 @@ services:
         target: ${VOILA_NOTEBOOK_DIR:?}
         read_only: true
     environment:
+      DASHBOARDS_ROOT: ${NGINX_DASHBOARDS_ROOT:?}
       NOTEBOOK_DIR: ${VOILA_NOTEBOOK_DIR:?}
     expose:
       - 8866
