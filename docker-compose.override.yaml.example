@@ -4,8 +4,6 @@ services:
     volumes:
       - ./dashboards:/usr/share/voila/notebooks
       - ./web:/app
-    ports:
-      - "8000:8000"
     environment:
       DEBUG: 1
 
