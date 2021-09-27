@@ -4,19 +4,19 @@ services:
     build: ./web
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - static_volume:${DJANGO_STATIC_ROOT:-/usr/share/django/staticfiles}
-      - dashboards:/usr/share/voila/notebooks
+      - static_volume:${DJANGO_STATIC_ROOT:?}
+      - dashboards:${VOILA_NOTEBOOK_DIR:?}
     expose:
       - 8000
     environment:
       DEBUG: 0
-      SECRET_KEY: ${DJANGO_SECRET_KEY:?"set a secret key"}
-      STATIC_ROOT: ${DJANGO_STATIC_ROOT:-/usr/share/django/staticfiles}
+      SECRET_KEY: ${DJANGO_SECRET_KEY:?}
+      STATIC_ROOT: ${DJANGO_STATIC_ROOT:?}
       DJANGO_ALLOWED_HOSTS: "localhost 127.0.0.1 [::1]"
       SQL_ENGINE: django.db.backends.postgresql
-      SQL_DATABASE: ${POSTGRES_DB:?"set a database name"}
-      SQL_USER: ${POSTGRES_USER:?"set a database user"}
-      SQL_PASSWORD: ${POSTGRES_PASSWORD:?"set a database password"}
+      SQL_DATABASE: ${POSTGRES_DB:?}
+      SQL_USER: ${POSTGRES_USER:?}
+      SQL_PASSWORD: ${POSTGRES_PASSWORD:?}
       SQL_HOST: db
       SQL_PORT: ${POSTGRES_PORT:-5432}
       DATABASE: ${DJANGO_DBMS_NAME:-postgres}
@@ -33,12 +33,12 @@ services:
       - source: NGINX_CONFIG
         target: /etc/nginx/templates/default.conf.template
     volumes:
-      - static_volume:/app/staticfiles
+      - static_volume:${NGINX_STATIC_LOCATION:?}
     ports:
       - "1337:80"
     environment:
-      DASHBOARDS_ROOT: ${NGINX_DASHBOARDS_ROOT:-/dashboards/}
-      STATIC_LOCATION: ${NGINX_STATIC_LOCATION:-/app/staticfiles/}
+      DASHBOARDS_ROOT: ${NGINX_DASHBOARDS_ROOT:?}
+      STATIC_LOCATION: ${NGINX_STATIC_LOCATION:?}
     depends_on:
       - web
       - voila
@@ -48,9 +48,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:?"set a database user"}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?"set a database password"}
-      POSTGRES_DB: ${POSTGRES_DB:?"set a database name"}
+      POSTGRES_USER: ${POSTGRES_USER:?}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+      POSTGRES_DB: ${POSTGRES_DB:?}
 
   couch:
     image: couchdb:3.1
@@ -59,16 +59,18 @@ services:
     expose:
       - 5984
     environment:
-      COUCHDB_USER: ${COUCHDB_USER:?"set a couch user"}
-      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?"set a couch password"}
+      COUCHDB_USER: ${COUCHDB_USER:?}
+      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
 
   voila:
     build: ./voila
     volumes:
       - type: volume
         source: dashboards
-        target: /usr/share/voila/notebooks
+        target: ${VOILA_NOTEBOOK_DIR:?}
         read_only: true
+    environment:
+      NOTEBOOK_DIR: ${VOILA_NOTEBOOK_DIR:?}
     expose:
       - 8866
 
