@@ -4,7 +4,7 @@ This repository contains the application microservices architecture for COPED, s
 
 The architecture is a skeleton and contains no COPED application code. Instead, it configures the development and production environments for easy setup and teardown.
 
-> Integrating existing COPED application code into this framework will be done on a development branch of the main [COPED application repository](https://github.com/cogent-computing/COPED). This repo is used to experiment on and refine the microservice configuration so it works in multiple environments.
+> Integrating existing COPED application code into this framework will be done in a separate repository or in the main [COPED application repository](https://github.com/cogent-computing/COPED). This repo is used to experiment on and refine the microservice configuration so it works in multiple environments.
 
 ## Launching COPED microservices
 
@@ -14,20 +14,30 @@ _Note that the first `up` command will also build and cache the images. This wil
 
 Steps:
 
-1. Run: `docker-compose up -d`
+1. Copy `docker-compose.override.yaml.example` to `docker-compose.override.yaml`
+2. Copy `.env.example` to `.env` and ensure `ENVIRONMENT=DEVELOPMENT` is set.
+3. Run: `docker-compose up -d`
 
 Summary:
 
-* uses bind mounts from the local filesystem to enable direct code editing
-* uses Django's built-in wsgi development server
-* access the web server on `localhost:8000`
-* automatically migrates the development database when spun up
-    - to avoid this behaviour comment out the relevant lines in `web/empty_app/entrypoints.sh`.
+* application access point is `localhost:1337`
+* uses the `docker-compose.override.yaml` for development mode
+    - turns on debugging
+    - uses bind mounts to enable direct code editing inside containers
+        - VSCode's `Docker` extension is useful here :-)
+    - allows bypassing the Nginx proxy on `localhost:8000`
+* automatically flushes the database when spun up
+    > to avoid this behaviour comment out the relevant line in `web/entrypoint.sh`.
 * limits memory usage by the Elasticsearch service to avoid slowdowns
 
 ### Production
 
 Steps:
+
+1. Copy `.env.example` to `.env.prod` and ensure `ENVIRONMENT=PRODUCTION` is set.
+2. Run: `docker-compose -f docker-compose.yaml up -d`
+    - This prevents 
+
 
 1. Create appropriate environment files in the `./envs/prod/` directory
     - use `./envs/prod-example/` as a template
