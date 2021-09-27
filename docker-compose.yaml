@@ -4,13 +4,14 @@ services:
     build: ./web
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - static_volume:/app/staticfiles
+      - static_volume:${DJANGO_STATIC_ROOT:-/usr/share/django/staticfiles}
       - dashboards:/usr/share/voila/notebooks
     expose:
       - 8000
     environment:
       DEBUG: 0
       SECRET_KEY: ${DJANGO_SECRET_KEY:?"set a secret key"}
+      STATIC_ROOT: ${DJANGO_STATIC_ROOT:-/usr/share/django/staticfiles}
       DJANGO_ALLOWED_HOSTS: "localhost 127.0.0.1 [::1]"
       SQL_ENGINE: django.db.backends.postgresql
       SQL_DATABASE: ${POSTGRES_DB:?"set a database name"}
@@ -40,7 +41,7 @@ services:
       - voila
 
   db:
-    image: postgres:13-alpine
+    image: postgres:13.4-bullseye
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
