@@ -17,7 +17,7 @@ server {
         proxy_redirect off;
     }
 
-    location /dashboards/ {
+    location ${DASHBOARDS_ROOT} {
 
         proxy_pass http://dashboards;
 
@@ -34,7 +34,7 @@ server {
     }
 
     location /static/ {
-        alias /app/staticfiles/;
+        alias ${STATIC_LOCATION};
     }
 
 }

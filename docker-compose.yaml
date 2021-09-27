@@ -31,11 +31,14 @@ services:
     image: nginx:1.21-perl
     configs:
       - source: NGINX_CONFIG
-        target: /etc/nginx/conf.d/default.conf
+        target: /etc/nginx/templates/default.conf.template
     volumes:
       - static_volume:/app/staticfiles
     ports:
       - "1337:80"
+    environment:
+      DASHBOARDS_ROOT: ${NGINX_DASHBOARDS_ROOT:-/dashboards/}
+      STATIC_LOCATION: ${NGINX_STATIC_LOCATION:-/app/staticfiles/}
     depends_on:
       - web
       - voila
@@ -91,7 +94,7 @@ volumes:
 
 configs:
   NGINX_CONFIG:
-    file: ./nginx/config/nginx.conf
+    file: ./nginx/config/default.conf.template
   ELASTIC_CONFIG:
     file: ./elasticsearch/config/elasticsearch.yml
 
