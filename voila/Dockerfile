@@ -5,22 +5,22 @@ FROM python:3.9-slim-bullseye as compile-image
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends build-essential gcc
 
-WORKDIR /root
+WORKDIR /app
 
 RUN pip install --user --upgrade pip
-COPY ./requirements.txt ./
+COPY ./requirements.txt .
 RUN pip install --user -r requirements.txt
 
 ## USE ##
 
 FROM python:3.9-slim-bullseye as runtime-image
 
-COPY --from=compile-image /root/.local /root/.local
-ENV PATH=/root/.local/bin:$PATH
+COPY --from=compile-image /app/.local /app/.local
+ENV PATH=/app/.local/bin:$PATH
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-COPY ./entrypoint.prod.sh /root/
+COPY ./entrypoint.sh /app
 
-ENTRYPOINT ["/root/entrypoint.prod.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]

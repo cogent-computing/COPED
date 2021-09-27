@@ -1,31 +1,31 @@
-# pull base image with python
-# NB: avoid python:alpine and python:slim variants due to
-# chipset issues (Mac M1)
-FROM python:3.9.6-alpine
+#############
+## COMPILE ##
+#############
 
-# files will run from here
-WORKDIR /usr/src/app
+FROM python:3.9-slim-bullseye as compile-image
 
-# keep python running smoothly
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends build-essential gcc
+
+WORKDIR /app
+
+RUN pip install --user --upgrade pip
+COPY ./requirements.txt .
+RUN pip install --user -r requirements.txt
+
+
+#########
+## USE ##
+#########
+
+FROM python:3.9-slim-bullseye as runtime-image
+
+COPY --from=compile-image /app/.local /app/.local
+ENV PATH=/app/.local/bin:$PATH
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install psycopg2 dependencies
-RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev
+COPY ./entrypoint.sh /app
 
-# install dependencies for django site
-RUN pip install --upgrade pip
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
-
-# copy entrypoint.sh (and ensure correct line endings)
-COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh
-RUN chmod +x /usr/src/app/entrypoint.sh
-
-# copy rest of project
-COPY . .
-
-# run entrypoint.sh (wait for database connection then migrate django)
-ENTRYPOINT [ "/usr/src/app/entrypoint.sh" ]
+ENTRYPOINT ["/app/entrypoint.sh"]

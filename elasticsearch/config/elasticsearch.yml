@@ -1,9 +1,3 @@
-# Main shared elasticsearch config.
-#
-# NB:
-#   - credentials and environment-specific settings do not go here
-#   - use environment files for these
-
 discovery.type: single-node
 cluster.name: "coped-docker-cluster"
 network.host: 0.0.0.0

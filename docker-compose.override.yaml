@@ -1,0 +1,35 @@
+services:
+
+  web:
+    volumes:
+      - ./dashboards:/usr/share/voila/notebooks
+    ports:
+      - "8000:8000"
+    environment:
+      DEBUG: 1
+
+  db:
+    ports:
+      - "5432:5432"
+
+  couch:
+    ports:
+      - "5984:5984"
+
+  voila:
+    build: ./voila
+    volumes:
+      - type: mount
+        source: ./dashboards
+        target: /usr/share/voila/notebooks
+        read_only: true
+    ports:
+      - "8866:8866"
+
+  elasticsearch:
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+
