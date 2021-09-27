@@ -12,9 +12,9 @@ then
 fi
 
 # default to the PRODUCTION env to protect data
-ENV="${ENVIRONMENT:-PROD}"
+ENV="${ENVIRONMENT:-PRODUCTION}"
 
-if [ "${ENV}" = "DEV" -o "${ENV}" = "TEST" ]
+if [ "${ENV}" = "DEVELOPMENT" -o "${ENV}" = "TEST" ]
 then
   echo "Current environment is ${ENV}."
   echo "Flushing database..."

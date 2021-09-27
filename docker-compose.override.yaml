@@ -19,7 +19,7 @@ services:
   voila:
     build: ./voila
     volumes:
-      - type: mount
+      - type: bind
         source: ./dashboards
         target: /usr/share/voila/notebooks
         read_only: true

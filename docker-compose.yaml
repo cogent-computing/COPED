@@ -4,7 +4,7 @@ services:
     build: ./web
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - static_volume:/home/app/web/staticfiles
+      - static_volume:/app/staticfiles
       - dashboards:/usr/share/voila/notebooks
     expose:
       - 8000
@@ -32,7 +32,7 @@ services:
       - source: NGINX_CONFIG
         target: /etc/nginx/conf.d/default.conf
     volumes:
-      - static_volume:/home/app/web/staticfiles
+      - static_volume:/app/staticfiles
     ports:
       - "1337:80"
     depends_on:
