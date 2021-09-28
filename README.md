@@ -6,6 +6,9 @@ The architecture is a skeleton and contains no COPED application code. Instead, 
 
 > Integrating existing COPED application code into this framework will be done in a separate repository or in the main [COPED application repository](https://github.com/cogent-computing/COPED). This repo is used to experiment on and refine the microservice configuration so it works in multiple environments.
 
+
+
+
 ## Launching COPED microservices
 
 _Note that the first `up` command will also build and cache the images. This will take a few minutes. Subsequent `up` commands use the cache and take a couple of seconds._
@@ -47,6 +50,28 @@ Summary:
 ### Rebuilds
 
 Docker will generally notice changes and rebuild and recache images when necessary. To force an image rebuild, add the `--build` flag to the `docker-compose` commands above.
+
+
+
+
+## Environments
+
+An example file `.env.example` is provided as a template. This can be copied and renamed to allow multiple environment configurations.
+
+A basic setup with two environments is:
+
+- `.env` for development settings
+- `.env.prod` for production settings
+
+The `.env` file is used automatically by `docker-compose` when spinning up the cluster.
+
+To apply production settings, set the `--env-file .env.prod` flag on `docker-compose`. Generally this would be done when also _ignoring_ the default `docker-compose.override.yaml` overrides in one of the following ways:
+
+- do not have a `docker-compose.override.yaml` in production environments - the file is ignored in git by default to help with this
+- use the `-f` flag to specify the file to use with `docker-compose -f docker-compose.yaml --env-file .env.prod up -d`
+
+
+
 
 ## TODOs
 
