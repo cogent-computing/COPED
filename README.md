@@ -31,7 +31,7 @@ Summary:
         - VSCode's `Docker` extension is useful here :-)
 * automatically flushes the database when spun up
     > to avoid this behaviour comment out the relevant line in `web/entrypoint.sh`.
-* limits memory usage by the Elasticsearch service to avoid slowdowns
+* limits memory usage by the Elasticsearch and Logstash services to avoid slowdowns
 
 ### Production
 
@@ -46,6 +46,10 @@ Summary:
 * application access point is `localhost:1337`
 * no bind mounts - only volumes are used
 * does not flush database to protect existing data
+
+### Note on Logstash startup
+
+The Logstash service can be fussy on first launch, when the volume is also created, since it seems to require an existing volume with prior bootstrap configuration saved. If this happens (which can be confirmed by looking at the Logstash logs) simply restart the Logstash container over the now-existing volume.
 
 ### Rebuilds
 
