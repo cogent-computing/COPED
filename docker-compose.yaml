@@ -88,6 +88,23 @@ services:
       - 9200
       - 9300
 
+  logstash:
+    build: ./logstash
+    configs:
+      - source: LOGSTASH_CONFIG
+        target: /usr/share/logstash/config/logstash.yml
+      - source: LOGSTASH_PIPELINE
+        target: /usr/share/logstash/pipeline
+    environment:
+      ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:?}
+    expose:
+      - 5000/tcp
+      - 5000/udp
+      - 5044
+      - 9600
+    depends_on:
+      - elasticsearch
+
 
 volumes:
   postgres_data:
@@ -102,4 +119,7 @@ configs:
     file: ./nginx/config/default.conf.template
   ELASTIC_CONFIG:
     file: ./elasticsearch/config/elasticsearch.yml
-
+  LOGSTASH_CONFIG:
+    file: ./logstash/config/logstash.yml
+  LOGSTASH_PIPELINE:
+    file: ./logstash/pipeline
