@@ -82,6 +82,8 @@ services:
         target: /usr/share/elasticsearch/config/elasticsearch.yml
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data
+    environment:
+      ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:?}
     expose:
       - 9200
       - 9300
