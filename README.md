@@ -11,7 +11,9 @@ The architecture is a skeleton and contains no COPED application code. Instead, 
 
 ## Launching COPED microservices
 
-_Note that the first `up` command will also build and cache the images. This will take a few minutes. Subsequent `up` commands use the cache and take a couple of seconds._
+_Note that the first `up` command will also build and cache the images. This will take many minutes on a slow connection. Subsequent `up` commands use the cache and take a couple of seconds._
+
+__Important:__ The ELK stack (Elasticsearch, Logstash, Kibana) is hungry for memory. When developing on a low-powered machine (desktop/laptop) ensure that the Docker Desktop application is configured with a reasonable amount of memory, otherwise the Java heap will use all the allocated memory. A setting of __4GB__ for Docker Desktop on Mac seems to work, as a rough guide. 
 
 ### Development
 
