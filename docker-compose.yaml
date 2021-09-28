@@ -105,6 +105,18 @@ services:
     depends_on:
       - elasticsearch
 
+  kibana:
+    build: ./kibana
+    configs:
+      - source: KIBANA_CONFIG
+        target: /usr/share/kibana/config/kibana.yml
+    environment:
+      ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:?}
+    expose:
+      - 5601
+    depends_on:
+      - elasticseach
+
 
 volumes:
   postgres_data:
@@ -123,3 +135,5 @@ configs:
     file: ./logstash/config/logstash.yml
   LOGSTASH_PIPELINE:
     file: ./logstash/pipeline
+  KIBANA_CONFIG:
+    file: ./kibana/config/kibana.yml
