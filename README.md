@@ -81,7 +81,8 @@ To apply production settings, set the `--env-file .env.prod` flag on `docker-com
 
 ## TODOs
 
-- Ensure Elasticsearch is protected with environment-specific credentials (currently no auth)
+- Integrate Kibana via Nginx proxy
+- Ensure Elasticsearch is protected with environment-specific credentials (currently no auth beyond standard `elastic` user)
 - Split the Docker internal networking:
     1. data microservices (Elasticsearch etc.)
     2. web and API containers exposed to the host 
