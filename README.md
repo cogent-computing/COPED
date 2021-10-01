@@ -1,29 +1,43 @@
-# Develop-Deploy for COPED Containers
+# COPED: Catalogue of Projects on Energy Data
 
-This repository contains the application microservices architecture for COPED, set up as a fully containerised Docker application.
+![screenshot_coped](docs/images/coped-landing.png "Figure 1 - Screenshot of Coped")
 
-The architecture is a skeleton and contains no COPED application code. Instead, it configures the development and production environments for easy setup and teardown.
+**Fig 1 - COPED Front Page Screenshot**
 
-> Integrating existing COPED application code into this framework will be done in a separate repository or in the main [COPED application repository](https://github.com/cogent-computing/COPED). This repo is used to experiment on and refine the microservice configuration so it works in multiple environments.
+COPED, or the Catalogue of Projects on Energy Data aims to unify various information stores and existing portals for energy projects under a single extendable umbrella that has two key roles:
 
+1. Update, curate and correct information pertaining to the existing energy project landscape through manual and automated processes.
+2. Offer a wide range of visual aids, query tools and metrics that enable users to synthesize information across the energy projects landscape at a given time.
 
+COPED aims to provide diverse insights for various user groups, while being able to continuously expand its data capture sources and the analytics and visualisations it can perform.
 
+As a platform, COPED aims to be extensible. As COPED reaches maturity and wide adoption, the product aims to allow individuals and institutions to contribute extensions and features to the product, as well as uploading, curating, and analysing existing data.
+  
+  
+----
 
-## Launching COPED microservices
+  
+# COPED Development
 
-_Note that the first `up` command will also build and cache the images. This will take many minutes on a slow connection. Subsequent `up` commands use the cache and take a couple of seconds._
+This repository contains the COPED application code which is based around a microservices architecture, implemented as a fully containerised Docker application.
 
-__Important:__ The ELK stack (Elasticsearch, Logstash, Kibana) is hungry for memory. When developing on a low-powered machine (desktop/laptop) ensure that the Docker Desktop application is configured with a reasonable amount of memory, otherwise the Java heap will use all the allocated memory. A setting of __4GB__ for Docker Desktop on Mac seems to work, as a rough guide. 
+The codebase aims to allow easy setup and teardown of development and testing environments, and easy deployment of the production environment after updates.
 
-### Development
+The following guidance provides an overview of the development process for contributors.
 
-Steps:
+> Links to user documentation will be added above once the codebase matures and user features are fully developed. 
+
+## Development
+
+[Docker compose](https://docs.docker.com/compose/) is used to orchestrate COPED services.
+
+### Steps
 
 1. Copy `docker-compose.override.yaml.example` to `docker-compose.override.yaml`
 2. Copy `.env.example` to `.env` and ensure `ENVIRONMENT=DEVELOPMENT` is set.
 3. Run: `docker-compose up -d`
 
-Summary:
+### Summary
 
 * tries to mirror as much of the _production_ build as possible
 * application access point is `localhost:1337`
@@ -35,30 +49,29 @@ Summary:
     > to avoid this behaviour comment out the relevant line in `web/entrypoint.sh`.
 * limits memory usage by the Elasticsearch and Logstash services to avoid slowdowns
 
-### Production
+### Notes
 
-Steps:
+1. The first `up` command will also build and cache the images. This will take many minutes on a slow connection. Subsequent `up` commands use the cache and take a couple of seconds.
+
+2. The [ELK stack](https://www.elastic.co/what-is/elk-stack) (Elasticsearch, Logstash, Kibana) is hungry for memory. When developing on a low-powered machine (desktop/laptop) ensure that the Docker Desktop application is configured with a reasonable amount of memory, otherwise the Java heap will use all the allocated memory and cause issues. A setting of __4GB__ for Docker Desktop on Mac seems to work, as a rough guide. 
+
+3. The Logstash service can be fussy on first launch, when the volume is also created, since it seems to require an existing volume with prior bootstrap configuration saved. If this happens (which can be confirmed by looking at the Logstash logs) simply restart the Logstash container over the now-existing volume.
+
+4. Docker will generally notice changes and rebuild and recache images when necessary. To force an image rebuild, add the `--build` flag to the `docker-compose` commands above.
+
+## Production
+
+### Steps
 
 1. Copy `.env.example` to `.env.prod` and ensure `ENVIRONMENT=PRODUCTION` is set.
 2. Run: `docker-compose --env-file .env.prod up -d`
     > Ensure that there is no `docker-compose.override.yaml` file present. It is explicitly ignored in `.gitignore` to help with this.
 
-Summary:
+### Summary
 
 * application access point is `localhost:1337`
 * no bind mounts - only volumes are used
 * does not flush database to protect existing data
-
-### Note on Logstash startup
-
-The Logstash service can be fussy on first launch, when the volume is also created, since it seems to require an existing volume with prior bootstrap configuration saved. If this happens (which can be confirmed by looking at the Logstash logs) simply restart the Logstash container over the now-existing volume.
-
-### Rebuilds
-
-Docker will generally notice changes and rebuild and recache images when necessary. To force an image rebuild, add the `--build` flag to the `docker-compose` commands above.
-
-
-
 
 ## Environments
 
