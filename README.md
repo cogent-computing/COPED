@@ -13,7 +13,7 @@ COPED aims to provide diverse insights for various user groups, while being able
 
 As a platform, COPED aims to be extensible. As COPED reaches maturity and wide adoption, the product aims to allow individuals and institutions to contribute extensions and features to the product, as well as uploading, curating, and analysing existing data.
   
-  
+
 ----
 
   
@@ -94,6 +94,7 @@ To apply production settings, set the `--env-file .env.prod` flag on `docker-com
 
 ## TODOs
 
+- [Meta] Move all of these TODOs to new Git issues
 - Integrate Kibana via Nginx proxy
 - Ensure Elasticsearch is protected with environment-specific credentials (currently no auth beyond standard `elastic` user)
 - Split the Docker internal networking:
