@@ -1,111 +1,91 @@
+"""
+Project crawler for API described at https://gtr.ukri.org/resources/GtR-2-API-v1.7.5.pdf
+
+This version just crawls projects for a hard-coded test query. Returning all matched
+projects, their related persons, and their related organisations.
+"""
+
+
 import re
 import scrapy
 from scrapy import Request
 
-"""
-Project crawler for API described at https://gtr.ukri.org/resources/GtR-2-API-v1.7.5.pdf
-"""
+
+# Set API entry point and default URL query parameter values.
+projects_api = "https://gtr.ukri.org/gtr/api/projects"
+start_page = 1
+results_per_page = 10
 
 
-def projects_query_url(query_term, page=1, results_per_page=100):
-    """Main entry point to search the UKRI API projects data."""
-    return f"https://gtr.ukri.org/gtr/api/projects?q={query_term}&p={page}&s={results_per_page}"
-
-
-def next_projects_url(url):
+def next_page_url(url):
     """
-    Increment the page number in an existing project query URL.
+    Increment the page number in an existing paginated URL.
     This is needed because the UKRI API does not provide previous/next page links :(
     """
     return re.sub("p=(\d+)", lambda exp: f"p={int(exp.groups()[0]) + 1}", url)
 
 
-def project_query_terms():
-    # TODO: avoid hard coding here - provide DB lookup so admin can edit the terms
-    return ["microgrid"]
-
-
-# Set up a dictionary to allow following link relations for people.
-persons_link_relations = {
-    "PI_PER": "Principal Investigator",
-    "COI_PER": "Co-Investigator",
-    "PM_PER": "Project Manager",
-    "FELLOW_PER": "Fellow",
-    "EMPLOYEE": "Employee",
-}
-
-
 class ProjectsSpider(scrapy.Spider):
-    name = "projects"
+    name = "ukri-projects"
 
     def start_requests(self):
-        queries, start_page, results_per_page = project_query_terms(), 1, 10
+
+        queries = ["microgrid"]  # TODO: get query list from the DB
         urls = [
-            projects_query_url(
-                query, page=start_page, results_per_page=results_per_page
-            )
+            f"{projects_api}?q={query}&p={start_page}&s={results_per_page}"
             for query in queries
         ]
         for url in urls:
             yield Request(
                 url=url,
-                callback=self.parse_projects,
+                callback=self.parser,
+                cb_kwargs={"item_type": "project", "item_keys": ["id", "title"]},
                 headers={"Accept": "application/json"},
             )
 
-    def parse_projects(self, response):
-        data = response.json()
+    def parser(self, response, item_type, item_keys):
+        """Define a `scrapy.Spider` parser for the given item type, extracting the given keys."""
 
+        data = response.json()
         page = data["page"]
         total_pages = data["totalPages"]
-        self.log(f"Parsing page {page} of {total_pages} project pages.")
+        self.log(f"Parsing page {page} of {total_pages} {item_type} pages.")
 
-        # TODO: save raw project data to the DB here, or use a pipeline.
-        self.log("Save project data to DB - dump it now...")
+        # TODO: save raw item data to the DB using `pipelines.py`
 
-        # Extract some structured information from the project.
-        projects = data["project"]
-        for project in projects:
-            self.log("Saving project to DB")
-            yield {
-                "type": "project",
-                "source": "ukri",
-                "id": project["id"],
-                "title": project["title"],
-            }
-            persons = [
-                link
-                for link in project["links"]["link"]
-                if link["rel"] in persons_link_relations.keys()
-            ]
+        items = data[item_type]
+        item_data = {}
+        for item in items:
+            item_data = item_data | {"type": item_type, "source": "ukri"}
+            item_data = item_data | {key: item[key] for key in item_keys}
+            yield item_data
 
-            persons_urls = [person["href"] for person in persons]
+            if item_type == "project":
+                yield response.follow(
+                    f"{projects_api}/{item['id']}/persons?p={start_page}&s={results_per_page}",
+                    callback=self.parser,
+                    cb_kwargs={
+                        "item_type": "person",
+                        "item_keys": ["id", "firstName", "surname"],
+                    },
+                    headers={"Accept": "application/json"},
+                )
+                yield response.follow(
+                    f"{projects_api}/{item['id']}/organisations?p={start_page}&s={results_per_page}",
+                    callback=self.parser,
+                    cb_kwargs={
+                        "item_type": "organisation",
+                        "item_keys": ["id", "name"],
+                    },
+                    headers={"Accept": "application/json"},
+                )
 
-            yield from response.follow_all(
-                persons_urls,
-                callback=self.parse_person,
-                headers={"Accept": "application/json"},
-            )
-
+        # Continue if possible.
         if page < total_pages:
-            next_page = next_projects_url(response.url)
+            next_page = next_page_url(response.url)
             yield response.follow(
                 next_page,
-                callback=self.parse_projects,
+                callback=self.parser,
+                cb_kwargs={"item_type": item_type, "item_keys": item_keys},
                 headers={"Accept": "application/json"},
             )
-
-    def parse_person(self, response):
-        person = response.json()
-
-        # TODO: save raw person data to the DB here, or use a pipeline.
-        self.log("Save person data to DB - dump it now...")
-
-        yield {
-            "type": "person",
-            "source": "ukri",
-            "id": person["id"],
-            "firstName": person["firstName"],
-            "otherNames": person["otherNames"],
-            "surname": person["surname"],
-        }
