@@ -68,9 +68,9 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'ukri.pipelines.UkriPipeline': 300,
-# }
+ITEM_PIPELINES = {
+    "ukri.pipelines.SaveToCouchPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -92,3 +92,13 @@ DEFAULT_REQUEST_HEADERS = {
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+# Database settings for saving crawled data
+import os
+
+COUCHDB_USER = os.environ.get("COUCHDB_USER", "coped")
+COUCHDB_PASSWORD = os.environ.get("COUCHDB_PASSWORD", "password")
+COUCHDB_HOST = os.environ.get("COUCHDB_HOST", "localhost")
+COUCHDB_PORT = os.environ.get("COUCHDB_PORT", 5984)
+COUCH_URI = f"http://{COUCHDB_USER}:{COUCHDB_PASSWORD}@{COUCHDB_HOST}:{COUCHDB_PORT}/"
