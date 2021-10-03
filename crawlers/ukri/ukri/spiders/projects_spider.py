@@ -1,83 +1,78 @@
 """
-Project crawler for API described at https://gtr.ukri.org/resources/GtR-2-API-v1.7.5.pdf
+Project crawler for meta-data API described at https://gtr.ukri.org/resources/GtR-2-API-v1.7.5.pdf
 
-This version just crawls projects for a hard-coded test query. Returning all matched
-projects, their related persons, and their related organisations.
+Current version finds projects matching a hard-coded test query.
+Yields all matched projects, plus associated persons, organisations, and funds.
 """
 
 
 import re
 import scrapy
+from datetime import datetime, timezone
 from scrapy import Request
 
 
-# Set API entry point and default URL query parameter values.
-projects_api = "https://gtr.ukri.org/gtr/api/projects"
-start_page = 1
-results_per_page = 10
-
-
-def next_page_url(url):
-    """
-    Increment the page number in an existing paginated URL.
-    This is needed because the UKRI API does not provide previous/next page links :(
-    """
-    return re.sub("p=(\d+)", lambda exp: f"p={int(exp.groups()[0]) + 1}", url)
-
-
 class ProjectsSpider(scrapy.Spider):
-    name = "ukri-projects"
+    """A generic recursive spider for paginated resources on the UKRI API."""
+
+    name = "ukri-projects-spider"
+
+    # Set API entry point and default URL query parameter values.
+    projects_api = "https://gtr.ukri.org/gtr/api/projects"
+    start_page = 1
+    results_per_page = 100  # maximum supported by API = 100
 
     def start_requests(self):
 
-        queries = ["microgrid"]  # TODO: get query list from the DB
+        queries = ["microgrid"]  # TODO: get query list from the PostgreSQL DB
         urls = [
-            f"{projects_api}?q={query}&p={start_page}&s={results_per_page}"
+            f"{self.projects_api}?q={query}&p={self.start_page}&s={self.results_per_page}"
             for query in queries
         ]
         for url in urls:
-            yield Request(
-                url=url,
-                cb_kwargs={"item_type": "project", "item_keys": ["id", "title"]},
-            )
+            yield Request(url=url, cb_kwargs={"item_type": "project"})
 
-    def parse(self, response, item_type, item_keys):
-        """Define a `scrapy.Spider` parser for the given item type, extracting the given keys."""
+    def parse(self, response, item_type):
+        """Define a dumb parser for the given `item_type`.
+
+        The parse yields the raw data of each item in the paginated API response.
+        These are then processed by the pipelines in `pipelines.py`.
+
+        When `item_type` is "project" the parse recurses to related people and orgs.
+        """
 
         data = response.json()
-        page = data["page"]
-        total_pages = data["totalPages"]
-        self.log(f"Parsing page {page} of {total_pages} {item_type} pages.")
-
-        # TODO: save raw item data to the DB using `pipelines.py`
-
         items = data[item_type]
-        item_data = {}
-        for item in items:
-            item_data = item_data | {"type": item_type, "source": "ukri"}
-            item_data = item_data | {key: item[key] for key in item_keys}
-            yield item_data
 
+        for item in items:
+            # Pass everything out for pipeline processing.
+            now_utc = str(datetime.now(timezone.utc))
+            yield {
+                "source": self.name,
+                "updated": now_utc,
+                "item_type": item_type,
+                "item_id": item["id"],
+                "item_url": item["href"],
+                "item_data": item,
+            }
+
+            # Recurse to related people, orgs, and funds when we're crawling projects.
             if item_type == "project":
-                yield response.follow(
-                    f"{projects_api}/{item['id']}/persons?p={start_page}&s={results_per_page}",
-                    cb_kwargs={
-                        "item_type": "person",
-                        "item_keys": ["id", "firstName", "surname"],
-                    },
-                )
-                yield response.follow(
-                    f"{projects_api}/{item['id']}/organisations?p={start_page}&s={results_per_page}",
-                    cb_kwargs={
-                        "item_type": "organisation",
-                        "item_keys": ["id", "name"],
-                    },
-                )
+                for link_item_type in ["person", "organisation", "fund"]:
+                    link_url = f"{self.projects_api}/{item['id']}/{link_item_type}s?p={self.start_page}&s={self.results_per_page}"
+                    yield response.follow(
+                        link_url, cb_kwargs={"item_type": link_item_type}
+                    )
 
         # Continue if possible.
-        if page < total_pages:
-            next_page = next_page_url(response.url)
-            yield response.follow(
-                next_page,
-                cb_kwargs={"item_type": item_type, "item_keys": item_keys},
-            )
+        if data["page"] < data["totalPages"]:
+            next_page = self.next_page_url(response.url)
+            yield response.follow(next_page, cb_kwargs={"item_type": item_type})
+
+    @staticmethod
+    def next_page_url(url):
+        """Increment the page number in an existing paginated API URL.
+
+        This is needed because the UKRI API does not provide previous/next page links :(
+        """
+        return re.sub("p=(\d+)", lambda exp: f"p={int(exp.groups()[0]) + 1}", url)
