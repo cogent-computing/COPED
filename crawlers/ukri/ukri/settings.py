@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = "ukri.spiders"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'ukri (+http://www.yourdomain.com)'
 # TODO: get the user agent's URL from an envrionment variable.
-USER_AGENT = "COPED (+http://coped.hopto.org)"
+USER_AGENT = "COPEDtestbot/0.1 (+http://coped.hopto.org)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
