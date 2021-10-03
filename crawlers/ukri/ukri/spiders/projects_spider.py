@@ -38,12 +38,10 @@ class ProjectsSpider(scrapy.Spider):
         for url in urls:
             yield Request(
                 url=url,
-                callback=self.parser,
                 cb_kwargs={"item_type": "project", "item_keys": ["id", "title"]},
-                headers={"Accept": "application/json"},
             )
 
-    def parser(self, response, item_type, item_keys):
+    def parse(self, response, item_type, item_keys):
         """Define a `scrapy.Spider` parser for the given item type, extracting the given keys."""
 
         data = response.json()
@@ -63,21 +61,17 @@ class ProjectsSpider(scrapy.Spider):
             if item_type == "project":
                 yield response.follow(
                     f"{projects_api}/{item['id']}/persons?p={start_page}&s={results_per_page}",
-                    callback=self.parser,
                     cb_kwargs={
                         "item_type": "person",
                         "item_keys": ["id", "firstName", "surname"],
                     },
-                    headers={"Accept": "application/json"},
                 )
                 yield response.follow(
                     f"{projects_api}/{item['id']}/organisations?p={start_page}&s={results_per_page}",
-                    callback=self.parser,
                     cb_kwargs={
                         "item_type": "organisation",
                         "item_keys": ["id", "name"],
                     },
-                    headers={"Accept": "application/json"},
                 )
 
         # Continue if possible.
@@ -85,7 +79,5 @@ class ProjectsSpider(scrapy.Spider):
             next_page = next_page_url(response.url)
             yield response.follow(
                 next_page,
-                callback=self.parser,
                 cb_kwargs={"item_type": item_type, "item_keys": item_keys},
-                headers={"Accept": "application/json"},
             )
