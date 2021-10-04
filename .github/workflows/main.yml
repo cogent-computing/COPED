@@ -18,6 +18,9 @@ jobs:
       # Check out the repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
 
+      - name: Find out the runner user
+        run: whoami
+
       - name: Get the services running
         run: |
           cp .env.example .env.prod
