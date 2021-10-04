@@ -28,7 +28,7 @@ services:
       - elasticsearch
 
   nginx:
-    image: nginx:1.21-perl
+    build: ./nginx
     configs:
       - source: NGINX_CONFIG
         target: /etc/nginx/templates/default.conf.template
@@ -44,7 +44,7 @@ services:
       - voila
 
   db:
-    image: postgres:13.4-bullseye
+    build: ./postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
@@ -53,7 +53,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:?}
 
   couch:
-    image: couchdb:3.1
+    build: ./couchdb
     volumes:
       - couchdb_data:/opt/couchdb/data
     expose:
