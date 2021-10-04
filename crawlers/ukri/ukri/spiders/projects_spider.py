@@ -38,7 +38,7 @@ class ProjectsSpider(scrapy.Spider):
         The parse yields the raw data of each item in the paginated API response.
         These are then processed by the pipelines in `pipelines.py`.
 
-        When `item_type` is "project" the parse recurses to related people and orgs.
+        When `item_type` is "project" the parse recurses to related people, orgs, and funds.
         """
 
         data = response.json()
