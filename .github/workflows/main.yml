@@ -15,7 +15,7 @@ jobs:
   spin-up:
     runs-on: self-hosted
     env:
-      DATE: ${{ echo `date +%s` }} # unique-ish timestamp
+      DATE: ${{ `date +%s` }} # unique-ish timestamp
     steps:
       # Check out the repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
