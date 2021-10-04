@@ -14,26 +14,20 @@ on:
 jobs:
   spin-up:
     runs-on: self-hosted
-    env:
-      DATE: ${{ `date +%s` }} # unique-ish timestamp
     steps:
       # Check out the repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
 
-      - name: Copy over environment variables for "production"
-        run: cp .env.example .env.prod
+      - name: Get the services running
+        run: |
+          cp .env.example .env.prod
+          docker-compose build
+          export COMPOSE_PROJECT_NAME=coped-ci-`date +%s`
+          docker-compose --env-file .env.prod up -d
+          sleep 30
 
-      - name: Build the application
-        run: docker-compose build
-
-      - name: Launch the application services
-        run: COMPOSE_PROJECT_NAME=coped-ci-${DATE} docker-compose --env-file .env.prod up -d
-
-      - name: Wait for the services to settle down
-        run: sleep 30
-
-      - name: Test the web frontend is responding to requests
+      - name: Test the web frontend responds to requests
         run: curl -I http://localhost:1337/admin/ | grep "302 Found"
 
-      - name: Ask docker-compose to clean up
-        run: COMPOSE_PROJECT_NAME=coped-ci-${DATE} docker-compose down
+      - name: Tidy up
+        run: docker-compose down
