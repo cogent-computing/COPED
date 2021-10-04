@@ -65,8 +65,8 @@ services:
   voila:
     build: ./voila
     volumes:
-      - type: volume
-        source: dashboards
+      - type: bind
+        source: ./dashboards
         target: $${VOILA_NOTEBOOK_DIR:?}
         read_only: true
     environment:
