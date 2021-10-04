@@ -97,6 +97,7 @@ To apply production settings, set the `--env-file .env.prod` flag on `docker-com
 ## TODOs
 
 - [Meta] Move all of these TODOs to new Git issues
+- Update default headers in ukri projects spider's `settings.py`
 - Integrate Kibana via Nginx proxy
 - Ensure Elasticsearch is protected with environment-specific credentials (currently no auth beyond standard `elastic` user)
 - Split the Docker internal networking:
