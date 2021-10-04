@@ -1,5 +1,7 @@
 # COPED: Catalogue of Projects on Energy Data
 
+> __Development Status:__ Pre-Alpha - service orchestration, continuous integration setup, refactoring of prototype features.
+
 ![screenshot_coped](docs/images/coped-landing.png "Figure 1 - Screenshot of Coped")
 
 **Fig 1 - COPED Front Page Screenshot**
