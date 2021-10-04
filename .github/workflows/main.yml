@@ -1,36 +1,39 @@
-# This is a basic workflow to help you get started with Actions
+# Basic workflow to spin up the application and test the COPED web service is responding.
 
-name: test-gh-actions
+name: coped-test-runner
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ test-gh-actions ]
+    branches: [main]
   pull_request:
-    branches: [ test-gh-actions ]
+    branches: [main]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows the workflow to be run manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  spin-up:
     runs-on: self-hosted
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      DATE: ${{ echo `date +%s` }} # unique-ish timestamp
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Check out the repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Copy over environment variables for "production"
+        run: cp .env.example .env.prod
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Build the application
+        run: docker-compose build
+
+      - name: Launch the application services
+        run: COMPOSE_PROJECT_NAME=coped-ci-${DATE} docker-compose --env-file .env.prod up -d
+
+      - name: Wait for the services to settle down
+        run: sleep 30
+
+      - name: Test the web frontend is responding to requests
+        run: curl -I http://localhost:1337/admin/ | grep "302 Found"
+
+      - name: Ask docker-compose to clean up
+        run: COMPOSE_PROJECT_NAME=coped-ci-${DATE} docker-compose down
