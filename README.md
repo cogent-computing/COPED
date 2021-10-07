@@ -66,7 +66,8 @@ The following guidance provides an overview of the development process for contr
 ### Steps
 
 1. Copy `.env.example` to `.env.prod` and ensure `ENVIRONMENT=PRODUCTION` is set.
-2. Run: `docker-compose --env-file .env.prod up -d`
+2. Update permissions `chmod 0600 .env.prod` and update the production credentials.
+3. Run: `docker-compose --env-file .env.prod up -d`
     > Ensure that there is no `docker-compose.override.yaml` file present. It is explicitly ignored in `.gitignore` to help with this.
 
 ### Summary
