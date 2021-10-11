@@ -4,6 +4,7 @@ services:
 
   web:
     build: ./web
+    container_name: coped_web
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:${DJANGO_STATIC_ROOT:?}
@@ -31,6 +32,7 @@ services:
 
   nginx:
     build: ./nginx
+    container_name: coped_nginx
     configs:
       - source: NGINX_CONFIG
         target: /etc/nginx/templates/default.conf.template
@@ -47,6 +49,7 @@ services:
 
   db:
     build: ./postgres
+    container_name: coped_postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
@@ -56,6 +59,7 @@ services:
 
   couch:
     build: ./couchdb
+    container_name: coped_couch
     volumes:
       - couchdb_data:/opt/couchdb/data
     expose:
@@ -66,6 +70,7 @@ services:
 
   voila:
     build: ./voila
+    container_name: coped_voila
     volumes:
       - type: bind
         source: ./dashboards
@@ -79,6 +84,7 @@ services:
 
   elasticsearch:
     build: ./elasticsearch
+    container_name: coped_elastic
     configs:
       - source: ELASTIC_CONFIG
         target: /usr/share/elasticsearch/config/elasticsearch.yml
@@ -92,6 +98,7 @@ services:
 
   logstash:
     build: ./logstash
+    container_name: coped_logstash
     configs:
       - source: LOGSTASH_CONFIG
         target: /usr/share/logstash/config/logstash.yml
@@ -109,6 +116,7 @@ services:
 
   kibana:
     build: ./kibana
+    container_name: coped_kibana
     configs:
       - source: KIBANA_CONFIG
         target: /usr/share/kibana/config/kibana.yml
