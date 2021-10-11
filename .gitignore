@@ -5,6 +5,5 @@ envs/prod/
 __pycache__/
 .env*
 !.env.example
-docker-compose.override.yaml
 private/
 mypy.ini
