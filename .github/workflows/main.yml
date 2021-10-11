@@ -23,12 +23,12 @@ jobs:
 
       - name: Start services
         run: |
-          cp .env.example .env.ci
-          docker-compose -p "${{ env.COMPOSE_PROJECT_NAME }}" --env-file .env.ci --file docker-compose.yaml --file docker-compose.ci.yaml up -d --build
+          cp .env.example .env.prod
+          docker-compose -p "${{ env.COMPOSE_PROJECT_NAME }}" --env-file .env.prod up -d --build
           sleep 30
 
       - name: Test the web frontend responds to requests
         run: curl -I http://127.0.0.1:1337/admin/ | grep "302 Found"
 
       - name: Tidy up
-        run: docker-compose -p "${{ env.COMPOSE_PROJECT_NAME }}" --env-file .env.ci down -v
+        run: docker-compose -p "${{ env.COMPOSE_PROJECT_NAME }}" --env-file .env.prod down -v
