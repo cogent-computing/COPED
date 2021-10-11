@@ -9,11 +9,11 @@ services:
 
   db:
     ports:
-      - "5432:5432"
+      - "15432:5432"
 
   couch:
     ports:
-      - "5984:5984"
+      - "15984:5984"
 
   voila:
     build: ./voila
@@ -23,24 +23,24 @@ services:
         target: ${VOILA_NOTEBOOK_DIR:?}
         read_only: true
     ports:
-      - "8866:8866"
+      - "18866:8866"
 
   elasticsearch:
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "19200:9200"
+      - "19300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
 
   logstash:
     ports:
-      - "5044:5044"
-      - "5000:5000/tcp"
-      - "5000:5000/udp"
-      - "9600:9600"
+      - "15044:5044"
+      - "15000:5000/tcp"
+      - "15000:5000/udp"
+      - "19600:9600"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
 
   kibana:
     ports:
-      - "5601:5601"
+      - "15601:5601"
