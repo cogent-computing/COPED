@@ -1,4 +1,5 @@
 .devcontainer/
+.devcontainer.json
 data/
 envs/prod/
 .DS_Store
