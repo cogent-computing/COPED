@@ -35,9 +35,8 @@ The following guidance provides an overview of the development process for contr
 
 ### Steps
 
-1. Copy `docker-compose.override.yaml.example` to `docker-compose.override.yaml`
-2. Copy `.env.example` to `.env` and ensure `ENVIRONMENT=DEVELOPMENT` is set.
-3. Run: `docker-compose up -d`
+1. Clone the repository.
+2. Run `docker-compose up -d`
 
 ### Summary
 
@@ -59,65 +58,23 @@ The following guidance provides an overview of the development process for contr
 
 3. The Logstash service can be fussy on first launch, when the volume is also created, since it seems to require an existing volume with prior bootstrap configuration saved. If this happens (which can be confirmed by looking at the Logstash logs) simply restart the Logstash container over the now-existing volume.
 
-4. Docker will generally notice changes and rebuild and recache images when necessary. To force an image rebuild, add the `--build` flag to the `docker-compose` commands above.
-
 ## Production
+
+To run a sample "deployment" version of CoPED do the following.
 
 ### Steps
 
-1. Copy `.env.example` to `.env.prod` and ensure `ENVIRONMENT=PRODUCTION` is set.
-2. Update permissions `chmod 0600 .env.prod` and update the production credentials.
-3. Run: `docker-compose --env-file .env.prod up -d`
-    > Ensure that there is no `docker-compose.override.yaml` file present. It is explicitly ignored in `.gitignore` to help with this.
+1. _Delete or rename `docker-compose.override.yaml`._
+2. Copy `.env` to `.env.prod` and ensure `ENVIRONMENT=PRODUCTION` is set.
+3. Update permissions `chmod 0600 .env.prod` and update the production credentials.
+4. Run: `docker-compose --env-file .env.prod up -d`
 
 ### Summary
 
 * application access point is `localhost:1337`
-* no bind mounts - only volumes are used
+* volumes rather than binds are used where possible
 * does not flush database to protect existing data
 
-## Environments
+## Continuous Integration
 
-An example file `.env.example` is provided as a template. This can be copied and renamed to allow multiple environment configurations.
-
-A basic setup with two environments is:
-
-- `.env` for development settings
-- `.env.prod` for production settings
-
-The `.env` file is used automatically by `docker-compose` when spinning up the cluster.
-
-To apply production settings, set the `--env-file .env.prod` flag on `docker-compose`. Generally this would be done when also _ignoring_ the default `docker-compose.override.yaml` overrides in one of the following ways:
-
-- do not have a `docker-compose.override.yaml` in production environments - the file is ignored in git by default to help with this
-- use the `-f` flag to specify the file to use with `docker-compose -f docker-compose.yaml --env-file .env.prod up -d`
-
-
-
-
-## TODOs
-
-- [Meta] Move all of these TODOs to new Git issues
-- Update default headers in ukri projects spider's `settings.py`
-- Integrate Kibana via Nginx proxy
-- Ensure Elasticsearch is protected with environment-specific credentials (currently no auth beyond standard `elastic` user)
-- Split the Docker internal networking:
-    1. data microservices (Elasticsearch etc.)
-    2. web and API containers exposed to the host 
-- Move to three environments:
-    - Dev, Staging/CI, Production
-    - Use Docker [multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/) to ensure Production containers do not contain any dev/test/CI dependencies
-    - Ensure a container registry such as the [GitHub Container Registry](https://ghcr.io) is used to push to production via GH Actions, rather than pulling from GitHub with a Git client.
-- Check for other [container anti-patterns](https://codefresh.io/containers/docker-anti-patterns/) and mitigate them.
-- Ensure the Voila container is properly configured to cull idle or slow kernels.
-
-
-### Done
-
-
-- ~~**IMPORTANT** switch away from the `alpine` base images for containers~~
-    - These have only short term support in terms of security
-    - More practically, they do not fully support ARM architectures (e.g. new Macs)
-    - Need to move to Debian-based images such as `buster` or `buster-slim`
-- ~~Use [Docker compose override](https://docs.docker.com/compose/extends/) configurations to reduce duplication across the `docker-compose*` files.~~
-- ~~Investigate whether using [environment variable substitution](https://docs.docker.com/compose/environment-variables/) in compose files can reduce duplication even further.~~
+Pull requests targeting the `main` branch are automatically tested using a GitHub Actions CI workflow. Check out `.github/workflows` to view the current checks.
