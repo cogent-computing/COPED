@@ -23,7 +23,6 @@ jobs:
 
       - name: Start services
         run: |
-          cp .env .env.ci
           docker-compose -p "${{ env.COMPOSE_PROJECT_NAME }}" --env-file .env.ci up -d --build
           sleep 30
 
