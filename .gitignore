@@ -1,3 +1,4 @@
+.devcontainer/
 data/
 envs/prod/
 .DS_Store
