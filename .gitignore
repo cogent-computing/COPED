@@ -5,5 +5,6 @@ envs/prod/
 __pycache__/
 .env*
 !.env
+!.env.ci
 private/
 mypy.ini
