@@ -2,7 +2,7 @@
 Project crawler for meta-data API described at https://gtr.ukri.org/resources/GtR-2-API-v1.7.5.pdf
 
 Current version finds projects matching a hard-coded test query.
-Yields all matched projects, plus associated persons, organisations, and funds.
+Yields all matched projects, plus associated resources.
 """
 
 
@@ -17,8 +17,36 @@ class ProjectsSpider(scrapy.Spider):
 
     name = "ukri-projects-spider"
 
-    # Set API entry point and default URL query parameter values.
+    # Set API entry point.
     projects_api = "https://gtr.ukri.org/gtr/api/projects"
+
+    """
+    Resources related to projects are accessible at API endpoints relative to a project.
+    For example:
+    - people at `https://gtr.ukri.org/gtr/api/projects/{project_id}/persons`
+    - spinouts at `https://gtr.ukri.org/gtr/api/projects/{project_id}/outcomes/spinouts`
+    - and so on.
+    Each link item type has a url path to retrieve the related resource.
+    Map the connection between resource types and their address paths here.
+    """
+    linked_resource_paths = {
+        "person": "persons",
+        "organisation": "organisations",
+        "fund": "funds",
+        "finding": "outcomes/keyfindings",
+        "impact": "outcomes/impactsummaries",
+        "publication": "outcomes/publications",
+        "collaboration": "outcomes/collaborations",
+        "intellectual_property": "outcomes/intellectualproperties",
+        "further_funding": "outcomes/furtherfundings",
+        "policy": "outcomes/policyinfluences",
+        "product": "outcomes/products",
+        "research_material": "outcomes/researchmaterials",
+        "spinout": "outcomes/spinouts",
+        "dissemination": "outcomes/disseminations",
+    }
+
+    # Set default URL query parameter values.
     start_page = 1
     results_per_page = 100  # maximum supported by API = 100
 
@@ -35,12 +63,12 @@ class ProjectsSpider(scrapy.Spider):
             yield Request(url=url, cb_kwargs={"item_type": "project"})
 
     def parse(self, response, item_type):
-        """Define a dumb parser for the given `item_type`.
+        """Define a simple parser for the given `item_type`.
 
         The parse yields the raw data of each item in the paginated API response.
         These are then processed by the pipelines in `pipelines.py`.
 
-        When `item_type` is "project" the parse recurses to related people, orgs, and funds.
+        When `item_type` is "project" the parse recurses to related resources.
         """
 
         data = response.json()
@@ -60,14 +88,12 @@ class ProjectsSpider(scrapy.Spider):
 
             # Recurse to related people, orgs, and funds when we're crawling projects.
             if item_type == "project":
-                for link_item_type in ["person", "organisation", "fund"]:
-                    link_url = f"{self.projects_api}/{item['id']}/{link_item_type}s?p={self.start_page}&s={self.results_per_page}"
-                    yield response.follow(
-                        link_url, cb_kwargs={"item_type": link_item_type}
-                    )
+                for resource_type, resource_path in self.linked_resource_paths:
+                    link = f"{self.projects_api}/{item['id']}/{resource_path}?p={self.start_page}&s={self.results_per_page}"
+                    yield response.follow(link, cb_kwargs={"item_type": resource_type})
 
         # Continue if possible.
-        if data["page"] < data["totalPages"]:
+        if data["totalSize"] > 0 and data["page"] < data["totalPages"]:
             next_page = self.next_page_url(response.url)
             yield response.follow(next_page, cb_kwargs={"item_type": item_type})
 
