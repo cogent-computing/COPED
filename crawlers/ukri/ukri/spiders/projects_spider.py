@@ -24,7 +24,9 @@ class ProjectsSpider(scrapy.Spider):
 
     def start_requests(self):
 
-        queries = ["microgrid"]  # TODO: get query list from the PostgreSQL DB
+        queries = [
+            "microgrid"
+        ]  # TODO: get query list from the PostgreSQL DB or from Apache Airflow
         urls = [
             f"{self.projects_api}?q={query}&p={self.start_page}&s={self.results_per_page}"
             for query in queries
