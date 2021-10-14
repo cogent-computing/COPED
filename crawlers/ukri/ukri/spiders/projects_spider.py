@@ -27,22 +27,22 @@ class ProjectsSpider(scrapy.Spider):
     - spinouts at `https://gtr.ukri.org/gtr/api/projects/{project_id}/outcomes/spinouts`
     - and so on.
     Each link item type has a url path to retrieve the related resource.
-    Map the connection between resource types and their address paths here.
+    Map the connection between UKRI resource names and their API address paths here.
     """
     linked_resource_paths = {
         "person": "persons",
         "organisation": "organisations",
         "fund": "funds",
-        "finding": "outcomes/keyfindings",
-        "impact": "outcomes/impactsummaries",
+        "keyFinding": "outcomes/keyfindings",
+        "impactSummary": "outcomes/impactsummaries",
         "publication": "outcomes/publications",
         "collaboration": "outcomes/collaborations",
-        "intellectual_property": "outcomes/intellectualproperties",
-        "further_funding": "outcomes/furtherfundings",
-        "policy": "outcomes/policyinfluences",
+        "intellectualProperty": "outcomes/intellectualproperties",
+        "futherfunding": "outcomes/furtherfundings",  # note typo in UKRI resource name
+        "policyInfluence": "outcomes/policyinfluences",
         "product": "outcomes/products",
-        "research_material": "outcomes/researchmaterials",
-        "spinout": "outcomes/spinouts",
+        "researchMaterial": "outcomes/researchmaterials",
+        "spinOut": "outcomes/spinouts",
         "dissemination": "outcomes/disseminations",
     }
 
@@ -72,6 +72,10 @@ class ProjectsSpider(scrapy.Spider):
         """
 
         data = response.json()
+
+        if data["totalSize"] == 0:
+            return None
+
         items = data[item_type]
 
         for item in items:
@@ -88,7 +92,7 @@ class ProjectsSpider(scrapy.Spider):
 
             # Recurse to related people, orgs, and funds when we're crawling projects.
             if item_type == "project":
-                for resource_type, resource_path in self.linked_resource_paths:
+                for resource_type, resource_path in self.linked_resource_paths.items():
                     link = f"{self.projects_api}/{item['id']}/{resource_path}?p={self.start_page}&s={self.results_per_page}"
                     yield response.follow(link, cb_kwargs={"item_type": resource_type})
 
