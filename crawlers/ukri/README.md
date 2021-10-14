@@ -1,17 +1,17 @@
 # URKI Crawler
 
-Project crawler for project meta-data API described at https://gtr.ukri.org/resources/GtR-2-API-v1.7.5.pdf
+Crawler for project meta-data API described at https://gtr.ukri.org/resources/GtR-2-API-v1.7.5.pdf
 
 ## Running the Crawler
 
 To manually run the crawler:
 
-1. Go to the top level directory containing `scrapy.cfg`
+1. Go to the directory containing `scrapy.cfg`
 2. Run `scrapy crawl ukri-projects-spider`
 
 ## Entrypoints
 
-For each search term in some list, the following API endpoint is used to extract matching projects.
+For each search term, the following API endpoint is used to find matching projects.
 
 `https://gtr.ukri.org/gtr/api/projects?q={search_term}`
 
@@ -34,3 +34,4 @@ Given a project id from a returned search, related entities are parsed and saved
     * Research Materials: `https://gtr.ukri.org/gtr/api/projects/{project_id}/outcomes/researchmaterials`
     * Spinouts: `https://gtr.ukri.org/gtr/api/projects/{project_id}/outcomes/spinouts`
     * Disseminations: `https://gtr.ukri.org/gtr/api/projects/{project_id}/outcomes/disseminations`
+
