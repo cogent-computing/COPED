@@ -17,13 +17,14 @@ TODO:
 import couchdb
 from couchdb.http import PreconditionFailed
 from uuid import uuid4
+from scrapy.exceptions import DropItem
 
 # Handle different item types with Scrapy's standard item interface.
 from itemadapter import ItemAdapter
 
 
-class SaveToCouchPipeline:
-    """A pipeline to save crawled data to the CouchDB service."""
+class BaseCouchPipeline:
+    """Base class for pipelines that need to access CouchDB"""
 
     db_name = "ukri-data"
 
@@ -47,6 +48,34 @@ class SaveToCouchPipeline:
 
     def close_spider(self, spider):
         pass
+
+
+class ProcessDuplicatesPipeline(BaseCouchPipeline):
+    """A pipeline to process resources with an existing record in the DB"""
+
+    def process_item(self, item, spider):
+
+        adapter = ItemAdapter(item)
+
+        # Search for the document using its UKRI id
+        query = {
+            "selector": {"item_id": adapter["item_id"]},
+            "fields": ["item_id", "item_type"],
+        }
+        result = list(self.db.find(query))
+
+        # Ignore existing items
+        # TODO: check for changes and merge rather than ignore
+        if len(result):
+            raise DropItem(
+                f"Duplicate item found: {adapter['item_type']!r} {adapter['item_id']!r}"
+            )
+        else:
+            return item
+
+
+class SaveToCouchPipeline(BaseCouchPipeline):
+    """A pipeline to save crawled data to the CouchDB service."""
 
     def process_item(self, item, spider):
         """Create a unique identifier and save the document to the DB."""
