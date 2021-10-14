@@ -1,5 +1,3 @@
-version: '3'
-
 services:
 
   web:
@@ -29,6 +27,18 @@ services:
       - db
       - couch
       - elasticsearch
+
+  crawlers:
+    build: ./crawlers
+    container_name: coped_crawlers
+    environment:
+        DEBUG: 0
+        COUCHDB_USER: ${COUCHDB_USER:?}
+        COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
+        COUCHDB_HOST: couch
+        COUCHDB_PORT: ${COUCHDB_PORT:-5984}
+    depends_on:
+      - couch
 
   nginx:
     build: ./nginx

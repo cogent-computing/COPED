@@ -9,6 +9,11 @@ services:
     environment:
       DEBUG: 1
 
+  crawlers:
+    environment:
+      DEBUG: 1
+    command: tail -f /dev/null  # keep container running for development
+
   db:
     ports:
       - "15432:5432"
