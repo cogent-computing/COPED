@@ -1,5 +1,6 @@
 .devcontainer/
 .devcontainer.json
+.vscode/
 data/
 envs/prod/
 .DS_Store
