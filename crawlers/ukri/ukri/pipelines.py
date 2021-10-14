@@ -5,12 +5,16 @@ https://gtr.ukri.org/resources/GtR-2-API-v1.7.5.pdf
 Don't forget to add the pipelines to ITEM_PIPELINES in `settings.py`.
 See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
+BaseCouchPipeline:
+    - Base class for pipelines that need to interact with CouchDB
+
+ProcessDuplicatesPipeline:
+    - Checks the DB for existing docs with the same UKRI id.
+    - If found the item is dropped and not processed further.
+
 SaveToCouchPipeline:
     - Saves crawled items to the CouchDB service.
     - Creates a new DB if required.
-
-TODO:
-    - add pipeline to check for duplicates before saving
 """
 
 
