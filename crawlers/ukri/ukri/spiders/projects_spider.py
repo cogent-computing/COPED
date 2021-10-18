@@ -52,9 +52,13 @@ class ProjectsSpider(scrapy.Spider):
 
     def start_requests(self):
 
+        # Pass in comma-separated search terms on the command line at launch.
+        # Ensure there are no spaces between terms. For example:
+        #   `scrapy crawl ukri-projects-spider -a queries=query1,query2,"phrase three",query4`
+        queries = self.queries.split(",")
         queries = [
-            "microgrid"
-        ]  # TODO: get query list from the PostgreSQL DB or from Apache Airflow
+            f'"{q}"' if " " in q else q for q in queries
+        ]  # ensure phrases are double quoted
         urls = [
             f"{self.projects_api}?q={query}&p={self.start_page}&s={self.results_per_page}"
             for query in queries
