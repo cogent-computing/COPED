@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = "ukri.spiders"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'ukri (+http://www.yourdomain.com)'
 # TODO: get the user agent's URL from an envrionment variable.
-USER_AGENT = "COPEDtestbot/0.1 (+http://coped.hopto.org)"
+USER_AGENT = "COPEDtestbot/0.1 (+http://coped.coventry.ac.uk)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -102,4 +102,5 @@ COUCHDB_USER = os.environ.get("COUCHDB_USER", "coped")
 COUCHDB_PASSWORD = os.environ.get("COUCHDB_PASSWORD", "password")
 COUCHDB_HOST = os.environ.get("COUCHDB_HOST", "localhost")
 COUCHDB_PORT = os.environ.get("COUCHDB_PORT", 5984)
-COUCH_URI = f"http://{COUCHDB_USER}:{COUCHDB_PASSWORD}@{COUCHDB_HOST}:{COUCHDB_PORT}/"
+COUCHDB_URI = f"http://{COUCHDB_USER}:{COUCHDB_PASSWORD}@{COUCHDB_HOST}:{COUCHDB_PORT}/"
+COUCHDB_NAME = os.environ.get("COUCHDB_NAME", "ukri-test-data")

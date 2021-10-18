@@ -30,15 +30,17 @@ from itemadapter import ItemAdapter
 class BaseCouchPipeline:
     """Base class for pipelines that need to access CouchDB"""
 
-    db_name = "ukri-data"
-
-    def __init__(self, couch_uri):
+    def __init__(self, couch_uri, db_name):
         self.couch_uri = couch_uri
+        self.db_name = db_name
 
     @classmethod
     def from_crawler(cls, crawler):
         """Fetch any settings we need to access the DB."""
-        return cls(couch_uri=crawler.settings.get("COUCH_URI"))
+        return cls(
+            couch_uri=crawler.settings.get("COUCHDB_URI"),
+            db_name=crawler.settings.get("COUCHDB_NAME"),
+        )
 
     def open_spider(self, spider):
         """Set up the DB connection when the spider starts."""
