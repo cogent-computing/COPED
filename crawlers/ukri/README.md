@@ -4,10 +4,11 @@ Crawler for project meta-data API described at https://gtr.ukri.org/resources/Gt
 
 ## Running the Crawler
 
-To manually run the crawler:
+To manually run the crawler use:
 
-1. Go to the directory containing `scrapy.cfg`
-2. Run `scrapy crawl ukri-projects-spider`
+`docker-compose run --rm -w /app/ukri/ukri crawlers scrapy crawl ukri-projects-crawler -a queries=<queries>`
+
+Here `<queries>` should be a comma separated list of words and "phrases" to search for.
 
 ## Entrypoints
 
