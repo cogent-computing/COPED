@@ -1,0 +1,87 @@
+# Define the possible resource types available in CoPED.
+- model: coped_resources.resourcetype
+  pk: 1
+  fields:
+    # The central type is project.
+    description: project
+- model: coped_resources.resourcetype
+  pk: 2
+  fields:
+    # People can work on, lead, or otherwise be linked to projects.
+    description: person
+- model: coped_resources.resourcetype
+  pk: 3
+  fields:
+    # Organisations can lead, run, manage, etc. projects.
+    description: organisation
+- model: coped_resources.resourcetype
+  pk: 4
+  fields:
+    # A fund can provide money to a project.
+    description: fund
+- model: coped_resources.resourcetype
+  pk: 5
+  fields:
+    # A finding can be an outcome of a project.
+    description: finding
+    is_outcome: true
+- model: coped_resources.resourcetype
+  pk: 6
+  fields:
+    # An impact can be an outcome of a project.
+    description: impact
+    is_outcome: true
+- model: coped_resources.resourcetype
+  pk: 7
+  fields:
+    # A publication can be an outcome of a project.
+    description: publication
+    is_outcome: true
+- model: coped_resources.resourcetype
+  pk: 8
+  fields:
+    # A collaboration can be an outcome of a project.
+    description: collaboration
+    is_outcome: true
+- model: coped_resources.resourcetype
+  pk: 9
+  fields:
+    # Some intellectual property can be an outcome of a project.
+    description: intellectual property
+    is_outcome: true
+- model: coped_resources.resourcetype
+  pk: 10
+  fields:
+    # Further funding can be an outcome of a project.
+    description: further funding
+    is_outcome: true
+- model: coped_resources.resourcetype
+  pk: 11
+  fields:
+    # A policy influence can be an outcome of a project.
+    description: policy
+    is_outcome: true
+- model: coped_resources.resourcetype
+  pk: 12
+  fields:
+    # A product can be a outcome of a project.
+    description: product
+    is_outcome: true
+- model: coped_resources.resourcetype
+  pk: 13
+  fields:
+    # Some research material can be an outcome of a project.
+    description: research material
+    is_outcome: true
+- model: coped_resources.resourcetype
+  pk: 14
+  fields:
+    # A spinout can be an outcome of a project.
+    description: spinout
+    is_outcome: true
+- model: coped_resources.resourcetype
+  pk: 15
+  fields:
+    # A dissemination can be an outcome of a project.
+    description: dissemination
+    is_outcome: true

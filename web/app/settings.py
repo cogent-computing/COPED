@@ -34,6 +34,7 @@ ALLOWED_HOSTS = os.environ.get(
 # Application definition
 
 INSTALLED_APPS = [
+    "coped_resources.apps.CopedResourcesConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

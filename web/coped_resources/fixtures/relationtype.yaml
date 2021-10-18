@@ -1,0 +1,15 @@
+# Provide possible relation types holding between CoPED resources.
+- model: coped_resources.relationtype
+  pk: 1
+  fields:
+    description: Lead Person
+    resource_type_1: 2
+    resource_type_2: 1
+    is_weighted: false
+- model: coped_resources.relationtype
+  pk: 2
+  fields:
+    description: Lead Organisation
+    resource_type_1: 3
+    resource_type_2: 1
+    is_weighted: false

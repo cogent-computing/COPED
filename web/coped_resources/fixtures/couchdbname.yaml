@@ -1,0 +1,10 @@
+- model: coped_resources.couchdbname
+  pk: 1
+  fields:
+    name: site-user-provided-data
+    authority: 100
+- model: coped_resources.couchdbname
+  pk: 2
+  fields:
+    name: ukri-crawler-data
+    authority: 200
