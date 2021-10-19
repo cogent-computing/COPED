@@ -4,36 +4,6 @@ from django.db.models.fields import related
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-class ResourceType(models.Model):
-    """Resource types managed by CoPED.
-
-    Examples:
-
-    - "project"
-    - "person"
-    - "organisation"
-    - "publication"
-
-    Notes:
-
-    - String values must correspond to possible values
-    of the mandatory "item_type" field in CouchDB documents.
-    """
-
-    description = models.TextField(
-        blank=False, help_text="What type of resource is this?"
-    )
-    is_outcome = models.BooleanField(
-        default=False, help_text="Is this a type of project outcome?"
-    )
-
-    class Meta:
-        db_table = "coped_resource_type"
-
-    def __unicode__(self):
-        return self.description
-
-
 class CouchDBName(models.Model):
     """Data sources held in CouchDB.
 
@@ -66,6 +36,43 @@ class CouchDBName(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class ResourceType(models.Model):
+    """Resource types managed by CoPED.
+
+    Examples:
+
+    - "project"
+    - "person"
+    - "organisation"
+    - "publication"
+
+    Notes:
+
+    - String values must correspond to possible values
+    of the mandatory "item_type" field in CouchDB documents.
+    """
+
+    description = models.TextField(
+        blank=False, help_text="What type of resource is this?"
+    )
+    couchdb_name = models.ForeignKey(
+        CouchDBName,
+        on_delete=models.PROTECT,
+        null=False,
+        help_text="Which CouchDB database is the resource from?",
+    )
+    is_outcome = models.BooleanField(
+        default=False, help_text="Is this a type of project outcome?"
+    )
+
+    class Meta:
+        db_table = "coped_resource_type"
+        unique_together = ["description", "couchdb_name"]
+
+    def __unicode__(self):
+        return self.description
 
 
 class RelationType(models.Model):
@@ -124,7 +131,6 @@ class Resource(models.Model):
     - document_id : gives a document's unique `_id` in the CouchDB database
     """
 
-    couchdb_name = models.ForeignKey(CouchDBName, on_delete=models.PROTECT, null=False)
     document_id = models.UUIDField(null=False, unique=True)
     resource_type = models.ForeignKey(
         ResourceType, on_delete=models.PROTECT, null=False, editable=False
@@ -134,12 +140,11 @@ class Resource(models.Model):
         db_table = "coped_resource"
         indexes = [
             models.Index(fields=["document_id"], name="document_id_idx"),
-            models.Index(fields=["couchdb_name"], name="couchdb_name_idx"),
             models.Index(fields=["resource_type"], name="resource_type_idx"),
         ]
 
     def __unicode__(self):
-        return f"{self.resource_type} {self.document_id} : {self.document_description}"
+        return f"{self.resource_type} : {self.document_id}"
 
 
 class Relation(models.Model):
