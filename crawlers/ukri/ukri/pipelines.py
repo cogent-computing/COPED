@@ -39,7 +39,7 @@ class BaseCouchPipeline:
         """Fetch any settings we need to access the DB."""
         return cls(
             couch_uri=crawler.settings.get("COUCHDB_URI"),
-            db_name=crawler.settings.get("COUCHDB_NAME"),
+            db_name=crawler.settings.get("COUCHDB_DB"),
         )
 
     def open_spider(self, spider):
