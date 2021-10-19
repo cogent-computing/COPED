@@ -54,14 +54,19 @@ class ResourceType(models.Model):
     of the mandatory "item_type" field in CouchDB documents.
     """
 
-    description = models.TextField(
-        blank=False, help_text="What type of resource is this?"
+    description = models.CharField(
+        max_length=128, blank=False, help_text="What type of resource is this?"
     )
     couchdb_name = models.ForeignKey(
         CouchDBName,
         on_delete=models.PROTECT,
         null=False,
         help_text="Which CouchDB database is the resource from?",
+    )
+    item_type = models.CharField(
+        max_length=128,
+        blank=False,
+        help_text="What is the 'item_type' in the CouchDB document meta data?",
     )
     is_outcome = models.BooleanField(
         default=False, help_text="Is this a type of project outcome?"

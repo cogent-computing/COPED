@@ -5,24 +5,28 @@
     # The central type is project.
     description: project
     couchdb_name: 2
+    item_type: project
 - model: coped_resources.resourcetype
   pk: 2
   fields:
     # People can work on, lead, or otherwise be linked to projects.
     description: person
     couchdb_name: 2
+    item_type: person
 - model: coped_resources.resourcetype
   pk: 3
   fields:
     # Organisations can lead, run, manage, etc. projects.
     description: organisation
     couchdb_name: 2
+    item_type: organisation
 - model: coped_resources.resourcetype
   pk: 4
   fields:
     # A fund can provide money to a project.
     description: fund
     couchdb_name: 2
+    item_type: fund
 - model: coped_resources.resourcetype
   pk: 5
   fields:
@@ -30,6 +34,7 @@
     description: finding
     couchdb_name: 2
     is_outcome: true
+    item_type: keyFinding
 - model: coped_resources.resourcetype
   pk: 6
   fields:
@@ -37,6 +42,7 @@
     description: impact
     couchdb_name: 2
     is_outcome: true
+    item_type: impactSummary
 - model: coped_resources.resourcetype
   pk: 7
   fields:
@@ -44,6 +50,7 @@
     description: publication
     couchdb_name: 2
     is_outcome: true
+    item_type: publication
 - model: coped_resources.resourcetype
   pk: 8
   fields:
@@ -51,6 +58,7 @@
     description: collaboration
     couchdb_name: 2
     is_outcome: true
+    item_type: collaboration
 - model: coped_resources.resourcetype
   pk: 9
   fields:
@@ -58,6 +66,7 @@
     description: intellectual property
     couchdb_name: 2
     is_outcome: true
+    item_type: intellectualProperty
 - model: coped_resources.resourcetype
   pk: 10
   fields:
@@ -65,6 +74,7 @@
     description: further funding
     couchdb_name: 2
     is_outcome: true
+    item_type: futherFunding  # note UKRI's typo
 - model: coped_resources.resourcetype
   pk: 11
   fields:
@@ -72,6 +82,7 @@
     description: policy
     couchdb_name: 2
     is_outcome: true
+    item_type: policyInfluence
 - model: coped_resources.resourcetype
   pk: 12
   fields:
@@ -79,6 +90,7 @@
     description: product
     couchdb_name: 2
     is_outcome: true
+    item_type: product
 - model: coped_resources.resourcetype
   pk: 13
   fields:
@@ -86,6 +98,7 @@
     description: research material
     couchdb_name: 2
     is_outcome: true
+    item_type: researchMaterial
 - model: coped_resources.resourcetype
   pk: 14
   fields:
@@ -93,6 +106,7 @@
     description: spinout
     couchdb_name: 2
     is_outcome: true
+    item_type: spinOut
 - model: coped_resources.resourcetype
   pk: 15
   fields:
@@ -100,3 +114,4 @@
     description: dissemination
     couchdb_name: 2
     is_outcome: true
+    item_type: dissemination
