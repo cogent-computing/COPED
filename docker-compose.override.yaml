@@ -54,6 +54,11 @@ services:
   ukri_crawler:
     environment:
       DEBUG: 1
-      COUCHDB_DB: ${COUCHDB_UKRI_DB:?}
     volumes:
-      - ./tasks/ukri_crawler:/workspace:cached
+      - ./tasks/ukri_crawler:/app:cached
+
+  ukri_resources:
+    environment:
+      DEBUG: 1
+    volumes:
+      - ./tasks/ukri_resources:/app:cached

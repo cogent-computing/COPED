@@ -50,7 +50,8 @@ def main(
     ) as conn:
         with conn.cursor() as psql:
             for doc_id in couch:
-                psql.execute
+                doc = couch[doc_id]
+                print(doc_id, doc["item_type"])
 
 
 if __name__ == "__main__":
