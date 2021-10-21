@@ -23,7 +23,9 @@ class CouchDBName(models.Model):
     """
 
     name = models.CharField(
-        blank=False, max_length=128, help_text="Provide the name of a CouchDB database."
+        blank=False,
+        max_length=128,
+        help_text="Provide the name of a CouchDB database.",
     )
     authority = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(1000)],
@@ -57,7 +59,7 @@ class ResourceType(models.Model):
     description = models.CharField(
         max_length=128, blank=False, help_text="What type of resource is this?"
     )
-    couchdb_name = models.ForeignKey(
+    couchdb = models.ForeignKey(
         CouchDBName,
         on_delete=models.PROTECT,
         null=False,
@@ -74,7 +76,7 @@ class ResourceType(models.Model):
 
     class Meta:
         db_table = "coped_resource_type"
-        unique_together = ["description", "couchdb_name"]
+        unique_together = ["item_type", "couchdb"]
 
     def __unicode__(self):
         return self.description
