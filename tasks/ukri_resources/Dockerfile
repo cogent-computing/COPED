@@ -12,4 +12,5 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # No entrypoint needed in production: launch when needed using Apache Airflow.
-# Run in development using a command in the `docker-compose.override.yaml` file.
+# Run in development using a command in the `docker-compose.override.yaml` file or in
+# VSCode's `.devcontainer.json` file.
