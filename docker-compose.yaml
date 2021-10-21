@@ -32,8 +32,8 @@ services:
         condition: service_healthy
       couch:
         condition: service_healthy
-      # elasticsearch:
-      #   condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
 
 
   nginx:
@@ -78,7 +78,7 @@ services:
     expose:
       - 5984
     healthcheck:
-      test: ["CMD", "curl", "localhost:5984"]
+      test: curl -s localhost:5984 > /dev/null || exit 1 
       interval: 10s
       timeout: 5s
       retries: 5
@@ -115,6 +115,11 @@ services:
     expose:
       - 9200
       - 9300
+    healthcheck:
+      test: curl -s localhost:9200 > /dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   logstash:
     build: ./logstash
