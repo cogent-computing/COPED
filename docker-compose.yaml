@@ -4,7 +4,7 @@ services:
   ##  ALWAYS-ON SERVICES  ##
   ##########################
   web:
-    build: ./web
+    build: ./services/web
     container_name: coped_web
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
     volumes:
@@ -37,7 +37,7 @@ services:
 
 
   nginx:
-    build: ./nginx
+    build: ./services/nginx
     container_name: coped_nginx
     configs:
       - source: NGINX_CONFIG
@@ -54,7 +54,7 @@ services:
       - voila
 
   db:
-    build: ./postgres
+    build: ./services/postgres
     container_name: coped_postgres
     expose:
       - 5432
@@ -71,7 +71,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:?}
 
   couch:
-    build: ./couchdb
+    build: ./services/couchdb
     container_name: coped_couch
     volumes:
       - couchdb_data:/opt/couchdb/data
@@ -87,7 +87,7 @@ services:
       COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
 
   voila:
-    build: ./voila
+    build: ./services/voila
     container_name: coped_voila
     volumes:
       - type: bind
@@ -101,7 +101,7 @@ services:
       - 8866
 
   elasticsearch:
-    build: ./elasticsearch
+    build: ./services/elasticsearch
     container_name: coped_elastic
     configs:
       - source: ELASTIC_CONFIG
@@ -120,7 +120,7 @@ services:
       retries: 5
 
   logstash:
-    build: ./logstash
+    build: ./services/logstash
     container_name: coped_logstash
     configs:
       - source: LOGSTASH_CONFIG
@@ -138,7 +138,7 @@ services:
       - elasticsearch
 
   kibana:
-    build: ./kibana
+    build: ./services/kibana
     container_name: coped_kibana
     configs:
       - source: KIBANA_CONFIG
@@ -171,7 +171,8 @@ services:
       COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
       COUCHDB_DB: ${COUCHDB_UKRI_DB:?}
     depends_on:
-      - couch
+      couch:
+        condition: service_healthy
 
   ukri_resources:
     profiles:
@@ -212,12 +213,12 @@ volumes:
 
 configs:
   NGINX_CONFIG:
-    file: ./nginx/config/default.conf.template
+    file: ./services/nginx/config/default.conf.template
   ELASTIC_CONFIG:
-    file: ./elasticsearch/config/elasticsearch.yml
+    file: ./services/elasticsearch/config/elasticsearch.yml
   LOGSTASH_CONFIG:
-    file: ./logstash/config/logstash.yml
+    file: ./services/logstash/config/logstash.yml
   LOGSTASH_PIPELINE:
-    file: ./logstash/pipeline
+    file: ./services/logstash/pipeline
   KIBANA_CONFIG:
-    file: ./kibana/config/kibana.yml
+    file: ./services/kibana/config/kibana.yml

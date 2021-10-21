@@ -5,7 +5,7 @@ services:
   web:
     volumes:
       - ./dashboards:${VOILA_NOTEBOOK_DIR:?}
-      - ./web:/app
+      - ./services/web:/app
     environment:
       DEBUG: 1
 
@@ -22,7 +22,7 @@ services:
       - "5984:5984"
 
   voila:
-    build: ./voila
+    build: ./services/voila
     volumes:
       - type: bind
         source: ./dashboards
