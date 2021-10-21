@@ -9,20 +9,17 @@ services:
     environment:
       DEBUG: 1
 
-  crawlers:
-    environment:
-      DEBUG: 1
-    command: tail -f /dev/null  # keep container running for development
-    volumes:
-      - ./crawlers:/app
-
   db:
+    volumes:
+      - /var/tmp/coped/postgresql/data:/var/lib/postgresql/data
     ports:
-      - "15432:5432"
+      - "5432:5432"
 
   couch:
+    volumes:
+      - /var/tmp/coped/couchdb/data:/opt/couchdb/data
     ports:
-      - "15984:5984"
+      - "5984:5984"
 
   voila:
     build: ./voila
@@ -32,24 +29,31 @@ services:
         target: ${VOILA_NOTEBOOK_DIR:?}
         read_only: true
     ports:
-      - "18866:8866"
+      - "8866:8866"
 
   elasticsearch:
     ports:
-      - "19200:9200"
-      - "19300:9300"
+      - "9200:9200"
+      - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
 
   logstash:
     ports:
-      - "15044:5044"
-      - "15000:5000/tcp"
-      - "15000:5000/udp"
-      - "19600:9600"
+      - "5044:5044"
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
 
   kibana:
     ports:
-      - "15601:5601"
+      - "5601:5601"
+
+  ukri_crawler:
+    environment:
+      DEBUG: 1
+      COUCHDB_DB: ${COUCHDB_UKRI_DB:?}
+    volumes:
+      - ./tasks/ukri_crawler:/workspace:cached

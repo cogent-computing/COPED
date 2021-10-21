@@ -26,6 +26,14 @@ echo "Applying database migrations..."
 python manage.py migrate
 echo "Migrations complete"
 
+echo "Applying fixtures. Environment variables will be replaced..."
+envsubst < coped_resources/fixtures/couchdbname.yaml > /tmp/couchdbname.yaml  # replace env
+python manage.py loaddata /tmp/couchdbname.yaml
+python manage.py loaddata coped_resources/fixtures/relationtype
+python manage.py loaddata coped_resources/fixtures/resourcetype
+rm /tmp/couchdbname.yaml
+echo "Fixtures complete"
+
 echo "Collecting static files for Nginx..."
 python manage.py collectstatic --no-input --clear
 echo "Static file collection complete"

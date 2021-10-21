@@ -6,5 +6,5 @@
 - model: coped_resources.couchdbname
   pk: 2
   fields:
-    name: ukri-crawler-data
+    name: ${COUCHDB_UKRI_DB}
     authority: 200

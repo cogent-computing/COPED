@@ -1,5 +1,8 @@
 services:
 
+  ##########################
+  ##  ALWAYS-ON SERVICES  ##
+  ##########################
   web:
     build: ./web
     container_name: coped_web
@@ -20,25 +23,18 @@ services:
       SQL_PASSWORD: ${POSTGRES_PASSWORD:?}
       SQL_HOST: db
       SQL_PORT: ${POSTGRES_PORT:-5432}
-      DATABASE: ${DJANGO_DBMS_NAME:-postgres}
       ELASTIC_HOSTNAME: elasticsearch
       ELASTIC_PORT: ${ELASTIC_PORT:-9200}
-    depends_on:
-      - db
-      - couch
-      - elasticsearch
+      COUCHDB_UKRI_DB: ${COUCHDB_UKRI_DB:?}
 
-  crawlers:
-    build: ./crawlers
-    container_name: coped_crawlers
-    environment:
-        DEBUG: 0
-        COUCHDB_USER: ${COUCHDB_USER:?}
-        COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
-        COUCHDB_HOST: couch
-        COUCHDB_PORT: ${COUCHDB_PORT:-5984}
     depends_on:
-      - couch
+      db:
+        condition: service_healthy
+      couch:
+        condition: service_healthy
+      # elasticsearch:
+      #   condition: service_healthy
+
 
   nginx:
     build: ./nginx
@@ -60,6 +56,13 @@ services:
   db:
     build: ./postgres
     container_name: coped_postgres
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
@@ -72,6 +75,13 @@ services:
     container_name: coped_couch
     volumes:
       - couchdb_data:/opt/couchdb/data
+    expose:
+      - 5984
+    healthcheck:
+      test: ["CMD", "curl", "localhost:5984"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     expose:
       - 5984
     environment:
@@ -136,6 +146,55 @@ services:
       - 5601
     depends_on:
       - elasticseach
+
+
+
+  ############################
+  ##  TASK RUNNER SERVICES  ##
+  ############################
+
+  ukri_crawler:
+    profiles:
+      - task-runner
+    build: ./tasks/ukri_crawler
+    container_name: coped_ukri_crawler
+    environment:
+      DEBUG: 0
+      # defaults
+      COUCHDB_HOST: ${COUCHDB_HOST:-couch}
+      COUCHDB_PORT: ${COUCHDB_PORT:-5984}
+      # mandatory
+      COUCHDB_USER: ${COUCHDB_USER:?}
+      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
+      COUCHDB_DB: ${COUCHDB_UKRI_DB:?}
+    depends_on:
+      - couch
+
+  ukri_resources:
+    profiles:
+      - task-runner    
+    build: ./tasks/ukri_resources
+    container_name: coped_ukri_resources
+    environment:
+      DEBUG: 0
+      # defaults
+      COUCHDB_HOST: ${COUCHDB_HOST:-couch}
+      COUCHDB_PORT: ${COUCHDB_PORT:-5984}
+      POSTGRES_HOST: ${POSTGRES_HOST:-db}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_RESOURCE_TABLE: ${POSTGRES_RESOURCE_TABLE:-coped_resource}
+      POSTGRES_TYPE_TABLE: ${POSTGRES_TYPE_TABLE:-coped_resource_type}
+      
+      # mandatory
+      COUCHDB_USER: ${COUCHDB_USER:?}
+      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
+      COUCHDB_DB: ${COUCHDB_UKRI_DB:?}
+      POSTGRES_USER: ${POSTGRES_USER:?}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+      POSTGRES_DB: ${POSTGRES_DB:?}
+    depends_on:
+      - couch
+      - db
 
 
 volumes:

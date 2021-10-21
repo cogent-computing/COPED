@@ -1,37 +1,38 @@
-# Pipeline Tasks
+# Pipeline Tasks and How to Run Them
 
 This directory contains CoPED data pipeline processing tasks.
 
 Each task is:
 
 - packaged with all of its dependencies as a Dockerised script
-- runnable internally from its container's shell or externally using Apache Airflow's `DockerOperator`
+- runnable manually using `docker-compose run` or automatically using Apache Airflow's `DockerOperator`
 - long running
 
-> To run internally use:
+> To run manually use:
 > 
-> `docker-compose run --rm -w /path/to/task <name_of_service> <task_command> <task_options>`
+> `docker-compose run --rm -w <container_working_directory> <name_of_service> <task_command> <task_options>`
 
 ## Task Details
 
 ### Crawl UKRI API - Status:Complete
 
-Task location: `/app/ukri/ukri`
+Working directory: `/app/ukri/ukri`
+Name of service: `ukri_crawler`
 
 ```
 Usage: scrapy crawl ukri-projects-spider [OPTIONS]
 
 OPTIONS
 
--a queries=TEXT     Comma separated list of words or "phrases" to search for. [required]
+-a queries=TEXT     [required] Comma separated list of words or "phrases" to search for.
 
-ENVIRONMENT
+ENVIRONMENT [defaults]
 
 $COUCHDB_HOST [localhost]       Hostname for the CouchDB server. 
 $COUCHDB_PORT [5984]            Port for the CouchDB server.
 $COUCHDB_USER [coped]           Username for DB operations.
 $COUCHDB_PASSWORD [password]    Password for the user above.
-$COUCHDB_NAME [ukri-data]       DB name in CouchDB to store the data.
+$COUCHDB_DB [ukri-dev-data]     DB name in CouchDB to store the data.
 
 DESCRIPTION
 
@@ -40,18 +41,30 @@ Use the given query term(s) to find projects in the UKRI database. Result list i
 
 ### Populate UKRI Resources - Status:Todo
 
+Working directory: `/app`
+Name of service: `ukri_resources`
+
 ```
-Usage: populate-ukri-resources [OPTIONS]
+Usage: populate-ukri-resources
 
-OPTIONS
+ENVIRONMENT
 
---couch_db TEXT     Name of CouchDB database to read.  [required]
---sql_db TEXT       Name of PostgreSQL database to update.  [required]
---sql_table TEXT    Name of PostgreSQL table to update.  [required]
+$COUCHDB_HOST [localhost]                   Hostname for the CouchDB server. 
+$COUCHDB_PORT [5984]                        Port for the CouchDB server.
+$COUCHDB_USER [coped]                       Username for DB operations.
+$COUCHDB_PASSWORD [password]                Password for the user above.
+$COUCHDB_DB [ukri-dev-data]                 DB name in CouchDB to store the data.
+$POSTGRES_HOST [localhost]                  Hostname for the PostgreSQL server. 
+$POSTGRES_PORT [5432]                       Port for the PostgreSQL server.
+$POSTGRES_USER [coped]                      Username for DB operations.
+$POSTGRES_PASSWORD [password]               Password for the user above.
+$POSTGRES_DB [coped-dev-db]                 PostgreSQL database to use.
+$POSTGRES_RESOURCE_TABLE [coped_resource]   PostgreSQL table to store the resource.
+$POSTGRES_TYPE_TABLE [coped_resource_type]  PostgreSQL table for resource types.
 
 DESCRIPTION
 
-Record UKRI resources in PostgreSQL. The given CouchDB database is queried for all documents. Their `_id` (UUIDv4), `item_type`, and a basic text summary are added to the PostgreSQL table.
+Record UKRI resources in PostgreSQL. The given CouchDB database is queried for all documents. Their `_id` (UUIDv4) is added to the PostgreSQL `coped_resource` table with a foreign key to the `coped_resource_type` table.
 ``` 
 
 ### Populate UKRI Relations - Status:Todo

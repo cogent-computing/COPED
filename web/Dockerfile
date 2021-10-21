@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends build-essential gcc netcat
+RUN apt-get install -y --no-install-recommends build-essential gcc netcat gettext
 
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
