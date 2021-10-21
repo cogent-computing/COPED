@@ -23,6 +23,7 @@ jobs:
 
       - name: Start services
         run: |
+          rm -f docker-compose.override.yaml
           docker-compose -p "${{ env.COMPOSE_PROJECT_NAME }}" --env-file .env.ci up -d --build
           sleep 30
 
@@ -30,7 +31,7 @@ jobs:
         run: curl -I http://127.0.0.1:1337/admin/ | grep "302 Found"
 
       - name: Test the web service can run CRUD actions on elasticsearch
-        run: docker exec coped_web python ./manage.py test
+        run: docker exec "${{ env.COMPOSE_PROJECT_NAME }}"_web python ./manage.py test
 
       - name: Tidy up
         run: docker-compose -p "${{ env.COMPOSE_PROJECT_NAME }}" --env-file .env.ci down -v
