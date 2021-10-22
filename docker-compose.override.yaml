@@ -62,3 +62,9 @@ services:
       DEBUG: 1
     volumes:
       - ./tasks/ukri_resources:/app:cached
+
+  ukri_relation_extractor:
+    environment:
+      DEBUG: 1
+    volumes:
+      - ./tasks/ukri_relation_extractor:/app:cached

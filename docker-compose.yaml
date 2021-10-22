@@ -148,7 +148,8 @@ services:
     expose:
       - 5601
     depends_on:
-      - elasticseach
+      elasticsearch:
+        condition: service_healthy
 
 
 
@@ -199,6 +200,24 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      couch:
+        condition: service_healthy
+
+  ukri_relation_extractor:
+    profiles:
+      - task-runner
+    build: ./tasks/ukri_relation_extractor
+    container_name: coped_ukri_relation_extractor
+    environment:
+      DEBUG: 0
+      # defaults
+      COUCHDB_HOST: ${COUCHDB_HOST:-couch}
+      COUCHDB_PORT: ${COUCHDB_PORT:-5984}
+      # mandatory
+      COUCHDB_USER: ${COUCHDB_USER:?}
+      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
+      COUCHDB_DB: ${COUCHDB_UKRI_DB:?}
+    depends_on:
       couch:
         condition: service_healthy
 
