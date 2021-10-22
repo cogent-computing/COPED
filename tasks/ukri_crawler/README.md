@@ -18,7 +18,7 @@ For each search term, the following API endpoint is used to find matching projec
 
 ## Related Data
 
-Given a project id from a returned search, related entities are parsed and saved when present.
+Given a project id from a returned search, related entities are also parsed and saved when present.
 
 - Persons: `https://gtr.ukri.org/gtr/api/projects/{project_id}/persons`
 - Organisations: `https://gtr.ukri.org/gtr/api/projects/{project_id}/organisations`
@@ -36,3 +36,65 @@ Given a project id from a returned search, related entities are parsed and saved
     * Spinouts: `https://gtr.ukri.org/gtr/api/projects/{project_id}/outcomes/spinouts`
     * Disseminations: `https://gtr.ukri.org/gtr/api/projects/{project_id}/outcomes/disseminations`
 
+## Related Data `rel` Descriptors
+
+The relations documented for the UKRI API are:
+
+### `rel` Values for Person Links
+
+Linked person is:
+
+- `PI_PER` Principal Investigator
+- `COI_PER` Co-Investigator
+- `PM_PER` Project Manager
+- `FELLOW_PER` Fellow
+- `EMPLOYEE` Employee
+
+### `rel` Values for ORCID Links
+
+Linked ORCID is:
+
+- `ORCID_ID` Person's ORCID ID details
+
+### `rel` Values for Organisation Links
+
+Linked org is:
+
+- `EMPLOYED` Employer
+- `LEAD_ORG` Lead research organisation
+- `COLLAB_ORG` Collaborating organisation
+- `FELLOW_ORG` Fellow organisation
+- `COFUND_ORG` Co-Funder
+- `PP_ORG` Project partner
+- `FUNDER` Funder
+
+### `rel` Values for Fund Links
+
+Linked fund is:
+
+- `FUND` Fund
+
+### `rel` Values for Project Links
+
+Linked project is:
+
+- `PROJECT` Project
+
+### `rel` Values for Outcome Links
+
+Linked outcome is:
+
+- `ARTISTIC_AND_CREATIVE_PRODUCT` Artistic and creative product
+- `COLLABORATION` Collaboration
+- `DISSEMINATION` Dissemination
+- `FURTHER_FUNDING` Further funding
+- `IMPACT_SUMMARY` Impact summary
+- `IP` Intellectual property
+- `KEY_FINDING` Key finding
+- `POLICY` Policy influence
+- `PRODUCT` Product intervention
+- `PUBLICATION` Publication
+- `RESEARCH_DATABASE_AND_MODEL` Research DB and model
+- `RESEARCH_MATERIAL` Research material
+- `SOFTWARE_AND_TECHNICAL_PRODUCT` Software and technical product
+- `SPIN_OUT` Spin out

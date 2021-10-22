@@ -6,9 +6,9 @@ Each task is:
 
 - packaged with all of its dependencies as a Dockerised script
 - runnable manually using `docker-compose run` or automatically using Apache Airflow's `DockerOperator`
-- long running
+- generally long running
 
-> To run manually use:
+> To run tasks manually use:
 > 
 > `docker-compose run --rm -w <container_working_directory> <name_of_service> <task_command> <task_options>`
 
@@ -59,8 +59,6 @@ $POSTGRES_PORT [5432]                       Port for the PostgreSQL server.
 $POSTGRES_USER [coped]                      Username for DB operations.
 $POSTGRES_PASSWORD [password]               Password for the user above.
 $POSTGRES_DB [coped-dev-db]                 PostgreSQL database to use.
-$POSTGRES_RESOURCE_TABLE [coped_resource]   PostgreSQL table to store the resource.
-$POSTGRES_TYPE_TABLE [coped_resource_type]  PostgreSQL table for resource types.
 
 DESCRIPTION
 
