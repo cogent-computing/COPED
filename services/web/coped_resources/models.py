@@ -99,6 +99,11 @@ class RelationType(models.Model):
         max_length=128,
         help_text="What is the nature of the relation between the resource types, e.g. 'Project lead'?",
     )
+    rel_link = models.CharField(
+        blank=True,
+        max_length=32,
+        help_text="What is the label for the relation, e.g. 'PI_PER' for principal investigator (UKRI)?",
+    )
     resource_type_1 = models.ForeignKey(
         ResourceType,
         on_delete=models.CASCADE,
@@ -119,7 +124,7 @@ class RelationType(models.Model):
 
     class Meta:
         db_table = "coped_relation_type"
-        unique_together = ["resource_type_1", "resource_type_2"]
+        unique_together = ["resource_type_1", "resource_type_2", "rel_link"]
 
     def __unicode__(self):
         description = self.description
