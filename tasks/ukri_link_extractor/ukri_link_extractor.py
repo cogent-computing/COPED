@@ -100,7 +100,7 @@ def main(
             # Add the found document's CouchDB id to the list of link keys.
             # Its value will describe the nature of the link.
             logging.info(f"Adding new link from {doc_id} to {_id}.")
-            extracted_links[_id] = rel
+            extracted_links[_id] = {"rel": rel}
 
         # Once all the links are processed, check if anything changed.
         # If it did, save the document again.
