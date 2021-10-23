@@ -4,27 +4,23 @@ https://gtr.ukri.org/resources/GtR-2-API-v1.7.5.pdf
 
 Don't forget to add the pipelines to ITEM_PIPELINES in `settings.py`.
 See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-
-BaseCouchPipeline:
-    - Base class for pipelines that need to interact with CouchDB
-
-ProcessDuplicatesPipeline:
-    - Checks the DB for existing docs with the same UKRI id.
-    - If found the item is dropped and not processed further.
-
-SaveToCouchPipeline:
-    - Saves crawled items to the CouchDB service.
-    - Creates a new DB if required.
 """
 
-
+import json
+import logging
 import couchdb
+from deepdiff import DeepDiff
+from datetime import datetime, timezone
 from couchdb.http import PreconditionFailed
 from uuid import uuid4
 from scrapy.exceptions import DropItem
 
-# Handle different item types with Scrapy's standard item interface.
-from itemadapter import ItemAdapter
+
+def different_data(doc_1, doc_2):
+    """Given two documents, are they different?"""
+    diff = DeepDiff(dict(doc_1), dict(doc_2), ignore_order=True)
+    logging.info(f"document diff = {diff}")
+    return bool(diff)
 
 
 class BaseCouchPipeline:
@@ -57,27 +53,70 @@ class BaseCouchPipeline:
 
 
 class ProcessDuplicatesPipeline(BaseCouchPipeline):
-    """A pipeline to process resources with an existing record in the DB"""
+    """A pipeline to process resources with an existing record in the DB."""
 
     def process_item(self, item, spider):
 
-        adapter = ItemAdapter(item)
-
-        # Search for the document using its UKRI id
+        # Search for the document using its UKRI id.
+        # TODO: create an index on `coped_meta.item_id` for speed.
         query = {
-            "selector": {"item_id": adapter["item_id"]},
-            "fields": ["item_id", "item_type"],
+            "selector": {"coped_meta": {"item_id": item["id"]}},
+            "fields": ["_id"],
         }
         result = list(self.db.find(query))
+        item_found = bool(len(result))
 
-        # Ignore existing items
-        # TODO: check for changes and merge rather than ignore
-        if len(result):
-            raise DropItem(
-                f"Duplicate item found: {adapter['item_type']!r} {adapter['item_id']!r}"
-            )
-        else:
-            return item
+        # If an item is found, then check for changes.
+        # Drop if no changes.
+        # Update if changes detected.
+        if item_found:
+            # Get the matched CouchDB _id and access the full document.
+            _id = result[0]["_id"]
+            doc = self.db[_id]
+            logging.info(f"found existing doc _id = {_id}")
+
+            if not different_data(doc["raw_data"], item):
+                # The deep diff didn't find any differences. We can stop.
+                logging.info("no changes - dropping")
+            else:
+                # Something has changed in the item since last update.
+                logging.info("found changes - updating")
+
+                # Replace doc's raw data with the new item.
+                doc["raw_data"] = item
+
+                # Update the dict of item updates.
+                old_updates = doc["coped_meta"]["item_updates"]
+                now = datetime.now().utcnow().isoformat()
+                new_update = {now: f"{spider.name} updated"}
+                doc["coped_meta"]["item_updates"] = old_updates | new_update
+
+                # Save the document back to CouchDB and stop further pipelines.
+                self.db[_id] = doc
+                logging.info("document updated")
+            raise DropItem(f"Duplicate UKRI item: {item['id']!r}")
+
+        # Item does not already exist in DB, so continue processing.
+        return item
+
+
+class CreateDocumentPipeline:
+    """A pipeline to create the document to be stored."""
+
+    def process_item(self, item, spider):
+
+        now = datetime.now().utcnow().isoformat()
+        doc = {}
+        doc["coped_meta"] = {
+            "item_source": spider.name,
+            "item_id": item.get("id"),
+            "item_url": item.get("href"),
+            "item_type": item.get("href").split("/")[-2],
+            "item_authority": 200,
+            "item_updates": {now: f"{spider.name} created"},
+        }
+        doc["raw_data"] = item
+        return doc
 
 
 class SaveToCouchPipeline(BaseCouchPipeline):
@@ -86,5 +125,5 @@ class SaveToCouchPipeline(BaseCouchPipeline):
     def process_item(self, item, spider):
         """Create a unique identifier and save the document to the DB."""
         doc_id = str(uuid4()).upper()
-        self.db[doc_id] = ItemAdapter(item).asdict()
+        self.db[doc_id] = item
         return item

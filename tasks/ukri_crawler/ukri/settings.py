@@ -70,6 +70,7 @@ DEFAULT_REQUEST_HEADERS = {
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     "ukri.pipelines.ProcessDuplicatesPipeline": 100,
+    "ukri.pipelines.CreateDocumentPipeline": 200,
     "ukri.pipelines.SaveToCouchPipeline": 300,
 }
 

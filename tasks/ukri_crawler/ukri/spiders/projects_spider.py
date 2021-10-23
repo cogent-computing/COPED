@@ -1,109 +1,84 @@
 """
 Project crawler for meta-data API described at https://gtr.ukri.org/resources/GtR-2-API-v1.7.5.pdf
 
-Current version finds projects matching a hard-coded test query.
 Yields all matched projects, plus associated resources.
 """
 
 
 import re
 import scrapy
-from datetime import datetime, timezone
 from scrapy import Request
 
 
 class ProjectsSpider(scrapy.Spider):
     """A generic recursive spider for paginated resources on the UKRI API."""
 
+    # Name to use when launching spider crawl from command line.
     name = "ukri-projects-spider"
 
     # Set API entry point.
     projects_api = "https://gtr.ukri.org/gtr/api/projects"
 
-    """
-    Resources related to projects are accessible at API endpoints relative to a project.
-    For example:
-    - people at `https://gtr.ukri.org/gtr/api/projects/{project_id}/persons`
-    - spinouts at `https://gtr.ukri.org/gtr/api/projects/{project_id}/outcomes/spinouts`
-    - and so on.
-    Each link item type has a url path to retrieve the related resource.
-    Map the connection between UKRI resource names and their API address paths here.
-    """
-    linked_resource_paths = {
-        "person": "persons",
-        "organisation": "organisations",
-        "fund": "funds",
-        "keyFinding": "outcomes/keyfindings",
-        "impactSummary": "outcomes/impactsummaries",
-        "publication": "outcomes/publications",
-        "collaboration": "outcomes/collaborations",
-        "intellectualProperty": "outcomes/intellectualproperties",
-        "futherfunding": "outcomes/furtherfundings",  # note typo in UKRI resource name
-        "policyInfluence": "outcomes/policyinfluences",
-        "product": "outcomes/products",
-        "researchMaterial": "outcomes/researchmaterials",
-        "spinOut": "outcomes/spinouts",
-        "dissemination": "outcomes/disseminations",
-    }
-
-    # Set default URL query parameter values.
-    start_page = 1
-    results_per_page = 100  # maximum supported by API = 100
-
     def start_requests(self):
 
         # Pass in comma-separated search terms on the command line at launch.
         # Ensure there are no spaces between terms. For example:
-        #   `scrapy crawl ukri-projects-spider -a queries=query1,query2,"phrase three",query4`
+        # `scrapy crawl ukri-projects-spider -a queries=query1,query2,"phrase three"`
         queries = self.queries.split(",")
-        queries = [
-            f'"{q}"' if " " in q else q for q in queries
-        ]  # ensure phrases are double quoted
-        urls = [
-            f"{self.projects_api}?q={query}&p={self.start_page}&s={self.results_per_page}"
-            for query in queries
-        ]
+
+        # Ensure query phrases containing spaces are double quoted.
+        queries = [f'"{q}"' if " " in q else q for q in queries]
+
+        # Set up search URLs to start from.
+        urls = [f"{self.projects_api}?q={query}&p=1&s=100" for query in queries]
+
+        # Send each query request to the API server.
         for url in urls:
-            yield Request(url=url, cb_kwargs={"item_type": "project"})
+            yield Request(url=url)
 
-    def parse(self, response, item_type):
-        """Define a simple parser for the given `item_type`.
+    def parse(self, response):
+        """A simple parser for the resource(s) in the response.
 
-        The parse yields the raw data of each item in the paginated API response.
-        These are then processed by the pipelines in `pipelines.py`.
-
-        When `item_type` is "project" the parse recurses to related resources.
+        Follows search results to get the matching items.
+        Also follows links from projects and funds to related items.
         """
 
         data = response.json()
 
-        if data["totalSize"] == 0:
-            return None
+        if "?q=" in response.request.url:
+            # If this is a project search response (contains '?q=' in the URL),
+            # then get the returned project URLs and follow them.
+            if data.get("totalSize", 0) == 0:
+                return None
 
-        items = data[item_type]
+            projects = data.get("project", [])
+            hrefs = []
+            for project in projects:
+                href = project.get("href", "")
+                if href:
+                    hrefs.append(href)
+            yield from response.follow_all(hrefs)
 
-        for item in items:
-            # Pass everything out for pipeline processing.
-            now_utc = str(datetime.now(timezone.utc))
-            yield {
-                "source": self.name,
-                "updated": now_utc,
-                "item_type": item_type,
-                "item_id": item["id"],
-                "item_url": item["href"],
-                "item_data": item,
-            }
+            # Follow with the next page of results if possible.
+            if data.get("page", 0) < data.get("totalPages", 0):
+                next_page = self.next_page_url(response.url)
+                yield response.follow(next_page)
 
-            # Recurse to related people, orgs, and funds when we're crawling projects.
-            if item_type == "project":
-                for resource_type, resource_path in self.linked_resource_paths.items():
-                    link = f"{self.projects_api}/{item['id']}/{resource_path}?p={self.start_page}&s={self.results_per_page}"
-                    yield response.follow(link, cb_kwargs={"item_type": resource_type})
+        else:
+            # Otherwise, this must be an individual resource item response.
+            # Yield the item data.
+            yield data
 
-        # Continue if possible.
-        if data["totalSize"] > 0 and data["page"] < data["totalPages"]:
-            next_page = self.next_page_url(response.url)
-            yield response.follow(next_page, cb_kwargs={"item_type": item_type})
+            # If it is a project or fund, also find its links and follow them.
+            item_type = response.request.url.split("/")[-2]
+            if item_type == "projects" or item_type == "funds":
+                links = data.get("links", {}).get("link", [])
+                hrefs = []
+                for link in links:
+                    href = link.get("href", "")
+                    if href:
+                        hrefs.append(href)
+                yield from response.follow_all(hrefs)
 
     @staticmethod
     def next_page_url(url):
