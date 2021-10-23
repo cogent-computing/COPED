@@ -10,7 +10,7 @@ import json
 import logging
 import couchdb
 from deepdiff import DeepDiff
-from datetime import datetime, timezone
+from datetime import datetime
 from couchdb.http import PreconditionFailed
 from uuid import uuid4
 from scrapy.exceptions import DropItem
