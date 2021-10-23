@@ -203,11 +203,11 @@ services:
       couch:
         condition: service_healthy
 
-  ukri_relation_extractor:
+  ukri_link_extractor:
     profiles:
       - task-runner
-    build: ./tasks/ukri_relation_extractor
-    container_name: coped_ukri_relation_extractor
+    build: ./tasks/ukri_link_extractor
+    container_name: coped_ukri_link_extractor
     environment:
       DEBUG: 0
       # defaults
