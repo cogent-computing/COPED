@@ -25,14 +25,24 @@ def different_data(doc_1, doc_2):
 @click.option("--couchdb_user", envvar="COUCHDB_USER")
 @click.option("--couchdb_password", envvar="COUCHDB_PASSWORD")
 @click.option("--couchdb_db", envvar="COUCHDB_DB")
-@click.option("--force_update", default=False)
+@click.option(
+    "--update_existing/--no_update_existing",
+    default=False,
+    help="Overwrite existing UKRI links with extracted data.",
+)
+@click.option(
+    "--refresh/--no_refresh",
+    default=False,
+    help="Remove all existing UKRI links before adding new ones.",
+)
 def main(
     couchdb_host,
     couchdb_port,
     couchdb_user,
     couchdb_password,
     couchdb_db,
-    force_update,
+    update_existing,
+    refresh,
 ):
 
     COUCHDB_URI = (
@@ -59,9 +69,21 @@ def main(
             )
             continue
 
-        logging.info(f"Extracting links for document {doc_id}")
+        # Ensure we have nested dictionaries for the links.
         item_links = doc.get("coped_meta").get("item_links", {})
-        raw_links = doc.get("raw_data").get("links", dict()).get("link", [])
+        if not bool(item_links):
+            doc["coped_meta"]["item_links"] = {}
+        ukri_links = doc.get("coped_meta").get("item_links").get("ukri", {})
+        if not bool(ukri_links):
+            doc["coped_meta"]["item_links"]["ukri"] = {}
+
+        ukri_links = doc.get("coped_meta").get("item_links").get("ukri")
+        if refresh:
+            logging.info(f"Removing existing UKRI links for document {doc_id}")
+            ukri_links = {}
+
+        logging.info(f"Extracting links for document {doc_id}")
+        raw_links = doc.get("raw_data").get("links", {}).get("link", [])
         extracted_links = {}
 
         for link in raw_links:
@@ -94,7 +116,7 @@ def main(
                 continue
 
             _id = result[0].id
-            if _id in item_links and not force_update:
+            if _id in item_links and not update_existing:
                 # The link has already been extracted.
                 logging.debug(f"Link to document id {_id} already present. Ignoring.")
                 continue
@@ -106,11 +128,11 @@ def main(
 
         # Once all the links are processed, check if anything changed.
         # If it did, save the document again.
-        merged_links = item_links | extracted_links
-        if different_data(item_links, merged_links):
-            doc.get("coped_meta")["item_links"] = merged_links
+        merged_links = ukri_links | extracted_links
+        if different_data(merged_links, ukri_links):
+            doc["coped_meta"]["item_links"]["ukri"] = merged_links
             now = datetime.now().utcnow().isoformat()
-            doc.get("coped_meta")["item_updates"][now] = f"ukri_link_extractor updated"
+            doc["coped_meta"]["item_updates"][now] = f"ukri_link_extractor updated"
             couch[doc_id] = doc
             logging.info(f"Links for document {doc_id} extracted and saved.")
         else:
