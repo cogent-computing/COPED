@@ -25,12 +25,14 @@ def different_data(doc_1, doc_2):
 @click.option("--couchdb_user", envvar="COUCHDB_USER")
 @click.option("--couchdb_password", envvar="COUCHDB_PASSWORD")
 @click.option("--couchdb_db", envvar="COUCHDB_DB")
+@click.option("--force_update", default=False)
 def main(
     couchdb_host,
     couchdb_port,
     couchdb_user,
     couchdb_password,
     couchdb_db,
+    force_update,
 ):
 
     COUCHDB_URI = (
@@ -92,7 +94,7 @@ def main(
                 continue
 
             _id = result[0].id
-            if _id in item_links:
+            if _id in item_links and not force_update:
                 # The link has already been extracted.
                 logging.debug(f"Link to document id {_id} already present. Ignoring.")
                 continue
