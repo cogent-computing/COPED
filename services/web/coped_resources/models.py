@@ -4,95 +4,35 @@ from django.db.models.fields import related
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-class CouchDBName(models.Model):
-    """Data sources held in CouchDB.
-
-    Examples:
-
-    - "ukri-crawler-data"
-    - "some-other-crawler-data"
-
-    Notes:
-
-    - Name values must correspond to names of databases in
-    CouchDB, which hold the corresponding source's raw and meta data.
-    - The authority field gives the relative authority of the data source,
-    which can be used by merge strategies when deciding which fields to show.
-    - An authority value of 1 is the most authoritative source, 1000 the least.
-
-    """
-
-    name = models.CharField(
-        blank=False,
-        max_length=128,
-        help_text="Provide the name of a CouchDB database.",
-    )
-    authority = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(1000)],
-        default=1000,
-        help_text="How authoritative is this source? 1 is most, 1000 least.",
-    )
-
-    class Meta:
-        db_table = "coped_couchdb_name"
-
-    def __unicode__(self):
-        return self.name
-
-
 class ResourceType(models.Model):
     """Resource types managed by CoPED.
 
-    Examples:
-
-    - "project"
-    - "person"
-    - "organisation"
-    - "publication"
-
     Notes:
 
-    - String values must correspond to possible values
-    of the mandatory "item_type" field in CouchDB documents.
+    - String values of the "item_type" field must correspond to possible values
+    of the mandatory "coped_meta.item_type" field in CouchDB documents.
     """
 
     description = models.CharField(
         max_length=128, blank=False, help_text="What type of resource is this?"
     )
-    couchdb = models.ForeignKey(
-        CouchDBName,
-        on_delete=models.PROTECT,
-        null=False,
-        help_text="Which CouchDB database is the resource from?",
-    )
     item_type = models.CharField(
+        primary_key=True,
         max_length=128,
         blank=False,
         help_text="What is the 'item_type' in the CouchDB document meta data?",
-    )
-    is_outcome = models.BooleanField(
-        default=False, help_text="Is this a type of project outcome?"
+        unique=True
     )
 
     class Meta:
         db_table = "coped_resource_type"
-        unique_together = ["item_type", "couchdb"]
 
     def __unicode__(self):
         return self.description
 
 
 class RelationType(models.Model):
-    """Resource relation types managed by CoPED.
-
-    Examples of (description, resource 1, resource 2, weighted):
-
-    - principal investigator, person, project, False
-    - funded, fund, project, False
-    - output, project, publication, False
-    - employed, organisation, person, False
-    - is similar to, project, project, True
-    """
+    """Resource relation types managed by CoPED."""
 
     description = models.CharField(
         blank=False,
@@ -100,6 +40,7 @@ class RelationType(models.Model):
         help_text="What is the nature of the relation between the resource types, e.g. 'Project lead'?",
     )
     rel_link = models.CharField(
+        primary_key=True,
         blank=True,
         max_length=32,
         help_text="What is the label for the relation, e.g. 'PI_PER' for principal investigator (UKRI)?",
@@ -131,7 +72,7 @@ class RelationType(models.Model):
         resource_1 = self.resource_type_1.description
         resource_2 = self.resource_type_2.description
         weighted = self.is_weighted
-        return f"{description} ({resource_1}, {resource_2}, weighted={weighted})"
+        return f"{description} ({resource_1} -> {resource_2}, weighted={weighted})"
 
 
 class Resource(models.Model):
@@ -143,15 +84,14 @@ class Resource(models.Model):
     - document_id : gives a document's unique `_id` in the CouchDB database
     """
 
-    document_id = models.UUIDField(null=False, unique=True)
+    document_id = models.UUIDField(null=False, primary_key=True)
     resource_type = models.ForeignKey(
-        ResourceType, on_delete=models.PROTECT, null=False, editable=False
+        ResourceType, on_delete=models.PROTECT, null=False
     )
 
     class Meta:
         db_table = "coped_resource"
         indexes = [
-            models.Index(fields=["document_id"], name="document_id_idx"),
             models.Index(fields=["resource_type"], name="resource_type_idx"),
         ]
 
