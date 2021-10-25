@@ -46,11 +46,14 @@ class ProjectsSpider(scrapy.Spider):
         data = response.json()
 
         if "?q=" in response.request.url:
-            # If this is a project search response (contains '?q=' in the URL),
-            # then get the returned project URLs and follow them.
+            # This is a project search response (contains '?q=' in the URL).
+            # So it contains a list of projects.
+
+            # If there were no returned projects, then we're done.
             if data.get("totalSize", 0) == 0:
                 return None
 
+            # Parse all hrefs to the project records and follow them.
             projects = data.get("project", [])
             hrefs = []
             for project in projects:
@@ -66,7 +69,7 @@ class ProjectsSpider(scrapy.Spider):
 
         else:
             # Otherwise, this must be an individual resource item response.
-            # Yield the item data.
+            # Yield the item's JSON data for further pipeline processing.
             yield data
 
             # If it is a project or fund, also find its links and follow them.
