@@ -14,9 +14,9 @@ Each task is runnable manually using `docker compose run` or automatically using
 
 ## Task Overviews
 
-NB: For more details of the UKRI crawler, see the dedicated section below these task overviews.
+### UKRI Crawler
 
-### Crawl UKRI API
+NB: For more details of the UKRI crawler, see the dedicated section below these task overviews.
 
 ```
 Usage: scrapy crawl ukri-projects-spider [OPTIONS]
@@ -25,17 +25,25 @@ OPTIONS
 
 -a queries=TEXT     [required] Comma separated list of words or "phrases" to search for.
 
-ENVIRONMENT [defaults]
+DESCRIPTION
 
-$COUCHDB_HOST [localhost]       Hostname for the CouchDB server. 
-$COUCHDB_PORT [5984]            Port for the CouchDB server.
-$COUCHDB_USER [coped]           Username for DB operations.
-$COUCHDB_PASSWORD [password]    Password for the user above.
-$COUCHDB_DB [ukri-dev-data]     DB name in CouchDB to store the data.
+Use the given query term(s) to find projects in the UKRI database. Result list is recursively parsed to find related resources such as people, organisations, and so on. All resources are saved to the CouchDB database specified at the environment variable COUCHDB_DB (or "coped-dev-data" if not set).
+```
+
+
+### UKRI Link Extractor
+
+```
+Usage: ./ukri_link_extractor.py [OPTIONS]
+
+OPTIONS
+
+--update-existing/--no-update-existing  Overwrite existing UKRI links with extracted data. [default: --no-update-existing]
+--refresh/--no-refresh                  Remove all existing UKRI links before adding new ones. [default: --no-refresh]
 
 DESCRIPTION
 
-Use the given query term(s) to find projects in the UKRI database. Result list is recursively parsed to find related resources such as people, organisations, and so on. All resources are saved to the given CouchDB database.
+Parse the UKRI document raw data to extract links to other entities in the CoPED database. Discovered links are added to the "coped_meta.links.ukri" field. 
 ```
 
 ### Populate UKRI Resources
