@@ -36,7 +36,7 @@ def couch_client():
     return db
 
 
-def psql_query(query_string, identifiers_dict=None, values=None):
+def psql_query(query_string, identifiers_dict=None, values=None, fetch_results=True):
     """Execute an SQL query string after substituting literals and values.
 
     The keys of identifiers should be the {variables} appearing in query_string
@@ -58,7 +58,7 @@ def psql_query(query_string, identifiers_dict=None, values=None):
     Note that these substitutions are essential for DB security. Do not use
     Python's f-strings.
 
-    Results sets can be returned by setting 'results' to True.
+    Results sets can be returned by setting 'fetch_results' to True (default).
     """
 
     if identifiers_dict is not None:
@@ -67,7 +67,6 @@ def psql_query(query_string, identifiers_dict=None, values=None):
         identifiers = {}
 
     query = sql.SQL(query_string).format(**identifiers)
-    print(query)
 
     with psycopg2.connect(
         dbname=POSTGRES_DB,
@@ -78,6 +77,5 @@ def psql_query(query_string, identifiers_dict=None, values=None):
     ) as conn:
         with conn.cursor() as psql:
             psql.execute(query, values)
-            if psql.rowcount:
-                for row in psql:
-                    yield row
+            if fetch_results:
+                return psql.fetchall()

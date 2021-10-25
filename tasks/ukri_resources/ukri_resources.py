@@ -39,7 +39,7 @@ def main():
             INSERT INTO coped_resource (document_id, resource_type_id) VALUES (%s, %s)
             ON CONFLICT DO NOTHING;
             """
-        psql_query(query_string, values=(doc_id, item_type))
+        psql_query(query_string, values=(doc_id, item_type), fetch_results=False)
 
 
 if __name__ == "__main__":
