@@ -6,50 +6,24 @@ Don't forget to add the pipelines to ITEM_PIPELINES in `settings.py`.
 See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 """
 
-import json
 import logging
-import couchdb
-from deepdiff import DeepDiff
 from datetime import datetime
-from couchdb.http import PreconditionFailed
-from uuid import uuid4
+
 from scrapy.exceptions import DropItem
 
-
-def different_data(doc_1, doc_2):
-    """Given two documents, are they different?"""
-    diff = DeepDiff(dict(doc_1), dict(doc_2), ignore_order=True)
-    logging.info(f"document diff = {diff}")
-    return bool(diff)
+from shared.documents import different_docs
+from shared.documents import find_ukri_doc
+from shared.documents import create_document
+from shared.documents import update_document
+from shared.databases import couch_client
 
 
 class BaseCouchPipeline:
     """Base class for pipelines that need to access CouchDB"""
 
-    def __init__(self, couch_uri, db_name):
-        self.couch_uri = couch_uri
-        self.db_name = db_name
-
-    @classmethod
-    def from_crawler(cls, crawler):
-        """Fetch any settings we need to access the DB."""
-        return cls(
-            couch_uri=crawler.settings.get("COUCHDB_URI"),
-            db_name=crawler.settings.get("COUCHDB_DB"),
-        )
-
     def open_spider(self, spider):
         """Set up the DB connection when the spider starts."""
-        self.client = couchdb.Server(self.couch_uri)
-        try:
-            # Create the DB if we need to.
-            self.db = self.client.create(self.db_name)
-        except PreconditionFailed:
-            # If the DB exists then use it.
-            self.db = self.client[self.db_name]
-
-    def close_spider(self, spider):
-        pass
+        self.db = couch_client()
 
 
 class ProcessDuplicatesPipeline(BaseCouchPipeline):
@@ -57,25 +31,14 @@ class ProcessDuplicatesPipeline(BaseCouchPipeline):
 
     def process_item(self, item, spider):
 
-        # Search for the document using its UKRI id.
-        # TODO: create an index on `coped_meta.item_id` for speed.
-        query = {
-            "selector": {"coped_meta": {"item_id": item["id"]}},
-            "fields": ["_id"],
-        }
-        result = list(self.db.find(query))
-        item_found = bool(len(result))
+        doc = find_ukri_doc(item["id"])
 
         # If an item is found, then check for changes.
-        # Drop if no changes.
-        # Update if changes detected.
-        if item_found:
-            # Get the matched CouchDB _id and access the full document.
-            _id = result[0]["_id"]
-            doc = self.db[_id]
-            logging.info(f"found existing doc _id = {_id}")
+        # Drop if no changes. Update if changes detected, then drop.
+        if doc is not None:
+            logging.info(f"found existing doc id = {doc.id}")
 
-            if not different_data(doc["raw_data"], item):
+            if not different_docs(doc["raw_data"], item):
                 # The deep diff didn't find any differences. We can stop.
                 logging.info("no changes - dropping")
             else:
@@ -85,19 +48,15 @@ class ProcessDuplicatesPipeline(BaseCouchPipeline):
                 # Replace doc's raw data with the new item.
                 doc["raw_data"] = item
 
-                # Update the dict of item updates.
-                old_updates = doc["coped_meta"]["item_updates"]
-                now = datetime.now().utcnow().isoformat()
-                new_update = {now: f"{spider.name} updated"}
-                doc["coped_meta"]["item_updates"] = old_updates | new_update
-
-                # Save the document back to CouchDB and stop further pipelines.
-                self.db[_id] = doc
+                # Update the item in the DB
+                update_document(doc, f"{spider.name} updated")
                 logging.info("document updated")
+
             raise DropItem(f"Duplicate UKRI item: {item['id']!r}")
 
-        # Item does not already exist in DB, so continue processing.
-        return item
+        else:
+            # Item does not already exist in DB, so continue processing.
+            return item
 
 
 class CreateDocumentPipeline:
@@ -123,7 +82,7 @@ class SaveToCouchPipeline(BaseCouchPipeline):
     """A pipeline to save crawled data to the CouchDB service."""
 
     def process_item(self, item, spider):
-        """Create a unique identifier and save the document to the DB."""
-        doc_id = str(uuid4()).upper()
-        self.db[doc_id] = item
+        """Save the document to the DB."""
+        id = create_document(item)
+        logging.info(f"Created new document with id {id}")
         return item

@@ -164,6 +164,7 @@ services:
     container_name: coped_tasks
     environment:
       DEBUG: 0
+      PYTHONPATH: /tasks  # this is where the build mounts the ./tasks directory
       # defaults
       COUCHDB_HOST: ${COUCHDB_HOST:-couch}
       COUCHDB_PORT: ${COUCHDB_PORT:-5984}

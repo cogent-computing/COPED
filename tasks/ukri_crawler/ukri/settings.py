@@ -94,14 +94,3 @@ AUTOTHROTTLE_DEBUG = False
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-
-
-# Database settings for saving crawled data
-import os
-
-COUCHDB_USER = os.environ.get("COUCHDB_USER", "coped")
-COUCHDB_PASSWORD = os.environ.get("COUCHDB_PASSWORD", "password")
-COUCHDB_HOST = os.environ.get("COUCHDB_HOST", "localhost")
-COUCHDB_PORT = os.environ.get("COUCHDB_PORT", 5984)
-COUCHDB_URI = f"http://{COUCHDB_USER}:{COUCHDB_PASSWORD}@{COUCHDB_HOST}:{COUCHDB_PORT}/"
-COUCHDB_DB = os.environ.get("COUCHDB_DB", "ukri-dev-data")
