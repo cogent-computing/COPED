@@ -1,4 +1,4 @@
-"""Shared code for working with CoPED-managed documents."""
+"""Shared code for working with CoPED-managed documents inside CouchDB."""
 
 import logging
 from uuid import uuid4
