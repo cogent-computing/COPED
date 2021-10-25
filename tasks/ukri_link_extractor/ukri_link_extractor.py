@@ -72,20 +72,15 @@ def main(update_existing, refresh):
                 logging.debug(f"Link to href {href} not found in DB. Ignoring.")
                 continue
 
-            _id = matching_doc.id
-            if _id in ukri_links and not update_existing:
-                # The link has already been extracted.
-                logging.info(f"Link to document id {_id} already present. Ignoring.")
-                continue
-
             # Add the found document's CouchDB id to the list of link keys.
             # Its value will describe the nature of the link.
+            _id = matching_doc.id
             extracted_links[_id] = {"rel": rel}
 
         # Once all the links are processed, check if anything changed.
         # If it did, save the document again.
         merged_links = ukri_links | extracted_links
-        if different_docs(merged_links, ukri_links):
+        if different_docs(merged_links, ukri_links) or update_existing:
             doc["coped_meta"]["item_links"]["ukri"] = merged_links
             update_document(doc, "ukri_link_extractor updated")
             logging.info(f"Links for document {doc_id} extracted and saved.")
