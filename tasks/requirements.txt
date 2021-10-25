@@ -2,3 +2,5 @@ CouchDB==1.2
 Protego==0.1.16
 Scrapy==2.5.1
 deepdiff==5.6.0
+click==8.0.3
+psycopg2-binary==2.9.1

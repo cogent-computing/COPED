@@ -157,29 +157,11 @@ services:
   ##  TASK RUNNER SERVICES  ##
   ############################
 
-  ukri_crawler:
+  tasks:
     profiles:
       - task-runner
-    build: ./tasks/ukri_crawler
-    container_name: coped_ukri_crawler
-    environment:
-      DEBUG: 0
-      # defaults
-      COUCHDB_HOST: ${COUCHDB_HOST:-couch}
-      COUCHDB_PORT: ${COUCHDB_PORT:-5984}
-      # mandatory
-      COUCHDB_USER: ${COUCHDB_USER:?}
-      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
-      COUCHDB_DB: ${COUCHDB_UKRI_DB:?}
-    depends_on:
-      couch:
-        condition: service_healthy
-
-  ukri_resources:
-    profiles:
-      - task-runner    
-    build: ./tasks/ukri_resources
-    container_name: coped_ukri_resources
+    build: ./tasks
+    container_name: coped_tasks
     environment:
       DEBUG: 0
       # defaults
@@ -189,7 +171,6 @@ services:
       POSTGRES_PORT: ${POSTGRES_PORT:-5432}
       POSTGRES_RESOURCE_TABLE: ${POSTGRES_RESOURCE_TABLE:-coped_resource}
       POSTGRES_TYPE_TABLE: ${POSTGRES_TYPE_TABLE:-coped_resource_type}
-      
       # mandatory
       COUCHDB_USER: ${COUCHDB_USER:?}
       COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
@@ -200,24 +181,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      couch:
-        condition: service_healthy
-
-  ukri_link_extractor:
-    profiles:
-      - task-runner
-    build: ./tasks/ukri_link_extractor
-    container_name: coped_ukri_link_extractor
-    environment:
-      DEBUG: 0
-      # defaults
-      COUCHDB_HOST: ${COUCHDB_HOST:-couch}
-      COUCHDB_PORT: ${COUCHDB_PORT:-5984}
-      # mandatory
-      COUCHDB_USER: ${COUCHDB_USER:?}
-      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
-      COUCHDB_DB: ${COUCHDB_UKRI_DB:?}
-    depends_on:
       couch:
         condition: service_healthy
 

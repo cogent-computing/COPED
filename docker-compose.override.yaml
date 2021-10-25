@@ -51,20 +51,8 @@ services:
     ports:
       - "5601:5601"
 
-  ukri_crawler:
+  tasks:
     environment:
       DEBUG: 1
     volumes:
-      - ./tasks/ukri_crawler:/app:cached
-
-  ukri_resources:
-    environment:
-      DEBUG: 1
-    volumes:
-      - ./tasks/ukri_resources:/app:cached
-
-  ukri_link_extractor:
-    environment:
-      DEBUG: 1
-    volumes:
-      - ./tasks/ukri_link_extractor:/app:cached
+      - ./tasks:/tasks:cached

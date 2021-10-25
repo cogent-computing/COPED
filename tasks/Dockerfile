@@ -8,7 +8,7 @@ COPY ./requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
 RUN rm /tmp/requirements.txt
 
-WORKDIR /app
+WORKDIR /tasks
 COPY . .
 
 # No entrypoint needed in production: launch when needed using Apache Airflow.
