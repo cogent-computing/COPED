@@ -74,13 +74,22 @@ class ProjectsSpider(scrapy.Spider):
 
             # If it is a project or fund, also find its links and follow them.
             item_type = response.request.url.split("/")[-2]
-            if item_type == "projects" or item_type == "funds":
+            if item_type in ["projects", "funds"]:
                 links = data.get("links", {}).get("link", [])
                 hrefs = []
                 for link in links:
                     href = link.get("href", "")
                     if href:
-                        hrefs.append(href)
+                        link_type = href.split("/")[-2]
+                        if link_type in [
+                            "projects",
+                            "persons",
+                            "funds",
+                            "organisations",
+                        ]:
+                            hrefs.append(href)
+                        else:
+                            continue
                 yield from response.follow_all(hrefs)
 
     @staticmethod
