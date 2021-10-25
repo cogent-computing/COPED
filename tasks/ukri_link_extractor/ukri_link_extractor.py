@@ -9,10 +9,23 @@ from shared.databases import couch_client
 from shared.documents import find_ukri_doc
 from shared.documents import save_document
 from shared.documents import different_docs
-from shared.documents import get_ukri_links_or_add
 
 LOGLEVEL = os.environ.get("LOGLEVEL", "INFO").upper()
 logging.basicConfig(level=LOGLEVEL)
+
+
+def get_ukri_links_or_add(doc):
+    """Get the existing UKRI links in the document. If none exist, add the field."""
+
+    item_links = doc["coped_meta"].get("item_links", {})
+    if not bool(item_links):
+        doc["coped_meta"]["item_links"] = {}
+
+    ukri_links = doc["coped_meta"]["item_links"].get("ukri", {})
+    if not bool(ukri_links):
+        doc["coped_meta"]["item_links"]["ukri"] = {}
+
+    return doc["coped_meta"]["item_links"]["ukri"]
 
 
 @click.command()

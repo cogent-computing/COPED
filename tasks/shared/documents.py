@@ -58,17 +58,3 @@ def save_document(doc, update_message="document saved"):
     db = couch_client()
     db[_id] = doc
     return db[_id]  # return the saved CouchDB document
-
-
-def get_ukri_links_or_add(doc):
-    """Get the existing UKRI links in the document. If none exist, add the field."""
-
-    item_links = doc["coped_meta"].get("item_links", {})
-    if not bool(item_links):
-        doc["coped_meta"]["item_links"] = {}
-
-    ukri_links = doc["coped_meta"]["item_links"].get("ukri", {})
-    if not bool(ukri_links):
-        doc["coped_meta"]["item_links"]["ukri"] = {}
-
-    return doc["coped_meta"]["item_links"]["ukri"]
