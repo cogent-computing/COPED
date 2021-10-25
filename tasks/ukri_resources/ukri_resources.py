@@ -20,11 +20,8 @@ def main():
 
     # Get the allowed item types from the DB.
     # This ensures the foreign key constraint on the coped_resource table will be met.
-    query_string = "SELECT {type} FROM coped_resource_type;"
-    allowed_items = [
-        row[0]
-        for row in psql_query(query_string, identifiers_dict={"type": "item_type"})
-    ]
+    query_string = "SELECT item_type FROM coped_resource_type;"
+    allowed_items = [row[0] for row in psql_query(query_string)]
     logging.info(f"Allowed items: {allowed_items}")
 
     for doc_id in couch:
