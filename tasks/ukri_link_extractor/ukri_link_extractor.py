@@ -7,7 +7,7 @@ import logging
 import click
 from shared.databases import couch_client
 from shared.documents import find_ukri_doc
-from shared.documents import update_document
+from shared.documents import save_document
 from shared.documents import different_docs
 from shared.documents import get_ukri_links_or_add
 
@@ -82,7 +82,7 @@ def main(update_existing, refresh):
         merged_links = ukri_links | extracted_links
         if different_docs(merged_links, ukri_links) or update_existing:
             doc["coped_meta"]["item_links"]["ukri"] = merged_links
-            update_document(doc, "ukri_link_extractor updated")
+            save_document(doc, "ukri_link_extractor updated")
             logging.info(f"Links for document {doc_id} extracted and saved.")
             logging.debug(f"Added links: {extracted_links}")
         else:

@@ -13,8 +13,7 @@ from scrapy.exceptions import DropItem
 
 from shared.documents import different_docs
 from shared.documents import find_ukri_doc
-from shared.documents import create_document
-from shared.documents import update_document
+from shared.documents import save_document
 from shared.databases import couch_client
 
 
@@ -49,7 +48,7 @@ class ProcessDuplicatesPipeline(BaseCouchPipeline):
                 doc["raw_data"] = item
 
                 # Update the item in the DB
-                update_document(doc, f"{spider.name} updated")
+                save_document(doc, f"{spider.name} updated")
                 logging.info("document updated")
 
             raise DropItem(f"Duplicate UKRI item: {item['id']!r}")
@@ -72,7 +71,7 @@ class CreateDocumentPipeline:
             "item_url": item.get("href"),
             "item_type": item.get("href").split("/")[-2],
             "item_authority": 200,
-            "item_updates": {now: f"{spider.name} created"},
+            # "item_updates": {now: f"{spider.name} created"},
         }
         doc["raw_data"] = item
         return doc
@@ -83,6 +82,6 @@ class SaveToCouchPipeline(BaseCouchPipeline):
 
     def process_item(self, item, spider):
         """Save the document to the DB."""
-        id = create_document(item)
-        logging.info(f"Created new document with id {id}")
+        doc = save_document(item, f"{spider.name} created")
+        logging.info(f"Created new document with id {doc.id}")
         return item

@@ -35,26 +35,29 @@ def find_ukri_doc(ukri_id):
         return None
 
 
-def update_document(doc, update_message):
-    """Update an existing document and record a message in the `coped_meta.updates` field."""
+def save_document(doc, update_message="document saved"):
+    """Save document and record a message in the `coped_meta.updates` field."""
 
-    updates = doc["coped_meta"]["item_updates"]
+    # Add a document id if it needs one (document creation)
+    try:
+        _id = doc.id
+    except AttributeError:
+        _id = str(uuid4()).upper()
+
+    # Get or create the updates field
+    updates = doc["coped_meta"].get("item_updates", {})
+    if not bool(updates):
+        doc["coped_meta"]["item_updates"] = updates
+
+    # Add message to the updates field
     now = datetime.now().utcnow().isoformat()
     update = {now: update_message}
     doc["coped_meta"]["item_updates"] = updates | update  # merge the new update
 
+    # Save to the database
     db = couch_client()
-    db[doc.id] = doc
-    return doc
-
-
-def create_document(doc):
-    """Create a new document in the CouchDB database."""
-
-    db = couch_client()
-    _id = str(uuid4()).upper()
     db[_id] = doc
-    return _id
+    return db[_id]  # return the saved CouchDB document
 
 
 def get_ukri_links_or_add(doc):
