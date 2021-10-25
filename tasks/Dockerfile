@@ -10,6 +10,7 @@ RUN rm /tmp/requirements.txt
 
 WORKDIR /tasks
 COPY . .
+RUN chmod +x /tasks/ukri_link_extractor/ukri_link_extractor.py
 
 # No entrypoint needed in production: launch when needed using Apache Airflow.
 # Run in development using a vscode remote container.
