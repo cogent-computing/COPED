@@ -8,6 +8,7 @@ Yields all matched projects, plus associated resources.
 import re
 import scrapy
 from scrapy import Request
+from shared.tables import coped_allowed_items
 
 
 class ProjectsSpider(scrapy.Spider):
@@ -18,6 +19,9 @@ class ProjectsSpider(scrapy.Spider):
 
     # Set API entry point.
     projects_api = "https://gtr.ukri.org/gtr/api/projects"
+
+    # Only save resources with types that we want CoPED to manage
+    allowed_items = coped_allowed_items()
 
     def start_requests(self):
 
@@ -81,12 +85,8 @@ class ProjectsSpider(scrapy.Spider):
                     href = link.get("href", "")
                     if href:
                         link_type = href.split("/")[-2]
-                        if link_type in [
-                            "projects",
-                            "persons",
-                            "funds",
-                            "organisations",
-                        ]:
+                        if link_type in self.allowed_items:
+                            # Only follow links to items we want CoPED to manage.
                             hrefs.append(href)
                         else:
                             continue
