@@ -2,6 +2,7 @@
 
 import os
 import couchdb
+from couchdb.http import PreconditionFailed
 import psycopg2
 from psycopg2 import sql
 
@@ -32,7 +33,7 @@ def couch_client():
     return db
 
 
-def psql_query(query_string, identifiers_dict=None, values=None, fetch_results=True):
+def psql_query(query_string, identifiers_dict=None, values=None):
     """Execute an SQL query string after substituting literals and values.
 
     The keys of identifiers should be the {variables} appearing in query_string
@@ -54,7 +55,7 @@ def psql_query(query_string, identifiers_dict=None, values=None, fetch_results=T
     Note that these substitutions are essential for DB security. Do not use
     Python's f-strings.
 
-    Results sets can be returned by setting 'fetch_results' to True (default).
+    Results sets can be returned by setting results_method to "fetchall", "yield", or None.
     """
 
     if identifiers_dict is not None:
@@ -73,5 +74,4 @@ def psql_query(query_string, identifiers_dict=None, values=None, fetch_results=T
     ) as conn:
         with conn.cursor() as psql:
             psql.execute(query, values)
-            if fetch_results:
-                return psql.fetchall()
+            return psql.fetchall()
