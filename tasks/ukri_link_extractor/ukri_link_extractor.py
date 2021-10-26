@@ -2,17 +2,13 @@
 
 """Extract internal relations implied by UKRI document links and save back as metadata."""
 
-import os
-import logging
 import click
 from deepmerge import always_merger
+from shared.utils import coped_logging as log
 from shared.databases import couch_client
 from shared.documents import find_ukri_doc
 from shared.documents import save_document
 from shared.documents import different_docs
-
-LOGLEVEL = os.environ.get("LOGLEVEL", "INFO").upper()
-logging.basicConfig(level=LOGLEVEL)
 
 
 def get_links_or_add(doc):
@@ -44,16 +40,18 @@ def main(update_existing, refresh):
 
         doc = db[doc_id]
         links = get_links_or_add(doc)
+
         if refresh:
-            logging.info(f"Removing existing links for document {doc_id}")
+            log.info(f"Removing existing links for document {doc_id}")
             links = {}
 
         item_source = doc["coped_meta"].get("item_source", "")
 
         if item_source != "ukri-projects-spider":
+            log.debug(f"Doc {doc_id} source is not 'ukri-projects-spider'. Skipping.")
             continue
 
-        logging.info(f"Extracting links for UKRI document {doc_id}")
+        log.info(f"Extracting links for UKRI document {doc_id}")
         raw_links = doc.get("raw_data").get("links", {}).get("link", [])
         extracted_links = {}
 
@@ -66,7 +64,7 @@ def main(update_existing, refresh):
                 # the href having a value. Forget the link in this situation.
                 # Similarly, if there is no "rel" attribute we don't know
                 # the type of the relation, so forget it in this case too.
-                logging.debug("No href or no rel attribute in link. Ignoring.")
+                log.warning("No href or no rel attribute in link. Ignoring.")
                 continue
 
             # Search for the document using its UKRI id.
@@ -77,15 +75,16 @@ def main(update_existing, refresh):
                 # The linked resource is not in CoPED's CouchDB whenever
                 # its connection to a project in CouchDB is too indirect.
                 # Forget the link in this situation.
-                logging.debug(f"Link to href {href} not found in DB. Ignoring.")
+                log.debug(f"Link to href {href} not found in DB. Ignoring.")
                 continue
 
             # Add the found document's id to the link keys for this doc.
-            # The value is in a list to allow merging.
+            # The value is in a list to allow multiple links to the same doc.
             _id = matching_doc.id
-            extracted_links[_id] = [{"rel": rel, "src": "urki_link_extractor"}]
-
-        # Now add the extracted links to existing links in this doc.
+            link_list = extracted_links.get(_id, list())
+            extracted_links[_id] = link_list + [
+                {"rel": rel, "src": "urki_link_extractor"}
+            ]
 
         # Once all the links are processed, check if anything changed.
         # If it did, save the document again.
@@ -93,9 +92,9 @@ def main(update_existing, refresh):
         if different_docs(merged_links, links) or update_existing:
             doc["coped_meta"]["item_links"] = merged_links
             save_document(doc, "ukri_link_extractor updated")
-            logging.info(f"Links for document {doc_id} extracted and saved.")
+            log.info(f"Links for document {doc_id} extracted and saved.")
         else:
-            logging.info(f"No new links found for document {doc_id}.")
+            log.info(f"No new links found for document {doc_id}.")
 
 
 if __name__ == "__main__":
