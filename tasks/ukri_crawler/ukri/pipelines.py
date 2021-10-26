@@ -14,18 +14,9 @@ from shared.utils import coped_logging as log
 from shared.documents import different_docs
 from shared.documents import find_ukri_doc
 from shared.documents import save_document
-from shared.databases import couch_client
 
 
-class BaseCouchPipeline:
-    """Base class for pipelines that need to access CouchDB"""
-
-    def open_spider(self, spider):
-        """Set up the DB connection when the spider starts."""
-        self.db = couch_client()
-
-
-class ProcessDuplicatesPipeline(BaseCouchPipeline):
+class ProcessDuplicatesPipeline:
     """A pipeline to process resources with an existing record in the DB."""
 
     def process_item(self, item, spider):
