@@ -2,7 +2,7 @@
 
 This directory contains CoPED data pipeline processing tasks.
 
-Each task is runnable manually using `docker compose run` or automatically using Apache Airflow. Tasks are generally long running and have dependencies, which can be managed in Airflow.
+Each task is runnable manually using `docker compose run` or automatically as part of a pipeline using Apache Airflow. Tasks are generally long running and cover the entire DB. They have been designed to be idempotent and self-contained with respect to their dependencies on other tasks: assuming the dependencies have been met, then running a task twice will not make any changes to existing data.
 
 > To run tasks manually use:
 > 
@@ -11,6 +11,13 @@ Each task is runnable manually using `docker compose run` or automatically using
 - The container working directory is where to run the task from. It always begins with `/tasks` followed by the relevant task directory, for example `/tasks/ukri_crawler` for the crawler.
 - The name of the service is the name in the `docker-compose.yaml` file, which also corresponds to the directory name of the task. For example, `ukri_crawler` for the crawler.
 - The task command is an executable script, either on the path of the container such as `scrapy` for the crawler, or in the referenced working directory, such as `./ukri_link_extractor.py` for the link extractor.
+
+## Task Pipelines
+
+Here are the dependencies between the tasks.
+
+- `ukri_crawler >> ukri_resources >> ukri_relations`
+- `urki_crawler >> ukri_link_extractor >> ukri_relations`
 
 ## Task Overviews
 
