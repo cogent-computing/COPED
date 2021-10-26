@@ -2,7 +2,6 @@
 
 import os
 import couchdb
-from couchdb.http import PreconditionFailed
 import psycopg2
 from psycopg2 import sql
 
@@ -54,8 +53,6 @@ def psql_query(query_string, identifiers_dict=None, values=None):
 
     Note that these substitutions are essential for DB security. Do not use
     Python's f-strings.
-
-    Results sets can be returned by setting results_method to "fetchall", "yield", or None.
     """
 
     if identifiers_dict is not None:
