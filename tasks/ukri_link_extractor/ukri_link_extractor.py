@@ -5,7 +5,7 @@
 import click
 from deepmerge import always_merger
 from shared.utils import coped_logging as log
-from shared.databases import couch_client
+from shared.databases import Couch
 from shared.documents import find_ukri_doc
 from shared.documents import save_document
 from shared.documents import different_docs
@@ -34,10 +34,11 @@ def get_links_or_add(doc):
 )
 def main(update_existing, refresh):
 
-    db = couch_client()
+    couch = Couch()
+    db = couch.db
 
-    for doc_id in db:
-
+    for coped_doc in couch.coped_docs:
+        doc_id = coped_doc.id
         doc = db[doc_id]
         links = get_links_or_add(doc)
 

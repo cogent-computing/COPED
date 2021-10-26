@@ -6,14 +6,16 @@ Don't forget to add the pipelines to ITEM_PIPELINES in `settings.py`.
 See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 """
 
+import logging
 from datetime import datetime
 
 from scrapy.exceptions import DropItem
 
-from shared.utils import coped_logging as log
 from shared.documents import different_docs
 from shared.documents import find_ukri_doc
 from shared.documents import save_document
+
+log = logging.getLogger("ukriCrawlerLogger")
 
 
 class ProcessDuplicatesPipeline:
@@ -67,7 +69,7 @@ class CreateDocumentPipeline:
         return doc
 
 
-class SaveToCouchPipeline(BaseCouchPipeline):
+class SaveToCouchPipeline:
     """A pipeline to save crawled data to the CouchDB service."""
 
     def process_item(self, item, spider):

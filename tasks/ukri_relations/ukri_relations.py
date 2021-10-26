@@ -8,7 +8,7 @@ This script builds or extends the "coped_relation" table in PSQL.
 import click
 from couchdb.http import ResourceNotFound
 from shared.utils import coped_logging as log
-from shared.databases import couch_client
+from shared.databases import Couch
 from shared.tables import coped_allowed_items
 from shared.tables import coped_allowed_relations
 from shared.tables import coped_upsert_relation
@@ -28,13 +28,13 @@ def main():
     allowed_relations = coped_allowed_relations()
 
     count = 0
-    couch = couch_client()
+    db = Couch().db
 
     # Iterate through UUIDs in the PostgreSQL coped_resource table.
     # Look them up in CouchDB and extract their relations.
     for doc1_id in coped_resources():
         try:
-            doc1 = couch[doc1_id]
+            doc1 = db[doc1_id]
         except ResourceNotFound:
             log.warning(f"Item {doc1_id} in PSQL not found in CouchDB. Skipping.")
             continue

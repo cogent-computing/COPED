@@ -2,9 +2,8 @@
 
 from uuid import uuid4
 from datetime import datetime
-from functools import cache
 from deepdiff import DeepDiff
-from shared.databases import couch_client
+from shared.databases import Couch
 from shared.utils import coped_logging as log
 
 
@@ -15,14 +14,12 @@ def different_docs(doc_1, doc_2):
     return bool(diff)
 
 
-@cache
 def find_ukri_doc(ukri_id):
     """Search CouchDB for the given UKRI id."""
-    db = couch_client()
+    db = Couch().db
 
-    # TODO: create an index or view on `coped_meta.item_id` for speed.
     query = {
-        "selector": {"coped_meta": {"item_id": ukri_id}},
+        "selector": {"coped_meta.item_id": ukri_id},
         "fields": ["_id"],
     }
 
@@ -57,6 +54,6 @@ def save_document(doc, update_message="document saved"):
     doc["coped_meta"]["item_updates"] = updates | update  # merge the new update
 
     # Save to the database
-    db = couch_client()
+    db = Couch().db
     db[_id] = doc
     return db[_id]  # return the saved CouchDB document

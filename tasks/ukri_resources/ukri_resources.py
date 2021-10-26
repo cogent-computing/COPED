@@ -5,7 +5,7 @@
 import os
 import click
 from shared.utils import coped_logging as log
-from shared.databases import couch_client
+from shared.databases import Couch
 from shared.tables import coped_allowed_items
 from shared.tables import coped_insert_resource
 
@@ -14,14 +14,16 @@ from shared.tables import coped_insert_resource
 def main():
 
     log.info("Adding resources to PostgreSQL from CouchDB.")
-    couch = couch_client()
+    couch = Couch()
+    db = couch.db
 
     # Get the allowed item types from the DB.
     # This allows filtering on known item types.
     allowed_items = coped_allowed_items()
 
-    for doc_id in couch:
-        doc = couch[doc_id]
+    for coped_doc in couch.coped_docs:
+        doc_id = coped_doc.id
+        doc = db[doc_id]
         item_type = doc["coped_meta"].get("item_type", None)
 
         if item_type not in allowed_items:

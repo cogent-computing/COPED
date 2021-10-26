@@ -22,14 +22,38 @@ POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD", "password")
 POSTGRES_DB = os.environ.get("POSTGRES_DB", "coped_development")
 
 
-def couch_client():
-    """Create or connect to a CouchDB database using global environment settings."""
-    server = couchdb.Server(COUCHDB_URI)
-    if COUCHDB_DB in server:
-        db = server[COUCHDB_DB]
-    else:
-        db = server.create(COUCHDB_DB)
-    return db
+class Couch:
+    def __init__(self):
+        """Find or create the CoPED CouchDB database on the server."""
+
+        server = couchdb.Server(COUCHDB_URI)
+        if COUCHDB_DB in server:
+            db = server[COUCHDB_DB]
+        else:
+            db = server.create(COUCHDB_DB)
+            # Create a view to filter out all but the CoPED managed documents.
+            db["_design/coped"] = {
+                "views": {
+                    "all_docs": {
+                        "map": "function (doc) { if ('coped_meta' in doc) { emit(doc._id, 1); } }"
+                    },
+                },
+                "language": "javascript",
+            }
+            # Also create an index on the 'coped_meta.item_id' field for fast queries.
+            idx = db.index()
+            ddoc, name = None, "coped-meta-item-id-idx"
+            idx[ddoc, name] = ["coped_meta.item_id"]
+
+        self.db = db
+
+    @property
+    def coped_docs(self):
+        """Provide direct access to just the CoPED-managed documents.
+
+        The returned view is iterable."""
+
+        return self.db.view("coped/all_docs")
 
 
 def psql_query(query_string, identifiers_dict=None, values=None):
