@@ -1,6 +1,7 @@
 """Shared code for working with CoPED-managed documents inside CouchDB."""
 
 from uuid import uuid4
+from functools import cache
 from datetime import datetime
 from deepdiff import DeepDiff
 from shared.databases import Couch
@@ -16,22 +17,17 @@ def different_docs(doc_1, doc_2):
 
 def find_ukri_doc(ukri_id):
     """Search CouchDB for the given UKRI id."""
-    db = Couch().db
 
+    db = Couch().db
     query = {
         "selector": {"coped_meta.item_id": ukri_id},
         "fields": ["_id"],
     }
-
     result = list(db.find(query))
-    item_found = bool(len(result))
 
-    if item_found:
-        # Return the full document to the caller.
-        _id = result[0]["_id"]
-        return db[_id]
-    else:
-        return None
+    if bool(len(result)):
+        found_id = result[0]["_id"]
+        return db[found_id]
 
 
 def save_document(doc, update_message="document saved"):
