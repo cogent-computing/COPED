@@ -16,34 +16,22 @@ def different_docs(doc_1, doc_2):
 
 
 @cache
-def get_all_ukri_ids():
-    """Find all ids of UKRI documents in the DB.
-
-    Use this rather than views to speed up checking UKRI ids.
-    Initial call takes similar time to a view. Subsequent calls use the cache."""
-    db = couch_client()
-    ids = []
-    for _id in db:
-        doc = db[_id]
-        if doc.get("coped_meta", {}).get("item_source", "") != "ukri-projects-spider":
-            continue
-        else:
-            ukri_id = doc.get("coped_meta", {}).get("item_id", None)
-            if ukri_id is not None:
-                ids.append((ukri_id, _id))
-    ukri_ids, coped_ids = zip(*ids)
-    return ukri_ids, coped_ids
-
-
-@cache
 def find_ukri_doc(ukri_id):
     """Search CouchDB for the given UKRI id."""
     db = couch_client()
-    ukri_ids, coped_ids = get_all_ukri_ids()
 
-    if ukri_id in ukri_ids:
+    # TODO: create an index or view on `coped_meta.item_id` for speed.
+    query = {
+        "selector": {"coped_meta": {"item_id": ukri_id}},
+        "fields": ["_id"],
+    }
+
+    result = list(db.find(query))
+    item_found = bool(len(result))
+
+    if item_found:
         # Return the full document to the caller.
-        _id = coped_ids[ukri_ids.index(ukri_id)]
+        _id = result[0]["_id"]
         return db[_id]
     else:
         return None
