@@ -21,7 +21,7 @@ class ResourceType(models.Model):
         max_length=128,
         blank=False,
         help_text="What is the 'item_type' in the CouchDB document meta data?",
-        unique=True
+        unique=True,
     )
 
     class Meta:
@@ -128,13 +128,23 @@ class Relation(models.Model):
 
     class Meta:
         db_table = "coped_relation"
-        unique_together = ["resource_1", "resource_2", "relation_type"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["resource_1", "resource_2", "relation_type"],
+                name="unique_resources_per_relation",
+            )
+        ]
         indexes = [
             models.Index(
-                fields=["resource_1", "resource_2"], name="forward_relation_idx"
+                fields=["resource_1", "resource_2"],
+                name="forward_relation_idx",
             ),
             models.Index(
-                fields=["resource_2", "resource_1"], name="backward_relation_idx"
+                fields=["resource_2", "resource_1"],
+                name="backward_relation_idx",
             ),
-            models.Index(fields=["relation_type"], name="relation_type_idx"),
+            models.Index(
+                fields=["relation_type"],
+                name="relation_type_idx",
+            ),
         ]
