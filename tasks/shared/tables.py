@@ -8,7 +8,7 @@ def coped_allowed_items():
     """Get a list of item types known to CoPED."""
     select_item_type = "SELECT item_type FROM coped_resource_type;"
     allowed_items = [row[0] for row in psql_query(select_item_type)]
-    log.info(f"Allowed items: {allowed_items}")
+    log.debug(f"Allowed items: {allowed_items}")
     return allowed_items
 
 
@@ -16,7 +16,7 @@ def coped_allowed_relations():
     """Get a list of relation types known to CoPED."""
     select_rel_link = "SELECT rel_link FROM coped_relation_type;"
     allowed_relations = [row[0] for row in psql_query(select_rel_link)]
-    log.info(f"Allowed relations: {allowed_relations}")
+    log.debug(f"Allowed relations: {allowed_relations}")
     return allowed_relations
 
 
