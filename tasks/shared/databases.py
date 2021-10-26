@@ -2,7 +2,6 @@
 
 import os
 import couchdb
-from couchdb.http import PreconditionFailed
 import psycopg2
 from psycopg2 import sql
 
@@ -26,13 +25,10 @@ POSTGRES_DB = os.environ.get("POSTGRES_DB", "coped_development")
 def couch_client():
     """Create or connect to a CouchDB database using global environment settings."""
     server = couchdb.Server(COUCHDB_URI)
-    try:
-        # Create the DB if we need to.
-        db = server.create(COUCHDB_DB)
-    except PreconditionFailed:
-        # If the DB exists then use it.
+    if COUCHDB_DB in server:
         db = server[COUCHDB_DB]
-
+    else:
+        db = server.create(COUCHDB_DB)
     return db
 
 
