@@ -183,6 +183,8 @@ services:
         condition: service_healthy
       couch:
         condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
 
 
 volumes:
