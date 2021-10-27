@@ -31,13 +31,12 @@ class Couch:
 
         self.db = db
 
-    @property
-    def coped_docs(self):
+    def coped_docs(self, *args, view_name="coped/all_docs", **kwargs):
         """Provide direct access to just the CoPED-managed documents.
 
         The returned view is iterable."""
 
-        return self.db.view("coped/all_docs")
+        return self.db.view(view_name, *args, **kwargs)
 
 
 def psql_query(query_string, identifiers_dict=None, values=None):

@@ -20,7 +20,7 @@ def main():
     # This allows filtering on known item types.
     allowed_items = coped_allowed_items()
 
-    for coped_doc in couch.coped_docs:
+    for coped_doc in couch.coped_docs():
         doc_id = coped_doc.id
         doc = db[doc_id]
         item_type = doc["coped_meta"].get("item_type", None)

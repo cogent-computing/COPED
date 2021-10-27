@@ -15,6 +15,13 @@ def different_docs(doc_1, doc_2):
     return bool(diff)
 
 
+def different_lists(list1, list2):
+    """Given two lists, are they different?"""
+    diff = DeepDiff(list(list1), list(list2), ignore_order=True)
+    log.debug(f"LIST DIFF = {diff}")
+    return bool(diff)
+
+
 def find_ukri_docs(ukri_ids):
     """Search CouchDB for the given list of UKRI ids."""
 
@@ -45,17 +52,16 @@ def save_document(doc, update_message="document saved"):
     except AttributeError:
         _id = str(uuid4()).upper()
 
-    # Get or create the updates field
-    updates = doc["coped_meta"].get("item_updates", {})
-    if not bool(updates):
-        doc["coped_meta"]["item_updates"] = updates
+    # Get the updates field
+    updates = doc["coped_meta"].get("item_updates", [])
 
     # Add message to the updates field
     now = datetime.now().utcnow().isoformat()
-    update = {now: update_message}
-    doc["coped_meta"]["item_updates"] = updates | update  # merge the new update
+    update = {"time": now, "message": update_message}
+    updates.append(update)
+    doc["coped_meta"]["item_updates"] = updates
 
-    # Save to the database
+    # Save changes to the database
     db = Couch().db
     db[_id] = doc
     return db[_id]  # return the saved CouchDB document

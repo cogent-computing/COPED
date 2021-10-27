@@ -36,41 +36,37 @@ def main():
         try:
             doc1 = db[doc1_id]
         except ResourceNotFound:
-            log.warning(f"Item {doc1_id} in PSQL not found in CouchDB. Skipping.")
+            log.error(f"Item {doc1_id} in PSQL not found in CouchDB. Skipping.")
             continue
 
-        item_type = doc1["coped_meta"].get("item_type", None)
+        item_type = doc1["coped_meta"].get("item_type")
 
         # Filter unknown resource types.
         if item_type not in allowed_items:
             log.info(f"Item type {item_type} not allowed for doc {doc1_id}. Skipping.")
             continue
 
-        item_links = doc1["coped_meta"].get("item_links", {})
+        item_links = doc1["coped_meta"].get("item_links", [])
 
-        for doc2_id in item_links:
+        for doc2 in item_links:
+            doc2_id, doc2_rel = doc2["_id"], doc2["rel"]
             # Ensure related entity is available in PSQL.
             if not coped_resource_exists(doc2_id):
                 log.warning(f"Document {doc2_id} not in resource table. Skipping.")
                 continue
 
-            # Now extract the relation and insert it into PSQL.
-            for relation in item_links[doc2_id]:
-                rel = relation.get("rel", "")
-
-                # Filter unknown relation types.
-                if rel not in allowed_relations:
-                    log.warning(
-                        f"Relation {rel} from {doc1_id} to {doc2_id} not allowed. Skipping."
-                    )
-                    continue
-
-                # Everything checked out, so add the relation to the table in PSQL.
-                coped_upsert_relation(rel, doc1_id, doc2_id)
-                log.debug(
-                    f"Upserted relation ({rel}, {doc1_id}, {doc2_id}) to PostgreSQL"
+            if doc2_rel not in allowed_relations:
+                log.warning(
+                    f"Relation {doc2_rel} from {doc1_id} to {doc2_id} not allowed. Skipping."
                 )
-                count += 1
+                continue
+
+            # Everything checked out, so add the relation to the table in PSQL.
+            coped_upsert_relation(doc2_rel, doc1_id, doc2_id)
+            log.debug(
+                f"Upserted relation ({doc2_rel}, {doc1_id}, {doc2_id}) to PostgreSQL"
+            )
+            count += 1
 
     log.info(f"Processed {count} document relations.")
 
