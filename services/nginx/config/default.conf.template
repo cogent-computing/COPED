@@ -2,9 +2,9 @@ upstream app {
     server web:8000;
 }
 
-upstream dashboards {
-    server voila:8866;
-}
+# upstream dashboards {
+#     server voila:8866;
+# }
 
 server {
 
@@ -17,21 +17,21 @@ server {
         proxy_redirect off;
     }
 
-    location ${DASHBOARDS_ROOT} {
-
-        proxy_pass http://dashboards;
-
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_read_timeout 86400;
-        proxy_redirect off;
-
-    }
+#    location ${DASHBOARDS_ROOT} {
+#
+#        proxy_pass http://dashboards;
+#
+#        proxy_set_header Host $host;
+#        proxy_set_header X-Real-IP $remote_addr;
+#        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#
+#        proxy_http_version 1.1;
+#        proxy_set_header Upgrade $http_upgrade;
+#        proxy_set_header Connection "upgrade";
+#        proxy_read_timeout 86400;
+#        proxy_redirect off;
+#
+#    }
 
     location /static/ {
         alias ${STATIC_LOCATION};
