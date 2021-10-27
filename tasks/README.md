@@ -16,8 +16,8 @@ Each task is runnable manually using `docker compose run` or automatically as pa
 
 Here are the dependencies between the tasks.
 
-- `ukri_crawler >> ukri_resources >> ukri_relations`
-- `urki_crawler >> ukri_link_extractor >> ukri_relations`
+- `ukri_crawler >> coped_resources >> coped_relations`
+- `urki_crawler >> ukri_link_extractor >> coped_relations`
 
 ## Task Overviews
 
@@ -53,43 +53,24 @@ DESCRIPTION
 Parse the UKRI document raw data to extract links to other entities in the CoPED database. Discovered links are added to the "coped_meta.links.ukri" field. 
 ```
 
-### Populate UKRI Resources
+### Populate CoPED Resources
 
 ```
-Usage: populate-ukri-resources
-
-ENVIRONMENT
-
-$COUCHDB_HOST [localhost]                   Hostname for the CouchDB server. 
-$COUCHDB_PORT [5984]                        Port for the CouchDB server.
-$COUCHDB_USER [coped]                       Username for DB operations.
-$COUCHDB_PASSWORD [password]                Password for the user above.
-$COUCHDB_DB [ukri-dev-data]                 DB name in CouchDB to store the data.
-$POSTGRES_HOST [localhost]                  Hostname for the PostgreSQL server. 
-$POSTGRES_PORT [5432]                       Port for the PostgreSQL server.
-$POSTGRES_USER [coped]                      Username for DB operations.
-$POSTGRES_PASSWORD [password]               Password for the user above.
-$POSTGRES_DB [coped-dev-db]                 PostgreSQL database to use.
+Usage: ./coped_resources.py
 
 DESCRIPTION
 
-Record UKRI resources in PostgreSQL. The given CouchDB database is queried for all documents. Their `_id` (UUIDv4) is added to the PostgreSQL `coped_resource` table with a foreign key to the `coped_resource_type` table.
+Record CoPED CouchDB resources in PostgreSQL. The CouchDB database is queried for all CoPED-managed documents. Their `_id` (UUIDv4) is added to the PostgreSQL `coped_resource` table with a foreign key to the `coped_resource_type` table.
 ``` 
 
-### Populate UKRI Relations
+### Populate CoPED Relations
 
 ```
-Usage: populate-ukri-relations [OPTIONS]
-
-OPTIONS
-
---couch_db TEXT     Name of CouchDB database to read. [required]
---sql_db TEXT       Name of PostgreSQL database to update.  [required]
---sql_table TEXT    Name of PostgreSQL table to update.  [required]
+Usage: ./coped_relations.py [OPTIONS]
 
 DESCRIPTION
 
-Extract relations between UKRI resources in the given CouchDB database. The discovered relations are inserted in the PostgreSQL table.
+Extract relations between resources in the given CouchDB database. The discovered relations are inserted in the PostgreSQL table. To avoid missing resources, this task only considers resources already recorded in PSQL. Therefore this task should be run _after_ the CoPED resource task above.
 ```
 
 ### Crawl UKWA Website

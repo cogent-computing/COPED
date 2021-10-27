@@ -18,7 +18,7 @@ from shared.tables import coped_resource_exists
 
 @click.command()
 def main():
-    """Parse CouchDB documents for relations and upsert them to PSQL."""
+    """Parse PSQL resources, find their relations in CouchDB, and upsert these to PSQL."""
 
     log.info("Adding relations to PostgreSQL from CouchDB.")
 
