@@ -1,36 +1,20 @@
 """Shared code for accessing databases."""
 
-import os
 import couchdb
 import psycopg2
+import shared.settings as settings
 from psycopg2 import sql
-
-
-# Database settings for CouchDB
-COUCHDB_HOST = os.environ.get("COUCHDB_HOST", "localhost")
-COUCHDB_PORT = os.environ.get("COUCHDB_PORT", 5984)
-COUCHDB_USER = os.environ.get("COUCHDB_USER", "coped")
-COUCHDB_PASSWORD = os.environ.get("COUCHDB_PASSWORD", "password")
-COUCHDB_DB = os.environ.get("COUCHDB_DB", "ukri-dev-data")
-COUCHDB_URI = f"http://{COUCHDB_USER}:{COUCHDB_PASSWORD}@{COUCHDB_HOST}:{COUCHDB_PORT}/"
-
-# Database settings for PostgreSQL
-POSTGRES_HOST = os.environ.get("POSTGRES_HOST", "localhost")
-POSTGRES_PORT = os.environ.get("POSTGRES_PORT", 5432)
-POSTGRES_USER = os.environ.get("POSTGRES_USER", "coped")
-POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD", "password")
-POSTGRES_DB = os.environ.get("POSTGRES_DB", "coped_development")
 
 
 class Couch:
     def __init__(self):
         """Find or create the CoPED CouchDB database on the server."""
 
-        server = couchdb.Server(COUCHDB_URI)
-        if COUCHDB_DB in server:
-            db = server[COUCHDB_DB]
+        server = couchdb.Server(settings.COUCHDB_URI)
+        if settings.COUCHDB_DB in server:
+            db = server[settings.COUCHDB_DB]
         else:
-            db = server.create(COUCHDB_DB)
+            db = server.create(settings.COUCHDB_DB)
             # Create a view to filter out all but the CoPED managed documents.
             db["_design/coped"] = {
                 "views": {
@@ -86,13 +70,7 @@ def psql_query(query_string, identifiers_dict=None, values=None):
 
     query = sql.SQL(query_string).format(**identifiers)
 
-    with psycopg2.connect(
-        dbname=POSTGRES_DB,
-        user=POSTGRES_USER,
-        password=POSTGRES_PASSWORD,
-        host=POSTGRES_HOST,
-        port=POSTGRES_PORT,
-    ) as conn:
+    with psycopg2.connect(settings.POSTGRES_DSN) as conn:
         with conn.cursor() as psql:
             psql.execute(query, values)
             return psql.fetchall()
