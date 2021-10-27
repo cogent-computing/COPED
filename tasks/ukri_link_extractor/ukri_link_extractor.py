@@ -6,7 +6,7 @@ import click
 from deepmerge import always_merger
 from shared.utils import coped_logging as log
 from shared.databases import Couch
-from shared.documents import find_ukri_doc
+from shared.documents import find_ukri_docs
 from shared.documents import save_document
 from shared.documents import different_docs
 
@@ -40,11 +40,11 @@ def main(update_existing, refresh):
     for coped_doc in couch.coped_docs:
         doc_id = coped_doc.id
         doc = db[doc_id]
-        links = get_links_or_add(doc)
+        existing_links = get_links_or_add(doc)
 
         if refresh:
             log.info(f"Removing existing links for document {doc_id}")
-            links = {}
+            existing_links = {}
 
         item_source = doc["coped_meta"].get("item_source", "")
 
@@ -54,8 +54,8 @@ def main(update_existing, refresh):
 
         log.info(f"Extracting links for UKRI document {doc_id}")
         raw_links = doc.get("raw_data").get("links", {}).get("link", [])
-        extracted_links = {}
 
+        ids_rels = {}
         for link in raw_links:
             href = link.get("href", "")
             rel = link.get("rel", "")
@@ -68,29 +68,31 @@ def main(update_existing, refresh):
                 log.warning("No href or no rel attribute in link. Ignoring.")
                 continue
 
-            # Search for the document using its UKRI id.
+            # Pull out the UKRI id of the linked resource
+            # and add the relation type to the list.
             ukri_id = href.split("/")[-1]
-            matching_doc = find_ukri_doc(ukri_id)
-
-            if matching_doc is None:
-                # The linked resource is not in CoPED's CouchDB whenever
-                # its connection to a project in CouchDB is too indirect.
-                # Forget the link in this situation.
-                log.debug(f"Link to href {href} not found in DB. Ignoring.")
-                continue
-
-            # Add the found document's id to the link keys for this doc.
-            # The value is in a list to allow multiple links to the same doc.
-            _id = matching_doc.id
-            link_list = extracted_links.get(_id, list())
-            extracted_links[_id] = link_list + [
-                {"rel": rel, "src": "urki_link_extractor"}
+            ids_rels[ukri_id] = ids_rels.get(ukri_id, []) + [
+                {"rel": rel, "src": "ukri_link_extractor"}
             ]
+
+        # Now look for all of the linked UKRI ids in the DB.
+        ukri_ids = list(ids_rels.keys())
+        matching_docs = find_ukri_docs(ukri_ids)
+
+        if matching_docs is None:
+            log.debug(f"No link targets for doc {doc_id} found in DB. Ignoring.")
+            continue
+
+        # Add the found documents ids to the link keys for this doc.
+        # Pull in the list of rel values and sources from the ids_rels dict, as values.
+        extracted_links = {
+            doc.id: ids_rels[doc["coped_meta"]["item_id"]] for doc in matching_docs
+        }
 
         # Once all the links are processed, check if anything changed.
         # If it did, save the document again.
-        merged_links = always_merger.merge(extracted_links, links)
-        if different_docs(merged_links, links) or update_existing:
+        merged_links = always_merger.merge(extracted_links, existing_links)
+        if different_docs(merged_links, existing_links) or update_existing:
             doc["coped_meta"]["item_links"] = merged_links
             save_document(doc, "ukri_link_extractor updated")
             log.info(f"Links for document {doc_id} extracted and saved.")

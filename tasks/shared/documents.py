@@ -15,19 +15,25 @@ def different_docs(doc_1, doc_2):
     return bool(diff)
 
 
-def find_ukri_doc(ukri_id):
-    """Search CouchDB for the given UKRI id."""
+def find_ukri_docs(ukri_ids):
+    """Search CouchDB for the given list of UKRI ids."""
+
+    return_one = False
+    if type(ukri_ids) == str:
+        # A single id should be included in a list.
+        ukri_ids = [ukri_ids]
+        # But we can still return the found doc on its own.
+        return_one = True
 
     db = Couch().db
-    query = {
-        "selector": {"coped_meta.item_id": ukri_id},
-        "fields": ["_id"],
-    }
-    result = list(db.find(query))
+    query = {"selector": {"coped_meta.item_id": {"$in": ukri_ids}}}
+    results = list(db.find(query))
 
-    if bool(len(result)):
-        found_id = result[0]["_id"]
-        return db[found_id]
+    if len(results):
+        if return_one:
+            return results[0]
+        else:
+            return results
 
 
 def save_document(doc, update_message="document saved"):

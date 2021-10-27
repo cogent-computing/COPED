@@ -12,7 +12,7 @@ from datetime import datetime
 from scrapy.exceptions import DropItem
 
 from shared.documents import different_docs
-from shared.documents import find_ukri_doc
+from shared.documents import find_ukri_docs
 from shared.documents import save_document
 
 log = logging.getLogger("ukriCrawlerLogger")
@@ -23,7 +23,7 @@ class ProcessDuplicatesPipeline:
 
     def process_item(self, item, spider):
 
-        doc = find_ukri_doc(item["id"])
+        doc = find_ukri_docs(item["id"])
 
         # If an item is found, then check for changes.
         # Drop if no changes. Update if changes detected, then drop.
