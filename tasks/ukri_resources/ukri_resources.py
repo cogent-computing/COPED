@@ -2,7 +2,6 @@
 
 """Transfer IDs of resources from CouchDB to PostgreSQL"""
 
-import os
 import click
 from shared.utils import coped_logging as log
 from shared.databases import Couch
