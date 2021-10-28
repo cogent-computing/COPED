@@ -14,10 +14,16 @@ from shared.tables import coped_allowed_relations
 from shared.tables import coped_upsert_relation
 from shared.tables import coped_resources
 from shared.tables import coped_resource_exists
+from shared.tables import coped_delete_all
 
 
 @click.command()
-def main():
+@click.option(
+    "--refresh/--no_refresh",
+    default=False,
+    help="WARNING destructive: removes all existing links before adding new ones.",
+)
+def main(refresh):
     """Parse PSQL resources, find their relations in CouchDB, and upsert these to PSQL."""
 
     log.info("Adding relations to PostgreSQL from CouchDB.")
@@ -26,6 +32,11 @@ def main():
     # This ensures we can pre-filter to avoid unknown entities/relations.
     allowed_items = coped_allowed_items()
     allowed_relations = coped_allowed_relations()
+
+    if refresh:
+        # Empty the resource table in PSQL first.
+        log.warning("Deleting all existing relations from PostgreSQL.")
+        coped_delete_all("coped_relation")
 
     count = 0
     db = Couch().db
