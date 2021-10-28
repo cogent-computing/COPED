@@ -35,6 +35,8 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+    volumes:
+      - /var/tmp/coped/elasticsearch/data:/usr/share/elasticsearch/data
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
 
