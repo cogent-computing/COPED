@@ -2,8 +2,10 @@
 
 import couchdb
 import psycopg2
-import shared.settings as settings
 from psycopg2 import sql
+from psycopg2 import ProgrammingError
+import shared.settings as settings
+from shared.utils import coped_logging as log
 
 
 class Couch:
@@ -72,4 +74,8 @@ def psql_query(query_string, identifiers_dict=None, values=None):
     with psycopg2.connect(settings.POSTGRES_DSN) as conn:
         with conn.cursor() as psql:
             psql.execute(query, values)
-            return psql.fetchall()
+            try:
+                return psql.fetchall()
+            except ProgrammingError as exc:
+                log.debug(f"No PSQL results to fetch: {exc}")
+                return None
