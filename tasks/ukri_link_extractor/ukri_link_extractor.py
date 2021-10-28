@@ -33,6 +33,7 @@ def get_links_or_add(doc):
     help="Remove all existing links before adding new ones.",
 )
 def main(update_existing, refresh):
+    """Extract internal relations in UKRI documents and save to document meta-data."""
 
     couch = Couch()
     db = couch.db
