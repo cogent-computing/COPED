@@ -33,6 +33,14 @@ def coped_resources():
     yield from (row[0].upper() for row in psql_query(select_resources))
 
 
+def coped_delete_all(table_name):
+    """Remove all existing data from the given table."""
+    identifiers_dict = {"table_to_empty": table_name}
+    delete_rows = "DELETE FROM {table_to_empty};"
+    psql_query(delete_rows, identifiers_dict=identifiers_dict)
+    log.warning(f"Deleted all rows from table {table_name}.")
+
+
 def coped_insert_resource(doc_id, item_type):
     log.info(f"adding resource ({doc_id}, {item_type}) to PostgreSQL")
     insert = """
@@ -40,7 +48,7 @@ def coped_insert_resource(doc_id, item_type):
         ON CONFLICT DO NOTHING
         RETURNING document_id;
         """
-    result = psql_query(insert, values=(doc_id, item_type))
+    psql_query(insert, values=(doc_id, item_type))
 
 
 def coped_upsert_relation(
