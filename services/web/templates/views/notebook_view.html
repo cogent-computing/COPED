@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Community Analysis notebooks {% endblock title %}
+
+{% block nav_vis%}active{% endblock %}
+
+{% block content %}
+<!-- Masthead-->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Community Analysis notebooks</li>
+    </ol>
+</nav>
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        {% include "views/side_bar.html" %}
+        <div class="col">
+            <nav class="navbar navbar-light bg-light">
+                <button class="btn btn-outline-success shadow-none" onclick="toggle_nav_bar()">Toggle Navigation</button>
+            </nav>
+            <div class="card mb-3 col-xl-12">
+                <div class="card-body">
+                    <!-- Content Goes here -->
+<!--                    Content-->
+<!--                     <iframe class="w-100" style="height:1200px;border:0px"-->
+<!--                             src="http://10.8.0.4:7500/dashboard/voila/render/bqplot_vuetify_example.ipynb" title="Jupyter Notebook"></iframe>-->
+
+                            <div class="text-left">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    {% for note in notebooks %}
+                                    <li class="nav-item">
+                                        <a href="#{{note.count_id}}" class="nav-link" data-toggle="tab">{{note.name}}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="tab-content">
+                                    {% for note in notebooks %}
+                                    <div class="tab-pane fade" id="{{note.count_id}}">
+                                        <h4 class="mt-2">{{note.name}}</h4>
+                                        <iframe class="w-100" style="height:1200px;border:0px"
+                                            src="{{note.link}}" title="Jupyter Notebook"></iframe>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                    <!-- End Content Here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+$(document).ready(function(){
+    $("#myTab li:eq(0) a").tab('show');
+});
+
+</script>
+
+{% endblock content %}

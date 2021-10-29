@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} About {% endblock title %}
+
+{% block content %}
+<!-- Masthead-->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">About</li>
+    </ol>
+</nav>
+<div class="row gutters-sm pl-5 pr-5 pt-2 bg-div text-center">
+    <div class="col-md-6 mx-auto">
+        <h2> About CoPED - Catalogue of Projects on Energy Data </h2>
+        <div class="text-left">
+            <h4> Problem Statement </h4>
+
+            <p>Currently it is not possible for energy data users and related stakeholders to know and make sense of the
+                multitude of data and digitalisation related activity in the energy sector. This inevitably leads missed
+                opportunities, effort duplication and counter-productive time expenditure to navigate a complex projects
+                and data landscape. </p>
+            <p> Efforts to gather and organise information about energy data and specific activities on digitalization
+                have
+                lacked coordination and have been incomplete. Information on actors in the landscape, project funders,
+                timelines, data generated is often difficult to locate. Furthermore, stakeholders have no effective way
+                to maintain and update information they might have gathered or create bespoke views of the landscape
+                that
+                are relevant to their needs. The value of any such “landscape information” rapidly diminishes if not
+                accurate or user friendly.</p>
+            <p> A tool that captures investment, outputs, outcomes and key players and funders for energy projects that
+                address energy digitization is instrumental to the decarbonization efforts. </p>
+
+            <h4> Project Scope </h4>
+            <p> COPE, or the Catalogue of Projects on Energy project aims to unify various information stores and
+                existing
+                portals for energy projects under a single extendible umbrella that has two key roles: </p>
+            <p> 1. Update, curate and correct information pertaining to the existing energy project landscape
+                through manual and automated processes.</p>
+            <p> 2. Offer a wide range of visual aids, query tools and metrics that enable users to synthesize
+                information
+                across the energy projects landscape at a given time.</p>
+
+            <p> COPE needs to provide diverse insights to various user groups while being able to continuously expand
+                its
+                data capture sources and the analytics and visualisations it can perform. As a platform, COPE needs to
+                be
+                able to evolve. As COPE reaches maturity and wide adoption, the product needs to allow individuals and
+                institutions to build extensions and add features to the product rather than just upload or curate
+                dat. </p>
+
+            <h4> References </h4>
+            <p> The data management strategy and governance needs to adhere to the UK Government guidelines on Smart
+                Data
+                – Link. This ensures that the project adheres to the same guides as other catalogues in the area.</p>
+
+            <p> The metadata standards used need to provide interface or connectivity extension that also adhere to the
+                UK Governments guidelines on metadata which proposes the use of Dublin Core and DCAT like Resource
+                Description
+                Framework (RDF) standards. – Link. Adhering to existing metadata standards, or at least providing API’s
+                for
+                them allows the platform to be connected into a wider catalogue of data-sets.</p>
+
+            <p> A starting point for the metadata backbone of the catalogue could be the use of existing research such
+                as the review done in the SEMANCO project. A simple example can be seen here. Using a standard that is
+                based
+                on years of research can speed up development and ensure integration in later phases.</p>
+            <p> The strategic intelligence graph from the World Economic Forum (WEF) is a good starting point for the
+                visualisation. It shows how powerful the right visualisation can be in disseminating information, and
+                the
+                links between resources. </p>
+
+            <p> The PRD Document Template is based on Geospatial System Requirements
+                Specification and Project Hunt Templates.</p>
+
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

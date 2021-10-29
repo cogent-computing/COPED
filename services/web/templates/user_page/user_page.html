@@ -1,0 +1,388 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}User Page - {{ first_name }} {{ last_name }}{% endblock title %}
+
+{% block nav_ppl%}active{% endblock %}
+
+{% block content %}
+<!-- Masthead-->
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/users/">People</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Profile - {{ first_name }} {{ last_name }}</li>
+    </ol>
+</nav>
+<!-- /Breadcrumb -->
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <div style="display: relative">
+                            <img src="/return_images/?uid={{ id }}&type=person" alt="Admin" class="rounded-circle"
+                                 width="150px">
+                            {% if editable == True %}
+                            <span class="edit-button"><a href="/edit_user/?user={{ id|default_if_none:"" }}" data-toggle="tooltip" data-placement="right" title="Edit User Information" >
+                        <i class="fas fa-edit"></i></a></span>
+                            {% endif %}
+                        </div>
+                            <h4 class="mt-3">{{ first_name }} {{ last_name }}</h4>
+                            <div class="mt-1">
+                            <p class="text-muted font-size-sm"><a target="_blank">{{ affiliation_name }}</a></p>
+                             <div class="btn-group">
+                                {% if subscribed is not None %}
+                                {% if subscribed is True %}
+                                <button class="btn btn-success no-click" >
+                                    <i class="far fa-bell"></i></i>
+                                </button>
+                                <a class="btn btn-warning" href="/messages/remove_subscription/?id={{id}}">
+                                    Unsubscribe
+                                </a>
+                                {% else %}
+                                <a class="btn btn-success" href="/messages/subscribe/?id={{id}}">
+                                    <i class="fas fa-bell"></i> Subscribe
+                                </a>
+                                {% endif %}
+                                <button type="button" class="btn btn-outline-info dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <div class="dropdown-menu">
+                                    {% if registered == True %}
+                                    <a class="dropdown-item" href="/messages/add_messeger_person/?receiver={{id|default_if_none:""}}"><i class="fas fa-envelope"></i>&nbsp;Message</a>
+                                    <div class="dropdown-divider"></div>
+                                    {% else %}
+                                    <a class="dropdown-item text-muted" data-toggle="tooltip"
+                                       data-placement="right" title="Can Only Message Registered Users" >
+                                        <i class="fas fa-envelope"></i>&nbsp;Message</a>
+                                    <div class="dropdown-divider"></div>
+                                    {% endif %}
+                                    <p class="dropdown-header"><i class="fas fa-arrow-alt-circle-right"></i>
+                                        <b>Requests</b></p>
+                                    <a class="dropdown-item" data-toggle="modal" onclick="update_req_form('info')"  data-target="#requestModal" href="#!">
+                                        Information Updates</a>
+                                    <a class="dropdown-item" data-toggle="modal" onclick="update_req_form('error')" data-target="#requestModal" href="#!">
+                                        Error Corrections</a>
+                                    <div class="dropdown-divider"></div>
+                                    <p class="dropdown-header"><i class="fas fa-hand-pointer"></i>
+                                        <b>Permissions</b></p>
+                                    <a class="dropdown-item" data-toggle="modal" onclick="update_req_form('permission')" data-target="#requestModal" href="#!">Edit Rights</a>
+                                    <a class="dropdown-item" data-toggle="modal" onclick="update_req_form('claim')" data-target="#requestModal" href="#!">Claim Page</a>
+                                    {% if editable == True %}
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item"
+                                    href="/remove_resource/?uuid={{id|default_if_none:""}}">
+                                    <i class="far fa-trash-alt"></i>&nbsp;Remove User</a>
+                                    {% endif %}
+                                </div>
+                               {% endif %}
+                            </div>
+                             {% if  subscribers != None %}
+                            <p class="text-left"><i class="fas fa-satellite-dish"></i>&nbsp;{{subscribers}}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0"><i class="fas fa-fingerprint"></i>&nbsp CoPED Id</h6>
+                        <span class="text-secondary"><a href="/user_page/?user={{id|default_if_none:""}}" target="_blank">{{ id }}</a></span>
+                    </li>
+                    {% for key, value in identifiers.items %}
+                    {% if key == "orcid" %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0"><i class="fab fa-orcid"></i>&nbsp Orcid ID</h6>
+                        <span class="text-secondary"><a href={{value.url|default_if_none:""}} target="_blank">{{ value.uid|default_if_none:"" }}</a></span>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0"><i class="fas fa-address-card"></i>&nbsp {{ key|upper }}</h6>
+                        <span class="text-secondary"><a href={{value.url|default_if_none:""}} target="_blank">{{ value.uid|default_if_none:""}}</a></span>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0"><i class="far fa-calendar-alt"></i>&nbsp Last Update </h6>
+                        <span class="text-secondary">{{ updated }}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="card mt-3">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0"><i class="fas fa-chart-bar"></i>&nbsp;Metrics</h6>
+                    </li>
+                    {% for met in metrics %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                        <h6 class="mb-0"></i> {{ met.name }} </h6>
+                        <span class="text-secondary">{{ met.value }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3 text-nowrap">
+                            <h6 class="mb-0">First Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary" >
+                            {{ first_name|default_if_none:"" }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3 text-nowrap">
+                            <h6 class="mb-0">Other Names</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ other_names|default_if_none:"" }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3 text-nowrap">
+                            <h6 class="mb-0">Last Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary" >
+                            {{ last_name|default_if_none:"" }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3 text-nowrap">
+                            <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary" }>
+                            {% if email != None %}
+<!--                            <a href="mailto:{{ email }}"> <i class="far fa-envelope"></i> &nbsp-->
+<!--                                {{email|default_if_none:""}} </a>-->
+                            <button class="btn btn-primary" data-target="#contactModal" data-toggle="modal">Send Contact Request &nbsp <i
+                                    class="fas fa-reply-all"></i></button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3 text-nowrap">
+                            <h6 class="mb-0">Organisation</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {% for affil in affil_detailed %}
+                            <a href={{affil.url}} target="_blank"> {{ affil.title|default_if_none:"" }}</a></br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3 text-nowrap" >
+                            <h6 class="mb-0">About</h6>
+                        </div>
+                            <div class="col-sm-9 text-secondary">
+                            <pre>{{ about|default_if_none:"" }}</pre>
+                            </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3 text-nowrap">
+                            <h6 class="mb-0">Update History</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <table>
+                                {% for key, values in update_history.items %}
+                                <tr>
+                                    <td>{{key}} - {{ values }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="gutters-sm pl-5 pr-5">
+        <div class="text-left">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link" data-toggle="tab">Affiliations</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#profile" class="nav-link" data-toggle="tab">Projects</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade" id="home">
+                    <h4 class="mt-2">Affiliations</h4>
+                    <br>
+                    {% for org in affil_detailed %}
+                    <h5> {{ org.title }}</h5>
+                    <h6> {{ org.role }} </h6>
+                    <p> Internal <a href="{{ org.url }}" target="_blank"> Link</a></p>
+                    <hr>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="profile">
+                    <h4 class="mt-2">Projects</h4>
+                    <br>
+                    {% for proj in proj_detailed %}
+                    <h5> {{ proj.name }}</h5>
+                    <h6> Roles: {{ proj.role }} </h6>
+                    <p> Internal <a href="{{ proj.url }}" target="_blank"> Link</a></p>
+                    <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+</div>
+
+<!-- Contact Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <div class="d-flex align-items-center text-center w-100">
+                    <div class="col-4 mx-auto">
+                        <div class="text-center">
+                            <img class="img-responsive" style="width:7vw" src="{% static 'assets/img/icon.png' %}"/>
+                        </div>
+
+                        <div class="form-title text-center">
+                            <h4>Contact Request</h4>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="d-flex flex-column text-center">
+                            <form action="/messages/contact_request/" method="post" id="form_request_contact" class="needs-validation" novalidate>
+                                {% csrf_token %}
+                                <input type="hidden" name="requester" value="{{user.u_id}}">
+                                <input type="hidden" name="requester_info" value="{{user.first_name}} {{user.last_name}}">
+                                <input type="hidden" name="resource_id" value="{{id}}">
+                                <input type="hidden" name="resource_info" value="{{ first_name }} {{ last_name }}">
+                                <div class="form-group text-left">
+                                    <label for="body1" class="text-dark"> Request Motivation</label>
+                                    <textarea class="form-control" id="body_contact" name="body"  minlength="10" height="auto" style="min-height:75px"
+                                              placeholder="Write a message for your contact email." required></textarea>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback"> Please provide a short (minimum 10 characters) description of the reason.</div>
+                                </div>
+                                <div class="form-group text-centre">
+                                    <button type="submit"  form="form_request_contact" value="Submit"
+                                            class="btn btn-info btn-block text-center btn-round">Submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Requests Modal -->
+<div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <div class="d-flex align-items-center text-center w-100">
+                    <div class="col-4 mx-auto">
+                        <div class="text-center">
+                            <img class="img-responsive" style="width:7vw" src="{% static 'assets/img/icon.png' %}"/>
+                        </div>
+
+                        <div class="form-title text-center">
+                            <h4>Requests</h4>
+                            <p id="req_name">Generic</p>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="d-flex flex-column text-center">
+                            <form action="/messages/add_request/" method="post" id="form_request_in" class="needs-validation" novalidate>
+                                {% csrf_token %}
+                                <input type="hidden" name="requester" value="{{user.u_id}}">
+                                <input type="hidden" name="requester_info" value="{{user.first_name}} {{user.last_name}}">
+                                <input type="hidden" name="resource_id" value="{{id}}">
+                                <input type="hidden" name="resource_info" value="Person - {{ first_name }} {{ last_name }}">
+                                <input type="hidden" name="request_type" id="request_type" value="">
+                                <div class="form-group text-left">
+                                    <label for="body1" class="text-dark"> Request Motivation</label>
+                                    <textarea class="form-control" id="body1" name="body"  minlength="10" height="auto" style="min-height:75px"
+                                              placeholder="Motivation for request" required></textarea>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback"> Please provide a short (minimum 10 characters) description of the reason.</div>
+                                </div>
+
+                                <div class="form-group text-centre">
+                                    <button type="submit" form="form_request_in" value="Submit"
+                                            class="btn btn-info btn-block text-center btn-round">Submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+$(document).ready(function(){
+    $("#myTab li:eq(0) a").tab('show');
+});
+
+
+function update_req_form(req_type) {
+  if (req_type == "info"){
+    document.getElementById("request_type").value = req_type;
+    document.getElementById("body1").value = "";
+    document.getElementById("req_name").innerHTML = "Request update for missing Information";
+  }
+  if(req_type == "error"){
+    document.getElementById("request_type").value = req_type;
+    document.getElementById("body1").value = "";
+    document.getElementById("req_name").innerHTML = "Flag possible error in data";
+    }
+  if(req_type == "permission"){
+    document.getElementById("request_type").value = req_type;
+    document.getElementById("body1").value = "";
+    document.getElementById("req_name").innerHTML = "Request permission to edit resource";
+  }
+  if(req_type == "claim"){
+    document.getElementById("request_type").value = req_type;
+    document.getElementById("body1").value = "";
+    document.getElementById("req_name").innerHTML = "Claim Ownership of User Page";
+  }
+}
+
+expandTextarea('body1');
+
+</script>
+
+{% endblock content %}

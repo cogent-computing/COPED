@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Community - Notifications {% endblock title %}
+
+
+{% block content %}
+<!-- Masthead-->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Community - Notifications</li>
+    </ol>
+</nav>
+
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <div class="row">
+                            <h4> Subscriptions </h4>
+
+                            <table class="table table_requests w-100">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Resource Type</th>
+                                    <th scope="col">Resource Title</th>
+                                    <th scope="col" class="text-center">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for subs in subscriptions %}
+                                <tr>
+                                    <th scope="row" class="align-middle">{{subs.type}}</th>
+                                    <td class="align-middle">{{subs.title}}</td>
+                                    <td>
+                                        <div class="input-group" style="justify-content: center;">
+                                            <a class="btn btn-danger btn-sm"
+                                               href="/messages/remove_subscription/?id={{subs.id}}"
+                                               type="submit">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <h4> Notifications </h4>
+                        <div class="input-group mb-1">
+                            <input type="text" class="form-control" placeholder="Search for requests" id="myInput"
+                                   title="Type in a user" onkeyup="search()">
+                        </div>
+                        <div style="max-height:75vh;overflow-y:scroll;width:100%">
+                        <table class="table table_requests w-100" id="myTable">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">DateTime</th>
+                                <th scope="col">Resource</th>
+                                <th scope="col">Update</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for notes in notifications %}
+                            <tr>
+                                <th scope="row" class="align-middle">{{notes.date}}</th>
+                                <td class="align-middle">{{notes.resource}}</td>
+                                <td class="align-middle">{{notes.update}}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+function search() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    txtValue = ""
+    for (var l_td in [1,2]){
+            td = tr[i].getElementsByTagName("td")[l_td]
+            if (td) {
+              txtValue += td.textContent || td.innerText;
+            }
+        }
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+
+</script>
+
+{% endblock content %}

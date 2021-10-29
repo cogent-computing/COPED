@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Community - Messaging {% endblock title %}
+
+
+{% block content %}
+<!-- Masthead-->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Community - Messaging</li>
+    </ol>
+</nav>
+<div class="gutters-sm pl-5 pr-5 pt-2 bg-div text-center">
+    <div class="mx-auto" style="max-width:1440px;text-align:left">
+        <div class="messaging">
+            <div class="inbox_msg">
+                <div class="inbox_people">
+                    <div class="headind_srch">
+                        <div class="recent_heading">
+                            <h4>Connections</h4>
+                        </div>
+                        <!--   Search bar   -->
+                        <!--                                    <div class="srch_bar">-->
+                        <!--                                        <div class="stylish-input-group">-->
+                        <!--                                            <input type="text" class="search-bar" placeholder="Search">-->
+                        <!--                                            <span class="input-group-addon">-->
+                        <!--                                    <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>-->
+                        <!--                                    </span></div>-->
+                        <!--                                    </div>-->
+                    </div>
+                    <div class="inbox_chat">
+                        {% for c_id in connections %}
+                        <div class="chat_list" id="chat_header_{{c_id.1.u_id}}">
+                            <a onclick="msg_click('{{c_id.1.u_id}}','{{c_id.1.name}}')"
+                               style="cursor: pointer;" id="{{c_id.1.u_id}}">
+                                <div class="chat_people">
+                                    <div class="chat_img">
+                                        <img style="max-width:100%;" class="rounded-circle"
+                                             src="/return_images/?uid={{c_id.1.u_id}}&type=person"
+                                             alt="user">
+                                    </div>
+                                    <div class="chat_ib">
+                                        <h5>{{c_id.1.name}}<span
+                                                class="chat_date">{{c_id.1.last_date}}</span></h5>
+                                        <p>{{c_id.1.last_msg}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% empty %}
+                        <p class="text-secondary mx-auto text-center"> no connection available ...</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="mesgs">
+                    <div class="msg_history" id="msg_main_body">
+                    </div>
+                    <div class="type_msg">
+                        <div class="input_inline">
+                            <div class="input_msg_write">
+                                <input type="text" class="write_msg col-md-10" id="sending_msg_input"
+                                       placeholder="Type a message"/>
+                                <button class="msg_send_btn" type="button" id="send_message">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                </button>
+                                <div class="msg_send_loading" id="msg_send_loading_id"
+                                     style="display: none !important;">
+                                    <div class="dot-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--- This meessaging Sample is modified from the template provided by: sunil8107 - https://bootsnipp.com/sunil8107 from Bootsnipp.  -->
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+{% autoescape off %}
+var messages = {{ messages_user }};
+var connections = {{ connections }};
+var receiver = '{{user.u_id}}';
+{% endautoescape %}
+
+
+$(document).ready(function() {
+    $(".write_msg").on('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            document.getElementById('send_message').click();
+        }
+    });
+});
+
+function update_selection(ids){
+    var chats = document.getElementsByClassName("chat_list");
+    for (var i = 0; i < chats.length; i++) {
+       chats.item(i).className = "chat_list"
+    }
+    document.getElementById("chat_header_"+ids).className = "chat_list active_chat"
+}
+
+function update_vars(ids){
+    $.get("/messages/get_messages/?user="+"{{user.u_id}}",
+      function(data, status){
+        messages = data["messages_user"]
+        connections = data["connections"]
+        if (ids!=""){
+            document.getElementById(ids).click();
+        }else{
+        if (connections.length!=0){
+            var sent_id = '{{sel_uuid}}';
+            if (sent_id != ''){
+                ids = sent_id;
+             }else {
+               ids = connections[0][1]["u_id"]
+             }
+            document.getElementById(ids).click();
+            }
+        }
+      });
+}
+
+function msg_click(uid,name) {
+    update_selection(uid)
+    inner_html  ='<h5><img style="max-width:70px;" class="rounded-circle"' +
+                            'src="/return_images/?uid='+uid+
+                            '&type=person"> <a href="/user_page/?user='+uid+'" target="_blank">'+name+'</a></h5>';
+    for (var msg in messages[uid]){
+        if (messages[uid][msg][1]["body"] != ""){
+             if (messages[uid][msg][1]["type"] == "sent") {
+             inner_html  +=' <div class="incoming_msg"> '+
+                           ' <div class="incoming_msg_img"><img style="max-width:100%;" class="rounded-circle"' +
+                            'src="/return_images/?uid='+uid+'&type=person"></div>'+
+                             '<div class="received_msg"> <div class="received_withd_msg">'+
+                              '<p>'+messages[uid][msg][1]["body"]+'</p>'+
+                              '<span class="time_date">'+messages[uid][msg][1]["date"]+'</span></div></div></div>';
+             }else{
+             inner_html  +='<div class="outgoing_msg"><div class="sent_msg">'+
+                           '<p>'+messages[uid][msg][1]["body"]+'</p><span class="time_date">'+messages[uid][msg][1]["date"]+
+                           '</span></div></div>';
+                       }
+         }
+    }
+    receiver = uid;
+    if (!(uid in messages)){
+        inner_html = '<p class="text-secondary mx-auto text-center"> no messages available ...</p>';
+        inner_html += '<h5 class="text-secondary text-left"> Search for users you want to connect with on the '+
+                        ' <a href="/users/">People Page</a> and if they are registered you can send then messages.</h5>';
+    }
+    document.getElementById("msg_main_body").innerHTML = inner_html;
+    document.getElementById("msg_main_body").scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
+}
+
+$(document).ready(function(){
+    $("#myTab li:eq(0) a").tab('show');
+});
+
+$(document).ready(function(){
+    if (connections.length != 0){
+        update_vars("");
+    }else{
+        inner_html = '<p class="text-secondary mx-auto text-center"> no messages available ...</p>';
+        inner_html += '<h5 class="text-secondary text-left"> Search for users you want to connect with on the '+
+                        ' <a href="/users/">People Page</a> and if they are registered you can send then messages.</h5>';
+        document.getElementById("msg_main_body").innerHTML = inner_html;
+    }
+});
+
+$(document).ready(function(){
+  $("#send_message").click(function(){
+  document.getElementById("msg_send_loading_id").style = "display:inline-block !important";
+  var rec_id = receiver
+  var sender_id = '{{ user.u_id }}';
+    $.post("/messages/add_message/",
+    {
+      csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+      sender: sender_id,
+      body: document.getElementById("sending_msg_input").value,
+      receiver : rec_id,
+    },
+    function(data,status){
+      document.getElementById("sending_msg_input").value = "";
+      update_vars("");
+      document.getElementById("msg_send_loading_id").style = "display:none !important";
+    });
+  });
+});
+
+
+
+</script>
+</div>
+</div>
+</div>
+
+
+{% endblock content %}

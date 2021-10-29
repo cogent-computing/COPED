@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Map View of Projects {% endblock title %}
+
+{% block nav_vis%}active{% endblock %}
+
+{% block content %}
+<!-- Masthead-->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="/visuals/">Visualisations</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Map View of Projects</li>
+    </ol>
+</nav>
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        {% include "views/side_bar.html" %}
+        <div class="col">
+            <nav class="navbar navbar-light bg-light">
+                <button class="btn btn-outline-success shadow-none" onclick="toggle_nav_bar()">Toggle Navigation
+                </button>
+            </nav>
+            <div class="card mb-3 col-lg-12" >
+                <div class="card-body">
+                    <!-- Content Goes here -->
+                    <form action="/visuals/maps_simple/">
+                        <div class="row pt-3 col-12">
+                            <div class="col p-1">
+                                <input class="form-control form-control-lg" name="search" type="text" value="{{search}}"
+                                       placeholder="Search for projects and organisations..."></div>
+                            <div class="col-auto p-1">
+                                <button class="btn btn-lg btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+<!--                    <div class="btn-toolbar mb-2" role="toolbar" aria-label="Toolbar with button groups">-->
+<!--                        <span class="text-muted btn" disabled="true">Toggle Visiblity:</span>-->
+<!--                        <div class="btn-group mr-2" role="group" aria-label="First group">-->
+<!--                            <button type="button" class="btn btn-primary" onclick="change_project()" id="proj_btn">-->
+<!--                                <i class="fas fa-briefcase"></i>&nbsp;Projects-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                        <div class="btn-group" role="group" aria-label="Third group">-->
+<!--                            <button type="button" class="btn btn-warning" onclick="change_orgs()" id="orgs_btn">-->
+<!--                                <i class="fas fa-building"></i>&nbsp;Organisations-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="w-100" style="min-height:800px" id="map"></div>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-light" data-container="body" data-toggle="popover"
+                                data-placement="left"
+                                data-content="Project locations are calculated as the mean of their organisations.">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                    <!-- End Content Here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+function draw_map(){
+
+    // initialize Leaflet
+    {% autoescape off %}
+    var points = {{ points }};
+    {% endautoescape %}
+
+    var yellowIcon = L.icon({
+        iconUrl: '{% static 'assets/img/map_pin_yellow.png' %}',
+        iconSize:     [33, 47], // size of the icon
+        iconAnchor:   [16, 47], // point of the icon which will correspond to marker's location
+        popupAnchor:  [-3, -30] // point from which the popup should open relative to the iconAnchor
+    });
+
+    var blueIcon = L.icon({
+        iconUrl: '{% static 'assets/img/map_pin_blue.png' %}',
+        iconSize:     [33, 47], // size of the icon
+        iconAnchor:   [16, 47], // point of the icon which will correspond to marker's location
+        popupAnchor:  [-3, -42] // point from which the popup should open relative to the iconAnchor
+    });
+
+    document.getElementById('map').innerHTML = ""
+    var map = L.map('map').setView([54.76, -3.64], 6);
+    for (point in points){
+        console.log(points[point])
+        var lat = parseFloat(points[point]["lat"])
+        var long = parseFloat(points[point]["long"])
+        var link = points[point]["link"]
+        var type = points[point]["type"]
+        console.log(type)
+        if (type == "project"){
+            var name = "Project: <a href='"+link+"' target='_blank'>"+points[point]["name"]+"</a>";
+            var marker = L.marker({lon:long,lat:lat},{icon:blueIcon}).bindPopup(name).addTo(map);
+        }else if (type == "organisation"){
+            var name = "Organisation: <a href='"+link+"' target='_blank'>"+points[point]["name"]+"</a>";
+            var marker = L.marker({lon:long,lat:lat},{icon:yellowIcon}).bindPopup(name).addTo(map);
+        }
+    }
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+  }).addTo(map);
+
+  // show the scale bar on the lower left corner
+  L.control.scale().addTo(map);
+
+}
+
+$( document ).ready(function() {
+    draw_map();
+});
+
+
+function change_project(){
+    if(document.getElementById('proj_btn').className.includes("outline")){
+        document.getElementById('proj_btn').className = "btn btn-primary"
+        proj = true;
+    }else{
+        document.getElementById('proj_btn').className = "btn btn-outline-primary"
+        proj = false;
+    }
+    draw_map(proj,orgs)
+}
+
+function change_orgs(){
+    if(document.getElementById('orgs_btn').className.includes("outline")){
+        document.getElementById('orgs_btn').className = "btn btn-warning"
+        orgs = true;
+    }else{
+        document.getElementById('orgs_btn').className = "btn btn-outline-warning"
+        orgs = false;
+    }
+    draw_map(proj,orgs)
+}
+
+
+</script>
+{% endblock content %}

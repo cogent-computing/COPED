@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Edit User - {{ first_name }} {{ last_name }}{% endblock title %}
+
+{% block nav_ppl%}active{% endblock %}
+
+
+{% block content %}
+<!-- Masthead-->
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/users/">People</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add New User</li>
+    </ol>
+</nav>
+<!-- /Breadcrumb -->
+
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <div class="image-area" style="display: relative">
+                            <img src="/return_images/?uid={{ id }}&type=person" alt="Admin"
+                                 id="imageResult" class="img-fluid mx-auto d-block rounded-circle"
+                                 width="150px">
+                        </div>
+                        <div class="mt-3">
+                            <h4> New User </h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-9">
+            <form id="form_edit_user" action="/update_user/" method="post" enctype="multipart/form-data">
+                <div class="card mb-3">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <h2> Details </h2>
+                        <input type="hidden" name="public" value="on">
+                        <div class="form-group row">
+                            <label for="input_first_name" class="col-sm-2 col-form-label">First Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_first_name" placeholder="First Name"
+                                       name="first_name" value="{{ first_name }}">
+                                <input type="hidden" name="id" value="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="input_other_name" class="col-sm-2 col-form-label">Other Names</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_other_name" placeholder="Other Names"
+                                       name="other_names" value="{{ other_names }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="input_last_name" class="col-sm-2 col-form-label">Last Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_last_name" placeholder="Last Name"
+                                       name="last_name" value="{{ last_name }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="input_Email" class="col-sm-2 col-form-label">Image</label>
+                            <div class="col-sm-10">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="upload" name="image">
+                                    <label class="custom-file-label" for="upload" id="upload-label"
+                                           onchange="readURL(this);">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="input_Email" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="input_Email" placeholder="Email"
+                                       name="email"
+                                       value="{{ email }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="input_affiliation" class="col-sm-2 col-form-label">Affiliation</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_affiliation" placeholder="Affiliation"
+                                       name="affiliation_name" value="{{affiliation_name}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="input_about" class="col-sm-2 col-form-label">About</label>
+                            <div class="col-sm-10">
+                            <textarea class="form-control" id="input_about" placeholder="About information"
+                                      name="about">{{ about }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h4> Affiliations</h4>
+                        <hr>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Affiliations</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <select class="selectpicker form-control" data-live-search="true"
+                                            id="select_picker">
+                                        {% for item in affil_list %}
+                                        <option value="{{ item.1 }}">{{ item.0 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <span class="input-group-btn">
+                                  <button class="add_field_button btn btn-info">Add More Affiliations</button>
+                              </span>
+                                </div><!-- /input-group -->
+                                <div class="input_fields_wrap input-group">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h4> Identifiers</h4>
+                        <hr>
+                        <h5> UKRI </h5>
+                        <div class="form-group row">
+                            <label for="url_ident" class="col-sm-2 col-form-label">URL</label>
+                            <div class="col-sm-10">
+                                <input type="url" class="form-control" id="url_ident" placeholder="url"
+                                       name="identifiers.ukri.url" value="{{ identifiers.ukri.url}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="uid_ident" class="col-sm-2 col-form-label">Unique ID</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="uid_ident" placeholder="Unique ID"
+                                       name="identifiers.ukri.uid" value="{{ identifiers.ukri.uid}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="uid_ident" class="col-sm-2 col-form-label"><h4>Changes</h4></label>
+                            <div class="col-sm-10">
+                                <button type="submit" name="submit" id="button_submit" class="btn btn-success">Save
+                                    Changes
+                                </button>
+                                <button type="submit" name="submit" id="button_reset" class="btn btn-warning">Reset
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+/*  ==========================================
+    SHOW UPLOADED IMAGE
+* ========================================== */
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imageResult')
+                .attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(function () {
+    $('#upload').on('change', function () {
+        readURL(input);
+    });
+});
+
+/*  ==========================================
+    SHOW UPLOADED IMAGE NAME
+* ========================================== */
+var input = document.getElementById( 'upload' );
+var infoArea = document.getElementById( 'upload-label' );
+
+input.addEventListener( 'change', showFileName );
+function showFileName( event ) {
+  var input = event.srcElement;
+  var fileName = input.files[0].name;
+  infoArea.textContent = 'Filename: ' + fileName;
+}
+
+$(document).on('change','.up', function(){
+        var names = [];
+        var length = $(this).get(0).files.length;
+          for (var i = 0; i < $(this).get(0).files.length; ++i) {
+              names.push($(this).get(0).files[i].name);
+          }
+          // $("input[name=file]").val(names);
+        if(length>2){
+          var fileName = names.join(', ');
+          $(this).closest('.form-group').find('.form-control').attr("value",length+" files selected");
+        }
+        else{
+          $(this).closest('.form-group').find('.form-control').attr("value",names);
+        }
+     });
+
+expandTextarea('input_about');
+
+$(document).ready(function() {
+	var max_fields      = 10; //maximum input boxes allowed
+	var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+	var add_button      = $(".add_field_button"); //Add button ID
+
+	var x = 1; //initlal text box count
+	$(add_button).click(function(e){ //on add input button click
+		e.preventDefault();
+		if(x < max_fields){ //max input box allowed
+			x++; //text box increment
+			 var val = $("#select_picker").val();
+			 var text = $("#select_picker option:selected").text();
+			$(wrapper).append('<div class="pt-2 input-group"> <input type="text" class="form-control" id="input_affil_orig_'+x+
+			'" value="'+text+'"readonly>'+
+			'<input type="hidden" class="form-control" id="input_affil_orig_hidden_'+x+'" name="affiliations[]" value="'+val+'">'+
+			 '<button class="rem_button btn btn-danger">Remove</button> </div>');
+		}
+	 $(".rem_button").click(function(){
+        this.parentElement.remove();
+      });
+	});
+
+	/*$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+		e.preventDefault(); $(this).parent('div').remove(); x--;
+	})*/
+
+});
+
+</script>
+
+{% endblock content %}

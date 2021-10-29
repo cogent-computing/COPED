@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Visualisations {% endblock title %}
+
+{% block nav_vis%}active{% endblock %}
+
+{% block content %}
+<!-- Masthead-->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Visualisations</li>
+    </ol>
+</nav>
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        {% include "views/side_bar.html" %}
+        <div class="col">
+            <nav class="navbar navbar-light bg-light">
+                <button class="btn btn-outline-success shadow-none" onclick="toggle_nav_bar()">Toggle Navigation</button>
+            </nav>
+            <div class="card mb-3 col-xl-12">
+                <div class="card-body">
+                    <!-- Content Goes here -->
+                    <section class="showcase">
+                        <div class="container-fluid p-0">
+                            <div class="row no-gutters mb-2">
+                                <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                                     style="background-image: url('{% static 'assets/img/vis-conn_big.png' %}')"></div>
+                                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                                    <h2>Graph Representation of Projects</h2>
+                                    <p class="lead mb-0">A queryable visualisation that shows the available projects,
+                                        their organisations and the people connected to the projects.</p>
+                                    <a href="/visuals/conn_graphs/" class="btn btn-outline-info"> View Visuals </a>
+                                </div>
+                            </div>
+                            <div class="row no-gutters mb-2">
+                                <div class="col-lg-6 text-white showcase-img"
+                                     style="background-image: url('{% static 'assets/img/vis-map_simple_big.png' %}')"></div>
+                                <div class="col-lg-6 my-auto showcase-text">
+                                    <h2>Projects and Organisations Map across UK</h2>
+                                    <p class="lead mb-0">A maps view of projects and organisations based on their address.</p>
+                                    <a href="/visuals/maps_simple/" class="btn btn-outline-info"> View Visuals </a>
+                                </div>
+                            </div>
+                            <div class="row no-gutters mb-2">
+                                <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                                     style="background-image: url('{% static 'assets/img/vis-jupyter_big.png' %}')"></div>
+                                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                                    <h2>Community Analysis notebooks</h2>
+                                    <p class="lead mb-0">Notebooks submitted by the developer community that highlight
+                                        key insights and knowledge from the existing data.</p>
+                                    <a href="/visuals/notebook_view/" class="btn btn-outline-info"> View Visuals </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- End Content Here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

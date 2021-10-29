@@ -1,0 +1,434 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Visualisations {% endblock title %}
+
+{% block nav_vis%}active{% endblock %}
+
+{% block content %}
+<!-- Masthead-->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="/visuals/">Visualisations</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Connection Graph Visualisations</li>
+    </ol>
+</nav>
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        {% include "views/side_bar.html" %}
+        <div class="col">
+            <nav class="navbar navbar-light bg-light">
+                <button class="btn btn-outline-success shadow-none" onclick="toggle_nav_bar()">Toggle Navigation
+                </button>
+            </nav>
+            <div class="card mb-3 col-lg-12">
+                <div class="card-body">
+                    <!-- Content Goes here -->
+                    <form action="/visuals/conn_graphs/">
+                        <div class="row pt-3 col-12">
+                            <div class="col p-1">
+                                <input class="form-control form-control-lg" name="search" type="text" value="{{search}}"
+                                       placeholder="Search for projects..."></div>
+                            <div class="col-auto p-1">
+                                <button class="btn btn-lg btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="btn-toolbar mb-2" role="toolbar" aria-label="Toolbar with button groups">
+                        <span class="text-muted btn" disabled="true">Limit size:</span>
+                        <input id="input_size" type="number" value=100 style="width:65px">
+                        <button type="button" class="ml-2 btn btn-primary" onclick="update_size()" id="plot_btn">
+                            Plot
+                        </button>
+                    </div>
+                    <div class="btn-toolbar mb-2" role="toolbar" aria-label="Toolbar with button groups">
+                        <span class="text-muted btn" disabled="true">Toggle Visiblity:</span>
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                            <button type="button" class="btn btn-primary" onclick="change_project()" id="proj_btn">
+                                <i class="fas fa-briefcase"></i>&nbsp;Projects
+                            </button>
+                        </div>
+                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                            <button type="button" class="btn btn-success" onclick="change_people()" id="ppl_btn">
+                                <i class="fas fa-users"></i>&nbsp;People
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group" aria-label="Third group">
+                            <button type="button" class="btn btn-warning" onclick="change_orgs()" id="orgs_btn">
+                                <i class="fas fa-building"></i>&nbsp;Organisations
+                            </button>
+                        </div>
+                    </div>
+                    <div id="node_info"></div>
+                    <!-- style="width: 100%; height: 640px;" -->
+                    <div id="progress_wrapper">
+                        <p> Loading Graph View... </br> Large Graphs take a long time to load and make things difficult
+                            to see.</br>
+                            Try reducing the amount of information by reducing the size of the graph through
+                            searches. </p>
+                        <div class="text-center mb-1" style="width:600px">
+                            <div class="progress" style="height:25px">
+                                <div id="progrss_bar_vis"
+                                     class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                     aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width:5%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shadow p-3 mb-1 bg-white rounded" id="mynetwork"></div>
+
+                    <div class="text-right">
+                        <button type="button" class="btn btn-light" data-container="body" data-toggle="popover"
+                                data-placement="left"
+                                data-content="Graph connections and content are re-calculated on a daily basis.">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                    <!-- End Content Here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    {% autoescape off %}
+    var edges = {{ edges }};
+    {% endautoescape %}
+
+    var orgs = true;
+    var ppl = true;
+    var proj = true;
+
+    var size = 100;
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+function update_size()
+{
+    size = document.getElementById('input_size').value
+    draw_network(proj,ppl,orgs)
+}
+
+function change_project(){
+    if(document.getElementById('proj_btn').className.includes("outline")){
+        document.getElementById('proj_btn').className = "btn btn-primary"
+        proj = true;
+    }else{
+        document.getElementById('proj_btn').className = "btn btn-outline-primary"
+        proj = false;
+    }
+    draw_network(proj,ppl,orgs)
+}
+
+function change_people(){
+    if(document.getElementById('ppl_btn').className.includes("outline")){
+        document.getElementById('ppl_btn').className = "btn btn-success"
+        ppl = true;
+    }else{
+        document.getElementById('ppl_btn').className = "btn btn-outline-success"
+        ppl = false;
+    }
+    draw_network(proj,ppl,orgs)
+}
+
+function change_orgs(){
+    if(document.getElementById('orgs_btn').className.includes("outline")){
+        document.getElementById('orgs_btn').className = "btn btn-warning"
+        orgs = true;
+    }else{
+        document.getElementById('orgs_btn').className = "btn btn-outline-warning"
+        orgs = false;
+    }
+    draw_network(proj,ppl,orgs)
+}
+
+String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
+        {% autoescape off %}
+        var nodes = {{ nodes }};
+        {% endautoescape %}
+
+function draw_network(i_proj,i_ppl,i_orgs){
+     // create a network
+      document.getElementById("progress_wrapper").style.display = "block";
+      var container = document.getElementById('mynetwork');
+
+        {% autoescape off %}
+        var nodes = {{ nodes }};
+        {% endautoescape %}
+
+      if (i_proj == false){
+          var i = 0
+          while (i < nodes.length) {
+            if (nodes[i]["group"] === "project") {
+              nodes.splice(i, 1);
+            } else {
+              ++i;
+            }
+          }
+      }
+      if (i_ppl == false){
+          var i = 0
+          while (i < nodes.length) {
+            if (nodes[i]["group"] === "person") {
+              nodes.splice(i, 1);
+            } else {
+              ++i;
+            }
+          }
+      }
+      if (i_orgs == false){
+          var i = 0
+          while (i < nodes.length) {
+            if (nodes[i]["group"] === "organisation") {
+              nodes.splice(i, 1);
+            } else {
+              ++i;
+            }
+          }
+      }
+
+        var curr_size = 0
+        var curr_index = 0
+        var nodes_show = [];
+        var n_list = [];
+
+        for (node in nodes){
+            if (nodes[node]["group"] === "project") {
+            if (!n_list.includes(node)){
+                nodes_show.push(nodes[node]);
+                n_list.push(node)
+                curr_size++;
+            }
+            var curr_index = nodes[node].id
+            for(var i in edges){
+                if(edges[i].from == curr_index){
+                    for (var j in nodes){
+                            if(nodes[j].id == edges[i].to){
+                          if (!n_list.includes(j)){
+                            nodes_show.push(nodes[j]);
+                            n_list.push(j)
+                            curr_size++;
+                            break;
+                          }
+                        }
+                    }
+                }
+                if (edges[i].to == curr_index){
+                    for (var j in nodes){
+                            if(nodes[j].id == edges[i].from){
+                          if (!n_list.includes(j)){
+                            nodes_show.push(nodes[j]);
+                            n_list.push(j)
+                            curr_size++;
+                            break;
+                          }
+                        }
+                    }
+                }
+            }
+          }
+          if (curr_size >= size){
+            break;
+          }
+        }
+
+      var data = {
+        nodes: nodes_show,
+        edges: edges
+      };
+      // Options https://visjs.github.io/vis-network/examples/network/physics/physicsConfiguration.html
+
+      if (nodes.length > 200) {
+          var options = {
+          layout:{ randomSeed: 2,
+                   improvedLayout: false},
+          physics: {
+            barnesHut: {
+              gravitationalConstant: -21550,
+              centralGravity: 1.16,
+            }
+          },
+          edges: {
+            physics: true,
+            smooth: {
+              roundness: 0.65
+            }
+          },
+          nodes: {
+              shape: 'dot',
+                },
+            groups: {
+                person:{
+                  shape: "dot",
+                  color: "green",
+                },
+                organisation:{
+                   color: "orange",
+                  shape: "diamond",
+                },
+                project:{
+                  shape: "square",
+                  color: "blue",
+                },
+            }
+        }
+    }else{
+              var options = {
+          layout:{ randomSeed: 2 },
+          physics: {
+            barnesHut: {
+              gravitationalConstant: -21550,
+              centralGravity: 1.16,
+            }
+          },
+          edges: {
+            smooth: {
+              roundness: 0.65
+            }
+          },
+          nodes: {
+              shape: 'dot',
+                },
+            groups: {
+                person:{
+                    shape: 'icon',
+                        icon: {
+                            face: 'FontAwesome',
+                            code: '\uf0c0',
+                            size: 50,
+                            color: 'green'
+                        }
+                },
+                organisation:{
+                  shape: 'icon',
+                            icon: {
+                                face: 'FontAwesome',
+                                code: '\uf1ad',
+                                size: 50,
+                                color: 'orange'
+                            }
+                },
+                project:{
+                  shape: 'icon',
+                            icon: {
+                                face: 'FontAwesome',
+                                code: '\uf0b1',
+                                size: 50,
+                                color: 'blue'
+                            }
+                },
+            }
+        }
+    }
+    var network = new vis.Network(container, data, options);
+
+      network.on("stabilizationProgress", function (params) {
+        var progress = Math.round(params.iterations / params.total*100.0);
+        var elem = document.getElementById("progrss_bar_vis");
+        elem.style.width = progress + "%"
+        elem.innerText = progress + "%"
+      });
+      network.once("stabilizationIterationsDone", function () {
+        var elem = document.getElementById("progrss_bar_vis");
+        elem.style.width = "100%"
+        elem.innerText = "100%"
+        setTimeout(function () {
+          document.getElementById("progress_wrapper").style.display = "none";
+        }, 500);
+      });
+
+    network.on( 'click', function(properties) {
+        var ids = properties.nodes;
+        var ids_edge = properties.edges;
+        if (ids.length == 0 && ids_edge.length == 0) {
+            document.getElementById("node_info").style.display = "none"
+        }else if (ids.length != 0){
+            var int_id = 0
+            for (i = 0; i < nodes.length; i += 1){
+                if(nodes[i]["id"] == ids[0]){
+                    int_id = i;
+                    break; // If you want to break out of the loop once you've found a match
+                }
+             }
+             var n_type = nodes[int_id]["group"].toProperCase()
+             var n_name = nodes[int_id]["label"]
+             var link = ""
+             if (nodes[int_id]["group"] == "organisation"){
+                link = "/orgs_page/?org="+nodes[int_id]["uid"];
+             } else if (nodes[int_id]["group"] == "person"){
+                link = "/user_page/?user="+nodes[int_id]["uid"];
+             } else{
+                link = "/project_page/?project="+nodes[int_id]["uid"];
+             }
+            document.getElementById("node_info").innerHTML  = "<p class='btn' disabled='true'><strong>"+n_type+" </strong>- "+n_name+" - <a href='"+
+            link+"' target='_blank' >Internal Link </a></p>"
+            document.getElementById("node_info").style.display = "block";
+        } else if (ids_edge.length != 0){
+            var int_id = 0
+            for (i = 0; i < edges.length; i += 1){
+                if(edges[i]["id"] == ids_edge[0]){
+                    int_id = i;
+                    break; // If you want to break out of the loop once you've found a match
+                }
+             }
+            var id_c1 = edges[int_id]["from"]
+            var id_c2 = edges[int_id]["to"]
+            for (i = 0; i < nodes.length; i += 1){
+                if(nodes[i]["id"] == id_c1){
+                    id_c1 = i;
+                    break;
+                }
+            }
+            for (i = 0; i < nodes.length; i += 1){
+                if(nodes[i]["id"] == id_c2){
+                    id_c2 = i;
+                    break;
+                }
+             }
+             var c_name = edges[int_id]["label"]
+             var c1_type = nodes[id_c1]["group"].toProperCase()
+             var c1_name = nodes[id_c1]["label"]
+             var c1_link = ""
+             if (nodes[id_c1]["group"] == "organisation"){
+                c1_link = "/orgs_page/?org="+nodes[id_c1]["uid"]
+             } else if (nodes[id_c1]["group"] == "person"){
+                c1_link = "/user_page/?user="+nodes[id_c1]["uid"]
+             } else{
+                c1_link = "/project_page/?project="+nodes[id_c1]["uid"]
+             }
+
+             var c2_type = nodes[id_c2]["group"].toProperCase()
+             var c2_name = nodes[id_c2]["label"]
+             var c2_link = ""
+             if (nodes[id_c2]["group"] == "organisation"){
+                c2_link = "/orgs_page/?org="+nodes[id_c2]["uid"]
+             } else if (nodes[id_c1]["group"] == "person"){
+                c2_link = "/user_page/?user="+nodes[id_c2]["uid"]
+             } else{
+                c2_link = "/project_page/?project="+nodes[id_c2]["uid"]
+             }
+
+            document.getElementById("node_info").innerHTML  = "<p><strong> Connection Type </strong>- "+c_name+
+            "<strong></p> <p> "+c1_type+"</strong> - "+c1_name+"<a href='"+c1_link+"' target='_blank' > Internal Link </a>"+
+            "</p> <p><strong> "+c2_type+"</strong> - "+c2_name+"<a href='"+c2_link+"' target='_blank' > Internal Link </a></p>"
+            document.getElementById("node_info").style.display = "block"
+        }
+    });
+}
+
+$( document ).ready(function() {
+    draw_network(true,true,true);
+    document.getElementById('mynetwork').click();
+    // Change height so that the icons update
+    document.querySelector("#mynetwork").style.height = "642px";
+});
+
+
+
+
+</script>
+{% endblock content %}

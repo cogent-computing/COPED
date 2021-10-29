@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Contact {% endblock title %}
+
+{% block content %}
+<!-- Masthead-->
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Contact</li>
+    </ol>
+</nav>
+<!-- /Breadcrumb -->
+<div class="row gutters-sm pl-5 pr-5 pt-2 bg-div">
+    <div class="container contact-form">
+            <div class="contact-image">
+                <img src="{% static 'assets/img/icon.png' %}" alt="rocket_contact"/>
+            </div>
+            <form method="post" class="needs-validation" action="/contact/" method="post" novalidate>
+                {% csrf_token %}
+                <h3>Get in touch</h3>
+               <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="txtName" class="form-control" placeholder="Your Name *" pattern="^[a-zA-Z ]{5,40}" value="" required/>
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback"> Please provide a valid name.</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="txtEmail" class="form-control" placeholder="Your Email *" value="" required/>
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback"> Please provide a valid email.</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="btnSubmit" class="btn btn-info" value="Send Message" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <textarea name="txtMsg" class="form-control" placeholder="Your Message *"
+                                      style="width: 100%; height: 150px;" required></textarea>
+                           <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback"> Please provide a message.</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    </div>
+</div>
+
+{% endblock content %}
