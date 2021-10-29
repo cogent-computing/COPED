@@ -8,6 +8,7 @@ from elasticsearch_dsl import Document
 from elasticsearch_dsl import Index
 from shared.utils import coped_logging as log
 from shared.databases import Couch
+import shared.settings as settings
 
 
 @click.command()
@@ -22,7 +23,8 @@ def main(refresh):
     log.info("Indexing CoPed documents from CouchDB to Elasticsearch.")
 
     connections.create_connection(
-        hosts=["elasticsearch"], http_auth=("elastic", "password")
+        hosts=["elasticsearch"],
+        http_auth=(settings.ELASTICSEARCH_USER, settings.ELASTICSEARCH_PASSWORD),
     )
 
     coped_idx = Index("coped")

@@ -15,3 +15,7 @@ POSTGRES_USER = os.environ.get("POSTGRES_USER", "coped")
 POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD", "password")
 POSTGRES_DB = os.environ.get("POSTGRES_DB", "coped_development")
 POSTGRES_DSN = f"host={POSTGRES_HOST} port={POSTGRES_PORT} user={POSTGRES_USER} password={POSTGRES_PASSWORD} dbname={POSTGRES_DB}"
+
+# Settings for ElasticSearch
+ELASTICSEARCH_USER = os.environ.get("ELASTICSEARCH_USER", "elastic")
+ELASTICSEARCH_PASSWORD = os.environ.get("ELASTICSEARCH_PASSWORD", "password")
