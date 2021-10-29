@@ -103,7 +103,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
     container_name: coped_elastic
     configs:
-      - source: ELASTIC_CONFIG
+      - source: ELASTICSEARCH_CONFIG
         target: /usr/share/elasticsearch/config/elasticsearch.yml
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data
@@ -122,10 +122,10 @@ services:
   #   image: docker.elastic.co/logstash/logstash:7.14.1
   #   container_name: coped_logstash
   #   configs:
-  #     - source: LOGSTASH_CONFIG
+  #     - source: ./configs/logstash.yml
   #       target: /usr/share/logstash/config/logstash.yml
-  #     - source: LOGSTASH_PIPELINE
-  #       target: /usr/share/logstash/pipeline
+  #     - source: ./configs/logstash-pipeline.conf
+  #       target: /usr/share/logstash/pipeline/pipeline.conf
   #   environment:
   #     ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:?}
   #   expose:
@@ -140,7 +140,7 @@ services:
   #   image: docker.elastic.co/kibana/kibana:7.14.1
   #   container_name: coped_kibana
   #   configs:
-  #     - source: KIBANA_CONFIG
+  #     - source: ./configs/kibana.yml
   #       target: /usr/share/kibana/config/kibana.yml
   #   environment:
   #     ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:?}
@@ -188,7 +188,6 @@ services:
       elasticsearch:
         condition: service_healthy
 
-
 volumes:
   postgres_data:
   static_volume:
@@ -196,15 +195,8 @@ volumes:
   # dashboards:
   elasticsearch:
 
-
 configs:
   NGINX_CONFIG:
-    file: ./services/nginx/config/default.conf.template
-  ELASTIC_CONFIG:
-    file: ./services/elasticsearch/config/elasticsearch.yml
-  # LOGSTASH_CONFIG:
-  #   file: ./services/logstash/config/logstash.yml
-  # LOGSTASH_PIPELINE:
-  #   file: ./services/logstash/pipeline
-  # KIBANA_CONFIG:
-  #   file: ./services/kibana/config/kibana.yml
+    file: ./configs/nginx-default.conf.template
+  ELASTICSEARCH_CONFIG:
+    file: ./configs/elasticsearch.yml
