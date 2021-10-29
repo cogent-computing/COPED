@@ -36,7 +36,7 @@ services:
 
 
   nginx:
-    build: ./services/nginx
+    image: nginx:1.21-perl
     container_name: coped_nginx
     configs:
       - source: NGINX_CONFIG
@@ -53,7 +53,7 @@ services:
       # - voila
 
   db:
-    build: ./services/postgres
+    image: postgres:13.4-bullseye
     container_name: coped_postgres
     expose:
       - 5432
@@ -70,7 +70,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:?}
 
   couch:
-    build: ./services/couchdb
+    image: couchdb:3.1
     container_name: coped_couch
     volumes:
       - couchdb_data:/opt/couchdb/data
@@ -100,7 +100,7 @@ services:
   #     - 8866
 
   elasticsearch:
-    build: ./services/elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
     container_name: coped_elastic
     configs:
       - source: ELASTIC_CONFIG
@@ -119,7 +119,7 @@ services:
       retries: 5
 
   # logstash:
-  #   build: ./services/logstash
+  #   image: docker.elastic.co/logstash/logstash:7.14.1
   #   container_name: coped_logstash
   #   configs:
   #     - source: LOGSTASH_CONFIG
@@ -137,7 +137,7 @@ services:
   #     - elasticsearch
 
   # kibana:
-  #   build: ./services/kibana
+  #   image: docker.elastic.co/kibana/kibana:7.14.1
   #   container_name: coped_kibana
   #   configs:
   #     - source: KIBANA_CONFIG
