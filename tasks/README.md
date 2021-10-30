@@ -34,7 +34,9 @@ OPTIONS
 
 DESCRIPTION
 
-Use the given query term(s) to find projects in the UKRI database. Result list is recursively parsed to find related resources such as people, organisations, and so on. All resources are saved to the CouchDB database specified at the environment variable COUCHDB_DB (or "coped-dev-data" if not set).
+Use the given query term(s) to find projects in the UKRI database.
+Result list is recursively parsed to find related resources such as people, organisations, and so on.
+All resources are saved to the CouchDB database specified at the environment variable COUCHDB_DB.
 ```
 
 
@@ -50,7 +52,8 @@ OPTIONS
 
 DESCRIPTION
 
-Parse the UKRI document raw data to extract links to other entities in the CoPED database. Discovered links are added to the "coped_meta.links.ukri" field. 
+Parse the UKRI document raw data to extract links to other entities in the CoPED database.
+Discovered links are added to the "coped_meta.item_links" field. 
 ```
 
 ### Populate CoPED Resources
@@ -60,7 +63,10 @@ Usage: ./coped_resources.py
 
 DESCRIPTION
 
-Record CoPED CouchDB resources in PostgreSQL. The CouchDB database is queried for all CoPED-managed documents. Their `_id` (UUIDv4) is added to the PostgreSQL `coped_resource` table with a foreign key to the `coped_resource_type` table.
+Record CoPED CouchDB resources in PostgreSQL.
+The CouchDB database is queried for all CoPED-managed documents.
+Their `_id` (UUIDv4) is added to the PostgreSQL `coped_resource` table with
+a foreign key to the `coped_resource_type` table.
 ``` 
 
 ### Populate CoPED Relations
@@ -70,8 +76,13 @@ Usage: ./coped_relations.py [OPTIONS]
 
 DESCRIPTION
 
-Extract relations between resources in the given CouchDB database. The discovered relations are inserted in the PostgreSQL table. To avoid missing resources, this task only considers resources already recorded in PSQL. Therefore this task should be run _after_ the CoPED resource task above.
+Extract relations between resources in the given CouchDB database.
+The discovered relations are inserted in the PostgreSQL table.
+To avoid missing resources, this task only considers resources already recorded in PSQL.
+Therefore this task should be run after the CoPED resource task above.
 ```
+
+## Future Tasks
 
 ### Crawl UKWA Website
 
@@ -86,7 +97,8 @@ OPTIONS
 
 DESCRIPTION
 
-Use the given search term to find archived UK web pages. Discovered pages are saved to the given CouchDB database.
+Use the given search term to find archived UK web pages.
+Discovered pages are saved to the given CouchDB database.
 ```
 
 ### Extract Named Entities
@@ -100,7 +112,8 @@ OPTIONS
 
 DESCRIPTION
 
-Run NLP for named entity extraction on records in the given database. Discovered entities are recorded in the document metadata for downstream processing.
+Run NLP for named entity extraction on records in the given database.
+Discovered entities are recorded in the document metadata for downstream processing.
 ```
 
 ### Populate UKWA Resources
@@ -116,7 +129,9 @@ OPTIONS
 
 DESCRIPTION
 
-Record UK Web Archive resources into PostgreSQL. The given CouchDB database is queried for all documents. Their `_id` (UUIDv4), `item_type`, and a basic text summary are added to the PostgreSQL table.
+Record UK Web Archive resources into PostgreSQL.
+The given CouchDB database is queried for all documents.
+Their `_id` (UUIDv4), `item_type`, and a basic text summary are added to the PostgreSQL table.
 ``` 
 
 
@@ -144,6 +159,7 @@ For each search term, the following API endpoint is used to find matching projec
 ## Related Data
 
 Given a project from a returned search, related entities from its links are also parsed and saved when present.
+The `coped_resource_type` table in PostgreSQL containes the "allowed" types. They can include:
 
 - Persons
 - Organisations
@@ -163,7 +179,7 @@ Given a project from a returned search, related entities from its links are also
 
 ## Related Data `rel` Descriptors
 
-The relations documented for the UKRI API are:
+The relations documented for the UKRI API are as follows. Note that their documentation does not include all possible relation types present in the actual API data they provide (i.e. the documentation is not complete) so code needs to deal with unknown relations appropriately.
 
 - `PI_PER` Principal Investigator
 - `COI_PER` Co-Investigator
