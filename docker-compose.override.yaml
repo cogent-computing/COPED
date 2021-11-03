@@ -24,17 +24,6 @@ services:
     ports:
       - "5984:5984"
 
-  mongo_express:
-    image: mongo-express:0.54
-    container_name: coped_mongo_express
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER:?}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD:?}
-      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_USER:?}:${MONGO_PASSWORD:?}@mongo:27017/      
-
-
   # voila:
   #   build: ./services/voila
   #   volumes:
