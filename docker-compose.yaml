@@ -69,6 +69,26 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
       POSTGRES_DB: ${POSTGRES_DB:?}
 
+  mongo:
+    image: mongo:5
+    container_name: coped_mongo
+    expose:
+      - 27017
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    volumes:
+      # NB: can't use a bind mount on Windows/MacOS
+      # https://hub.docker.com/_/mongo
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:?}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:?}
+    
+
   couch:
     image: couchdb:3.1
     container_name: coped_couch
@@ -194,6 +214,7 @@ volumes:
   couchdb_data:
   # dashboards:
   elasticsearch:
+  mongo_data:
 
 configs:
   NGINX_CONFIG:
