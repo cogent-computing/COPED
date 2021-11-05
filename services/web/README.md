@@ -1,19 +1,31 @@
-# Web Service
+# CoPED Web Application
 
-This is the main Django application service, running the frontend and the API.
+This is the heart of the CoPED platform, based on a fairly standard Django web project setup.
 
-Run Django administration commands from the top level with `python manage.py ...`.
+It configures, implements and manages the following things:
 
-### `Dockerfile`
+- A [Django](https://docs.djangoproject.com/en/3.2/) website frontend.
+- A [Django REST Framework](https://www.django-rest-framework.org/) API.
+- CoPED energy project data schemas defining the [PostgreSQL database](https://www.postgresql.org/).
+- Search indices in the [ElasticSearch](https://www.elastic.co/elasticsearch/) engine using [django-elasticsearch-dsl-drf](https://django-elasticsearch-dsl-drf.readthedocs.io/en/latest/quick_start.html).
 
-Standard Python `pip install` for the dependencies.
+The `core/` Django application:
 
-### `requirements.txt`
+- configures the overall project in `settings.py`
+- wires up the project URL structure in `urls.py`
+- sets up all of the core database schemas used by the CoPED platform in `models.py`
+- configures which data can be managed in the Django administration interface in `admin.py`
 
-Nothing special here.
+The `api/` Django application:
 
-### `entrypoint.sh`
+- configures data representations in `serializers.py`
+- connects these to the core application models in `views.py`
 
-- Applies outstanding Django migrations to the DB
-- Gathers static files from installed apps and puts them somewhere `nginx` can find them:
-    - The `settings.py` file targets sets `STATIC_ROOT` using an environment variable of the same name, set by Docker compose.
+### Docker
+
+The `Dockerfile` installs dependencies from `requirements.txt` then launches an `entrypoint.sh` script.
+
+The script does the following things:
+
+- Apply outstanding Django migrations to the PostgreSQL DB
+- Gather static files from installed apps and put them where `nginx` can find them
