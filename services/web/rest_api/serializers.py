@@ -21,6 +21,10 @@ class PersonSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    funds = FundSerializer(many=True)
+    persons = PersonSerializer(many=True)
+    organisations = OrganisationSerializer(many=True)
+
     class Meta:
         model = Project
         fields = [
