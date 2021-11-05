@@ -1,7 +1,8 @@
-from rest_api.models import Organisation, Person, Project
+from rest_api.models import Organisation, Person, Project, Fund
 from rest_api.serializers import (
     OrganisationSerializer,
     PersonSerializer,
+    FundSerializer,
     ProjectSerializer,
 )
 from rest_framework import generics
@@ -25,6 +26,16 @@ class PersonList(generics.ListCreateAPIView):
 class PersonDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
+
+
+class FundList(generics.ListCreateAPIView):
+    queryset = Fund.objects.all()
+    serializer_class = FundSerializer
+
+
+class FundDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Fund.objects.all()
+    serializer_class = FundSerializer
 
 
 class ProjectList(generics.ListCreateAPIView):

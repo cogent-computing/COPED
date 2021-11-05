@@ -1,11 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.models import Permission
 from rest_api.models import (
+    Fund,
     Person,
     Project,
     Organisation,
     ProjectOrganisation,
     ProjectPerson,
+    ProjectFund,
 )
 
 # Define inlines for many-to-many relations
@@ -21,9 +23,14 @@ class ProjectPersonInline(admin.TabularInline):
     extra = 1
 
 
+class ProjectFundInline(admin.TabularInline):
+    model = ProjectFund
+    extra = 1
+
+
 class ProjectAdmin(admin.ModelAdmin):
     readonly_fields = ("coped_id",)
-    inlines = (ProjectOrganisationInline, ProjectPersonInline)
+    inlines = (ProjectOrganisationInline, ProjectPersonInline, ProjectFundInline)
 
 
 class OrganisationAdmin(admin.ModelAdmin):
@@ -36,7 +43,13 @@ class PersonAdmin(admin.ModelAdmin):
     inlines = (ProjectPersonInline,)
 
 
+class FundAdmin(admin.ModelAdmin):
+    readonly_fields = ("coped_id",)
+    inlines = (ProjectFundInline,)
+
+
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Organisation, OrganisationAdmin)
+admin.site.register(Fund, FundAdmin)
 admin.site.register(Permission)

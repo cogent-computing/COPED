@@ -1,17 +1,23 @@
 from rest_framework import serializers
-from rest_api.models import Organisation, Person, Project
+from rest_api.models import Organisation, Person, Project, Fund
 
 
 class OrganisationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organisation
-        fields = ["id", "name", "address", "about"]
+        fields = ["id", "coped_id", "name", "address", "about"]
+
+
+class FundSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Fund
+        fields = ["id", "coped_id", "title", "about", "organisation"]
 
 
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ["id", "first_name", "last_name", "organisation", "about"]
+        fields = ["id", "coped_id", "first_name", "last_name", "organisation", "about"]
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -19,13 +25,11 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = [
             "id",
+            "coped_id",
             "title",
-            "status",
-            "funder",
-            "amount",
-            "start_date",
-            "end_date",
             "description",
+            "status",
+            "funds",
             "persons",
             "organisations",
         ]
