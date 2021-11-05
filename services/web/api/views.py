@@ -1,5 +1,5 @@
-from rest_api.models import Organisation, Person, Project, Fund
-from rest_api.serializers import (
+from core.models import Organisation, Person, Project, Fund
+from api.serializers import (
     OrganisationSerializer,
     PersonSerializer,
     FundSerializer,

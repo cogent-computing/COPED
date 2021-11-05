@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Permission
-from rest_api.models import (
+from core.models import (
     Fund,
     Person,
     Project,

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_api.models import Organisation, Person, Project, Fund
+from core.models import Organisation, Person, Project, Fund
 
 
 class OrganisationSerializer(serializers.ModelSerializer):

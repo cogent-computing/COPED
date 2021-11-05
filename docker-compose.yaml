@@ -6,10 +6,9 @@ services:
   web:
     build: ./services/web
     container_name: coped_web
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:${DJANGO_STATIC_ROOT:?}
-      # - dashboards:${VOILA_NOTEBOOK_DIR:?}
     expose:
       - 8000
     environment:
@@ -29,8 +28,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      couch:
-        condition: service_healthy
       elasticsearch:
         condition: service_healthy
 
@@ -38,19 +35,15 @@ services:
   nginx:
     image: nginx:1.21-perl
     container_name: coped_nginx
-    configs:
-      - source: NGINX_CONFIG
-        target: /etc/nginx/templates/default.conf.template
     volumes:
       - static_volume:${NGINX_STATIC_LOCATION:?}
+      - ./configs/nginx-default.conf.template:/etc/nginx/templates/default.conf.template
     ports:
       - "1337:80"
     environment:
-      DASHBOARDS_ROOT: ${NGINX_DASHBOARDS_ROOT:?}
       STATIC_LOCATION: ${NGINX_STATIC_LOCATION:?}
     depends_on:
       - web
-      # - voila
 
   db:
     image: postgres:13.4-bullseye
@@ -63,50 +56,18 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - /var/lib/coped/postgresql/data:/var/lib/postgresql/data:cached
     environment:
       POSTGRES_USER: ${POSTGRES_USER:?}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
       POSTGRES_DB: ${POSTGRES_DB:?}
 
-  couch:
-    image: couchdb:3.1
-    container_name: coped_couch
-    volumes:
-      - couchdb_data:/opt/couchdb/data
-    healthcheck:
-      test: curl -s localhost:5984 > /dev/null || exit 1 
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    expose:
-      - 5984
-    environment:
-      COUCHDB_USER: ${COUCHDB_USER:?}
-      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:?}
-
-  # voila:
-  #   build: ./services/voila
-  #   container_name: coped_voila
-  #   volumes:
-  #     - type: bind
-  #       source: ./dashboards
-  #       target: ${VOILA_NOTEBOOK_DIR:?}
-  #       read_only: true
-  #   environment:
-  #     DASHBOARDS_ROOT: ${NGINX_DASHBOARDS_ROOT:?}
-  #     NOTEBOOK_DIR: ${VOILA_NOTEBOOK_DIR:?}
-  #   expose:
-  #     - 8866
-
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
     container_name: coped_elastic
-    configs:
-      - source: ELASTICSEARCH_CONFIG
-        target: /usr/share/elasticsearch/config/elasticsearch.yml
     volumes:
-      - elasticsearch:/usr/share/elasticsearch/data
+      - /var/lib/coped/elasticsearch/data:/usr/share/elasticsearch/data:cached
+      - ./configs/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     environment:
       ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:?}
     expose:
@@ -117,39 +78,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-  # logstash:
-  #   image: docker.elastic.co/logstash/logstash:7.14.1
-  #   container_name: coped_logstash
-  #   configs:
-  #     - source: ./configs/logstash.yml
-  #       target: /usr/share/logstash/config/logstash.yml
-  #     - source: ./configs/logstash-pipeline.conf
-  #       target: /usr/share/logstash/pipeline/pipeline.conf
-  #   environment:
-  #     ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:?}
-  #   expose:
-  #     - 5000/tcp
-  #     - 5000/udp
-  #     - 5044
-  #     - 9600
-  #   depends_on:
-  #     - elasticsearch
-
-  # kibana:
-  #   image: docker.elastic.co/kibana/kibana:7.14.1
-  #   container_name: coped_kibana
-  #   configs:
-  #     - source: ./configs/kibana.yml
-  #       target: /usr/share/kibana/config/kibana.yml
-  #   environment:
-  #     ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:?}
-  #   expose:
-  #     - 5601
-  #   depends_on:
-  #     elasticsearch:
-  #       condition: service_healthy
-
 
 
   ############################
@@ -183,17 +111,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      couch:
-        condition: service_healthy
       elasticsearch:
         condition: service_healthy
 
 volumes:
-  postgres_data:
   static_volume:
-  couchdb_data:
-  # dashboards:
-  elasticsearch:
 
 configs:
   NGINX_CONFIG:

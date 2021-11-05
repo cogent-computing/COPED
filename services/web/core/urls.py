@@ -1,4 +1,4 @@
-"""app URL Configuration
+"""core URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -15,11 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from app import views
+from core import views
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("test_elastic/", include("test_elastic.urls")),
     path("admin/", admin.site.urls),
-    path("api/", include("rest_api.urls")),
+    path("api/", include("api.urls")),
+    path("", views.index, name="index"),
 ]
