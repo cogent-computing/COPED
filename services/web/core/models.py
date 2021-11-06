@@ -23,7 +23,7 @@ class Organisation(models.Model):
     of project participants, and so on."""
 
     coped_id = models.UUIDField(
-        default=str(uuid4()).upper(),
+        default=str(uuid4()),
         editable=False,
         verbose_name="CoPED ID",
     )
@@ -53,7 +53,7 @@ class Person(models.Model):
     individuals identified in the project meta data itself."""
 
     coped_id = models.UUIDField(
-        default=str(uuid4()).upper(), editable=False, verbose_name="CoPED ID"
+        default=str(uuid4()), editable=False, verbose_name="CoPED ID"
     )
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
@@ -81,7 +81,7 @@ class Fund(models.Model):
     listed in its Fund record."""
 
     coped_id = models.UUIDField(
-        default=str(uuid4()).upper(),
+        default=str(uuid4()),
         editable=False,
         verbose_name="CoPED ID",
     )
@@ -113,7 +113,7 @@ class Project(models.Model):
     who funded the project, who worked on it, and so on."""
 
     coped_id = models.UUIDField(
-        default=str(uuid4()).upper(), editable=False, verbose_name="CoPED ID"
+        default=str(uuid4()), editable=False, verbose_name="CoPED ID"
     )
     title = models.CharField(max_length=256)
     description = models.TextField(blank=True)
@@ -140,6 +140,7 @@ class Project(models.Model):
 
     class Meta:
         db_table = "coped_project"
+        ordering = ["-id"]
 
     def __str__(self):
         return self.title
