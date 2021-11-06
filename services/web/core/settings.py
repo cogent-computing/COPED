@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "django_elasticsearch_dsl",
+    "django_elasticsearch_dsl_drf",
     "core",  # Project settings and top-level URL configurations.
-    "api",  # Django REST Framework API serializers and views.
+    "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
+    "search.apps.SearchConfig",  # ElasticSearch DSL DRF mappings and views.
 ]
 
 MIDDLEWARE = [
@@ -134,3 +137,33 @@ STATIC_ROOT = os.environ.get("STATIC_ROOT", "/usr/share/django/staticfiles")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Django REST Framework settings
+# https://www.django-rest-framework.org/api-guide/settings/
+
+REST_FRAMEWORK = {
+    # "DEFAULT_AUTHENTICATION_CLASSES": (
+    #     "rest_framework.authentication.BasicAuthentication",
+    #     "rest_framework.authentication.SessionAuthentication",
+    # ),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 1,
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
+    "ORDERING_PARAM": "ordering",
+}
+
+# Elasticsearch configuration
+# https://django-elasticsearch-dsl-drf.readthedocs.io/en/latest/index.html
+# TODO: set host and path from environment
+
+ELASTICSEARCH_DSL = {
+    "default": {"hosts": "http://elastic:password@elasticsearch:9200"},
+}
+
+# Name of the Elasticsearch indexes
+ELASTICSEARCH_INDEX_NAMES = {
+    "search.documents.project": "project",
+}

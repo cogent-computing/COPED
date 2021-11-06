@@ -1,6 +1,11 @@
+# Core Dependencies
 Django==3.2.7
 djangorestframework==3.12.4
+django-elasticsearch-dsl-drf==0.22.2
 elasticsearch==7.15.0
 gunicorn==20.1.0
 psycopg2-binary==2.9.1
+
+# Optional Django REST Framework dependencies for OpenAPI schema generation
 PyYAML==6.0
+uritemplate==4.1.1
