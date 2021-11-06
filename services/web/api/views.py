@@ -6,6 +6,23 @@ from api.serializers import (
     ProjectSerializer,
 )
 from rest_framework import generics
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
+
+@api_view(["GET"])
+def api_root(request, format=None):
+    return Response(
+        {
+            "projects": reverse("project-list", request=request, format=format),
+            "organisations": reverse(
+                "organisation-list", request=request, format=format
+            ),
+            "persons": reverse("person-list", request=request, format=format),
+            "funds": reverse("fund-list", request=request, format=format),
+        }
+    )
 
 
 class OrganisationList(generics.ListCreateAPIView):
