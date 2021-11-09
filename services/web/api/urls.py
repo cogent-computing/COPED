@@ -1,5 +1,6 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework.schemas import get_schema_view
 from api import views
 
 urlpatterns = [
@@ -15,6 +16,15 @@ urlpatterns = [
     ),
     path("projects/", views.ProjectList.as_view(), name="project-list"),
     path("projects/<int:pk>/", views.ProjectDetail.as_view(), name="project-detail"),
+    path(
+        "openapi",
+        get_schema_view(
+            title="CoPED",
+            description="Catalogue of Projects on Energy Data",
+            version="1.0.0",
+        ),
+        name="openapi-schema",
+    ),
     path("", views.api_root),
 ]
 
