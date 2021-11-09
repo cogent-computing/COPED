@@ -1,4 +1,7 @@
-from core.models import Organisation, Person, Project, Fund
+from core.models.organisation import Organisation
+from core.models.person import Person
+from core.models.project import Project
+from core.models.fund import Fund
 from api.serializers import (
     OrganisationSerializer,
     PersonSerializer,

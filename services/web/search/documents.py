@@ -1,6 +1,6 @@
 from django_elasticsearch_dsl import Document
 from django_elasticsearch_dsl.registries import registry
-from core.models import Project
+from core.models.project import Project
 
 
 @registry.register_document

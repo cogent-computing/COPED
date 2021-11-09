@@ -1,14 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.models import Permission
-from core.models import (
-    Fund,
-    Person,
-    Project,
-    Organisation,
-    ProjectOrganisation,
-    ProjectPerson,
-    ProjectFund,
-)
+from core.models.fund import Fund
+from core.models.person import Person
+from core.models.organisation import Organisation
+from core.models.project import Project, ProjectOrganisation, ProjectPerson, ProjectFund
 
 # Define inlines for many-to-many relations
 
