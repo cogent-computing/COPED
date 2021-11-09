@@ -10,7 +10,7 @@ class Organisation(models.Model):
     of project participants, and so on."""
 
     coped_id = models.UUIDField(
-        default=str(uuid4()),
+        default=uuid4,
         editable=False,
         verbose_name="CoPED ID",
     )

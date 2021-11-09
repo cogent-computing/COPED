@@ -11,9 +11,7 @@ class Person(models.Model):
     Users are those people who use the platform, while Person records are
     individuals identified in the project meta data itself."""
 
-    coped_id = models.UUIDField(
-        default=str(uuid4()), editable=False, verbose_name="CoPED ID"
-    )
+    coped_id = models.UUIDField(default=uuid4, editable=False, verbose_name="CoPED ID")
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
     organisation = models.ForeignKey(

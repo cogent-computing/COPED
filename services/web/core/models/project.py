@@ -4,6 +4,7 @@ from uuid import uuid4
 from .organisation import Organisation
 from .person import Person
 from .fund import Fund
+from .raw_data import RawData
 
 
 class Project(models.Model):
@@ -13,9 +14,7 @@ class Project(models.Model):
     have links to a range of Fund, Person, and Organisation records based on
     who funded the project, who worked on it, and so on."""
 
-    coped_id = models.UUIDField(
-        default=str(uuid4()), editable=False, verbose_name="CoPED ID"
-    )
+    coped_id = models.UUIDField(default=uuid4, editable=False, verbose_name="CoPED ID")
     title = models.CharField(max_length=256)
     description = models.TextField(blank=True)
     status = models.CharField(
@@ -37,6 +36,9 @@ class Project(models.Model):
         Organisation,
         through="ProjectOrganisation",
         through_fields=("project", "organisation"),
+    )
+    raw_data = models.ForeignKey(
+        RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
 
     class Meta:

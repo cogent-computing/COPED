@@ -13,7 +13,7 @@ class Fund(models.Model):
     listed in its Fund record."""
 
     coped_id = models.UUIDField(
-        default=str(uuid4()),
+        default=uuid4,
         editable=False,
         verbose_name="CoPED ID",
     )
