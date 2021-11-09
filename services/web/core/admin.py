@@ -4,6 +4,7 @@ from core.models.fund import Fund
 from core.models.person import Person
 from core.models.organisation import Organisation
 from core.models.project import Project, ProjectOrganisation, ProjectPerson, ProjectFund
+from core.models.raw_data import RawData
 
 # Define inlines for many-to-many relations
 
@@ -47,4 +48,5 @@ admin.site.register(Person, PersonAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Organisation, OrganisationAdmin)
 admin.site.register(Fund, FundAdmin)
+admin.site.register(RawData)
 admin.site.register(Permission)
