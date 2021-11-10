@@ -12,7 +12,9 @@ class RawData(models.Model):
         max_length=32,
         help_text="Name of the bot or crawler that scraped the data.",
     )
-    url = models.URLField(verbose_name="URL", help_text="Source URL of the data.")
+    url = models.URLField(
+        primary_key=True, verbose_name="URL", help_text="Source URL of the data."
+    )
     json = models.JSONField(
         encoder=DjangoJSONEncoder,
         blank=True,
