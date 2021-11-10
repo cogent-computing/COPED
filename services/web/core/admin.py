@@ -1,5 +1,10 @@
+import json
 from django.contrib import admin
 from django.contrib.auth.models import Permission
+from django.utils.safestring import mark_safe
+from pygments import highlight
+from pygments.lexers import JsonLexer
+from pygments.formatters import HtmlFormatter
 from core.models.fund import Fund
 from core.models.person import Person
 from core.models.organisation import Organisation
@@ -48,20 +53,11 @@ class FundAdmin(admin.ModelAdmin):
     inlines = (ProjectFundInline,)
 
 
-import json
-from pygments import highlight
-from pygments.lexers import JsonLexer
-from pygments.formatters import HtmlFormatter
-
-from django.contrib import admin
-from django.utils.safestring import mark_safe
-
-
 class RawDataAdmin(admin.ModelAdmin):
     readonly_fields = ("data_prettified",)
 
     def data_prettified(self, instance):
-        """Function to display pretty version of our data"""
+        """Function to display pretty version of our raw JSON data"""
 
         # Convert the data to sorted, indented JSON
         response = json.dumps(instance.json, sort_keys=True, indent=2)
@@ -84,9 +80,6 @@ class RawDataAdmin(admin.ModelAdmin):
     data_prettified.short_description = "JSON Prettified"
 
 
-admin.site.register(RawData, RawDataAdmin)
-
-
 # Wire it all up
 
 
@@ -95,3 +88,4 @@ admin.site.register(Project, ProjectAdmin)
 admin.site.register(Organisation, OrganisationAdmin)
 admin.site.register(Fund, FundAdmin)
 admin.site.register(Permission)
+admin.site.register(RawData, RawDataAdmin)
