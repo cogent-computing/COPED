@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from .organisation import Organisation
+from .raw_data import RawData
 
 
 class Person(models.Model):
@@ -19,7 +20,11 @@ class Person(models.Model):
     )
     about = models.TextField(
         blank=True,
+        null=True,
         help_text="Role in the energy projects community.",
+    )
+    raw_data = models.ForeignKey(
+        RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
 
     class Meta:

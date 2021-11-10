@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from .organisation import Organisation
+from .raw_data import RawData
 
 
 class Fund(models.Model):
@@ -28,6 +29,9 @@ class Fund(models.Model):
         null=True,
         blank=True,
         help_text="Which organisation administers this fund?",
+    )
+    raw_data = models.ForeignKey(
+        RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
 
     class Meta:

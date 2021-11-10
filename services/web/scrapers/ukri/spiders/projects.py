@@ -6,11 +6,13 @@ Yields all matched projects, plus associated resources.
 
 
 import re
-import scrapy
 from scrapy import Request
+from scrapy import Spider
+from scrapy import signals
+from scrapers.ukri.post_processing import populate_resources
 
 
-class ProjectsSpider(scrapy.Spider):
+class ProjectsSpider(Spider):
     """A generic recursive spider for paginated resources on the UKRI API."""
 
     # Name to use when launching spider crawl from command line.
@@ -24,9 +26,7 @@ class ProjectsSpider(scrapy.Spider):
 
     def start_requests(self):
 
-        # Pass in comma-separated search terms on the command line at launch.
-        # Ensure there are no spaces between terms. For example:
-        # `scrapy crawl ukri-projects-spider -a queries=query1,query2,"phrase three"`
+        # TODO: get list of query terms from the CoPED DB
         queries = ["wind energy industry"]
 
         # Ensure query phrases containing spaces are double quoted.
@@ -98,3 +98,15 @@ class ProjectsSpider(scrapy.Spider):
         This is needed because the UKRI API does not provide previous/next page links :(
         """
         return re.sub("p=(\d+)", lambda exp: f"p={int(exp.groups()[0]) + 1}", url)
+
+    @classmethod
+    def from_crawler(cls, crawler, *args, **kwargs):
+        """Listen for spider closing signal and launch the post-processing"""
+        spider = super(ProjectsSpider, cls).from_crawler(crawler, *args, **kwargs)
+        crawler.signals.connect(spider.spider_closed, signal=signals.spider_closed)
+        return spider
+
+    def spider_closed(self, spider):
+        spider.logger.info(f"Spider {spider.name} closed. Starting post-processing.")
+        populate_resources(spider.name)
+        spider.logger.info(f"Spider {spider.name} post-processing complete.")
