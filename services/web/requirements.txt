@@ -13,3 +13,6 @@ uritemplate==4.1.1
 # Scrapy is needed for crawling websites and APIs
 Scrapy==2.5.1
 deepdiff==5.6.0
+
+# Admin formatting
+Pygments==2.10.0
