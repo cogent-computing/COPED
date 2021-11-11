@@ -12,6 +12,7 @@ class ExternalLink(models.Model):
 
     class Meta:
         db_table = "coped_external_link"
+        verbose_name_plural = "External Links"
 
     def __str__(self):
         return f"{self.description} - {self.link}"

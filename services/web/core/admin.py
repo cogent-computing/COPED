@@ -31,43 +31,59 @@ class ProjectFundInline(admin.TabularInline):
     extra = 1
 
 
-class PersonExternalLinkInline(admin.TabularInline):
+class PersonExternalLinksInline(admin.TabularInline):
     model = Person.external_links.through
-    extra = 1
+    extra = 0
 
 
-class OrganisationExternalLinkInline(admin.TabularInline):
+class ProjectExternalLinksInline(admin.TabularInline):
+    model = Project.external_links.through
+    extra = 0
+
+
+class FundExternalLinksInline(admin.TabularInline):
+    model = Fund.external_links.through
+    extra = 0
+
+
+class OrganisationExternalLinksInline(admin.TabularInline):
     model = Organisation.external_links.through
-    extra = 1
+    extra = 0
 
 
 # Define the model admins themselves
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    readonly_fields = ("coped_id",)
+    readonly_fields = ("coped_id", "raw_data", "external_links")
     inlines = (ProjectOrganisationInline, ProjectPersonInline, ProjectFundInline)
 
 
 class OrganisationAdmin(admin.ModelAdmin):
-    readonly_fields = ("coped_id",)
-    exclude = ("external_links",)
-    inlines = (ProjectOrganisationInline, OrganisationExternalLinkInline)
+    readonly_fields = ("coped_id", "raw_data", "external_links")
 
 
 class PersonAdmin(admin.ModelAdmin):
-    readonly_fields = ("coped_id",)
-    exclude = ("external_links", "raw_data")
-    inlines = (ProjectPersonInline, PersonExternalLinkInline)
+    readonly_fields = ("coped_id", "raw_data", "external_links")
 
 
 class FundAdmin(admin.ModelAdmin):
-    readonly_fields = ("coped_id",)
+    readonly_fields = ("coped_id", "raw_data", "external_links")
     inlines = (ProjectFundInline,)
 
 
+class ExternalLinkAdmin(admin.ModelAdmin):
+    inlines = (
+        PersonExternalLinksInline,
+        ProjectExternalLinksInline,
+        FundExternalLinksInline,
+        OrganisationExternalLinksInline,
+    )
+
+
 class RawDataAdmin(admin.ModelAdmin):
-    readonly_fields = ("data_prettified",)
+    readonly_fields = ("bot", "url", "data_prettified")
+    exclude = ("json",)
 
     def data_prettified(self, instance):
         """Function to display pretty version of our raw JSON data"""
@@ -76,7 +92,7 @@ class RawDataAdmin(admin.ModelAdmin):
         response = json.dumps(instance.json, sort_keys=True, indent=2)
 
         # Truncate the data. Alter as needed
-        response = response[:5000]
+        response = response[:10000]
 
         # Get the Pygments formatter
         formatter = HtmlFormatter(style="colorful")
@@ -90,7 +106,7 @@ class RawDataAdmin(admin.ModelAdmin):
         # Safe the output
         return mark_safe(style + response)
 
-    data_prettified.short_description = "JSON Prettified"
+    data_prettified.short_description = "JSON"
 
 
 # Wire it all up
@@ -102,3 +118,4 @@ admin.site.register(Organisation, OrganisationAdmin)
 admin.site.register(Fund, FundAdmin)
 admin.site.register(Permission)
 admin.site.register(RawData, RawDataAdmin)
+admin.site.register(ExternalLink, ExternalLinkAdmin)
