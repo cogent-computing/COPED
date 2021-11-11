@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from .organisation import Organisation
 from .raw_data import RawData
+from .external_link import ExternalLink
 
 
 class Fund(models.Model):
@@ -30,6 +31,7 @@ class Fund(models.Model):
         blank=True,
         help_text="Which organisation administers this fund?",
     )
+    external_links = models.ManyToManyField(ExternalLink)
     raw_data = models.ForeignKey(
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )

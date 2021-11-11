@@ -4,6 +4,7 @@ from core.models.project import Project
 from core.models.fund import Fund
 from core.models.organisation import Organisation
 from core.models.person import Person
+from core.models.external_link import ExternalLink
 
 
 def populate_resources(spider_name):
@@ -63,13 +64,23 @@ def populate_organisations(raw_data):
 
 
 def populate_persons(raw_data):
-    item, _ = Person.objects.get_or_create(raw_data=raw_data)
+    person, _ = Person.objects.get_or_create(raw_data=raw_data)
 
-    # Set the item information.
+    # Assign the person information.
     json = raw_data.json
-    item.first_name = json.get("firstName", "(No First Name)")
-    item.last_name = json.get("surname", "(No Surname)")
-    item.about = json.get("orcidId", "")
+    person.first_name = json.get("firstName", "(No First Name)")
+    person.other_name = json.get("otherNames", "")
+    person.last_name = json.get("surname", "(No Surname)")
+    person.email = json.get("email", "")
+    person.orcid_id = json.get("orcidId", "")
+
+    # Construct an external UKRI link
+    ukri_id = json.get("id")
+    external_link, _ = ExternalLink.objects.get_or_create(
+        link=f"https://gtr.ukri.org/person/{ukri_id}"
+    )
+    external_link.description = "UKRI website entry"
+    person.external_links.add(external_link)
 
     # Send to the database.
-    item.save()
+    person.save()

@@ -1,8 +1,7 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
-from .organisation import Organisation
 from .raw_data import RawData
+from .external_link import ExternalLink
 
 
 class Person(models.Model):
@@ -13,19 +12,15 @@ class Person(models.Model):
     individuals identified in the project meta data itself."""
 
     coped_id = models.UUIDField(default=uuid4, editable=False, verbose_name="CoPED ID")
+    email = models.EmailField(blank=True, null=True)
     first_name = models.CharField(max_length=128)
+    other_name = models.CharField(max_length=128, blank=True, null=True)
     last_name = models.CharField(max_length=128)
-    organisation = models.ForeignKey(
-        Organisation, null=True, blank=True, on_delete=models.SET_NULL
-    )
-    about = models.TextField(
-        blank=True,
-        null=True,
-        help_text="Role in the energy projects community.",
-    )
+    orcid_id = models.CharField(max_length=20, blank=True, null=True)
     raw_data = models.ForeignKey(
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
+    external_links = models.ManyToManyField(ExternalLink)
 
     class Meta:
         db_table = "coped_person"

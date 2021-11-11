@@ -5,6 +5,7 @@ from .organisation import Organisation
 from .person import Person
 from .fund import Fund
 from .raw_data import RawData
+from .external_link import ExternalLink
 
 
 class Project(models.Model):
@@ -37,6 +38,7 @@ class Project(models.Model):
         through="ProjectOrganisation",
         through_fields=("project", "organisation"),
     )
+    external_links = models.ManyToManyField(ExternalLink)
     raw_data = models.ForeignKey(
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )

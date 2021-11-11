@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from .raw_data import RawData
+from .external_link import ExternalLink
 
 
 class Organisation(models.Model):
@@ -25,6 +26,7 @@ class Organisation(models.Model):
         blank=True,
         help_text="Organisation overview with its role in the energy projects community.",
     )
+    external_links = models.ManyToManyField(ExternalLink)
     raw_data = models.ForeignKey(
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
