@@ -101,14 +101,9 @@ class ProjectOrganisation(models.Model):
     Note that project funders are a special case and these should be linked to
     projects via the ProjectFund intermediary model."""
 
-    class Role(models.TextChoices):
-        LEAD = "LEAD", _("Lead Organisation")
-        PARTNER = "PARTNER", _("Partner Organisation")
-        PARTICIPANT = "PARTICIPANT", _("Participant Organisation")
-
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
-    role = models.CharField(max_length=16, choices=Role.choices, default=Role.LEAD)
+    role = models.CharField(max_length=16, default="Lead Organisation")
 
     class Meta:
         db_table = "coped_project_organisation"
@@ -120,20 +115,12 @@ class ProjectOrganisation(models.Model):
 class ProjectPerson(models.Model):
     """Through model for persons related to projects."""
 
-    class RelationType(models.TextChoices):
-        LEAD = "LEAD", _("Project Lead")
-        PARTNER = "PARTNER", _("Project Partner or Co-Investigator")
-        PARTICIPANT = "PARTICIPANT", _("Other Project Participant")
-
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    role = models.CharField(
-        max_length=16, choices=RelationType.choices, default=RelationType.LEAD
-    )
+    role = models.CharField(max_length=16, default="Lead Person")
 
     class Meta:
         db_table = "coped_project_person"
-        verbose_name_plural = "People"
 
     def __str__(self):
         return self.role
