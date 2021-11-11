@@ -5,11 +5,12 @@ from django.utils.safestring import mark_safe
 from pygments import highlight
 from pygments.lexers import JsonLexer
 from pygments.formatters import HtmlFormatter
-from core.models.fund import Fund
-from core.models.person import Person
-from core.models.organisation import Organisation
-from core.models.project import Project, ProjectOrganisation, ProjectPerson, ProjectFund
-from core.models.raw_data import RawData
+from .models.fund import Fund
+from .models.person import Person
+from .models.organisation import Organisation
+from .models.project import Project, ProjectOrganisation, ProjectPerson, ProjectFund
+from .models.raw_data import RawData
+from .models.external_link import ExternalLink
 
 
 # Define inlines for many-to-many relations
@@ -35,6 +36,11 @@ class PersonExternalLinkInline(admin.TabularInline):
     extra = 1
 
 
+class OrganisationExternalLinkInline(admin.TabularInline):
+    model = Organisation.external_links.through
+    extra = 1
+
+
 # Define the model admins themselves
 
 
@@ -45,7 +51,8 @@ class ProjectAdmin(admin.ModelAdmin):
 
 class OrganisationAdmin(admin.ModelAdmin):
     readonly_fields = ("coped_id",)
-    inlines = (ProjectOrganisationInline,)
+    exclude = ("external_links",)
+    inlines = (ProjectOrganisationInline, OrganisationExternalLinkInline)
 
 
 class PersonAdmin(admin.ModelAdmin):
