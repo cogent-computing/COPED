@@ -8,10 +8,10 @@ class ExternalLink(models.Model):
     can have multiple external links."""
 
     link = models.URLField(help_text="Link to more information about a resource.")
-    description = models.CharField(max_length=128, null=True, blank=True)
+    description = models.CharField(max_length=128)
 
     class Meta:
         db_table = "coped_external_link"
 
     def __str__(self):
-        return self.link
+        return f"{self.description} - {self.link}"
