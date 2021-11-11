@@ -29,26 +29,44 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
                 self.fields.pop(field_name)
 
 
+class ExternalLinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExternalLink
+        fields = ["link", "description"]
+
+
 class OrganisationSerializer(DynamicFieldsModelSerializer):
+    external_links = ExternalLinkSerializer(many=True)
+
     class Meta:
         model = Organisation
-        fields = ["url", "coped_id", "name", "address", "about"]
+        fields = [
+            "url",
+            "coped_id",
+            "name",
+            "address",
+            "about",
+            "external_links",
+        ]
 
 
 class FundSerializer(DynamicFieldsModelSerializer):
+    external_links = ExternalLinkSerializer(many=True)
+
     organisation = serializers.HyperlinkedRelatedField(
         view_name="organisation-detail", read_only=True
     )
 
     class Meta:
         model = Fund
-        fields = ["url", "coped_id", "title", "about", "organisation"]
-
-
-class ExternalLinkSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ExternalLink
-        fields = ["link", "description"]
+        fields = [
+            "url",
+            "coped_id",
+            "title",
+            "about",
+            "organisation",
+            "external_links",
+        ]
 
 
 class PersonSerializer(DynamicFieldsModelSerializer):
@@ -69,6 +87,8 @@ class PersonSerializer(DynamicFieldsModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    external_links = ExternalLinkSerializer(many=True)
+
     organisations = OrganisationSerializer(
         many=True, read_only=True, fields=("url", "coped_id", "name")
     )
@@ -90,4 +110,5 @@ class ProjectSerializer(serializers.ModelSerializer):
             "funds",
             "persons",
             "organisations",
+            "external_links",
         ]
