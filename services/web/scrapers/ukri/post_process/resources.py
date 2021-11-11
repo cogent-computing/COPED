@@ -1,3 +1,10 @@
+"""Script to parse the RawData model and extract CoPED-managed resources from it.
+
+The set of functions below parse raw JSON data from crawler dumps
+and use the extracted values to update or create new records of
+the appropriate resource type in the CoPED database."""
+
+
 from django.db import transaction
 from core.models.raw_data import RawData
 from core.models.project import Project
@@ -7,31 +14,42 @@ from core.models.person import Person
 from core.models.external_link import ExternalLink
 
 
-def populate_resources(spider_name):
+def populate(bot_name):
     """Parse all UKRI raw data records and populate CoPED resource tables from them."""
 
-    ukri_raw = RawData.objects.filter(bot=spider_name)
+    # Only populate resources corresponding to the current bot/scraper name.
+    ukri_raw = RawData.objects.filter(bot=bot_name)
 
-    populate = {
+    # Specify a mapping from UKRI resources types to functions that can
+    # parse their data structures to extract data for the CoPED database.
+    populate_functions = {
         "projects": populate_projects,
         "funds": populate_funds,
         "organisations": populate_organisations,
         "persons": populate_persons,
     }
 
+    # Context manage the database transaction to ensure rollback if anything fails.
+    # Process each raw data record separately, by sending it to the appropriate function.
     with transaction.atomic():
         for scraped_data in ukri_raw:
-            # Send to the correct function to process.
             url = scraped_data.url
             resource_type = url.split("/")[-2]
-            populate[resource_type](scraped_data)
+            populate_functions[resource_type](scraped_data)
 
 
 def ukri_web_link(ukri_id, resource_type):
+    """Generate a URL for accessing resource information on the UKRI website."""
+
     return f"https://gtr.ukri.org/{resource_type}/{ukri_id}"
 
 
 def coped_external_link(ukri_id, resource_type, description=None):
+    """Generate an ExternalLink instance for adding to CoPED resources.
+
+    Note that this function does not save the external link. It can be
+    saved by adding it to a many-to-many field on a resource whose target
+    model is ExternalLink, then saving that resource."""
 
     if description is None:
         description = f"UKRI {resource_type} entry"
@@ -40,7 +58,6 @@ def coped_external_link(ukri_id, resource_type, description=None):
         link=ukri_web_link(ukri_id, resource_type)
     )
     external_link.description = description
-    external_link.save()
     return external_link
 
 
