@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from .organisation import Organisation
 from .person import Person
-from .fund import Fund
 from .raw_data import RawData
 from .external_link import ExternalLink
 
@@ -24,9 +23,10 @@ class Project(models.Model):
         help_text="Is the project active or in some other state?",
     )
     funds = models.ManyToManyField(
-        Fund,
+        Organisation,
         through="ProjectFund",
-        through_fields=("project", "fund"),
+        through_fields=("project", "organisation"),
+        related_name="project_funds",
     )
     persons = models.ManyToManyField(
         Person,
@@ -61,14 +61,10 @@ class ProjectFund(models.Model):
 
     Each project can have zero or more funds. The ProjectFund records
     additional details of the project's funding such as its value, relevant
-    dates, and so on.
-
-    Note that the related Fund record has a foreign key to the relevant
-    funding organisation, so projects are related to their funding organisations
-    indirectly, via this intermediary ProjectFund model."""
+    dates, and so on."""
 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    fund = models.ForeignKey(Fund, on_delete=models.CASCADE)
+    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     amount = models.DecimalField(
         null=True,
         blank=True,
@@ -76,11 +72,16 @@ class ProjectFund(models.Model):
         max_digits=12,
         help_text="Value of the funding award in GBP.",
     )
+    currency = models.CharField(max_length=3, default="GBP")
     start_date = models.DateField(
         null=True, blank=True, help_text="Scheduled funding start date."
     )
     end_date = models.DateField(
         null=True, blank=True, help_text="Scheduled funding end date."
+    )
+    # Also provide a link to where the project funding information came from.
+    raw_data = models.ForeignKey(
+        RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
 
     class Meta:
@@ -96,10 +97,7 @@ class ProjectOrganisation(models.Model):
     Projects are generally administered or worked on by an organisation.
     The ProjectOrganisation records the nature of the link between them.
     For projects with only one organisation link, its role defaults to
-    'LEAD' organisation.
-
-    Note that project funders are a special case and these should be linked to
-    projects via the ProjectFund intermediary model."""
+    'LEAD' organisation."""
 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)

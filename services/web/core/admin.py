@@ -5,7 +5,6 @@ from django.utils.safestring import mark_safe
 from pygments import highlight
 from pygments.lexers import JsonLexer
 from pygments.formatters import HtmlFormatter
-from .models.fund import Fund
 from .models.person import Person
 from .models.organisation import Organisation
 from .models.project import Project, ProjectOrganisation, ProjectPerson, ProjectFund
@@ -41,11 +40,6 @@ class ProjectExternalLinksInline(admin.TabularInline):
     extra = 0
 
 
-class FundExternalLinksInline(admin.TabularInline):
-    model = Fund.external_links.through
-    extra = 0
-
-
 class OrganisationExternalLinksInline(admin.TabularInline):
     model = Organisation.external_links.through
     extra = 0
@@ -76,7 +70,6 @@ class ExternalLinkAdmin(admin.ModelAdmin):
     inlines = (
         PersonExternalLinksInline,
         ProjectExternalLinksInline,
-        FundExternalLinksInline,
         OrganisationExternalLinksInline,
     )
 
@@ -115,7 +108,6 @@ class RawDataAdmin(admin.ModelAdmin):
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Organisation, OrganisationAdmin)
-admin.site.register(Fund, FundAdmin)
 admin.site.register(Permission)
 admin.site.register(RawData, RawDataAdmin)
 admin.site.register(ExternalLink, ExternalLinkAdmin)

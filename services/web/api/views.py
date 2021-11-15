@@ -1,11 +1,9 @@
 from core.models.organisation import Organisation
 from core.models.person import Person
 from core.models.project import Project
-from core.models.fund import Fund
 from api.serializers import (
     OrganisationSerializer,
     PersonSerializer,
-    FundSerializer,
     ProjectSerializer,
 )
 from rest_framework import generics
@@ -46,16 +44,6 @@ class PersonList(generics.ListCreateAPIView):
 class PersonDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
-
-
-class FundList(generics.ListCreateAPIView):
-    queryset = Fund.objects.all()
-    serializer_class = FundSerializer
-
-
-class FundDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Fund.objects.all()
-    serializer_class = FundSerializer
 
 
 class ProjectList(generics.ListCreateAPIView):

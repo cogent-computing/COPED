@@ -2,7 +2,6 @@ from rest_framework import serializers
 from core.models.organisation import Organisation
 from core.models.person import Person
 from core.models.project import Project
-from core.models.fund import Fund
 from core.models.external_link import ExternalLink
 
 
@@ -50,25 +49,6 @@ class OrganisationSerializer(DynamicFieldsModelSerializer):
         ]
 
 
-class FundSerializer(DynamicFieldsModelSerializer):
-    external_links = ExternalLinkSerializer(many=True)
-
-    organisation = serializers.HyperlinkedRelatedField(
-        view_name="organisation-detail", read_only=True
-    )
-
-    class Meta:
-        model = Fund
-        fields = [
-            "url",
-            "coped_id",
-            "title",
-            "about",
-            "organisation",
-            "external_links",
-        ]
-
-
 class PersonSerializer(DynamicFieldsModelSerializer):
     external_links = ExternalLinkSerializer(many=True)
 
@@ -91,9 +71,6 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     organisations = OrganisationSerializer(
         many=True, read_only=True, fields=("url", "coped_id", "name")
-    )
-    funds = FundSerializer(
-        many=True, read_only=True, fields=("url", "coped_id", "title")
     )
     persons = PersonSerializer(
         many=True, read_only=True, fields=("url", "coped_id", "first_name", "last_name")
