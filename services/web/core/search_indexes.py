@@ -4,8 +4,7 @@ from .models.project import Project
 
 class ProjectIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    title = indexes.CharField(model_attr="title")
-    description = indexes.CharField(model_attr="description")
+    # Include fields here for filtering etc. that are not needed in the index.
 
     def get_model(self):
         return Project
