@@ -96,7 +96,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         many=True, read_only=True, fields=("url", "coped_id", "title")
     )
     persons = PersonSerializer(
-        many=True, read_only=True, fields=("url", "coped_id", "full_name")
+        many=True, read_only=True, fields=("url", "coped_id", "first_name", "last_name")
     )
 
     class Meta:
