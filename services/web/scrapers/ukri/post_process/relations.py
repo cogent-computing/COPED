@@ -35,6 +35,9 @@ def populate(bot_name):
             resource_model = link_models[resource_type]
             try:
                 resource = resource_model.objects.get(raw_data__url=href)
+                # Now dynamically specify the field on the project record to add to.
+                # NB: this assumes resource type strings are also field names in the model.
+                # TODO: improve this brittle dependency between resource types and field names.
                 link_field = getattr(project, resource_type)
                 link_field.add(resource, through_defaults={"role": rel})
             except resource_model.DoesNotExist:
