@@ -76,6 +76,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         many=True, read_only=True, fields=("url", "coped_id", "first_name", "last_name")
     )
 
+    # TODO: provide a funds serializer to include detailed fund data with projects
     class Meta:
         model = Project
         fields = [
