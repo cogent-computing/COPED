@@ -1,15 +1,15 @@
-from core.models.organisation import Organisation
-from core.models.person import Person
-from core.models.project import Project
-from api.serializers import (
-    OrganisationSerializer,
-    PersonSerializer,
-    ProjectSerializer,
-)
 from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+
+from core.models.organisation import Organisation
+from core.models.person import Person
+from core.models.project import Project
+
+from .serializers.organisation import OrganisationSerializer
+from .serializers.person import PersonSerializer
+from .serializers.project import ProjectSerializer
 
 
 @api_view(["GET"])
@@ -21,7 +21,6 @@ def api_root(request, format=None):
                 "organisation-list", request=request, format=format
             ),
             "persons": reverse("person-list", request=request, format=format),
-            "funds": reverse("fund-list", request=request, format=format),
         }
     )
 

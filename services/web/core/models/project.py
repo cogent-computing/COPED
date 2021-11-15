@@ -26,7 +26,7 @@ class Project(models.Model):
         Organisation,
         through="ProjectFund",
         through_fields=("project", "organisation"),
-        related_name="project_funds",
+        related_name="project_fund",
     )
     persons = models.ManyToManyField(
         Person,
@@ -37,6 +37,9 @@ class Project(models.Model):
         Organisation,
         through="ProjectOrganisation",
         through_fields=("project", "organisation"),
+    )
+    projects = models.ManyToManyField(
+        to="self", through="LinkedProject", symmetrical=False
     )
     external_links = models.ManyToManyField(ExternalLink)
     raw_data = models.ForeignKey(
@@ -70,7 +73,7 @@ class ProjectFund(models.Model):
         blank=True,
         decimal_places=2,
         max_digits=12,
-        help_text="Value of the funding award in GBP.",
+        help_text="Value of the funding award.",
     )
     currency = models.CharField(max_length=3, default="GBP")
     start_date = models.DateField(
@@ -88,7 +91,7 @@ class ProjectFund(models.Model):
         db_table = "coped_project_fund"
 
     def __str__(self):
-        return f"{self.fund.title} funding for {self.project.title}"
+        return f"{self.organisation.name} funding for {self.project.title}"
 
 
 class ProjectOrganisation(models.Model):
@@ -108,6 +111,25 @@ class ProjectOrganisation(models.Model):
 
     def __str__(self):
         return self.role
+
+
+class LinkedProject(models.Model):
+    """Through model for projects that are linked to other projects.
+
+    This can be used for things like studentships which have their own Project
+    record but are also part of a larger project."""
+
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    link = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="linked_project"
+    )
+    relation = models.CharField(max_length=32, default="Linked Project")
+
+    class Meta:
+        db_table = "coped_linked_project"
+
+    def __str__(self):
+        return self.relation
 
 
 class ProjectPerson(models.Model):

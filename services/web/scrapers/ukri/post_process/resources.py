@@ -24,18 +24,18 @@ def populate(bot_name):
     # parse their data structures to extract data for the CoPED database.
     populate_functions = {
         "projects": populate_projects,
-        "funds": populate_funds,
         "organisations": populate_organisations,
         "persons": populate_persons,
     }
 
     # Context manage the database transaction to ensure rollback if anything fails.
-    # Process each raw data record separately, by sending it to the appropriate function.
     with transaction.atomic():
+        # Process each raw data record separately, by sending it to the appropriate function.
         for scraped_data in ukri_raw:
             url = scraped_data.url
             resource_type = url.split("/")[-2]
-            populate_functions[resource_type](scraped_data)
+            if resource_type in populate_functions.keys():
+                populate_functions[resource_type](scraped_data)
 
 
 def ukri_web_link(ukri_id, resource_type):
@@ -61,18 +61,6 @@ def coped_external_link(ukri_id, resource_type, description=None):
     return external_link
 
 
-def populate_funds(raw_data):
-    fund, _ = Fund.objects.get_or_create(raw_data=raw_data)
-
-    # Set the fund information.
-    json = raw_data.json
-    fund.title = json.get("start", "No Title")
-    fund.about = json.get("created", "No Description")
-
-    # Send to the database.
-    fund.save()
-
-
 def populate_projects(raw_data):
     project, _ = Project.objects.get_or_create(raw_data=raw_data)
 
@@ -82,7 +70,7 @@ def populate_projects(raw_data):
     project.description = json.get("abstractText", "No Description")
 
     # Add the external UKRI link
-    external_link = coped_external_link(json.get("id"), "project")
+    external_link = coped_external_link(json.get("id"), resource_type="project")
     project.external_links.add(external_link)
 
     # Send to the database.
@@ -98,7 +86,7 @@ def populate_organisations(raw_data):
     organisation.about = json.get("id", "No Information")
 
     # Add the external UKRI link
-    external_link = coped_external_link(json.get("id"), "organisation")
+    external_link = coped_external_link(json.get("id"), resource_type="organisation")
     organisation.external_links.add(external_link)
 
     # Send to the database.
@@ -117,7 +105,7 @@ def populate_persons(raw_data):
     person.orcid_id = json.get("orcidId", "")
 
     # Add the external UKRI link
-    external_link = coped_external_link(json.get("id"), "person")
+    external_link = coped_external_link(json.get("id"), resource_type="person")
     person.external_links.add(external_link)
 
     # Send to the database.
