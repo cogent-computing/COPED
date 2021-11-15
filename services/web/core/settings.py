@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "haystack",
     # "django_elasticsearch_dsl",
     # "django_elasticsearch_dsl_drf",
     "core",  # Project settings and top-level URL configurations.
@@ -163,3 +164,16 @@ REST_FRAMEWORK = {
 # ELASTICSEARCH_INDEX_NAMES = {
 #     "search.documents.project": "project",
 # }
+
+# ElasticSearch and Haystack configuration
+# https://django-haystack.readthedocs.io/en/master/index.html
+# TODO: get URL from environment/config
+# TODO: get authentication from environment/config
+HAYSTACK_CONNECTIONS = {
+    "default": {
+        "ENGINE": "haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine",
+        "URL": "http://elasticsearch:9200",
+        "INDEX_NAME": "haystack",
+        "KWARGS": {"http_auth": ("elastic", "password")},
+    }
+}

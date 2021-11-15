@@ -23,5 +23,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     # path(r"search/", include(search_urls)),
+    path("search/", include("haystack.urls")),
     path("", views.index, name="index"),
 ]
