@@ -41,11 +41,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "django_elasticsearch_dsl",
-    "django_elasticsearch_dsl_drf",
+    # "django_elasticsearch_dsl",
+    # "django_elasticsearch_dsl_drf",
     "core",  # Project settings and top-level URL configurations.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
-    "search.apps.SearchConfig",  # ElasticSearch DSL DRF mappings and views.
+    # "search.apps.SearchConfig",  # ElasticSearch DSL DRF mappings and views.
 ]
 
 MIDDLEWARE = [
@@ -155,11 +155,11 @@ REST_FRAMEWORK = {
 # https://django-elasticsearch-dsl-drf.readthedocs.io/en/latest/index.html
 # TODO: set host and path from environment
 
-ELASTICSEARCH_DSL = {
-    "default": {"hosts": "http://elastic:password@elasticsearch:9200"},
-}
+# ELASTICSEARCH_DSL = {
+#     "default": {"hosts": "http://elastic:password@elasticsearch:9200"},
+# }
 
-# Name of the Elasticsearch indexes
-ELASTICSEARCH_INDEX_NAMES = {
-    "search.documents.project": "project",
-}
+# # Name of the Elasticsearch indexes
+# ELASTICSEARCH_INDEX_NAMES = {
+#     "search.documents.project": "project",
+# }
