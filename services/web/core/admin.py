@@ -10,6 +10,7 @@ from .models.organisation import Organisation
 from .models.project import Project, ProjectOrganisation, ProjectPerson, ProjectFund
 from .models.raw_data import RawData
 from .models.external_link import ExternalLink
+from .models.address import Address
 
 
 # Define inlines for many-to-many relations
@@ -45,6 +46,11 @@ class OrganisationExternalLinksInline(admin.TabularInline):
     extra = 0
 
 
+class OrganisationAddressesInline(admin.TabularInline):
+    model = Organisation.addresses.through
+    extra = 0
+
+
 # Define the model admins themselves
 
 
@@ -54,7 +60,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 class OrganisationAdmin(admin.ModelAdmin):
-    readonly_fields = ("coped_id", "raw_data", "external_links")
+    readonly_fields = ("coped_id", "raw_data", "external_links", "addresses")
 
 
 class PersonAdmin(admin.ModelAdmin):
@@ -72,6 +78,11 @@ class ExternalLinkAdmin(admin.ModelAdmin):
         ProjectExternalLinksInline,
         OrganisationExternalLinksInline,
     )
+
+
+class AddressAdmin(admin.ModelAdmin):
+    readonly_fields = ("coped_id",)
+    inlines = (OrganisationAddressesInline,)
 
 
 class RawDataAdmin(admin.ModelAdmin):
@@ -111,3 +122,4 @@ admin.site.register(Organisation, OrganisationAdmin)
 admin.site.register(Permission)
 admin.site.register(RawData, RawDataAdmin)
 admin.site.register(ExternalLink, ExternalLinkAdmin)
+admin.site.register(Address, AddressAdmin)

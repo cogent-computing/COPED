@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from .raw_data import RawData
 from .external_link import ExternalLink
+from .address import Address
 
 
 class Organisation(models.Model):
@@ -17,11 +18,7 @@ class Organisation(models.Model):
         verbose_name="CoPED ID",
     )
     name = models.CharField(max_length=128)
-    address = models.CharField(
-        max_length=128,
-        blank=True,
-        help_text="The main registered address of the organisation.",
-    )
+    addresses = models.ManyToManyField(Address)
     about = models.TextField(
         blank=True,
         help_text="Organisation overview with its role in the energy projects community.",
