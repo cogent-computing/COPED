@@ -36,6 +36,11 @@ class PersonExternalLinksInline(admin.TabularInline):
     extra = 0
 
 
+class PersonOrganisationInline(admin.TabularInline):
+    model = Person.organisations.through
+    extra = 0
+
+
 class ProjectExternalLinksInline(admin.TabularInline):
     model = Project.external_links.through
     extra = 0
@@ -65,6 +70,7 @@ class OrganisationAdmin(admin.ModelAdmin):
 
 class PersonAdmin(admin.ModelAdmin):
     readonly_fields = ("coped_id", "raw_data", "external_links")
+    inlines = (PersonOrganisationInline,)
 
 
 class FundAdmin(admin.ModelAdmin):

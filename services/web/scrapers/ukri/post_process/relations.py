@@ -8,7 +8,7 @@ from core.models.project import (
     ProjectPerson,
 )
 from core.models.organisation import Organisation
-from core.models.person import Person
+from core.models.person import Person, PersonOrganisation
 from core.models.raw_data import RawData
 
 
@@ -19,12 +19,14 @@ def populate(bot_name="ukri-projects-spider"):
     NB: this function assumes that resources have already been populated from the raw data."""
 
     projects = Project.objects.filter(raw_data__bot=bot_name)
+    persons = Person.objects.filter(raw_data__bot=bot_name)
     # organisations = Organisation.objects.filter(raw_data__bot=bot_name)
-    # persons = Person.objects.filter(raw_data__bot=bot_name)
 
     with transaction.atomic():
         for project in projects:
             populate_resource_relations(project)
+        for person in persons:
+            populate_resource_relations(person)
 
 
 def populate_resource_relations(ukri_record):
@@ -47,6 +49,11 @@ def populate_resource_relations(ukri_record):
         link_type = href.split("/")[-2]
 
         try:
+            if record_type == "persons" and link_type == "organisations":
+                organisation = Organisation.objects.get(raw_data__url=href)
+                PersonOrganisation.objects.get_or_create(
+                    person=ukri_record, organisation=organisation, role=rel
+                )
             if record_type == "projects" and link_type == "organisations":
                 organisation = Organisation.objects.get(raw_data__url=href)
                 ProjectOrganisation.objects.get_or_create(
