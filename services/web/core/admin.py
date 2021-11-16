@@ -65,7 +65,9 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 class OrganisationAdmin(admin.ModelAdmin):
-    readonly_fields = ("coped_id", "raw_data", "external_links", "addresses")
+    readonly_fields = ("coped_id", "raw_data")
+    exclude = ("addresses", "external_links")
+    inlines = (OrganisationAddressesInline, OrganisationExternalLinksInline)
 
 
 class PersonAdmin(admin.ModelAdmin):
