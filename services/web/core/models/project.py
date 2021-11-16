@@ -22,6 +22,8 @@ class Project(models.Model):
         blank=True,
         help_text="Is the project active or in some other state?",
     )
+    start = models.DateField(null=True, blank=True)
+    end = models.DateField(null=True, blank=True)
     funds = models.ManyToManyField(
         Organisation,
         through="ProjectFund",
