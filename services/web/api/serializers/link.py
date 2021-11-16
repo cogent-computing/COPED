@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from core.models.external_link import ExternalLink
 from core.models.project import Project
+from core.models.project import ProjectFund
 from core.models.person import Person
 from core.models.organisation import Organisation
 
@@ -27,3 +28,13 @@ class LinkedOrganisationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organisation
         fields = ["url", "coped_id", "name"]
+
+
+class LinkedFundSerializer(serializers.ModelSerializer):
+    organisation = LinkedOrganisationSerializer()
+
+    class Meta:
+        # Use the through model of the many-to-many `funds`
+        # relation to access the funding data .
+        model = ProjectFund
+        fields = ["organisation", "amount", "currency", "start_date", "end_date"]
