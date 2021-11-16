@@ -8,8 +8,6 @@ Yields all matched projects, plus associated resources.
 import re
 from scrapy import Request
 from scrapy import Spider
-from scrapy import signals
-from scrapers.ukri.post_processing import populate_resources
 
 
 class ProjectsSpider(Spider):
@@ -21,13 +19,10 @@ class ProjectsSpider(Spider):
     # Set API entry point.
     projects_api = "https://gtr.ukri.org/gtr/api/projects"
 
-    # Only save resources with types that we want CoPED to manage
-    allowed_items = ["projects", "organisations", "persons", "funds"]
-
     def start_requests(self):
 
         # TODO: get list of query terms from the CoPED DB
-        queries = ["wind energy industry"]
+        queries = ["microgrid"]
 
         # Ensure query phrases containing spaces are double quoted.
         queries = [f'"{q}"' if " " in q else q for q in queries]
@@ -75,38 +70,35 @@ class ProjectsSpider(Spider):
             # Yield the item's JSON data for further pipeline processing.
             yield data
 
-            # If it is a project or fund, also find its links and follow them.
+            # Also find relevant links and follow them.
             item_type = response.request.url.split("/")[-2]
-            if item_type in ["projects", "funds"]:
+            if item_type in ["projects", "funds", "persons"]:
                 links = data.get("links", {}).get("link", [])
                 hrefs = []
                 for link in links:
                     href = link.get("href", "")
                     if href:
                         link_type = href.split("/")[-2]
-                        if link_type in self.allowed_items:
-                            # Only follow links to items we want CoPED to manage.
+                        # Depending on the item type, we only follow certain link types.
+                        # This is to constrain the data collected so it is closely linked
+                        # to the energy projects in the DB.
+                        if (
+                            (
+                                # Note: we don't follow project link types from projects.
+                                # Projects are included only if a search finds them directly.
+                                item_type == "projects"
+                                and link_type in ["persons", "funds", "organisations"]
+                            )
+                            or (item_type == "persons" and link_type == "organisations")
+                            or (item_type == "funds" and link_type == "organisations")
+                        ):
                             hrefs.append(href)
-                        else:
-                            continue
                 yield from response.follow_all(hrefs)
 
     @staticmethod
     def next_page_url(url):
         """Increment the page number in an existing paginated API URL.
 
-        This is needed because the UKRI API does not provide previous/next page links :(
+        This is needed because the UKRI API v2 JSON does not provide previous/next page links :(
         """
         return re.sub("p=(\d+)", lambda exp: f"p={int(exp.groups()[0]) + 1}", url)
-
-    @classmethod
-    def from_crawler(cls, crawler, *args, **kwargs):
-        """Listen for spider closing signal and launch the post-processing"""
-        spider = super(ProjectsSpider, cls).from_crawler(crawler, *args, **kwargs)
-        crawler.signals.connect(spider.spider_closed, signal=signals.spider_closed)
-        return spider
-
-    def spider_closed(self, spider):
-        spider.logger.info(f"Spider {spider.name} closed. Starting post-processing.")
-        populate_resources(spider.name)
-        spider.logger.info(f"Spider {spider.name} post-processing complete.")
