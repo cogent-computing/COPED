@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     # "django_elasticsearch_dsl_drf",
     "core",  # Project settings and top-level URL configurations.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
-    # "search.apps.SearchConfig",  # ElasticSearch DSL DRF mappings and views.
+    "search.apps.SearchConfig",  # Haystack search.
 ]
 
 MIDDLEWARE = [

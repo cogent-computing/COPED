@@ -1,5 +1,5 @@
 from haystack import indexes
-from .models.project import Project
+from core.models.project import Project
 
 
 class ProjectIndex(indexes.SearchIndex, indexes.Indexable):
