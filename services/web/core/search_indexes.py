@@ -5,6 +5,9 @@ from .models.project import Project
 class ProjectIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     # Include fields here for filtering etc. that are not needed in the index.
+    status = indexes.CharField(model_attr="status", faceted=True)
+    start = indexes.DateField(model_attr="start", null=True)
+    end = indexes.DateField(model_attr="end", null=True)
 
     def get_model(self):
         return Project
