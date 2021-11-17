@@ -25,5 +25,3 @@ urlpatterns = [
     ),
     path("", views.api_root),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
