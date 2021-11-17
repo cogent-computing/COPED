@@ -18,17 +18,17 @@ from .models.address import Address
 
 class ProjectOrganisationInline(admin.TabularInline):
     model = ProjectOrganisation
-    extra = 1
+    extra = 0
 
 
 class ProjectPersonInline(admin.TabularInline):
     model = ProjectPerson
-    extra = 1
+    extra = 0
 
 
 class ProjectFundInline(admin.TabularInline):
     model = ProjectFund
-    extra = 1
+    extra = 0
 
 
 class PersonExternalLinksInline(admin.TabularInline):
@@ -61,7 +61,23 @@ class OrganisationAddressesInline(admin.TabularInline):
 
 class ProjectAdmin(admin.ModelAdmin):
     readonly_fields = ("coped_id", "raw_data", "external_links")
+    list_display = ("coped_id", "title", "status", "start", "end")
     inlines = (ProjectOrganisationInline, ProjectPersonInline, ProjectFundInline)
+    list_filter = ("status",)
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": ("coped_id", "title", "description", "status"),
+            },
+        ),
+        (
+            "DATES AND LINKS",
+            {
+                "fields": (("start", "end"), "external_links"),
+            },
+        ),
+    )
 
 
 class OrganisationAdmin(admin.ModelAdmin):
