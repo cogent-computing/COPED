@@ -1,0 +1,161 @@
+{% load static %}
+<!-- Signup Modal -->
+<div
+  class="modal fade"
+  id="signupModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel2"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+        <div class="text-center">
+          <img
+            class="img-responsive"
+            style="width: 7vw"
+            src="{% static 'assets/img/icon.png' %}"
+          />
+        </div>
+
+        <div class="form-title text-center">
+          <h4>Join CoPED</h4>
+          <h2>Create your Account</h2>
+        </div>
+        <div class="d-flex flex-column text-center">
+          <form
+            class="needs-validation"
+            id="form_signup"
+            action="/register/"
+            method="post"
+            novalidate
+          >
+            {% csrf_token %}
+
+            <div class="form-group text-left">
+              <label for="first_name" class="text-dark"> First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="first_name"
+                name="first_name"
+                placeholder="Your first name..."
+                pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">
+                Please provide a valid first name
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <label for="last_name" class="text-dark"> Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="last_name"
+                name="last_name"
+                placeholder="Your last nme..."
+                pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">
+                Please provide a valid last name
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <label for="reg_email" class="text-dark"> Email Address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="reg_email"
+                name="email"
+                placeholder="Your email address..."
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">
+                Please provide a valid email address.
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <div class="row">
+                <label for="reg_password" class="text-dark col-md-6 col-sm-6">
+                  Password</label
+                >
+              </div>
+              <input
+                type="password"
+                class="form-control"
+                id="reg_password"
+                name="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                placeholder="Your password..."
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">
+                Please provide a valid password. It must contain at least one
+                number and one uppercase and lowercase letter, and at least 8 or
+                more characters
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <label for="reg_password_conf" class="text-dark"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="reg_password_conf"
+                placeholder="Confirm your password..."
+                oninput="check(this)"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Password must match!</div>
+            </div>
+            <button
+              type="submit"
+              type="submit"
+              form="form_signup"
+              value="Submit"
+              class="btn btn-info btn-block text-center btn-round"
+            >
+              Create User
+            </button>
+          </form>
+
+          <div class="modal-footer d-flexs">
+            <div class="signup-section text-justify">
+              By creating an account, you agree to the
+              <a
+                href="{% static 'assets/docs/terms-of-service.pdf' %}"
+                class="text-info"
+              >
+                Terms of Service</a
+              >. For more information about CoPED's privacy practices, see the
+              <a
+                href="{% static 'assets/docs/CoPED_Website_Privacy_Notice.pdf' %}"
+                class="text-info"
+              >
+                CoPED Privacy Statement</a
+              >. We'll occasionally send you updates and account-relevant
+              emails.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

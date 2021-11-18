@@ -24,5 +24,7 @@ urlpatterns = [
     path("api/", include("api.urls")),
     # path(r"search/", include(search_urls)),
     path("search/", include("search.urls")),
+    path("projects/", views.ProjectListView.as_view(), name="projects"),
+    path("projects/<int:pk>", views.ProjectDetailView.as_view(), name="project-detail"),
     path("", views.index, name="index"),
 ]

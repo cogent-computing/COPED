@@ -1,134 +1,112 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Home {% endblock title %}
-
 {% block content %}
 <!-- Masthead-->
 <header class="masthead text-white text-center">
-    <!-- Photo by Nuno Marques on Unsplash -->
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-9 mx-auto"><h1 class="mb-5">Search and Visualise data across the whole UK Energy project
-                Landscape!</h1></div>
-            <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                <form action="/projects/">
-                    <div class="form-row">
-                        <div class="col-12 col-md-9 mb-2 mb-md-0"><input class="form-control form-control-lg"
-                                                                         type="text"
-                                                                         name="search"
-                                                                         placeholder="Search for projects..."/></div>
-                        <div class="col-12 col-md-2">
-                            <button class="btn btn-lg btn-primary" type="submit">Search</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+  <!-- Photo by Nuno Marques on Unsplash -->
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <h1 class="mb-5">
+          Search and Visualise data across the whole UK Energy project
+          Landscape!
+        </h1>
+      </div>
+      <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+        {% include "includes/search_form.html" %}
+      </div>
     </div>
+  </div>
 </header>
 <!-- Icons Grid-->
 <section class="features-icons bg-light text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <a class="btn text-center" href="/users/">
-                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                        <div class="features-icons-icon d-flex">
-                            <i class="fas fa-users m-auto text-success fa-7x"></i>
-                        </div>
-                        <h3>Collaborate with Peers</h3>
-                        <p class="lead mb-0">Collaborate with peers across the Energy Data sector and identify new links
-                            and
-                            partnerships.</p>
-                    </div>
-                </a>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <a class="btn text-center" href="/users/">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="fas fa-users m-auto text-success fa-7x"></i>
             </div>
-            <div class="col-lg-4">
-                <a class="btn text-center" href="/projects/">
-                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                        <div class="features-icons-icon d-flex">
-                            <i class="fas fa-briefcase m-auto text-primary fa-7x"></i>
-                        </div>
-                        <h3>Discover Projects</h3>
-                        <p class="lead mb-0">Search trough a wide range of projects on energy data and visualise
-                            emerging links and trends.</p>
-                    </div>
-                </a>
+            <h3>Collaborate with Peers</h3>
+            <p class="lead mb-0">
+              Collaborate with peers across the Energy Data sector and identify
+              new links and partnerships.
+            </p>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-4">
+        <a class="btn text-center" href="/projects/">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="fas fa-briefcase m-auto text-primary fa-7x"></i>
             </div>
-            <div class="col-lg-4">
-                <a class="btn text-center" href="/orgs/">
-                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                        <div class="features-icons-icon d-flex">
-                            <i class="fas fa-landmark m-auto text-warning fa-7x"></i>
-                        </div>
-                        <h3>Explore Organisations</h3>
-                        <p class="lead mb-0">Browse through the collection of projects each organisation has and form
-                            new
-                            partnerships with their members.</p>
-                    </div>
-                </a>
+            <h3>Discover Projects</h3>
+            <p class="lead mb-0">
+              Search trough a wide range of projects on energy data and
+              visualise emerging links and trends.
+            </p>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-4">
+        <a class="btn text-center" href="/orgs/">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="fas fa-landmark m-auto text-warning fa-7x"></i>
             </div>
-        </div>
+            <h3>Explore Organisations</h3>
+            <p class="lead mb-0">
+              Browse through the collection of projects each organisation has
+              and form new partnerships with their members.
+            </p>
+          </div>
+        </a>
+      </div>
     </div>
+  </div>
 </section>
 <!-- Image Showcases-->
 <section class="showcase">
-    <div class="container-fluid p-0">
-        <div class="row no-gutters">
-            <div class="col-lg-6 order-lg-2 text-white showcase-img"
-                 style="background-image: url('{% static 'assets/img/vis-conn_big.png' %}')"></div>
-            <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                <h2>Graph Representation of Projects</h2>
-                <p class="lead mb-0">A queryable visualisation that shows the available projects,
-                    their organisations and the people connected to the projects.</p>
-                <a href="/visuals/conn_graphs/" class="btn btn-outline-info"> View Visuals </a>
-            </div>
-        </div>
-        <div class="row no-gutters">
-            <div class="col-lg-6 text-white showcase-img"
-                 style="background-image: url('{% static 'assets/img/vis-map_simple_big.png' %}')"></div>
-            <div class="col-lg-6 my-auto showcase-text">
-                <h2>Projects and Organisations Map across the UK</h2>
-                <p class="lead mb-0">A maps view of projects and organisations based on their address.</p>
-                <a href="/visuals/maps_simple/" class="btn btn-outline-info"> View Visuals </a>
-            </div>
-        </div>
+  <div class="container-fluid p-0">
+    <div class="row no-gutters">
+      <div
+        class="col-lg-6 order-lg-2 text-white showcase-img"
+        style="
+          background-image: url('{% static 'assets/img/vis-conn_big.png' %}');
+        "
+      ></div>
+      <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+        <h2>Graph Representation of Projects</h2>
+        <p class="lead mb-0">
+          A queryable visualisation that shows the available projects, their
+          organisations and the people connected to the projects.
+        </p>
+        <a href="/visuals/conn_graphs/" class="btn btn-outline-info">
+          View Visuals
+        </a>
+      </div>
     </div>
+    <div class="row no-gutters">
+      <div
+        class="col-lg-6 text-white showcase-img"
+        style="
+          background-image: url('{% static 'assets/img/vis-map_simple_big.png' %}');
+        "
+      ></div>
+      <div class="col-lg-6 my-auto showcase-text">
+        <h2>Projects and Organisations Map across the UK</h2>
+        <p class="lead mb-0">
+          A maps view of projects and organisations based on their address.
+        </p>
+        <a href="/visuals/maps_simple/" class="btn btn-outline-info">
+          View Visuals
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- Testimonials-->
-<!--<section class="testimonials text-center bg-light">-->
-<!--    <div class="container">-->
-<!--        <h2 class="mb-5">What people are saying...</h2>-->
-<!--        <div class="row">-->
-<!--            <div class="col-lg-4">-->
-<!--                <div class="testimonial-item mx-auto mb-5 mb-lg-0">-->
-<!--                    <img class="img-fluid rounded-circle mb-3" src="{% static 'assets/img/testimonials-1.jpg' %}"-->
-<!--                         alt="..."/>-->
-<!--                    <h5>Margaret E.</h5>-->
-<!--                    <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-lg-4">-->
-<!--                <div class="testimonial-item mx-auto mb-5 mb-lg-0">-->
-<!--                    <img class="img-fluid rounded-circle mb-3" src="{% static 'assets/img/testimonials-2.jpg' %}"-->
-<!--                         alt="..."/>-->
-<!--                    <h5>Fred S.</h5>-->
-<!--                    <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to create lots of super-->
-<!--                        nice landing pages."</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-lg-4">-->
-<!--                <div class="testimonial-item mx-auto mb-5 mb-lg-0">-->
-<!--                    <img class="img-fluid rounded-circle mb-3" src="{% static 'assets/img/testimonials-3.jpg' %}"-->
-<!--                         alt="..."/>-->
-<!--                    <h5>Sarah W.</h5>-->
-<!--                    <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to-->
-<!--                        us!"</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
-
 {% endblock content %}

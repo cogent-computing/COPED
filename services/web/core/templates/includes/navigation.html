@@ -1,0 +1,127 @@
+{% load static %}
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img
+        src="{% static 'assets/img/icon_long.png' %}"
+        height="30"
+        class="d-inline-block align-top"
+        alt=""
+    /></a>
+    <button
+      type="button"
+      class="navbar-toggler"
+      data-toggle="collapse"
+      data-target="#navbarCollapse"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="navbar-nav" href="/">
+        <div class="d-none d-xl-block">
+          <a class="navbar-brand"> Catalogue of Projects on Energy Data</a>
+        </div>
+      </div>
+      <div class="navbar-nav ml-auto">
+        <a
+          class="
+            btn
+            nav-item
+            btn-secondary
+            ml-1
+            {% block nav_proj%}{% endblock %}
+          "
+          href="/projects/"
+        >
+          <i class="fas fa-briefcase"></i> Projects</a
+        >
+        <a
+          class="btn nav-item btn-secondary {% block nav_vis %}{% endblock %}"
+          href="/visuals/"
+        >
+          <i class="fas fa-chart-pie"></i> Explore</a
+        >
+        <div class="dropdown mr-1">
+          <button
+            class="
+              btn btn-secondary
+              dropdown-toggle
+              {% block nav_ppl %}{% endblock %}
+              {% block nav_org%}{% endblock %}
+            "
+            type="button"
+            id="dropdownMenuCommunity"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            style="max-width: 180px; overflow: hidden; text-overflow: ellipsis"
+          >
+            <i class="fas fa-user-friends"></i>&nbsp;Community
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+            <a class="dropdown-item" href="/users/"
+              ><i class="fas fa-users"></i>&nbsp;People</a
+            >
+            <a class="dropdown-item" href="/orgs/"
+              ><i class="fas fa-landmark"></i>&nbsp;Organisations</a
+            >
+          </div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="dropdown mr-1">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton2"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            style="max-width: 180px; overflow: hidden; text-overflow: ellipsis"
+          >
+            <i class="fas fa-user"></i> {{ user.username }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+            <a class="dropdown-item" href=""> Profile </a>
+            <a class="dropdown-item" href=""> Projects </a>
+            <a class="dropdown-item" href=""> Messages </a>
+            <a class="dropdown-item" href=""> Requests </a>
+            <a class="dropdown-item" href=""> Notifications </a>
+            {% if user.is_staff %}
+              <hr class="dropdown-divider" />
+              <p class="dropdown-header">
+                <i class="fas fa-toolbox"></i> <b>Admin</b>
+              </p>
+              <a class="dropdown-item" href=""> Management </a>
+            {% endif %}
+            <hr class="dropdown-divider" />
+            <a class="dropdown-item" href="{% url 'index' %}">
+              Log Out <i class="fas fa-sign-out-alt"></i>
+            </a>
+          </div>
+        </div>
+        {% else %}
+        <div class="mr-1">
+          <a
+            class="btn btn-primary"
+            id="signin_button"
+            data-toggle="modal"
+            data-target="#loginModal"
+            href="#!"
+          >
+            Sign in
+          </a>
+          <a
+            class="btn btn-outline-primary"
+            data-toggle="modal"
+            data-target="#signupModal"
+            href="#!"
+          >
+            Sign up
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>

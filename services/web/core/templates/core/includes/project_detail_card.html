@@ -1,0 +1,67 @@
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Title</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ project.title }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Status</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ project.status }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Funder</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {% for fund in project.funds.all %}
+                    <a href=""> {{ fund.name }}</a></br>
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Funding Amount</h6></div>
+            <div class="col-sm-9 text-secondary">
+                {% comment %} {% load humanize %}
+                £{{ project.total_funding|intcomma }} {% endcomment %}
+                £{{ project.total_funding }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Start Date</h6></div>
+            <div class="col-sm-9 text-secondary">
+                {% firstof project.start project.funding_start %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">End Date</h6></div>
+            <div class="col-sm-9 text-secondary">
+                {% firstof project.end project.funding_end %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Description</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                <pre>{{ project.description }}</pre>
+            </div>
+        </div>
+    </div>
+</div>

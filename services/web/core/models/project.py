@@ -1,4 +1,6 @@
+from decimal import Decimal
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from .organisation import Organisation
@@ -47,6 +49,29 @@ class Project(models.Model):
     raw_data = models.ForeignKey(
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
+
+    @property
+    def total_funding(self):
+        """Add the funding amounts associated with all linked funds."""
+        total = Decimal(0)
+        for fund in self.projectfund_set.all():
+            total += fund.amount
+        return total
+
+    @property
+    def funding_start(self):
+        """The earliest date of a linked fund."""
+        first_fund = self.projectfund_set.earliest("start_date")
+        return first_fund.start_date
+
+    @property
+    def funding_end(self):
+        """The latest date of a linked fund."""
+        last_fund = self.projectfund_set.latest("end_date")
+        return last_fund.end_date
+
+    def get_absolute_url(self):
+        return reverse("project-detail", kwargs={"pk": self.pk})
 
     class Meta:
         db_table = "coped_project"

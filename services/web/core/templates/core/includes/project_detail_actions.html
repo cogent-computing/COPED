@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-column align-items-center text-center">
+            <div style="display: relative">
+                <img src="/return_images/?uid={{id}}&type=project" alt="Admin" class="rounded-circle"
+                        width="150px">
+                {% if editable == True %}
+                <span class="edit-button"><a href="/edit_project/?project={{id|default_if_none:""}}" data-toggle="tooltip" data-placement="right" title="Edit User Information" >
+            <i class="fas fa-edit"></i></a></span>
+                {% endif %}
+            </div>
+            <h4 class="mt-3">{{ title }}</h4>
+            <!-- Actions button -->
+            <div class="mt-1">
+                {% if user.is_authenticated is True %}
+                <div class="btn-group">
+                    {% if subscribed is True %}
+                    <button class="btn btn-success no-click">
+                        <i class="far fa-bell"></i></i>
+                    </button>
+                    <a class="btn btn-warning" href="/messages/remove_subscription/?id={{id}}">
+                        Unsubscribe
+                    </a>
+                    {% else %}
+                    <a class="btn btn-success" href="/messages/subscribe/?id={{id}}">
+                        <i class="fas fa-bell"></i> Subscribe
+                    </a>
+                    {% endif %}
+
+                    <button type="button" class="btn btn-outline-info dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Actions
+                    </button>
+                    <div class="dropdown-menu">
+                        <p class="dropdown-header"><i class="fas fa-arrow-alt-circle-right"></i>
+                            <b>Requests</b></p>
+                        <a class="dropdown-item" data-toggle="modal" onclick="update_req_form('info')"
+                            data-target="#requestModal" href="#!">
+                            Information Updates</a>
+                        <a class="dropdown-item" data-toggle="modal" onclick="update_req_form('error')"
+                            data-target="#requestModal" href="#!">
+                            Error Corrections</a>
+                        <div class="dropdown-divider"></div>
+                        <p class="dropdown-header"><i class="fas fa-hand-pointer"></i>
+                            <b>Permissions</b></p>
+                        <a class="dropdown-item" data-toggle="modal" onclick="update_req_form('permission')"
+                            data-target="#requestModal" href="#!">Edit Rights</a>
+                        {% if editable == True %}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item"
+                        href="/remove_resource/?uuid={{id|default_if_none:""}}">
+                        <i class="far fa-trash-alt"></i>&nbsp;Remove Project</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                {% if subscribers != None %}
+                <p class="text-left"><i class="fas fa-satellite-dish"></i>&nbsp;{{subscribers}}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
