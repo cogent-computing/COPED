@@ -19,6 +19,7 @@ class Project(models.Model):
     coped_id = models.UUIDField(default=uuid4, editable=False, verbose_name="CoPED ID")
     title = models.CharField(max_length=256)
     description = models.TextField(blank=True)
+    extra_text = models.TextField(blank=True)
     status = models.CharField(
         max_length=128,
         blank=True,

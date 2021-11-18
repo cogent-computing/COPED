@@ -20,7 +20,7 @@
         <hr>
         <div class="row">
             <div class="col-sm-3 text-nowrap">
-                <h6 class="mb-0">Funder</h6>
+                <h6 class="mb-0">Funder{{ project.funds.all|pluralize }}</h6>
             </div>
             <div class="col-sm-9 text-secondary">
                 {% for fund in project.funds.all %}
@@ -63,5 +63,16 @@
                 <pre>{{ project.description }}</pre>
             </div>
         </div>
+        {% if project.extra_text.strip %}
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">More Information</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                <pre>{{ project.extra_text }}</pre>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>

@@ -68,7 +68,7 @@ class ProjectAdmin(admin.ModelAdmin):
         (
             None,
             {
-                "fields": ("coped_id", "title", "description", "status"),
+                "fields": ("coped_id", "title", "description", "extra_text", "status"),
             },
         ),
         (

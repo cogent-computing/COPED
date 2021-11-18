@@ -9,6 +9,7 @@ TODO: compare RawData content with existing record to determine whether/what to 
 
 from datetime import datetime
 from django.db import transaction
+from django.template.loader import render_to_string
 from core.models.raw_data import RawData
 from core.models.project import Project
 from core.models.organisation import Organisation
@@ -93,23 +94,39 @@ def populate_projects(raw_data_record):
         project.end = datetime.utcfromtimestamp(json.get("end")).date()
 
     # Pull out text from various fields and collate it.
-    # Add markdown for section formatting in the UI.
-    text = []
-    text.append("## Lead Funder")
-    text.append(json.get("leadFunder") or NO_VALUE)
-    text.append("## Lead Department")
-    text.append(json.get("leadOrganisationDepartment") or NO_VALUE)
-    text.append("## Abstract")
-    text.append(json.get("abstractText") or NO_VALUE)
-    text.append("## Technical Abstract")
-    text.append(json.get("techAbstractText") or NO_VALUE)
-    text.append("## Grant Category")
-    text.append(json.get("grantCategory") or NO_VALUE)
-    text.append("## Potential Impact")
-    text.append(json.get("potentialImpact") or NO_VALUE)
+    description = render_to_string(
+        "ukri_project_description.html",
+        {
+            "description": (json.get("abstractText") or "").strip(),
+        },
+    )
+
+    extra_text = render_to_string(
+        "urki_project_extra_text.html",
+        {
+            "technical_abstract": (json.get("techAbstractText") or "").strip(),
+            "potential_impact": (json.get("potentialImpact") or "").strip(),
+        },
+    )
+
+    # text = []
+    # text.append("## Lead Funder")
+    # text.append(json.get("leadFunder") or NO_VALUE)
+    # text.append("## Lead Department")
+    # text.append(json.get("leadOrganisationDepartment") or NO_VALUE)
+    # text.append("## Abstract")
+    # text.append(json.get("abstractText") or NO_VALUE)
+    # text.append("## Technical Abstract")
+    # text.append(json.get("techAbstractText") or NO_VALUE)
+    # text.append("## Grant Category")
+    # text.append(json.get("grantCategory") or NO_VALUE)
+    # text.append("## Potential Impact")
+    # text.append(json.get("potentialImpact") or NO_VALUE)
     # Use the combined text to populate the project information
     # print(text)
-    project.description = "\n\n".join(text)
+    # project.description = "\n\n".join(text)
+    project.description = description
+    project.extra_text = extra_text
 
     # Add the external UKRI link
     external_link = coped_external_link(json.get("id"), resource_type="project")
