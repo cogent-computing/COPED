@@ -1,3 +1,4 @@
+import re
 from django.http import JsonResponse
 from django.views import generic
 from django.shortcuts import render
@@ -21,14 +22,29 @@ class ProjectDetailView(generic.DetailView):
 
 
 def autocomplete(request):
-    print("AUTOCOMPLETE REQUESTED")
-    sqs = SearchQuerySet().autocomplete(title_auto=request.GET.get("q", "")[:6])
+    sqs = SearchQuerySet().autocomplete(title_auto=request.GET.get("q", ""))[:10]
     s = []
     for result in sqs:
         d = {"value": result.title, "data": result.object.get_absolute_url()}
         s.append(d)
     output = {"suggestions": s}
     return JsonResponse(output)
+
+
+def autocomplete_word(request):
+    query = request.GET.get("q", "")
+    if len(query) <= 2:
+        return JsonResponse({"suggestions": []})
+    else:
+        sqs = SearchQuerySet().autocomplete(title_auto=request.GET.get("q", ""))[:100]
+        s = set()
+        for result in sqs:
+            title = result.title
+            title_words = re.split("(\W+?)", title)
+            match_words = [w for w in title_words if query in w]
+            s.update(match_words)
+        output = {"suggestions": s}
+        return JsonResponse(output)
 
 
 # Now create your own that subclasses the base view
