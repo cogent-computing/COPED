@@ -14,11 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import include, path
-from .views import FacetedSearchView
+from .views import ProjectSearchView, autocomplete
 
 # from search import urls as search_urls
 
 urlpatterns = [
     # path("", include("haystack.urls")),
-    path("", FacetedSearchView.as_view(), name="haystack_search"),
+    path("autocomplete/", autocomplete),
+    path("", ProjectSearchView.as_view(), name="haystack_search"),
 ]

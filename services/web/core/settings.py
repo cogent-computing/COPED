@@ -42,9 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "haystack",
-    "core",  # Project settings and top-level URL configurations.
+    "core.apps.CoreConfig",  # Main application.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
-    "search.apps.SearchConfig",  # Haystack search.
 ]
 
 MIDDLEWARE = [

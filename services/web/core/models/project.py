@@ -71,6 +71,24 @@ class Project(models.Model):
         last_fund = self.projectfund_set.latest("end_date")
         return last_fund.end_date
 
+    @property
+    def search_start(self):
+        """A start date for filtering.
+
+        We choose either .start or .funding_start if .start is empty.
+        In case both are defined, .start will take precedence."""
+
+        return self.start if self.start else self.funding_start
+
+    @property
+    def search_end(self):
+        """An end date for filtering.
+
+        We choose either .end or .funding_end if .end is empty.
+        In case both are defined, .end will take precedence."""
+
+        return self.end if self.end else self.funding_end
+
     def get_absolute_url(self):
         return reverse("project-detail", kwargs={"pk": self.pk})
 

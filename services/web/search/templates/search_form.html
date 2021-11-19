@@ -1,0 +1,52 @@
+
+<form action="/search/" method="get">
+    <div class="form-group">
+        <div class="icon-addon addon-lg">
+            <input
+                type="text"
+                placeholder="what are you looking for ?"
+                class="form-control"
+                name="q"
+                id="q"
+                autocomplete="off"
+            >
+            <div id="selection-ajax"></div>
+        </div>
+    </div>
+
+    {% if page_obj.object_list %}
+        <div class="col-md-3">
+            <h3>Filters</h3>
+            <dl>
+            {% if facets.fields.status %}
+                <dt>Filter by Status</dt>
+                {% for status in facets.fields.status %}
+                    {% if status.1 != 0 %}
+                        <dd>
+                            <input
+                                class="facet" id="{{status.0|cut:' '}}"
+                                type="checkbox"
+                                name="status"
+                                value="{{status.0}}"
+                                data-toggle="toggle"
+                            />
+                            {{status.0}} ({{status.1}})
+                        </dd>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            </dl>
+            <div>
+                <input
+                    class="btn btn-info btn-sm pull-right"
+                    type="submit"
+                    value="apply filter"
+                    {% comment %} onclick="return onFacetChangeApplied();" {% endcomment %}
+                />
+            </div>
+        </div>
+    {% endif %}
+
+
+
+</form>

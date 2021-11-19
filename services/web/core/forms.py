@@ -10,12 +10,6 @@ class ProjectSearchForm(SearchForm):
         ("Active", "Active"),
         ("Closed", "Closed"),
     )
-    YEAR_CHOICES = (
-        (2020, 2020),
-        (2021, 2021),
-        (2022, 2022),
-        (2023, 2023),
-    )
     status = forms.ChoiceField(
         choices=CHOICES,
         required=False,
@@ -23,8 +17,8 @@ class ProjectSearchForm(SearchForm):
     )
     start = forms.DateField(
         required=False,
-        widget=forms.widgets.RadioSelect(choices=YEAR_CHOICES),
-        help_text="Starting year",
+        widget=forms.widgets.DateInput(attrs={"type": "date"}),
+        label="Starting after",
     )
 
     def search(self):
@@ -41,3 +35,6 @@ class ProjectSearchForm(SearchForm):
             sqs = sqs.filter(start__gte=self.cleaned_data["start"])
 
         return sqs
+
+    def no_query_found(self):
+        return self.searchqueryset.all()

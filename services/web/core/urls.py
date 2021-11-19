@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from core import views
+from .forms import ProjectSearchForm
 
 # from search import urls as search_urls
 
@@ -23,8 +24,14 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     # path(r"search/", include(search_urls)),
-    path("search/", include("search.urls")),
-    path("projects/", views.ProjectListView.as_view(), name="projects"),
+    # path("search/", include("search.urls")),
     path("projects/<int:pk>", views.ProjectDetailView.as_view(), name="project-detail"),
+    # path("projects/", views.ProjectListView.as_view(), name="projects"),
+    path("projects/autocomplete/", views.autocomplete),
+    path(
+        "projects/",
+        views.ProjectSearchView.as_view(),
+        name="projects",
+    ),
     path("", views.index, name="index"),
 ]

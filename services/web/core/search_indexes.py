@@ -3,16 +3,16 @@ from core.models.project import Project
 
 
 class ProjectIndex(indexes.SearchIndex, indexes.Indexable):
-    text = indexes.EdgeNgramField(
+    text = indexes.CharField(
         document=True,
         use_template=True,
         template_name="search/indexes/project_text.txt",
     )
     # Include fields here for filtering etc. that are not needed in the index.
-    title = indexes.EdgeNgramField(model_attr="title")
-    status = indexes.CharField(model_attr="status", null=True, faceted=True)
-    start = indexes.DateField(model_attr="search_start", null=True, faceted=True)
-    end = indexes.DateField(model_attr="search_end", null=True, faceted=True)
+    title = indexes.CharField(model_attr="title")
+    status = indexes.CharField(model_attr="status", null=True)
+    start = indexes.DateField(model_attr="search_start", null=True)
+    end = indexes.DateField(model_attr="search_end", null=True)
 
     def get_model(self):
         return Project

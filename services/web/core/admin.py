@@ -63,7 +63,7 @@ class ProjectAdmin(admin.ModelAdmin):
     readonly_fields = ("coped_id", "raw_data", "external_links")
     list_display = ("coped_id", "title", "status", "start", "end")
     inlines = (ProjectOrganisationInline, ProjectPersonInline, ProjectFundInline)
-    list_filter = ("status",)
+    list_filter = ("status", "start")
     fieldsets = (
         (
             None,
