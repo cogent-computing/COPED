@@ -1,15 +1,19 @@
-<form action="/projects/">
+<form action="/projects/" autocomplete="off">
   <div class="form-row">
     <div class="col-12 col-md-9 mb-2 mb-md-0">
       <input
         class="form-control form-control-lg"
         type="text"
-        name="search"
+        name="q"
+        id="q"
         placeholder="Search for projects..."
+        onKeyUp="showResults(this.value)"
       />
     </div>
+    <div id="autocomplete-result"></div>
     <div class="col-12 col-md-2">
       <button class="btn btn-lg btn-primary" type="submit">Search</button>
     </div>
   </div>
 </form>
+

@@ -14,6 +14,9 @@ class ProjectIndex(indexes.SearchIndex, indexes.Indexable):
     start = indexes.DateField(model_attr="search_start", null=True)
     end = indexes.DateField(model_attr="search_end", null=True)
 
+    # Autocomplete fields
+    title_auto = indexes.EdgeNgramField(model_attr="title")
+
     def get_model(self):
         return Project
 

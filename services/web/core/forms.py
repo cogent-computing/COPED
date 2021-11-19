@@ -5,6 +5,14 @@ from core.models.project import Project
 
 
 class ProjectSearchForm(SearchForm):
+    q = forms.CharField(
+        required=False,
+        label="Search",
+        widget=forms.TextInput(
+            attrs={"type": "search", "onKeyUp": "showResults(this.value)"}
+        ),
+    )
+
     CHOICES = (
         (None, "All"),
         ("Active", "Active"),

@@ -35,10 +35,10 @@ input[type=number]
     text-align: center;
 }
 .contact-image img{
- //   border-radius: 6rem;
+ /* //   border-radius: 6rem; */
     width: 11%;
     margin-top: -3%;
- //   transform: rotate(29deg);
+ /* //   transform: rotate(29deg); */
 }
 .contact-form form{
     padding: 14%;
@@ -182,9 +182,26 @@ textarea {
 }
 
 
-# Loading for Vis-js
+/* Loading for Vis-js */
 #mynetwork {
   width: 100%;
   height: 640px;
   border: 1px solid lightgray;
+}
+
+/* Autocompletion for search */
+#autocomplete-result {
+  border: 1px dotted #ccc;
+  padding: 3px;
+}
+#autocomplete-result ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+#autocomplete-result ul li {
+  padding: 5px 0;
+}
+#autocomplete-result ul li:hover {
+  background: #eee;
 }

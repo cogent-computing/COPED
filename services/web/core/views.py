@@ -21,10 +21,10 @@ class ProjectDetailView(generic.DetailView):
 
 
 def autocomplete(request):
-    sqs = SearchQuerySet().autocomplete(text__exact=request.GET.get("q", "")[:8])
+    print("AUTOCOMPLETE REQUESTED")
+    sqs = SearchQuerySet().autocomplete(title_auto=request.GET.get("q", "")[:6])
     s = []
     for result in sqs:
-        print(result)
         d = {"value": result.title, "data": result.object.get_absolute_url()}
         s.append(d)
     output = {"suggestions": s}
@@ -37,6 +37,3 @@ class ProjectSearchView(SearchView):
     template_name = "core/project_list.html"
     paginate_by = 50
     context_object_name = "project_list"
-
-    # def get_queryset(self):
-    #     return super().get_queryset()

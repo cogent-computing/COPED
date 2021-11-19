@@ -22,7 +22,17 @@ class ProjectsSpider(Spider):
     def start_requests(self):
 
         # TODO: get list of query terms from the CoPED DB
-        queries = ["microgrid"]
+        queries = [
+            "photovoltaic",
+            "wind turbine",
+            "renewable energy",
+            "battery",
+            "smart grid",
+            "microgrid",
+            "heat pump",
+            "anaerobic digestion",
+            "electric vehicle",
+        ]
 
         # Ensure query phrases containing spaces are double quoted.
         queries = [f'"{q}"' if " " in q else q for q in queries]
