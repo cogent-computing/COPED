@@ -16,3 +16,6 @@ deepdiff==5.6.0
 
 # Admin formatting
 Pygments==2.10.0
+
+# Calling external API services
+requests==2.26.0
