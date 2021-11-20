@@ -7,6 +7,7 @@ from .organisation import Organisation
 from .person import Person
 from .raw_data import RawData
 from .external_link import ExternalLink
+from .subject import Subject
 
 
 class Project(models.Model):
@@ -42,6 +43,11 @@ class Project(models.Model):
         Organisation,
         through="ProjectOrganisation",
         through_fields=("project", "organisation"),
+    )
+    subjects = models.ManyToManyField(
+        Subject,
+        through="ProjectSubject",
+        through_fields=("project", "subject"),
     )
     projects = models.ManyToManyField(
         to="self", through="LinkedProject", symmetrical=False
@@ -138,6 +144,42 @@ class ProjectFund(models.Model):
 
     def __str__(self):
         return f"{self.organisation.name} funding for {self.project.title}"
+
+
+class ProjectSubject(models.Model):
+    """Through model for subjects/categories/topics related to projects.
+
+    Each related subject has a score/weight indicating the confidence of the label.
+    Scores come from the National Library of Finland's Finto project.
+
+    See the following links for details:
+
+        - http://annif.org/
+        - https://www.kiwi.fi/display/Finto/Finto+AI+open+API+service
+        - https://ai.finto.fi/v1/ui/
+    """
+
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    score = models.DecimalField(
+        null=True,
+        blank=True,
+        decimal_places=12,
+        max_digits=13,
+        help_text="Strength of match for the subject with this project.",
+    )
+
+    class Meta:
+        db_table = "coped_project_subject"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["project", "subject"],
+                name="subject-assigned",
+            )
+        ]
+
+    def __str__(self):
+        return f"({self.score}) {self.subject}"
 
 
 class ProjectOrganisation(models.Model):
