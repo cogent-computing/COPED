@@ -13,6 +13,7 @@ from .models.project import Project, ProjectOrganisation, ProjectPerson, Project
 from .models.raw_data import RawData
 from .models.external_link import ExternalLink
 from .models.address import Address
+from .models import ProjectSubject
 
 
 # Define inlines for many-to-many relations
@@ -25,6 +26,12 @@ class ProjectOrganisationInline(admin.TabularInline):
 
 class ProjectPersonInline(admin.TabularInline):
     model = ProjectPerson
+    extra = 0
+
+
+class ProjectSubjectInline(admin.TabularInline):
+    model = Project.subjects.through
+    readonly_fields = ("subject", "score")
     extra = 0
 
 
@@ -109,7 +116,13 @@ class ProjectAdmin(admin.ModelAdmin):
         (
             None,
             {
-                "fields": ("coped_id", "title", "description", "extra_text", "status"),
+                "fields": (
+                    "coped_id",
+                    "title",
+                    "description",
+                    "extra_text",
+                    "status",
+                )
             },
         ),
         (
@@ -125,6 +138,7 @@ class ProjectAdmin(admin.ModelAdmin):
             },
         ),
     )
+    inlines = (ProjectSubjectInline,)
 
 
 class OrganisationAdmin(admin.ModelAdmin):
