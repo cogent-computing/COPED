@@ -1,6 +1,8 @@
 import json
+from decimal import Decimal
 from django.contrib import admin
 from django.contrib.auth.models import Permission
+from django.db.models.aggregates import Sum
 from django.utils.safestring import mark_safe
 from pygments import highlight
 from pygments.lexers import JsonLexer
@@ -59,11 +61,50 @@ class OrganisationAddressesInline(admin.TabularInline):
 # Define the model admins themselves
 
 
+class ProjectTotalFundingFilter(admin.SimpleListFilter):
+    title = "Total Funding"
+    parameter_name = "total_funding"
+
+    def lookups(self, request, model_admin):
+        return [
+            ("0-10000", "0-10K"),
+            ("10000-25000", "10K-25K"),
+            ("25000-50000", "25K-50K"),
+            ("50000-100000", "50K-100K"),
+            ("100000-250000", "100K-250K"),
+            ("250000-500000", "250K-500K"),
+            ("500000-1000000", "500K-1M"),
+            ("1000000-2500000", "1M-2.5M"),
+            ("2500000-5000000", "2.5M-5M"),
+            ("5000000-10000000", "5M-10M"),
+            ("10000000-Inf", ">10M"),
+        ]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            low, high = self.value().split("-")
+            low, high = Decimal(low), Decimal(high)
+            return (
+                queryset.annotate(all_funding=Sum("projectfund__amount"))
+                .filter(all_funding__gte=low)
+                .filter(all_funding__lte=high)
+            )
+        else:
+            return queryset
+
+
 class ProjectAdmin(admin.ModelAdmin):
-    readonly_fields = ("coped_id", "raw_data", "external_links")
+    readonly_fields = (
+        "coped_id",
+        "raw_data",
+        "external_links",
+        "funds",
+        "persons",
+        "organisations",
+    )
     list_display = ("coped_id", "title", "status", "start", "end")
-    inlines = (ProjectOrganisationInline, ProjectPersonInline, ProjectFundInline)
-    list_filter = ("status", "start")
+    # inlines = (ProjectOrganisationInline, ProjectPersonInline, ProjectFundInline)
+    list_filter = ("status", "start", ProjectTotalFundingFilter)
     fieldsets = (
         (
             None,
@@ -75,6 +116,12 @@ class ProjectAdmin(admin.ModelAdmin):
             "DATES AND LINKS",
             {
                 "fields": (("start", "end"), "external_links"),
+            },
+        ),
+        (
+            "CONNECTIONS",
+            {
+                "fields": ("funds", "persons", "organisations"),
             },
         ),
     )
