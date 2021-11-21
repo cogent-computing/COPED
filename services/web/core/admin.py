@@ -13,7 +13,7 @@ from .models.project import Project, ProjectOrganisation, ProjectPerson, Project
 from .models.raw_data import RawData
 from .models.external_link import ExternalLink
 from .models.address import Address
-from .models import ProjectSubject
+from .models import Subject
 
 
 # Define inlines for many-to-many relations
@@ -98,6 +98,10 @@ class ProjectTotalFundingFilter(admin.SimpleListFilter):
             )
         else:
             return queryset
+
+
+class SubjectAdmin(admin.ModelAdmin):
+    readonly_fields = ("external_link",)
 
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -208,3 +212,4 @@ admin.site.register(Permission)
 admin.site.register(RawData, RawDataAdmin)
 admin.site.register(ExternalLink, ExternalLinkAdmin)
 admin.site.register(Address, AddressAdmin)
+admin.site.register(Subject, SubjectAdmin)
