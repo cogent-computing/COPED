@@ -1,5 +1,17 @@
 #!/usr/bin/env python
 
+"""Apply subject descriptors to projects stored in the CoPED database.
+
+Filtering and prioritising energy projects requires clear tagging.
+We use the National Library of Finland's Annif/Finto models via their public API.
+
+See the following links for details:
+
+    - http://annif.org/
+    - https://www.kiwi.fi/display/Finto/Finto+AI+open+API+service
+    - https://ai.finto.fi/v1/ui/
+"""
+
 import json
 import os
 import sys
@@ -18,17 +30,11 @@ import requests
 
 
 def tag_projects_with_subjects(exclude_already_tagged=True):
-    """Use an external NLP service to tag CoPED projects with subject headings.
+    """Send project descriptions to the subject suggestion model at Finto.
 
-    Filtering and prioritising energy projects requires clear tagging.
-    We use the National Library of Finland's Annif/Finto models via their API.
-
-    See the following links for details:
-
-        - http://annif.org/
-        - https://www.kiwi.fi/display/Finto/Finto+AI+open+API+service
-        - https://ai.finto.fi/v1/ui/
-    """
+    Updates project records by adding the suggested subjects and scores.
+    Adds each subject to the DB if it does not already exist, and also
+    adds an external link to an ontology DB for each subject term."""
 
     api_url = "https://ai.finto.fi/v1/projects/yso-en/suggest"
 
