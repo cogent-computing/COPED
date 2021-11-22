@@ -40,9 +40,10 @@ def tag_projects_with_subjects(exclude_already_tagged=True, limit=None):
     api_url = "https://ai.finto.fi/v1/projects/yso-en/suggest"
     # TODO: centralise the user agent setting for use in other external-service-facing tasks.
     headers = {
-        "User-Agent": "coped/0.1 (Copedbot/0.1; Catalogue of Projects on Energy Data; https://coped.coventry.ac.uk)"
+        "User-Agent": "coped/0.2 (Copedbot/0.2; Catalogue of Projects on Energy Data; https://coped.coventry.ac.uk)"
     }
 
+    # TODO: prefilter projects based on existing subjects - similar to geo tagger script.
     total_projects = Project.objects.count()
     if limit is None:
         limit = total_projects  # number of projects to tag
@@ -72,7 +73,7 @@ def tag_projects_with_subjects(exclude_already_tagged=True, limit=None):
                     "text": project.description,
                     "limit": 20,
                 }
-                r = connection.post(api_url, data=payload, headers=headers, timeout=10)
+                r = connection.post(api_url, data=payload, headers=headers, timeout=20)
                 results = json.loads(r.content)["results"]
             except requests.exceptions.RequestException as e:
                 print(
@@ -100,4 +101,4 @@ def tag_projects_with_subjects(exclude_already_tagged=True, limit=None):
 
 
 if __name__ == "__main__":
-    tag_projects_with_subjects(exclude_already_tagged=True, limit=1017)
+    tag_projects_with_subjects(exclude_already_tagged=True)
