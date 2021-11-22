@@ -30,6 +30,12 @@ ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS", default="localhost 127.0.0.1 [::1]"
 ).split(" ")
 
+# Set which IPs are able to access the Django debug toolbar
+INTERNAL_IPS = [
+    "127.0.0.1",
+    "localhost",
+]
+
 
 # Application definition
 
@@ -40,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "debug_toolbar",
     "rest_framework",
     "haystack",
     "core.apps.CoreConfig",  # Main application.
@@ -52,6 +59,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
