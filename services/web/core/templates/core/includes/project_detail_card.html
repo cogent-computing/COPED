@@ -66,6 +66,15 @@
         <hr>
         <div class="row">
             <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Similar</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                <a href="{% url 'more-like-this' project.id %}">More Like This</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
                 <h6 class="mb-0">Subjects</h6>
             </div>
             <div class="col-sm-9 text-secondary">
@@ -89,15 +98,6 @@
             </div>
         </div>
         {% endif %}
-        <hr>
-        <div class="row">
-            <div class="col-sm-3 text-nowrap">
-                <h6 class="mb-0">Similar</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-                <a href="{% url 'more-like-this' project.id %}">More Like This</a>
-            </div>
-        </div>
 
     </div>
 </div>
