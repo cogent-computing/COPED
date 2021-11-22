@@ -8,6 +8,9 @@
         {% for project in project_list %}
             <li>
                 <a href="{{ project.object.get_absolute_url }}">{{ project.title }}</a>
+                <ul>
+                    <li>{{ project.text|truncatewords:50 }}</li>
+                </ul>
             </li>
         {% endfor %}
     </ul>
