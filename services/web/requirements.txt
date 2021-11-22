@@ -19,3 +19,6 @@ Pygments==2.10.0
 
 # Calling external API services
 requests==2.26.0
+
+# Dev dependencies
+django-debug-toolbar==3.2.2
