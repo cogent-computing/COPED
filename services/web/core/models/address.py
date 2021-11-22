@@ -1,5 +1,6 @@
 from django.db import models
 from uuid import uuid4
+from . import GeoData
 
 
 class Address(models.Model):
@@ -18,12 +19,33 @@ class Address(models.Model):
     region = models.CharField(max_length=128, blank=True)
     postcode = models.CharField(max_length=16, blank=True)
     country = models.CharField(max_length=128, blank=True)
+    geo = models.ForeignKey(
+        GeoData,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        help_text="Geographic data.",
+    )
 
     class Meta:
         db_table = "coped_address"
         verbose_name_plural = "Addresses"
 
     def __str__(self):
-        return ", ".join(
-            [self.line1, self.city, self.region, self.postcode, self.country]
-        )
+        fields = ["line1", "line2", "line3", "line4", "line5", "city", "county"]
+        if self.region not in ["Unknown", "Outside UK", ""]:
+            fields.append("region")
+        fields.extend(["postcode", "country"])
+
+        return ", ".join([getattr(self, f) for f in fields if getattr(self, f) != ""])
+
+
+class GeoTag(models.Model):
+    """Geo data for addresses, found using forward-geocode lookups."""
+
+    pass
+    # lat =
+    # lon =
+    # display_name =
+    # source_id =
+    # source_name =
