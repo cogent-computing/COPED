@@ -22,6 +22,7 @@ class ProjectDetailView(generic.DetailView):
 
 
 def autocomplete(request):
+    # return autocomplete_word(request)
     sqs = SearchQuerySet().autocomplete(title_auto=request.GET.get("q", ""))[:10]
     s = []
     for result in sqs:
@@ -37,19 +38,26 @@ def autocomplete_word(request):
         return JsonResponse({"suggestions": []})
     else:
         sqs = SearchQuerySet().autocomplete(title_auto=request.GET.get("q", ""))[:100]
-        s = set()
+        s = []
         for result in sqs:
             title = result.title
-            title_words = re.split("(\W+?)", title)
-            match_words = [w for w in title_words if query in w]
-            s.update(match_words)
-        output = {"suggestions": s}
+            title_words = title.split()
+            for w in title_words:
+                if query in w:
+                    s.append({"value": w, "data": result.object.get_absolute_url()})
+        output = {"suggestions": s[:10]}
         return JsonResponse(output)
 
 
-# Now create your own that subclasses the base view
 class ProjectSearchView(SearchView):
     form_class = ProjectSearchForm
     template_name = "core/project_list.html"
-    paginate_by = 50
+    paginate_by = 10
     context_object_name = "project_list"
+
+
+class MoreLikeThisView(ProjectSearchView):
+    def get_queryset(self):
+        sqs = super().get_queryset()
+        project = Project.objects.get(id=self.kwargs["pk"])
+        return sqs.more_like_this(project)
