@@ -7,9 +7,9 @@
     <ul>
         {% for project in project_list %}
             <li>
-                <a href="{{ project.object.get_absolute_url }}">{{ project.title }}</a>
+                <h4><a href="{{ project.object.get_absolute_url }}">{{ project.title }}</a></h4>
                 <ul>
-                    <li>{{ project.text|truncatewords:50 }}</li>
+                    <li>{{ project.object.description|truncatewords:50 }}</li>
                 </ul>
             </li>
         {% endfor %}
