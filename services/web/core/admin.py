@@ -56,11 +56,16 @@ class ProjectExternalLinksInline(admin.TabularInline):
 
 
 class OrganisationExternalLinksInline(admin.TabularInline):
+    readonly_fields = (
+        "organisation",
+        "externallink",
+    )  # note this uses the automatic django m2m fieldnames
     model = Organisation.external_links.through
     extra = 0
 
 
 class OrganisationAddressesInline(admin.TabularInline):
+    readonly_fields = ("organisation", "address")
     model = Organisation.addresses.through
     extra = 0
 
@@ -170,7 +175,7 @@ class ExternalLinkAdmin(admin.ModelAdmin):
 
 
 class AddressAdmin(admin.ModelAdmin):
-    readonly_fields = ("coped_id",)
+    readonly_fields = ("coped_id", "geo")
     inlines = (OrganisationAddressesInline,)
 
 
