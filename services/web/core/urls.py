@@ -28,9 +28,14 @@ urlpatterns = [
     # path(r"search/", include(search_urls)),
     # path("search/", include("search.urls")),
     path("projects/<int:pk>", views.ProjectDetailView.as_view(), name="project-detail"),
+    # path(
+    #     "projects/<int:pk>/more-like-this",
+    #     views.MoreLikeThisView.as_view(),
+    #     name="more-like-this",
+    # ),
     path(
         "projects/<int:pk>/more-like-this",
-        views.MoreLikeThisView.as_view(),
+        views.mlt_view,
         name="more-like-this",
     ),
     # path("projects/", views.ProjectListView.as_view(), name="projects"),

@@ -1,5 +1,6 @@
 import re
-from django.http import JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse, HttpResponse
 from django.views import generic
 from django.shortcuts import render
 from haystack.generic_views import SearchView
@@ -57,7 +58,24 @@ class ProjectSearchView(SearchView):
 
 
 class MoreLikeThisView(ProjectSearchView):
-    def get_queryset(self):
-        sqs = super().get_queryset()
-        project = Project.objects.get(id=self.kwargs["pk"])
-        return sqs.more_like_this(project)
+    pass
+
+
+def mlt_view(request, pk):
+    project = Project.objects.get(pk=pk)
+    mlt = SearchQuerySet().more_like_this(project)
+    paginator = Paginator(mlt, 10)
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+    print(page_obj.object_list)
+    return render(
+        request,
+        "core/project_list.html",
+        {
+            "page_obj": page_obj,
+            "form": ProjectSearchForm,
+            "project_list": page_obj.object_list,
+            "is_paginated": True,
+            "page": page_obj,
+        },
+    )

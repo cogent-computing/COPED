@@ -31,10 +31,11 @@ ALLOWED_HOSTS = os.environ.get(
 ).split(" ")
 
 # Set which IPs are able to access the Django debug toolbar
-INTERNAL_IPS = [
-    "127.0.0.1",
-    "localhost",
-]
+if DEBUG:
+    import socket  # only if you haven't already imported this
+
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[:-1] + "1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
 
 
 # Application definition
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "debug_toolbar",
+    "django_elasticsearch_dsl",
     "rest_framework",
     "haystack",
     "core.apps.CoreConfig",  # Main application.
@@ -58,8 +60,8 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -181,4 +183,11 @@ HAYSTACK_CONNECTIONS = {
         "INDEX_NAME": "haystack",
         "KWARGS": {"http_auth": ("elastic", "password")},
     }
+}
+
+
+# Config for django-elasticsearch-dsl
+# TODO: get connection info from environment
+ELASTICSEARCH_DSL = {
+    "default": {"hosts": "elasticsearch:9200", "http_auth": ("elastic", "password")},
 }
