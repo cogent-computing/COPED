@@ -35,11 +35,12 @@ class ProjectDocument(Document):
 
         related_models = [Subject]
 
-        def get_instances_from_related(self, related_instance):
-            if isinstance(related_instance, Subject):
-                return related_instance.projectsubject_set.all()
-
         def prepare_subjects(self, instance):
             # See https://github.com/django-es/django-elasticsearch-dsl/issues/307
             projectsubjects = instance.projectsubject_set.all()
-            return (projectsubject.subject.label for projectsubject in projectsubjects)
+            return [projectsubject.subject.label for projectsubject in projectsubjects]
+
+    def get_instances_from_related(self, related_instance):
+        if isinstance(related_instance, Subject):
+            projectsubjects = related_instance.projectsubject_set.all()
+            return [projectsubject.project for projectsubject in projectsubjects]
