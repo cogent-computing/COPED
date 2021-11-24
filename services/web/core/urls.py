@@ -33,11 +33,11 @@ urlpatterns = [
     #     views.MoreLikeThisView.as_view(),
     #     name="more-like-this",
     # ),
-    path(
-        "projects/<int:pk>/more-like-this",
-        views.mlt_view,
-        name="more-like-this",
-    ),
+    # path(
+    #     "projects/<int:pk>/more-like-this",
+    #     views.more_like_this,
+    #     name="more-like-this",
+    # ),
     # path("projects/", views.ProjectListView.as_view(), name="projects"),
     path("projects/autocomplete/", views.autocomplete),
     path(
@@ -45,6 +45,6 @@ urlpatterns = [
         views.ProjectSearchView.as_view(),
         name="projects",
     ),
-    path("list/", views.project_list),
+    path("list/", views.project_list, name="project-list"),
     path("", views.index, name="index"),
 ]

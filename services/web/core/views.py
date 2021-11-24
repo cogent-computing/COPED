@@ -5,9 +5,14 @@ from django.views import generic
 from django.shortcuts import render
 from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
+
+from api.serializers import project
 from .models.project import Project
 from .forms import ProjectSearchForm
 from .filters import ProjectFilter
+
+from elasticsearch_dsl.query import MoreLikeThis
+from .documents import ProjectDocument
 
 
 def index(request):
@@ -82,6 +87,55 @@ def mlt_view(request, pk):
     )
 
 
+# def more_like_this(request, pk):
+#     """Query the search index for similar documents."""
+
+#     number_to_show = 40
+#     s = ProjectDocument.search()
+#     s = s.query(MoreLikeThis(like={"_id": pk}, fields=["title", "description"]))
+#     return render(
+#         request,
+#         "core/project_list.html",
+#         {"page_obj": s[:number_to_show].to_queryset()},
+#     )
+
+
 def project_list(request):
-    f = ProjectFilter(request.GET, queryset=Project.objects.all())
-    return render(request, "core/project_list.html", {"filter": f})
+    """Main filterable search page for project searches."""
+
+    # TODO: catch non numeric parameters
+    more_like_this = request.GET.get("mlt", None)
+    if more_like_this:
+        more_like_this = int(more_like_this)
+        s = ProjectDocument.search()
+        s = s.query(
+            MoreLikeThis(like={"_id": more_like_this}, fields=["title", "description"])
+        )
+        # TODO: think about thresholding on the result scores
+        s = s.extra(size=200)
+        qs = s.to_queryset()
+    else:
+        qs = Project.objects.all()
+
+    f = ProjectFilter(request.GET, queryset=qs)
+    paginate_by = 20
+    paginator = Paginator(f.qs, paginate_by)
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+    page_list_start_number = (int(page_number) - 1) * paginate_by + 1
+
+    context = {
+        "page_obj": page_obj,
+        "is_paginated": True,
+        "list_start": page_list_start_number,
+    }
+    if more_like_this:
+        context.update({"more_like_this": Project.objects.get(pk=more_like_this)})
+    else:
+        context.update({"filter": f})
+
+    return render(
+        request,
+        "core/project_list.html",
+        context,
+    )

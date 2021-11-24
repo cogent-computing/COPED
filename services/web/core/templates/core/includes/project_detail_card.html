@@ -69,7 +69,7 @@
                 <h6 class="mb-0">Similar</h6>
             </div>
             <div class="col-sm-9 text-secondary">
-                <a href="{% url 'more-like-this' project.id %}">More Like This</a>
+                <a href="{% url 'project-list' %}?mlt={{project.id}}">More Like This</a>
             </div>
         </div>
         <hr>
