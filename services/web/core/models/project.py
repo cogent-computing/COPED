@@ -1,5 +1,8 @@
 from decimal import Decimal
 from django.db import models
+from django.db.models import F, Max, Min
+from django.db.models.functions import Greatest, Least
+from django.db.models.aggregates import Sum
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
@@ -8,6 +11,27 @@ from .person import Person
 from .raw_data import RawData
 from .external_link import ExternalLink
 from .subject import Subject
+
+
+class ProjectQuerySet(models.QuerySet):
+    """Add some useful annotations to project querysets."""
+
+    def with_annotations(self):
+        self = self.annotate(all_funds_start_date=Min("projectfund__start_date"))
+        self = self.annotate(all_funds_end_date=Max("projectfund__end_date"))
+        self = self.annotate(total_funding=Sum("projectfund__amount"))
+        self = self.annotate(filter_start_date=Least("all_funds_start_date", "start"))
+        self = self.annotate(filter_end_date=Greatest("all_funds_end_date", "end"))
+        return self
+
+
+class ProjectManager(models.Manager):
+    """Enhance the usual queryset by using our custom annotations."""
+
+    def get_queryset(self):
+        return ProjectQuerySet(
+            model=self.model, using=self._db, hints=self._hints
+        ).with_annotations()
 
 
 class Project(models.Model):
@@ -57,43 +81,9 @@ class Project(models.Model):
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
 
-    @property
-    def total_funding(self):
-        """Add the funding amounts associated with all linked funds."""
-        total = Decimal(0)
-        for fund in self.projectfund_set.all():
-            total += fund.amount
-        return total
-
-    @property
-    def funding_start(self):
-        """The earliest date of a linked fund."""
-        first_fund = self.projectfund_set.earliest("start_date")
-        return first_fund.start_date
-
-    @property
-    def funding_end(self):
-        """The latest date of a linked fund."""
-        last_fund = self.projectfund_set.latest("end_date")
-        return last_fund.end_date
-
-    @property
-    def search_start(self):
-        """A start date for filtering.
-
-        We choose either .start or .funding_start if .start is empty.
-        In case both are defined, .start will take precedence."""
-
-        return self.start if self.start else self.funding_start
-
-    @property
-    def search_end(self):
-        """An end date for filtering.
-
-        We choose either .end or .funding_end if .end is empty.
-        In case both are defined, .end will take precedence."""
-
-        return self.end if self.end else self.funding_end
+    objects = (
+        ProjectManager()
+    )  # Use a custom manager to enhance querysets with annotations
 
     def get_absolute_url(self):
         return reverse("project-detail", kwargs={"pk": self.pk})

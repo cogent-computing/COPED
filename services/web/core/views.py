@@ -7,6 +7,7 @@ from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
 from .models.project import Project
 from .forms import ProjectSearchForm
+from .filters import ProjectFilter
 
 
 def index(request):
@@ -79,3 +80,8 @@ def mlt_view(request, pk):
             "page": page_obj,
         },
     )
+
+
+def project_list(request):
+    f = ProjectFilter(request.GET, queryset=Project.objects.all())
+    return render(request, "core/project_list.html", {"filter": f})

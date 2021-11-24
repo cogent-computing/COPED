@@ -3,6 +3,11 @@
 {% block content %}
     <h1>Project Search</h1>
     {% include "./includes/project_search_form.html" %}
+    <ol>
+    {% for obj in filter.qs %}
+        <li>{{obj.title}} - Status: {{obj.status}}</li>
+    {% endfor %}
+    </ol>
     {% if project_list %}
     <ul>
         {% for project in project_list %}

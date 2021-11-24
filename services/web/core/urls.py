@@ -45,5 +45,6 @@ urlpatterns = [
         views.ProjectSearchView.as_view(),
         name="projects",
     ),
+    path("list/", views.project_list),
     path("", views.index, name="index"),
 ]
