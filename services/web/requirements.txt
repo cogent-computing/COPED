@@ -6,6 +6,7 @@ elasticsearch==7.15.0
 gunicorn==20.1.0
 psycopg2-binary==2.9.1
 django-elasticsearch-dsl==7.2.1
+django-filter==21.1
 
 # Optional Django REST Framework dependencies for OpenAPI schema generation
 PyYAML==6.0
@@ -22,4 +23,8 @@ Pygments==2.10.0
 requests==2.26.0
 
 # Dev dependencies
+ipython==7.29.0
 django-debug-toolbar==3.2.2
+django-extensions==3.1.5
+Werkzeug==2.0.2
+black==21.11b1
