@@ -8,6 +8,8 @@ from .models import Subject
 @registry.register_document
 class ProjectDocument(Document):
 
+    # Access subject terms using a nested query as follows.
+    # ProjectDocument.search().query("nested", path="subjects", query={"term": {"subjects.label": "algae"}})
     subjects = fields.NestedField(properties={"label": fields.KeywordField()})
 
     class Index:
