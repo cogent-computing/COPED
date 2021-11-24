@@ -47,12 +47,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "debug_toolbar",
+    "debug_toolbar",  # Development dependency
     "django_elasticsearch_dsl",
+    "django_filters",
     "rest_framework",
     "haystack",
     "core.apps.CoreConfig",  # Main application.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
+    "django_extensions",  # Development dependency
 ]
 
 MIDDLEWARE = [
