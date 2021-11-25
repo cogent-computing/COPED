@@ -7,6 +7,7 @@
     {% else %}
         {% include "./includes/project_search_form.html" %}
     {% endif %}
+    <table>
     <ol start="{{ list_start }}">
     {% for obj in page_obj %}
         <li><a href="{{ obj.get_absolute_url }}">{{obj.title}}</a> - Status: {{obj.status}}</li>

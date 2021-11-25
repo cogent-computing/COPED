@@ -1,0 +1,31 @@
+{% comment %} Tabs containing linked organisations, people, etc. {% endcomment %}
+<ul class="nav nav-tabs" id="myTab">
+    <li class="nav-item">
+        <a href="#orgs" class="nav-link" data-toggle="tab">Organisations</a>
+    </li>
+    <li class="nav-item">
+        <a href="#people" class="nav-link" data-toggle="tab">People</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade" id="orgs">
+        <h4 class="mt-2">Organisations</h4>
+        <br>
+        {% for org in project.projectorganisation_set.all %}
+        <h5> {{ org.organisation.name }}</h5>
+        <h6> {{ org.role }} </h6>
+        <p><a href="#">View</a></p>
+        <hr>
+        {% endfor %}
+    </div>
+    <div class="tab-pane fade" id="people">
+        <h4 class="mt-2">People</h4>
+        <br>
+        {% for person in project.projectperson_set.all %}
+        <h5> {{ person.person.full_name }}</h5>
+        <h6> Roles: {{ person.role }} </h6>
+        <p><a href="#">View</a></p>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
