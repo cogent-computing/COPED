@@ -58,18 +58,10 @@
         <div class="row">
             <div class="col-sm-3 text-nowrap">
                 <h6 class="mb-0">Description</h6>
+                <p><a href="{% url 'project-list' %}?mlt={{project.id}}">More Like This</a></p>
             </div>
             <div class="col-sm-9 text-secondary">
                 <pre>{{ project.description }}</pre>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-sm-3 text-nowrap">
-                <h6 class="mb-0">Similar</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-                <a href="{% url 'project-list' %}?mlt={{project.id}}">More Like This</a>
             </div>
         </div>
         <hr>
