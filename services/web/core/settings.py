@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     "django_elasticsearch_dsl",
     "django_filters",
     "rest_framework",
-    "haystack",
     "core.apps.CoreConfig",  # Main application.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
     "django_extensions",  # Development dependency
@@ -162,35 +161,13 @@ REST_FRAMEWORK = {
     "ORDERING_PARAM": "ordering",
 }
 
-# Elasticsearch configuration
-# https://django-elasticsearch-dsl-drf.readthedocs.io/en/latest/index.html
-# TODO: set host and path from environment
-
-# ELASTICSEARCH_DSL = {
-#     "default": {"hosts": "http://elastic:password@elasticsearch:9200"},
-# }
-
-# # Name of the Elasticsearch indexes
-# ELASTICSEARCH_INDEX_NAMES = {
-#     "search.documents.project": "project",
-# }
-
-# ElasticSearch and Haystack configuration
-# https://django-haystack.readthedocs.io/en/master/index.html
-# TODO: get URL from environment/config
-# TODO: get authentication from environment/config
-HAYSTACK_CONNECTIONS = {
-    "default": {
-        "ENGINE": "haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine",
-        "URL": "http://elasticsearch:9200",
-        "INDEX_NAME": "haystack",
-        "KWARGS": {"http_auth": ("elastic", "password")},
-    }
-}
-
 
 # Config for django-elasticsearch-dsl
 # TODO: get connection info from environment
 ELASTICSEARCH_DSL = {
     "default": {"hosts": "elasticsearch:9200", "http_auth": ("elastic", "password")},
 }
+
+
+# Use a custom user model
+AUTH_USER_MODEL = "core.User"

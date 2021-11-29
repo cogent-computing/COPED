@@ -17,34 +17,12 @@ import debug_toolbar
 from django.contrib import admin
 from django.urls import include, path
 from core import views
-from .forms import ProjectSearchForm
-
-# from search import urls as search_urls
 
 urlpatterns = [
     path("__debug__/", include(debug_toolbar.urls)),
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
-    # path(r"search/", include(search_urls)),
-    # path("search/", include("search.urls")),
     path("projects/<int:pk>", views.ProjectDetailView.as_view(), name="project-detail"),
-    # path(
-    #     "projects/<int:pk>/more-like-this",
-    #     views.MoreLikeThisView.as_view(),
-    #     name="more-like-this",
-    # ),
-    # path(
-    #     "projects/<int:pk>/more-like-this",
-    #     views.more_like_this,
-    #     name="more-like-this",
-    # ),
-    # path("projects/", views.ProjectListView.as_view(), name="projects"),
-    path("projects/autocomplete/", views.autocomplete),
-    path(
-        "projects/",
-        views.ProjectSearchView.as_view(),
-        name="projects",
-    ),
     path("list/", views.project_list, name="project-list"),
     path("", views.index, name="index"),
 ]
