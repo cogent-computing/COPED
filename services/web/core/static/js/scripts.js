@@ -18,26 +18,37 @@ function autocompleteMatch(input) {
     });
 }
 
+const example_results = ["hello world", "this is a test", "testing 123", "test again", "hello coped"]
+
 function showResults(val) {
-    res = document.getElementById("autocomplete-result");
+    // const val = elt.value;
+    console.log("looking for suggestions");
+    res = document.getElementById("search-suggestions");
     res.innerHTML = '';
     console.log(val);
     if (val == '') {
         return;
     }
     let list = '';
-    fetch('/projects/autocomplete/?q=' + val).then(
-        function (response) {
-            return response.json();
-        }).then(function (data) {
-            suggestions = data.suggestions;
-            for (i = 0; i < suggestions.length; i++) {
-                list += '<li><a href="' + suggestions[i].data + '">' + suggestions[i].value + '</a></li>';
-            }
-            res.innerHTML = '<ul>' + list + '</ul>';
-            return true;
-        }).catch(function (err) {
-            console.warn('Something went wrong.', err);
-            return false;
-        });
+    let suggestions = example_results.filter(str => str.includes(val));
+    for (i = 0; i < suggestions.length; i++) {
+        list += '<li><a href="#">' + suggestions[i] + '</a></li>';
+    }
+    res.innerHTML = '<ul>' + list + '</ul>';
 }
+
+//     fetch('/projects/autocomplete/?q=' + val).then(
+//         function (response) {
+//             return response.json();
+//         }).then(function (data) {
+//             suggestions = data.suggestions;
+//             for (i = 0; i < suggestions.length; i++) {
+//                 list += '<li><a href="' + suggestions[i].data + '">' + suggestions[i].value + '</a></li>';
+//             }
+//             res.innerHTML = '<ul>' + list + '</ul>';
+//             return true;
+//         }).catch(function (err) {
+//             console.warn('Something went wrong.', err);
+//             return false;
+//         });
+// }

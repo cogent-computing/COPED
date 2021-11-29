@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.db import models
-from django.db.models import F, Max, Min
+from django.db.models import F, Max, Min, Func
 from django.db.models.functions import Greatest, Least
 from django.db.models.aggregates import Sum
 from django.urls import reverse
@@ -13,13 +13,19 @@ from .external_link import ExternalLink
 from .subject import Subject
 
 
+class Round(Func):
+    function = "ROUND"
+    arity = 1
+
+
 class ProjectQuerySet(models.QuerySet):
     """Add some useful annotations to project querysets."""
 
     def with_annotations(self):
         self = self.annotate(all_funds_start_date=Min("projectfund__start_date"))
         self = self.annotate(all_funds_end_date=Max("projectfund__end_date"))
-        self = self.annotate(total_funding=Sum("projectfund__amount"))
+        self = self.annotate(total_funding=Round(Sum("projectfund__amount")))
+        self = self.annotate(funders=F("funds"))
         self = self.annotate(filter_start_date=Least("all_funds_start_date", "start"))
         self = self.annotate(filter_end_date=Greatest("all_funds_end_date", "end"))
         return self
@@ -133,7 +139,8 @@ class ProjectFund(models.Model):
         db_table = "coped_project_fund"
 
     def __str__(self):
-        return f"{self.organisation.name} funding for {self.project.title}"
+        # return f"{self.organisation.name} funding for {self.project.title}"
+        return f"{self.organisation.name}"
 
 
 class ProjectSubject(models.Model):

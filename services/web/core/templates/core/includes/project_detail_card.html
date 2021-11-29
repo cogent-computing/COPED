@@ -1,3 +1,4 @@
+{% load humanize %}
 <div class="card mb-3">
     <div class="card-body">
         <div class="row">
@@ -35,7 +36,7 @@
             <div class="col-sm-9 text-secondary">
                 {% comment %} {% load humanize %}
                 £{{ project.total_funding|intcomma }} {% endcomment %}
-                £{{ project.total_funding }}
+                £{{ project.total_funding|intcomma }}
             </div>
         </div>
         <hr>
@@ -43,7 +44,7 @@
             <div class="col-sm-3 text-nowrap">
                 <h6 class="mb-0">Start Date</h6></div>
             <div class="col-sm-9 text-secondary">
-                {% firstof project.start project.funding_start %}
+                {{ project.filter_start_date }}
             </div>
         </div>
         <hr>
@@ -51,7 +52,8 @@
             <div class="col-sm-3 text-nowrap">
                 <h6 class="mb-0">End Date</h6></div>
             <div class="col-sm-9 text-secondary">
-                {% firstof project.end project.funding_end %}
+                {% comment %} {% firstof project.end project.funding_end %} {% endcomment %}
+                {{ project.filter_end_date }}
             </div>
         </div>
         <hr>

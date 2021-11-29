@@ -11,10 +11,12 @@
 
     <article>
       {% include "includes/messages.html" %}
+      <div class="container">
       {% block content %} {% endblock content %}
       {% block pagination %}
         {% include "includes/pagination.html" %}
       {% endblock pagination %}
+      </div>
     </article>
 
     {% include "includes/footer.html" %}

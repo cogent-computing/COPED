@@ -1,7 +1,9 @@
 import django_filters
+from django import forms
 from elasticsearch_dsl import Q
 from core.models import Project, Subject
 from core.documents import ProjectDocument
+from elasticsearch_dsl.query import MoreLikeThis
 
 
 class ProjectFilter(django_filters.FilterSet):
@@ -11,25 +13,79 @@ class ProjectFilter(django_filters.FilterSet):
     SUBJECT_CHOICES = [(s.id, s.label) for s in Subject.objects.all()]
 
     status = django_filters.ChoiceFilter(
-        choices=(("Active", "Active"), ("Closed", "Closed"))
+        choices=(("Active", "Active"), ("Closed", "Closed")),
+        widget=forms.Select(attrs={"class": "form-control"}),
     )
     start_year = django_filters.MultipleChoiceFilter(
         choices=YEAR_CHOICES,
         field_name="filter_start_date",
         lookup_expr="year",
         label="Start Year(s)",
+        widget=forms.SelectMultiple(attrs={"class": "form-control"}),
     )
     end_year = django_filters.MultipleChoiceFilter(
         choices=YEAR_CHOICES,
         field_name="filter_end_date",
         lookup_expr="year",
         label="End Year(s)",
+        widget=forms.SelectMultiple(attrs={"class": "form-control"}),
     )
-    funding_range = django_filters.RangeFilter(
+    # funding_range = django_filters.RangeFilter(
+    #     field_name="total_funding",
+    #     label="Total Project Funding (£)",
+    # )
+
+    funding_minimum = django_filters.NumberFilter(
         field_name="total_funding",
-        label="Total Project Funding (£)",
+        lookup_expr="gte",
+        label="Minimum Project Funding (£)",
+        widget=forms.TextInput(attrs={"class": "form-control"}),
     )
-    search = django_filters.CharFilter(label="Search", method="search_query_filter")
+    funding_maximum = django_filters.NumberFilter(
+        field_name="total_funding",
+        lookup_expr="lte",
+        label="Maximum Project Funding (£)",
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+    search = django_filters.CharFilter(
+        label="Search Term(s)",
+        method="search_query_filter",
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "onKeyUp": "showResults(this.value)"}
+        ),
+    )
+
+    o = django_filters.OrderingFilter(
+        label="Sort By",
+        fields=("title", "total_funding", "filter_start_date", "filter_end_date"),
+        field_labels={
+            "title": "Project Title",
+            "total_funding": "Total Funding",
+            "filter_start_date": "Start Date",
+            "filter_end_date": "End Date",
+        },
+    )
+    # o.widget.attrs["class"] = "form-control"
+    mlt = django_filters.CharFilter(
+        widget=forms.HiddenInput(), method="more_like_this_filter"
+    )
+
+    def more_like_this_filter(self, queryset, name, value):
+        print("MORE LIKE THIS filter")
+        print(name)
+        print(value)
+        more_like_this = int(value)
+        s = ProjectDocument.search()
+        s = s.query(
+            MoreLikeThis(
+                like={"_id": more_like_this},
+                fields=["title", "description", "extra_text"],
+            )
+        )
+        # TODO: think about thresholding on the result scores
+        s = s.extra(size=100)
+        qs = s.to_queryset()
+        return queryset.filter(id__in=qs)
 
     def search_query_filter(self, queryset, name, value):
         print(name)
@@ -76,18 +132,24 @@ class ProjectFilter(django_filters.FilterSet):
     class Meta:
         model = Project
         fields = [
+            "search",
             "status",
             "start_year",
             "end_year",
-            "funding_range",
-            "search",
+            # "funding_range",
+            "funding_minimum",
+            "funding_maximum",
         ]
 
     @property
     def qs(self):
         # override the queryset that initialises the filter if required.
         # For example use the request object to filter based on a search lookup
+        # if self.request:
         qs = super().qs
+        print("Filter queryset method being called")
+        mlt = getattr(self.request, "mlt", None)
+        print("MLT", mlt)
         return qs
 
     # TODO: consider a range filter for date lookups as below

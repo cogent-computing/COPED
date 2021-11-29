@@ -1,6 +1,7 @@
 {% load coped_tags %}
 {% if is_paginated %}
-    <nav aria-label="Page navigation example">
+<div class="row">
+    <nav aria-label="Page navigation">
     <ul class="pagination">
         {% if page_obj.has_previous %}
             <li class="page-item">
@@ -33,4 +34,5 @@
         {% endif %}
     </ul>
     </nav>
+</div>
 {% endif %}

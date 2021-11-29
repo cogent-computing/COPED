@@ -1,6 +1,7 @@
 import re
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse, HttpResponse
+from django.http.request import QueryDict
 from django.views import generic
 from django.shortcuts import render
 from haystack.generic_views import SearchView
@@ -112,10 +113,10 @@ def project_list(request):
             MoreLikeThis(like={"_id": more_like_this}, fields=["title", "description"])
         )
         # TODO: think about thresholding on the result scores
-        s = s.extra(size=200)
+        s = s.extra(size=400)
         qs = s.to_queryset()
     else:
-        qs = Project.objects.all()
+        qs = Project.objects.all().order_by("status")
 
     f = ProjectFilter(request.GET, queryset=qs)
     paginate_by = 20
@@ -128,11 +129,17 @@ def project_list(request):
         "page_obj": page_obj,
         "is_paginated": True,
         "list_start": page_list_start_number,
+        "filter": f,
     }
     if more_like_this:
         context.update({"more_like_this": Project.objects.get(pk=more_like_this)})
+
+    print("QUERYSTRING in VIEW")
+    print(request.GET)
+    if request.GET.get("mlt", None):
+        print("WANT MORE LIKE THIS")
     else:
-        context.update({"filter": f})
+        print("REGULAR SEARCH QUERY")
 
     return render(
         request,
