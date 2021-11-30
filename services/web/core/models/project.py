@@ -11,6 +11,7 @@ from .person import Person
 from .raw_data import RawData
 from .external_link import ExternalLink
 from .subject import Subject
+from .keyword import Keyword
 
 
 class Round(Func):
@@ -78,6 +79,11 @@ class Project(models.Model):
         Subject,
         through="ProjectSubject",
         through_fields=("project", "subject"),
+    )
+    keywords = models.ManyToManyField(
+        Keyword,
+        through="ProjectKeyword",
+        through_fields=("project", "keyword"),
     )
     projects = models.ManyToManyField(
         to="self", through="LinkedProject", symmetrical=False
@@ -177,6 +183,38 @@ class ProjectSubject(models.Model):
 
     def __str__(self):
         return f"({self.score}) {self.subject}"
+
+
+class ProjectKeyword(models.Model):
+    """Through model for keywords and phrases found in projects.
+
+    Each related keyword has a score/weight indicating the confidence of the label.
+    Scores come from the textacy implementation of textrank algorithm.
+
+    See the following links for details:
+
+        - https://textacy.readthedocs.io/en/latest/index.html
+    """
+
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    keyword = models.ForeignKey(Keyword, on_delete=models.CASCADE)
+    score = models.FloatField(
+        null=True,
+        blank=True,
+        help_text="Strength of match for the keyword with this project.",
+    )
+
+    class Meta:
+        db_table = "coped_project_keyword"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["project", "keyword"],
+                name="keyword-assigned",
+            )
+        ]
+
+    def __str__(self):
+        return f"({self.score}) {self.keyword}"
 
 
 class ProjectOrganisation(models.Model):

@@ -22,6 +22,9 @@ Pygments==2.10.0
 # Calling external API services
 requests==2.26.0
 
+# Text analysis
+textacy==0.11.0
+
 # Dev dependencies
 ipython==7.29.0
 django-debug-toolbar==3.2.2
