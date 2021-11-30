@@ -29,7 +29,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path("projects/<int:pk>", views.ProjectDetailView.as_view(), name="project-detail"),
-    path("list/", views.project_list, name="project-list"),
+    path("projects/", views.project_list, name="project-list"),
+    path("users/<int:pk>", views.UserDetailView.as_view(), name="user-detail"),
     # path("accounts/", include("django.contrib.auth.urls")),
     path("", views.index, name="index"),
 ]

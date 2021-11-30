@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="gutters-sm pl-5 pr-5">
+        <div class="row">
+            <div class="col">
+                <p><strong>Email:</strong> {{user_record.email}}</p>
+                <p><strong>First Name:</strong> {{user_record.first_name}}</p>
+                <p><strong>Last Name:</strong> {{user_record.last_name}}</p>
+                <p><strong>Joined:</strong> {{user_record.date_joined}}</p>
+                <p><strong>Last Login:</strong> {{user_record.last_login}}</p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

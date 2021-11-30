@@ -177,3 +177,4 @@ ELASTICSEARCH_DSL = {
 
 # Use a custom user model
 AUTH_USER_MODEL = "core.User"
+LOGIN_URL = "/"

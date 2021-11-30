@@ -10,6 +10,7 @@ from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.contrib import auth
 from django.contrib import messages
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 # from django.http import HttpRequest
 
@@ -25,6 +26,14 @@ from .documents import ProjectDocument
 
 def index(request):
     return render(request, "index.html")
+
+
+class UserDetailView(UserPassesTestMixin, generic.DetailView):
+    model = User
+    context_object_name = "user_record"
+
+    def test_func(self):
+        return self.request.user.id == self.get_object().id
 
 
 class ProjectListView(generic.ListView):
