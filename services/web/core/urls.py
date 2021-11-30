@@ -24,5 +24,6 @@ urlpatterns = [
     path("api/", include("api.urls")),
     path("projects/<int:pk>", views.ProjectDetailView.as_view(), name="project-detail"),
     path("list/", views.project_list, name="project-list"),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("", views.index, name="index"),
 ]
