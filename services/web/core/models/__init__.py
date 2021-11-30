@@ -5,4 +5,4 @@ from .project import ProjectSubject
 from .subject import Subject
 from .external_link import ExternalLink
 
-from .user import User
+from .user import User, PasswChange

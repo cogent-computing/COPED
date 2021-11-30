@@ -1,10 +1,10 @@
-<form action="/projects/" autocomplete="off">
+<form action="{% url 'project-list' %}" method="GET" autocomplete="off">
   <div class="form-row">
     <div class="col-12 col-md-9 mb-2 mb-md-0">
       <input
         class="form-control form-control-lg"
         type="text"
-        name="q"
+        name="search"
         id="q"
         placeholder="Search for projects..."
         onKeyUp="showResults(this.value)"

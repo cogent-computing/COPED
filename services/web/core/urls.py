@@ -19,11 +19,17 @@ from django.urls import include, path
 from core import views
 
 urlpatterns = [
+    # Login and Register
+    path("login/", views.login, name="login"),
+    path("logout/", views.logout, name="logout"),
+    path("register/", views.register, name="register"),
+    path("password_reset/", views.password_reset, name="password_reset"),
+    path("password_update/", views.password_update, name="password_update"),
     path("__debug__/", include(debug_toolbar.urls)),
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path("projects/<int:pk>", views.ProjectDetailView.as_view(), name="project-detail"),
     path("list/", views.project_list, name="project-list"),
-    path("accounts/", include("django.contrib.auth.urls")),
+    # path("accounts/", include("django.contrib.auth.urls")),
     path("", views.index, name="index"),
 ]

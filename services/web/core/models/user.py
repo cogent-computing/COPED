@@ -105,27 +105,27 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-# class PasswChange(models.Model):
-#     """
-#     Model to handle password change
-#     """
+class PasswChange(models.Model):
+    """
+    Model to handle password change
+    """
 
-#     email = models.EmailField(_("email address"))
-#     sender = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=True)
-#     date_requested = models.DateTimeField(default=timezone.now)
-#     secret = models.CharField(max_length=50)
-#     used = models.BooleanField(default=False)
-#     # Metadata
-#     class Meta:
-#         ordering = ["email", "sender", "-date_requested"]
+    email = models.EmailField(_("email address"))
+    sender = models.UUIDField(primary_key=False, default=uuid4, editable=True)
+    date_requested = models.DateTimeField(default=timezone.now)
+    secret = models.CharField(max_length=50)
+    used = models.BooleanField(default=False)
+    # Metadata
+    class Meta:
+        ordering = ["email", "sender", "-date_requested"]
 
-#     def __str__(self):
-#         """String for representing the MyModelName object (in Admin site etc.)."""
-#         return (
-#             "Passw_Change:"
-#             + str(self.email)
-#             + " on:"
-#             + str(self.date_requested)
-#             + "secret: "
-#             + str(self.secret)
-#         )
+    def __str__(self):
+        """String for representing the MyModelName object (in Admin site etc.)."""
+        return (
+            "Passw_Change:"
+            + str(self.email)
+            + " on:"
+            + str(self.date_requested)
+            + "secret: "
+            + str(self.secret)
+        )

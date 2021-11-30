@@ -79,7 +79,7 @@
             aria-expanded="false"
             style="max-width: 180px; overflow: hidden; text-overflow: ellipsis"
           >
-            <i class="fas fa-user"></i> {{ user.username }}
+            <i class="fas fa-user"></i> {{ user.email }}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
             <a class="dropdown-item" href=""> Profile </a>
@@ -95,7 +95,7 @@
               <a class="dropdown-item" href=""> Management </a>
             {% endif %}
             <hr class="dropdown-divider" />
-            <a class="dropdown-item" href="{% url 'index' %}">
+            <a class="dropdown-item" href="{% url 'logout' %}">
               Log Out <i class="fas fa-sign-out-alt"></i>
             </a>
           </div>
