@@ -20,6 +20,7 @@ from core import views
 
 urlpatterns = [
     # Login and Register
+    # TODO: remove modal based login and revert to default approach (needed for smooth redirections)
     path("login/", views.login, name="login"),
     path("logout/", views.logout, name="logout"),
     path("register/", views.register, name="register"),
