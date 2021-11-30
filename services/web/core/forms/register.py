@@ -1,6 +1,6 @@
 from django.forms import ModelForm, EmailInput, PasswordInput
 from django import forms
-from .models import User
+from ..models import User
 
 
 class RegisterForm(ModelForm):

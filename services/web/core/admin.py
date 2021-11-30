@@ -1,6 +1,7 @@
 import json
 from decimal import Decimal
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Permission
 from django.db.models.aggregates import Sum
 from django.utils.safestring import mark_safe
@@ -208,6 +209,41 @@ class RawDataAdmin(admin.ModelAdmin):
     data_prettified.short_description = "JSON"
 
 
+class UserAdminConfig(UserAdmin):
+    model = User
+    search_fields = (
+        "email",
+        "first_name",
+    )
+    list_filter = ("email", "first_name", "is_active", "is_staff")
+    ordering = ("-date_joined",)
+    list_display = ("email", "first_name", "is_active", "is_staff")
+    fieldsets = (
+        (None, {"fields": ("email", "first_name")}),
+        ("Permissions", {"fields": ("is_staff", "is_active")}),
+    )
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "password1",
+                    "u_id",
+                    "password2",
+                    "is_active",
+                    "is_staff",
+                ),
+            },
+        ),
+    )
+
+
+admin.site.register(User, UserAdminConfig)
+
 # Wire it all up
 
 
@@ -215,7 +251,7 @@ admin.site.register(Person, PersonAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Organisation, OrganisationAdmin)
 admin.site.register(Permission)
-admin.site.register(User)
+# admin.site.register(User)
 admin.site.register(RawData, RawDataAdmin)
 admin.site.register(ExternalLink, ExternalLinkAdmin)
 admin.site.register(Address, AddressAdmin)
