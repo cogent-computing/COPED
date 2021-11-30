@@ -1,3 +1,18 @@
+"""Custom User model for CoPED.
+
+See https://docs.djangoproject.com/en/3.2/topics/auth/customizing/ for details
+and considerations when using a custom model. In particular, note the following.
+
+> Instead of referring to User directly, you should reference the user model using
+> django.contrib.auth.get_user_model(). This method will return the currently active
+> user model – the custom user model if one is specified, or User otherwise.
+
+> When you define a foreign key or many-to-many relations to the user model, you
+> should specify the custom model using the AUTH_USER_MODEL setting.
+
+There are various other requirements, on which see the link above.
+"""
+
 # class User(AbstractBaseUser):
 #     class Meta:
 #         # Set the custom user model to have the standard Django database table name
