@@ -14,6 +14,7 @@ from .models.raw_data import RawData
 from .models.external_link import ExternalLink
 from .models.address import Address
 from .models import Subject
+from .models import User
 
 
 # Define inlines for many-to-many relations
@@ -214,6 +215,7 @@ admin.site.register(Person, PersonAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Organisation, OrganisationAdmin)
 admin.site.register(Permission)
+admin.site.register(User)
 admin.site.register(RawData, RawDataAdmin)
 admin.site.register(ExternalLink, ExternalLinkAdmin)
 admin.site.register(Address, AddressAdmin)
