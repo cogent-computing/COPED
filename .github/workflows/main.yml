@@ -21,7 +21,7 @@ jobs:
       - name: Start services
         run: |
           rm -f docker-compose.override.yaml
-          docker compose -p coped-ci --env-file .env.ci up -d --build
+          docker-compose -p coped-ci --env-file .env.ci up -d --build
           sleep 30
 
       - name: Test the web service responds to external requests
@@ -36,4 +36,4 @@ jobs:
     if: always()
     steps:
       - name: Remove CI containers
-        run: docker compose -p coped-ci --env-file .env.ci down -v
+        run: docker-compose -p coped-ci --env-file .env.ci down -v
