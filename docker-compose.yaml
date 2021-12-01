@@ -24,6 +24,8 @@ services:
       SQL_PORT: ${POSTGRES_PORT:-5432}
       ELASTIC_HOSTNAME: elasticsearch
       ELASTIC_PORT: ${ELASTIC_PORT:-9200}
+      RECAPTCHA_PUBLIC_KEY: ${RECAPTCHA_PUBLIC_KEY}
+      RECAPTCHA_PRIVATE_KEY: ${RECAPTCHA_PRIVATE_KEY}
 
     depends_on:
       db:
@@ -66,7 +68,6 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:?}
 
   elasticsearch:
-    user: $USER
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
     container_name: coped_elastic
     volumes:
