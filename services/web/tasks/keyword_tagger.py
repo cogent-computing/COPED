@@ -17,6 +17,8 @@ import sys
 import django
 import textacy
 from textacy.extract import keyterms as kt
+from textacy.extract import acronyms, acronyms_and_definitions
+from textacy.extract import entities
 from django.db import transaction
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
@@ -61,11 +63,19 @@ def tag_projects_with_keywords(exclude_already_tagged=True, limit=None):
             results = kt.textrank(
                 doc,
                 normalize="lemma",
-                topn=min(int(len(text) ** 0.5) // 3, 20),
-                window_size=3,
-                edge_weighting="binary",
-                position_bias=False,
+                topn=min(int(len(text) ** 0.5) // 2, 20),
+                window_size=10,
+                edge_weighting="count",
+                position_bias=True,
             )
+            # results = kt.yake(
+            #     doc,
+            #     normalize="lemma",
+            #     topn=min(int(len(text) ** 0.5) // 3, 20),
+            #     ngrams=(1, 2, 3),
+            # )
+            # results = acronyms_and_definitions(doc)
+            # results = entities(doc)
         except Exception as e:
             print(f"Request to tag project {project.id} failed with exception:\n{e}\n")
             continue
