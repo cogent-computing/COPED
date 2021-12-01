@@ -11,6 +11,7 @@ RUN apt-get install -y --no-install-recommends build-essential gcc netcat gettex
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
+RUN python -m spacy download en_core_web_lg
 
 COPY ./entrypoint.sh .
 RUN sed -i 's/\r$//g' entrypoint.sh

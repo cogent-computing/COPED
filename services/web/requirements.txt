@@ -7,6 +7,8 @@ gunicorn==20.1.0
 psycopg2-binary==2.9.1
 django-elasticsearch-dsl==7.2.1
 django-filter==21.1
+django-registration==3.2
+django-recaptcha==2.0.6
 
 # Optional Django REST Framework dependencies for OpenAPI schema generation
 PyYAML==6.0

@@ -31,7 +31,6 @@ services:
       elasticsearch:
         condition: service_healthy
 
-
   nginx:
     image: nginx:1.21-perl
     container_name: coped_nginx
@@ -55,7 +54,7 @@ services:
     expose:
       - 5432
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: [ "CMD-SHELL", "pg_isready" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -67,6 +66,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:?}
 
   elasticsearch:
+    user: $USER
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
     container_name: coped_elastic
     volumes:
@@ -78,11 +78,11 @@ services:
       - 9200
       - 9300
     healthcheck:
-      test: curl -s localhost:9200 > /dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      test: curl -s localhost:9200 > /dev/null; if [[ $$? == 52 ]]; then echo 0; else
+        echo 1; fi
       interval: 10s
       timeout: 5s
       retries: 5
-
 
   ############################
   ##  TASK RUNNER SERVICES  ##
@@ -95,7 +95,7 @@ services:
     container_name: coped_tasks
     environment:
       DEBUG: 0
-      PYTHONPATH: /tasks  # this is where the build mounts the ./tasks directory
+      PYTHONPATH: /tasks # this is where the build mounts the ./tasks directory
       # defaults
       COUCHDB_HOST: ${COUCHDB_HOST:-couch}
       COUCHDB_PORT: ${COUCHDB_PORT:-5984}
@@ -121,6 +121,7 @@ services:
 volumes:
   static_volume:
 
+    null
 configs:
   NGINX_CONFIG:
     file: ./configs/nginx-default.conf.template
