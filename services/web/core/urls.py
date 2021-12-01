@@ -17,6 +17,9 @@ import debug_toolbar
 from django.contrib import admin
 from django.urls import include, path
 from core import views
+from django_registration.backends.activation.views import RegistrationView
+
+from .forms import CustomUserForm
 
 urlpatterns = [
     # Login and Register
@@ -32,6 +35,13 @@ urlpatterns = [
     path("projects/<int:pk>", views.ProjectDetailView.as_view(), name="project-detail"),
     path("projects/", views.project_list, name="project-list"),
     path("users/<int:pk>", views.UserDetailView.as_view(), name="user-detail"),
+    path(
+        "accounts/register/",
+        RegistrationView.as_view(form_class=CustomUserForm),
+        name="django_registration_register",
+    ),
+    path("accounts/", include("django_registration.backends.activation.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
     # path("accounts/", include("django.contrib.auth.urls")),
     path("", views.index, name="index"),
 ]

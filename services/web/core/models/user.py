@@ -74,6 +74,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     coped_id = models.UUIDField(default=uuid4, editable=False, verbose_name="CoPED ID")
+    username = models.CharField(_("username"), max_length=256, unique=True)
     email = models.EmailField(_("email address"), unique=True)
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
@@ -92,7 +93,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     #     default=list,
     #     null=True,
     # )
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["first_name", "last_name"]
 
     objects = UserManager()
@@ -100,6 +101,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         # Set the custom user model to have the standard Django database table name
         db_table = "auth_user"
+
+    def email_user(self, subject, message, from_email=None, **kwargs):
+        print("EMAIL TO USER")
+        print("subject:", subject)
+        print("message:", message)
+        print("from_email", from_email)
 
     def __str__(self):
         return self.email

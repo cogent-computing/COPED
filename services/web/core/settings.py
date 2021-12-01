@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "django_registration",
     "debug_toolbar",  # Development dependency
     "django_elasticsearch_dsl",
     "django_filters",
@@ -177,4 +178,14 @@ ELASTICSEARCH_DSL = {
 
 # Use a custom user model
 AUTH_USER_MODEL = "core.User"
-LOGIN_URL = "/"
+
+
+# Django-Registration
+ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+# Site-wide URLs
+LOGIN_URL = "/login/"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
