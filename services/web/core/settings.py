@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
-    "django_registration",
+    "django_registration",  # Two stage activation
+    "captcha",  # Secure registration
     "debug_toolbar",  # Development dependency
     "django_elasticsearch_dsl",
     "django_filters",
@@ -182,9 +183,21 @@ AUTH_USER_MODEL = "core.User"
 
 # Django-Registration
 ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window
+REGISTRATION_OPEN = True
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 # Site-wide URLs
 LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "index"
+
+
+# Recaptcha
+if DEBUG:
+    # Avoid error due to not setting Recaptcha keys
+    RECAPTCHA_PUBLIC_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+    RECAPTCHA_PRIVATE_KEY = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
+    SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+else:
+    RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY")
+    RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")
