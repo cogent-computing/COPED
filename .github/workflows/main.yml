@@ -23,7 +23,7 @@ jobs:
           RECAPTCHA_PRIVATE_KEY: ${{ secrets.RECAPTCHA_PRIVATE_KEY }}
         run: |
           rm -f docker-compose.override.yaml
-          docker-compose -p coped-ci --env-file .env.ci -e RECAPTCHA_PUBLIC_KEY="$RECAPTCHA_PUBLIC_KEY" -e RECAPTCHA_PRIVATE_KEY="$RECAPTCHA_PRIVATE_KEY" up -d --build
+          docker-compose -p coped-ci --env-file .env.ci up -d --build
           sleep 30
 
       - name: Test the web service responds to external requests
