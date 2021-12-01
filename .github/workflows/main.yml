@@ -18,9 +18,6 @@ jobs:
       # Check out the repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
       - name: Start services
-        env:
-          RECAPTCHA_PUBLIC_KEY: ${{ secrets.RECAPTCHA_PUBLIC_KEY }}
-          RECAPTCHA_PRIVATE_KEY: ${{ secrets.RECAPTCHA_PRIVATE_KEY }}
         run: |
           rm -f docker-compose.override.yaml
           docker-compose -p coped-ci --env-file .env.ci up -d --build
