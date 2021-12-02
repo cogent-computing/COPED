@@ -30,11 +30,6 @@ class ProjectFilter(django_filters.FilterSet):
         label="End Year(s)",
         widget=forms.SelectMultiple(attrs={"class": "form-control"}),
     )
-    # funding_range = django_filters.RangeFilter(
-    #     field_name="total_funding",
-    #     label="Total Project Funding (£)",
-    # )
-
     funding_minimum = django_filters.NumberFilter(
         field_name="total_funding",
         lookup_expr="gte",
@@ -50,11 +45,8 @@ class ProjectFilter(django_filters.FilterSet):
     search = django_filters.CharFilter(
         label="Search Term(s)",
         method="search_query_filter",
-        widget=forms.TextInput(
-            attrs={"class": "form-control", "onKeyUp": "showResults(this.value)"}
-        ),
+        widget=forms.TextInput(attrs={"class": "form-control search-input"}),
     )
-
     o = django_filters.OrderingFilter(
         label="Sort By",
         fields=("title", "total_funding", "filter_start_date", "filter_end_date"),
@@ -65,7 +57,6 @@ class ProjectFilter(django_filters.FilterSet):
             "filter_end_date": "End Date",
         },
     )
-    # o.widget.attrs["class"] = "form-control"
     mlt = django_filters.CharFilter(
         widget=forms.HiddenInput(), method="more_like_this_filter"
     )
@@ -136,7 +127,6 @@ class ProjectFilter(django_filters.FilterSet):
             "status",
             "start_year",
             "end_year",
-            # "funding_range",
             "funding_minimum",
             "funding_maximum",
         ]
@@ -151,16 +141,3 @@ class ProjectFilter(django_filters.FilterSet):
         mlt = getattr(self.request, "mlt", None)
         print("MLT", mlt)
         return qs
-
-    # TODO: consider a range filter for date lookups as below
-    # def filter_start_year_range(self, queryset, name, value):
-    #     # Value from a RangeFilter is a Python slice
-    #     lookup_min = "__".join([name, "year", "gte"])
-    #     lookup_max = "__".join([name, "year", "lte"])
-    #     # TODO: check for min or max lookup being None
-    #     return queryset.filter(**{lookup_min: value.start, lookup_max: value.stop})
-    # start_year = django_filters.RangeFilter(
-    #     label="Start Year",
-    #     field_name="filter_start_date",
-    #     method="filter_start_year_range",
-    # )
