@@ -23,6 +23,7 @@ Pygments==2.10.0
 
 # Calling external API services
 requests==2.26.0
+django-anymail==8.4
 
 # Text analysis
 textacy==0.11.0

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "anymail",  # Mail sending with various providers
     "django_registration",  # Two stage activation
     "captcha",  # Secure registration
     "debug_toolbar",  # Development dependency
@@ -184,7 +185,6 @@ AUTH_USER_MODEL = "core.User"
 # Django-Registration
 ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window
 REGISTRATION_OPEN = True
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 # Site-wide URLs
@@ -201,3 +201,20 @@ if DEBUG:
 else:
     RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY")
     RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")
+
+
+# Mail sending
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+ANYMAIL = {
+    "MAILJET_API_KEY": os.environ.get("MAILJET_API_KEY"),
+    "MAILJET_SECRET_KEY": os.environ.get("MAILJET_SECRET_KEY"),
+    # "MAILJET_API_URL": "https://api.mailjet.com/v3.1/",
+    "DEBUG_API_REQUESTS": True,
+}
+EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
+DEFAULT_FROM_EMAIL = "coped.testing@c0l.in"
+SERVER_EMAIL = "coped.testing@c0l.in"
+SUPPORT_EMAIL = "coped.testing@c0l.in"
+# MAILJET_API_URL = "https://api.mailjet.com/v3.1/"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True

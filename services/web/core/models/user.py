@@ -18,8 +18,9 @@ There are various other requirements, on which see the link above.
 #         # Set the custom user model to have the standard Django database table name
 #         db_table = "auth_user"
 
-
+from django.conf import settings
 from django.db import models
+from django.core.mail import send_mail
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
@@ -103,10 +104,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         db_table = "auth_user"
 
     def email_user(self, subject, message, from_email=None, **kwargs):
-        print("EMAIL TO USER")
+        if from_email is None:
+            from_email = settings.DEFAULT_FROM_EMAIL
+        print(f"SENDING EMAIL TO USER WITH ID {self.id}")
         print("subject:", subject)
         print("message:", message)
         print("from_email", from_email)
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=from_email,
+            recipient_list=[self.email],
+        )
 
     def __str__(self):
         return self.email
