@@ -6,49 +6,35 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
-function autocompleteMatch(input) {
-    if (input == '') {
-        return [];
-    }
-    var reg = new RegExp(input)
-    return search_terms.filter(function (term) {
-        if (term.match(reg)) {
-            return term;
-        }
-    });
-}
+(function () {
+    const endpoint = '/subjects/suggest/?term=';
 
-const example_results = ["hello world", "this is a test", "testing 123", "test again", "hello coped"]
-
-function showResults(val) {
-    // const val = elt.value;
-    console.log("looking for suggestions");
-    res = document.getElementById("search-suggestions");
-    res.innerHTML = '';
-    console.log(val);
-    if (val == '') {
-        return;
+    // add results to HTML li
+    function displayMatches(event) {
+        let value = ""
+        value = event.target.value;
+        if (value.length < 3) return;
+        fetch(`${endpoint}${value}`)
+            .then(blob => blob.json())
+            .then(data => data['results'])
+            .then(results => {
+                console.log(results);
+                return results;
+            })
+            .then(results => {
+                list_items = results.map(result => `<li>${result}</li>`);
+                return list_items.join('');
+            })
+            .then(html => {
+                suggestions.innerHTML = html;
+            });
     }
-    let list = '';
-    let suggestions = example_results.filter(str => str.includes(val));
-    for (i = 0; i < suggestions.length; i++) {
-        list += '<li><a href="#">' + suggestions[i] + '</a></li>';
-    }
-    res.innerHTML = '<ul>' + list + '</ul>';
-}
 
-//     fetch('/projects/autocomplete/?q=' + val).then(
-//         function (response) {
-//             return response.json();
-//         }).then(function (data) {
-//             suggestions = data.suggestions;
-//             for (i = 0; i < suggestions.length; i++) {
-//                 list += '<li><a href="' + suggestions[i].data + '">' + suggestions[i].value + '</a></li>';
-//             }
-//             res.innerHTML = '<ul>' + list + '</ul>';
-//             return true;
-//         }).catch(function (err) {
-//             console.warn('Something went wrong.', err);
-//             return false;
-//         });
-// }
+    const searchInput = document.querySelector('.search-input');
+    const suggestions = document.querySelector('.suggestions');
+
+    searchInput.addEventListener('change', displayMatches);
+    searchInput.addEventListener('keyup', displayMatches);
+})();
+
+
