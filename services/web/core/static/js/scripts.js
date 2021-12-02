@@ -31,7 +31,11 @@
     }
 
     const searchInput = document.querySelector('.search-input');
-    const suggestions = document.querySelector('.suggestions');
+
+    // Add a suggestions div to the DOM for results
+    const suggestions = document.createElement('div')
+    suggestions.className = "suggestions"
+    searchInput.parentNode.insertBefore(suggestions, searchInput.nextSibling)
 
     searchInput.addEventListener('change', displayMatches);
     searchInput.addEventListener('keyup', displayMatches);
