@@ -5,6 +5,7 @@ import pytz
 from django.core.paginator import Paginator
 from django.views import generic
 from django.urls import reverse
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
@@ -19,6 +20,7 @@ from .filters import ProjectFilter
 from .forms import RegisterForm
 from .models import User
 from .models import PasswChange
+from .models import Subject
 
 from elasticsearch_dsl.query import MoreLikeThis
 from .documents import ProjectDocument
@@ -43,6 +45,18 @@ class ProjectListView(generic.ListView):
 
 class ProjectDetailView(generic.DetailView):
     model = Project
+
+
+def subject_suggest(request):
+    """Provide a list of possible subjects to search for. Useful for auto-complete."""
+
+    results = []
+    term = request.GET.get("term", "")
+    if len(term) > 2:
+        subjects = Subject.objects.filter(label__contains=term).values_list("label")
+        results = [s[0] for s in subjects]
+
+    return JsonResponse({"results": results})
 
 
 def project_list(request):
