@@ -189,19 +189,3 @@ textarea {
   border: 1px solid lightgray;
 }
 
-/* Autocompletion for search */
-#autocomplete-result {
-  border: 1px dotted #ccc;
-  padding: 3px;
-}
-#autocomplete-result ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-#autocomplete-result ul li {
-  padding: 5px 0;
-}
-#autocomplete-result ul li:hover {
-  background: #eee;
-}
