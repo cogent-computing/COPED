@@ -24,11 +24,6 @@ from .forms import CustomUserForm
 urlpatterns = [
     # Login and Register
     # TODO: remove modal based login and revert to default approach (needed for smooth redirections)
-    path("login/", views.login, name="login"),
-    path("logout/", views.logout, name="logout"),
-    path("register/", views.register, name="register"),
-    path("password_reset/", views.password_reset, name="password_reset"),
-    path("password_update/", views.password_update, name="password_update"),
     path("__debug__/", include(debug_toolbar.urls)),
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
