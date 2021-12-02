@@ -7,38 +7,20 @@
 // Use this file to add JavaScript to your project
 
 (function () {
-    const endpoint = '/subjects/suggest/?term=';
 
-    // add results to HTML li
-    function displayMatches(event) {
-        let value = ""
-        value = event.target.value;
-        if (value.length < 3) return;
-        fetch(`${endpoint}${value}`)
-            .then(blob => blob.json())
-            .then(data => data['results'])
-            .then(results => {
-                console.log(results);
-                return results;
-            })
-            .then(results => {
-                list_items = results.map(result => `<li>${result}</li>`);
-                return list_items.join('');
-            })
-            .then(html => {
-                suggestions.innerHTML = html;
-            });
-    }
+    $('.advancedAutoComplete').autoComplete({
+        resolver: 'custom',
+        events: {
+            search: function (qry, callback) {
+                // let's do a custom ajax call
+                $.ajax(
+                    `/subjects/suggest/?term=${qry}`
+                ).done(function (res) {
+                    console.log(res)
+                    callback(res.results)
+                });
+            }
+        }
+    });
 
-    const searchInput = document.querySelector('.search-input');
-
-    // Add a suggestions div to the DOM for results
-    const suggestions = document.createElement('div')
-    suggestions.className = "suggestions"
-    searchInput.parentNode.insertBefore(suggestions, searchInput.nextSibling)
-
-    searchInput.addEventListener('change', displayMatches);
-    searchInput.addEventListener('keyup', displayMatches);
 })();
-
-

@@ -45,7 +45,11 @@ class ProjectFilter(django_filters.FilterSet):
     search = django_filters.CharFilter(
         label="Search Term(s)",
         method="search_query_filter",
-        widget=forms.TextInput(attrs={"class": "form-control search-input"}),
+        widget=forms.TextInput(
+            # set up advanced autocomplete for bootstrap autocomplete
+            # see https://bootstrap-autocomplete.readthedocs.io/en/latest/
+            attrs={"class": "form-control advancedAutoComplete", "autocomplete": "off"}
+        ),
     )
     o = django_filters.OrderingFilter(
         label="Sort By",
