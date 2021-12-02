@@ -7,7 +7,6 @@ envs/prod/
 *.pyc
 __pycache__/
 .env*
-!.env
-!.env.ci
+!.env.example
 private/
 mypy.ini
