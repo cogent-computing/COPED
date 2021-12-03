@@ -2,7 +2,7 @@
 {% load humanize %}
 
 {% block content %}
-    {% comment %} <h1>Project Search</h1> {% endcomment %}
+<div class="container">
     <div class="row">
     <div class="col-9 text-left">
     {% if more_like_this %}
@@ -59,4 +59,5 @@
     {% include "./includes/project_search_form.html" %}
     </div>
     </div>
+</div>
 {% endblock content %}

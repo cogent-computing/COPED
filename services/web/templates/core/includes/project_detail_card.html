@@ -66,36 +66,6 @@
                 <pre>{{ project.description }}</pre>
             </div>
         </div>
-        <hr>
-        <div class="row">
-            <div class="col-sm-3 text-nowrap">
-                <h6 class="mb-0">Subjects</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-                <table>
-                    {% for ps in project.projectsubject_set.all %}
-                    <tr>
-                        <td>{{ ps.subject.label|capfirst }}</td> <td>({{ps.score}})</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-sm-3 text-nowrap">
-                <h6 class="mb-0">Key Phrases</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-                <table>
-                    {% for ps in project.projectkeyword_set.all %}
-                    <tr>
-                        <td>{{ ps.keyword.text|capfirst }}</td> <td>({{ps.score}})</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
         {% if project.extra_text.strip %}
         <hr>
         <div class="row">

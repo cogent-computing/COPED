@@ -1,17 +1,24 @@
 {% comment %} Tabs containing linked organisations, people, etc. {% endcomment %}
-<div class="accordion" id="accordionExample">
+<div class="accordion" id="detailAccordion">
     <div class="card">
       <div class="card-header" id="headingOne">
         <h2 class="mb-0">
           <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Collapsible Group Item #1
+            Organisations
           </button>
         </h2>
       </div>
   
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#detailAccordion">
         <div class="card-body">
-          Some placeholder content for the first accordion panel. This panel is shown by default, thanks to the <code>.show</code> class.
+            <table>
+            {% for org in project.projectorganisation_set.all %}
+            <tr>
+                <td><a href="#">{{ org.organisation.name }}</a></td>
+                <td class="text-right">{{ org.role }}</td>
+            </tr>
+            {% endfor %}
+            </table>
         </div>
       </div>
     </div>
@@ -19,13 +26,28 @@
       <div class="card-header" id="headingTwo">
         <h2 class="mb-0">
           <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Collapsible Group Item #2
+            People
           </button>
         </h2>
       </div>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#detailAccordion">
         <div class="card-body">
-          Some placeholder content for the second accordion panel. This panel is hidden by default.
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <th scope="col">Name</th>
+                        <th scope="col">Role</th>
+                    </thead>
+                    <tbody>
+                        {% for person in project.projectperson_set.all %}
+                        <tr>
+                            <td><a href="#">{{ person.person.full_name }}</a></td>
+                            <td>{{ person.role }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
       </div>
     </div>
@@ -33,44 +55,69 @@
       <div class="card-header" id="headingThree">
         <h2 class="mb-0">
           <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Collapsible Group Item #3
+            Subject Areas
           </button>
         </h2>
       </div>
-      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#detailAccordion">
         <div class="card-body">
-          And lastly, the placeholder content for the third and final accordion panel. This panel is hidden by default.
+            <h5>Subjects by relevance</h5>
+            <ol>
+            {% for ps in project.projectsubject_set.all %}
+                <li>{{ ps.subject.label|capfirst }}</li>
+            {% endfor %}
+            </ol>
         </div>
       </div>
     </div>
-  </div>
-<ul class="nav nav-tabs" id="myTab">
-    <li class="nav-item">
-        <a href="#orgs" class="nav-link" data-toggle="tab">Organisations</a>
-    </li>
-    <li class="nav-item">
-        <a href="#people" class="nav-link" data-toggle="tab">People</a>
-    </li>
-</ul>
-<div class="tab-content">
-    <div class="tab-pane fade" id="orgs">
-        <h4 class="mt-2">Organisations</h4>
-        <br>
-        {% for org in project.projectorganisation_set.all %}
-        <h5> {{ org.organisation.name }}</h5>
-        <h6> {{ org.role }} </h6>
-        <p><a href="#">View</a></p>
-        <hr>
-        {% endfor %}
+    <div class="card">
+      <div class="card-header" id="headingFour">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            Key Phrases
+          </button>
+        </h2>
+      </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#detailAccordion">
+        <div class="card-body">
+            <h5>Extracted key phrases</h5>
+            <ol>
+            {% for pk in project.projectkeyword_set.all %}
+                <li>{{ pk.keyword.text|capfirst }}</li>
+            {% endfor %}
+            </ol>
+        </div>
+      </div>
     </div>
-    <div class="tab-pane fade" id="people">
-        <h4 class="mt-2">People</h4>
-        <br>
-        {% for person in project.projectperson_set.all %}
-        <h5> {{ person.person.full_name }}</h5>
-        <h6> Roles: {{ person.role }} </h6>
-        <p><a href="#">View</a></p>
-        <hr>
-        {% endfor %}
+    <div class="card">
+      <div class="card-header" id="headingFive">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            External Links
+          </button>
+        </h2>
+      </div>
+      <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#detailAccordion">
+        <div class="card-body">
+            <h5>Related Pages</h5>
+            {% for el in project.external_links.all %}
+                <p><a href={{el.link}}>{{ el.description|capfirst }}</a></p>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingSix">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+            Location Map
+          </button>
+        </h2>
+      </div>
+      <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#detailAccordion">
+        <div class="card-body">
+            <h5>Open Street Map Panel Goes Here</h5>
+        </div>
+      </div>
     </div>
 </div>
