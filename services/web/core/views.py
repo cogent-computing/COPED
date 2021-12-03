@@ -17,9 +17,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 
 from .models.project import Project
 from .filters import ProjectFilter
-from .forms import RegisterForm
 from .models import User
-from .models import PasswChange
 from .models import Subject
 
 from elasticsearch_dsl.query import MoreLikeThis
@@ -32,19 +30,16 @@ def index(request):
 
 class UserDetailView(UserPassesTestMixin, generic.DetailView):
     model = User
+    template_name = "users/user_detail.html"
     context_object_name = "user_record"
 
     def test_func(self):
         return self.request.user.id == self.get_object().id
 
 
-class ProjectListView(generic.ListView):
-    model = Project
-    paginate_by = 10
-
-
 class ProjectDetailView(generic.DetailView):
     model = Project
+    template_name = "project_detail.html"
 
 
 def subject_suggest(request):
@@ -76,8 +71,6 @@ def project_list(request):
     else:
         qs = Project.objects.all()
 
-    # TODO: prepopulate form with any query term from previous page
-
     f = ProjectFilter(request.GET, queryset=qs)
     paginate_by = 20
     paginator = Paginator(f.qs, paginate_by)
@@ -103,6 +96,6 @@ def project_list(request):
 
     return render(
         request,
-        "core/project_list.html",
+        "project_list.html",
         context,
     )

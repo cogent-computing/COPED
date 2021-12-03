@@ -5,17 +5,19 @@
     {% include "includes/head.html" %}
   </head>
   <body>
-    {% include "navigation.html" %}
+    {% include "includes/navigation.html" %}
 
     <article>
-      {% include "messages.html" %}
+      {% include "includes/messages.html" %}
       {% block content %} {% endblock content %}
       {% block pagination %}
-        {% include "pagination.html" %}
+        {% include "includes/pagination.html" %}
       {% endblock pagination %}
     </article>
 
-    {% include "footer.html" %}
-    {% include "includes/footer_scripts.html" %}
+    {% block footer %}
+      {% include "includes/footer.html" %}
+      {% include "includes/footer_scripts.html" %}
+    {% endblock footer %}
   </body>
 </html>

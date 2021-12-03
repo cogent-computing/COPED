@@ -14,6 +14,10 @@ RUN python -m spacy download en_core_web_lg
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
+# Set up dependencies for PostGIS use in Django with PostgreSQL
+# TODO: the postgres container needs to execute "CREATE EXTENSION postgis;" on the newly created CoPED DB at first run.
+RUN apt-get install -y binutils libproj-dev gdal-bin
+
 COPY ./entrypoint.sh .
 RUN sed -i 's/\r$//g' entrypoint.sh
 RUN chmod +x entrypoint.sh

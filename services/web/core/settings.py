@@ -41,6 +41,8 @@ if DEBUG:
 # Application definition
 
 INSTALLED_APPS = [
+    "leaflet",  # Show locations on maps
+    "django.contrib.gis",  # Allow using geospatial model fields
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -218,3 +220,14 @@ SUPPORT_EMAIL = "coped.testing@c0l.in"
 # MAILJET_API_URL = "https://api.mailjet.com/v3.1/"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = True
+
+
+# Maps
+LEAFLET_CONFIG = {
+    "SPATIAL_EXTENT": (5.0, 44.0, 7.5, 46),
+    "DEFAULT_CENTER": (6.0, 45.0),
+    "DEFAULT_ZOOM": 16,
+    "MIN_ZOOM": 3,
+    "MAX_ZOOM": 18,
+    "DEFAULT_PRECISION": 6,
+}

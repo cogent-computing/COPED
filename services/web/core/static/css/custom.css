@@ -188,3 +188,8 @@ textarea {
   height: 640px;
   border: 1px solid lightgray;
 }
+
+/* Leaflet */
+.leaflet_map_container img {
+  max-height: none;
+}

@@ -6,4 +6,4 @@ from .project import ProjectKeyword
 from .subject import Subject
 from .external_link import ExternalLink
 from .keyword import Keyword
-from .user import User, PasswChange
+from .user import User

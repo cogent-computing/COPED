@@ -109,14 +109,15 @@
     <div class="card">
       <div class="card-header" id="headingSix">
         <h2 class="mb-0">
-          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" onclick="map.invalidateSize">
             Location Map
           </button>
         </h2>
       </div>
-      <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#detailAccordion">
+      <div id="collapseSix" class="collapse show" aria-labelledby="headingSix" data-parent="#detailAccordion">
         <div class="card-body">
-            <h5>Open Street Map Panel Goes Here</h5>
+            <h5>Project Locations</h5>
+            {% include "./location_map.html" %}
         </div>
       </div>
     </div>

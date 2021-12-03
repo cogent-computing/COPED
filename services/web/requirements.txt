@@ -10,11 +10,14 @@ django-filter==21.1
 django-registration==3.2
 django-recaptcha==2.0.6
 
-# Optional Django REST Framework dependencies for OpenAPI schema generation
+# Geographic analysis and visualisation
+django-leaflet==0.28.2
+
+# Django REST Framework dependencies for OpenAPI schema generation
 PyYAML==6.0
 uritemplate==4.1.1
 
-# Scrapy is needed for crawling websites and APIs
+# Crawling websites and APIs
 Scrapy==2.5.1
 deepdiff==5.6.0
 
