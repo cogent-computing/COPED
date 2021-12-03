@@ -63,7 +63,7 @@
                 <p><a href="{% url 'project-list' %}?mlt={{project.id}}">More Like This</a></p>
             </div>
             <div class="col-sm-9 text-secondary">
-                <pre>{{ project.description }}</pre>
+                {{ project.description|linebreaks }}
             </div>
         </div>
         {% if project.extra_text.strip %}
@@ -73,7 +73,7 @@
                 <h6 class="mb-0">More Information</h6>
             </div>
             <div class="col-sm-9 text-secondary">
-                <pre>{{ project.extra_text }}</pre>
+                {{ project.extra_text|linebreaks }}
             </div>
         </div>
         {% endif %}
