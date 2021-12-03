@@ -1,7 +1,7 @@
 import django_filters
 from django import forms
 from elasticsearch_dsl import Q
-from core.models import Project, Subject
+from core.models import Project
 from core.documents import ProjectDocument
 from elasticsearch_dsl.query import MoreLikeThis
 
@@ -10,7 +10,6 @@ class ProjectFilter(django_filters.FilterSet):
 
     YEAR_RANGE = range(2000, 2030)
     YEAR_CHOICES = list(zip(YEAR_RANGE, YEAR_RANGE))
-    SUBJECT_CHOICES = [(s.id, s.label) for s in Subject.objects.all()]
 
     status = django_filters.ChoiceFilter(
         choices=(("Active", "Active"), ("Closed", "Closed")),
@@ -96,28 +95,29 @@ class ProjectFilter(django_filters.FilterSet):
         # Simple fixed filter query on a given field (used for dev/testing)
         # s = s.filter("match", title=value)
 
-        # "Simple query string" query on multiple fields - complex search with relatively simple user-friendly syntax
+        # "Simple query string" query on multiple fields - complex search with relatively simple user-friendly syntax.
         # https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html#simple-query-string-syntax
         q = Q(
             "simple_query_string",
             query=value,
             fields=["title", "description", "extra_text"],
         )
-        s = s.query(q)
+        # Also query for fuzzy matches on the subject titles to get thematic matches.
+        q2 = Q(
+            "nested",
+            path="subjects",
+            query={"fuzzy": {"subjects.label": value}},
+        )
+        # Do an OR search combining the two queries above.
+        s = s.query(q | q2)
 
-        # Search across multiple fields
-        # q = Q("multi_match", query=value, fields=["title", "description", "extra_text"])
-        # s = s.query(q)
-
-        # FIXME: for searches with over 10K results the following won't work unless configured with pagination
+        # FIXME: for searches with over 10K results the following won't work well, unless configured with pagination.
         # Also the number of results is order-of-filter-application dependent, since a reduced initial queryset reduces search results too.
         # Override the default number of returned items (10) to the max (10000)
         s = s.extra(size=10000)
 
-        # TODO: allow toggling the keep_order setting:
-        # True=>order-by-relevance (slow), False=>sort-by-FilterSet-settings (fast)
-
-        scores = [hit.meta.score for hit in s.execute()]
+        results = s.execute()
+        scores = [hit.meta.score for hit in results]
         print(scores)
 
         # TODO: optimise the score threshold and/or bring it from a config setting or form
@@ -134,14 +134,3 @@ class ProjectFilter(django_filters.FilterSet):
             "funding_minimum",
             "funding_maximum",
         ]
-
-    @property
-    def qs(self):
-        # override the queryset that initialises the filter if required.
-        # For example use the request object to filter based on a search lookup
-        # if self.request:
-        qs = super().qs
-        print("Filter queryset method being called")
-        mlt = getattr(self.request, "mlt", None)
-        print("MLT", mlt)
-        return qs
