@@ -26,3 +26,18 @@
     {% endif %}
   {% endfor %}
 {% endif %}
+<script>
+  // Manage appearance of messages above.
+  $(document).ready(function () {
+    $("#alert-div")
+      .fadeTo(3000, 500)
+      .slideUp(500, function () {
+        $("#alert-div").slideUp(500);
+      });
+    $("#alert-div2")
+      .fadeTo(3000, 500)
+      .slideUp(500, function () {
+        $("#alert-div2").slideUp(500);
+      });
+  });
+</script>
