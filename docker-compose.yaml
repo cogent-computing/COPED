@@ -49,8 +49,10 @@ services:
       - web
 
   db:
-    # TODO: configure Dockerfile to install POSTGIS 
+    # TODO: configure Dockerfile/entrypoint script to install POSTGIS 
     # See: https://computingforgeeks.com/how-to-install-postgis-on-ubuntu-linux/
+    # 1. apt-get install postgresql-13-postgis-3
+    # 2. CREATE EXTENSION postgis;
     # Ensure also that a Django migration is added to enable the extension.
     # See: https://docs.djangoproject.com/en/3.2/ref/contrib/gis/install/postgis/
     image: postgres:13.4-bullseye
