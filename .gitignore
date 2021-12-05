@@ -2,6 +2,7 @@
 .devcontainer.json
 .vscode/
 data/
+!services/web/data/
 envs/prod/
 .DS_Store
 *.pyc
