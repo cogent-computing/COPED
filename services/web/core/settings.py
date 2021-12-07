@@ -211,7 +211,7 @@ ANYMAIL = {
     "MAILJET_API_KEY": os.environ.get("MAILJET_API_KEY"),
     "MAILJET_SECRET_KEY": os.environ.get("MAILJET_SECRET_KEY"),
     # "MAILJET_API_URL": "https://api.mailjet.com/v3.1/",
-    "DEBUG_API_REQUESTS": True,
+    "DEBUG_API_REQUESTS": DEBUG,
 }
 EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
 DEFAULT_FROM_EMAIL = "coped.testing@c0l.in"
