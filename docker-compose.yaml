@@ -65,7 +65,7 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - /var/lib/coped/postgresql/data:/var/lib/postgresql/data:cached
+      - postgresql_volume:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${POSTGRES_USER:?}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
@@ -75,7 +75,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
     container_name: coped_elastic
     volumes:
-      - /var/lib/coped/elasticsearch/data:/usr/share/elasticsearch/data:cached
+      - elasticsearch_volume:/usr/share/elasticsearch/data
       - ./configs/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     environment:
       ELASTIC_PASSWORD: ${ELASTICSEARCH_PASSWORD:?}
@@ -121,9 +121,9 @@ services:
         condition: service_healthy
 
 volumes:
-  static_volume:
-
-    null
+  static_volume: null
+  postgresql_volume: null
+  elasticsearch_volume: null
 configs:
   NGINX_CONFIG:
     file: ./configs/nginx-default.conf.template
