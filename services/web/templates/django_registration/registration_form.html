@@ -1,11 +1,18 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
 {% load i18n %}
 
 {% block content %}
-<form method="post" action=".">
-  {% csrf_token %}
-  {{ form.as_p }}
-
-  <input type="submit" value="{% trans 'Submit' %}" />
-</form>
+<div class="container col-lg-6">
+  <br>
+  <h4>Register for a CoPED account</h5>
+  <form method="post" action="." class="form">
+    {% csrf_token %}
+    {% comment %} {{ form.as_p }} {% endcomment %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+    {% endbuttons %}
+  </form>
+</div>
 {% endblock %}

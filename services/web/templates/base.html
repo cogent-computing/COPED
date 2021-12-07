@@ -1,14 +1,19 @@
 {% load static %}
+{% load bootstrap4 %}
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
     {% include "includes/head.html" %}
   </head>
   <body>
     {% include "includes/navigation.html" %}
-
+    
     <article>
-      {% include "includes/messages.html" %}
+      {% bootstrap_messages %}
       {% block content %} {% endblock content %}
       {% block pagination %}
         {% include "includes/pagination.html" %}

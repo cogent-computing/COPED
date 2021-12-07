@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "bootstrap4",  # Nice formatting for forms etc.
     "anymail",  # Mail sending with various providers
     "django_registration",  # Two stage activation
     "captcha",  # Secure registration

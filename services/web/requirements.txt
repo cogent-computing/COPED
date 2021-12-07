@@ -8,6 +8,7 @@ django-elasticsearch-dsl==7.2.1
 django-filter==21.1
 django-registration==3.2
 django-recaptcha==2.0.6
+django-bootstrap4==21.1
 
 # Geographic analysis and visualisation
 django-leaflet==0.28.2
