@@ -29,6 +29,20 @@ urlpatterns = [
     path("api/", include("api.urls")),
     path("projects/<int:pk>", views.ProjectDetailView.as_view(), name="project-detail"),
     path("projects/", views.project_list, name="project-list"),
+    path(
+        "organisations/", views.OrganisationListView.as_view(), name="organisation-list"
+    ),
+    path(
+        "organisations/<int:pk>",
+        views.OrganisationDetailView.as_view(),
+        name="organisation-detail",
+    ),
+    path("people/", views.PersonListView.as_view(), name="person-list"),
+    path(
+        "people/<int:pk>",
+        views.PersonDetailView.as_view(),
+        name="person-detail",
+    ),
     path("users/<int:pk>", views.UserDetailView.as_view(), name="user-detail"),
     path(
         "accounts/register/",

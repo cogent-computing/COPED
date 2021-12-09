@@ -1,9 +1,9 @@
 from django.db import models
-from django.db.models import F, Max, Min, Func
+from django.db.models import Max, Min, Func
 from django.db.models.functions import Greatest, Least
-from django.db.models.aggregates import Sum
+from django.db.models.aggregates import Count, Sum
+from django.contrib.postgres.aggregates import StringAgg
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from .organisation import Organisation
 from .person import Person
@@ -25,9 +25,12 @@ class ProjectQuerySet(models.QuerySet):
         self = self.annotate(all_funds_start_date=Min("projectfund__start_date"))
         self = self.annotate(all_funds_end_date=Max("projectfund__end_date"))
         self = self.annotate(total_funding=Round(Sum("projectfund__amount")))
-        self = self.annotate(funders=F("funds"))
+        self = self.annotate(
+            funders=StringAgg("projectfund__organisation__name", ", ", distinct=True)
+        )
         self = self.annotate(filter_start_date=Least("all_funds_start_date", "start"))
         self = self.annotate(filter_end_date=Greatest("all_funds_end_date", "end"))
+        # self = self.annotate(collaborator_count=Count("organisations"))
         return self
 
 

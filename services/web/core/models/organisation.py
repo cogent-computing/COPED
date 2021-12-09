@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from .raw_data import RawData
@@ -27,6 +28,9 @@ class Organisation(models.Model):
     raw_data = models.ForeignKey(
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
+
+    def get_absolute_url(self):
+        return reverse("organisation-detail", kwargs={"pk": self.pk})
 
     class Meta:
         db_table = "coped_organisation"

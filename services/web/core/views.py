@@ -13,6 +13,9 @@ from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
 
+from core.models.organisation import Organisation
+from core.models.person import Person
+
 # from django.http import HttpRequest
 
 from .models.project import Project
@@ -40,6 +43,28 @@ class UserDetailView(UserPassesTestMixin, generic.DetailView):
 class ProjectDetailView(generic.DetailView):
     model = Project
     template_name = "project_detail.html"
+
+
+class OrganisationDetailView(generic.DetailView):
+    model = Organisation
+    template_name = "organisation_detail.html"
+
+
+class OrganisationListView(generic.ListView):
+    model = Organisation
+    template_name = "organisation_list.html"
+    paginate_by = 10
+
+
+class PersonDetailView(generic.DetailView):
+    model = Person
+    template_name = "person_detail.html"
+
+
+class PersonListView(generic.ListView):
+    model = Person
+    template_name = "person_list.html"
+    paginate_by = 10
 
 
 def subject_suggest(request):

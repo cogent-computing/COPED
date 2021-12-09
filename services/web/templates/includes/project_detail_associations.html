@@ -14,7 +14,7 @@
             <table>
             {% for org in project.projectorganisation_set.all %}
             <tr>
-                <td><a href="#">{{ org.organisation.name }}</a></td>
+                <td><a href="{{ org.organisation.get_absolute_url }}">{{ org.organisation.name }}</a></td>
                 <td class="text-right">{{ org.role }}</td>
             </tr>
             {% endfor %}

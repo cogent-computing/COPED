@@ -1,0 +1,78 @@
+{% load humanize %}
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Name</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ person.full_name }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Projects</h6><br>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {% for project in person.project_set.all|dictsort:"status" %}
+
+                    {% if forloop.counter0|divisibleby:2 %}
+                    <div class="row d-flex"> 
+                    {%  endif %}
+
+                    <div class="col-sm-6 d-flex align-items-stretch">
+                        <div class="card w-100">
+                            <div class="card-header">{{ project.title }}</div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <small>
+                                        Status: {{ project.status }}<br>
+                                        Total funding: £{{ project.total_funding|intcomma }}<br>
+                                        From: {{ project.filter_start_date }}<br>
+                                        To: {{ project.filter_end_date }}<br>
+                                        Organisations: {{ project.projectorganisation_set.all|length }}<br>
+                                        People: {{ project.projectperson_set.all|length }}
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{{ project.get_absolute_url }}" class="card-link">Details</a>
+                            </div>
+                        </div><!-- card -->
+                    </div><!-- col-sm-6 -->
+                    
+                    {%  if forloop.counter|divisibleby:2 or forloop.last %}
+                    </div><!-- row closing --><br>
+                    {%  endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Organisations</h6>
+            </div>
+            <div class="col-sm-9">
+                <ul class="list-group">
+                {% for org in person.organisations.all|dictsort:"name" %}
+                    <li class="list-group-item"><a href="{{ org.get_absolute_url }}">{{ org.name }}</a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Links</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                <ul class="list-group">
+                {% for link in person.external_links.all %}
+                    <li class="list-group-item"><a href="{{ link.link }}">{{ link.description }}  <i class="fas fa-external-link-alt"></i></a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

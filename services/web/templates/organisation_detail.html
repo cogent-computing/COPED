@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'organisation-list' %}">Organisations</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ organisation.name }}</li>
+    </ol>
+</nav>
+
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md">
+            {% include "./includes/organisation_detail_card.html" %}
+        </div>
+        <div class="col-md-4">
+            {% comment %} {% include "./includes/organisation_detail_associations.html" %} {% endcomment %}
+            {% comment %} {% include "./includes/project_detail_actions.html" %}
+            {% include "./includes/project_detail_meta.html" %}
+            {% include "./includes/project_detail_metrics.html" %} {% endcomment %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item">People</li>
+    </ol>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9 text-left">
+            <br>
+            <h4>People</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        {% if page_obj %}
+            <table class="table">
+                {% for obj in page_obj %}
+                    {% if forloop.first %}
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Organisation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% endif %}
+                        <tr>
+                            <td><a href="{{ obj.get_absolute_url }}">{{obj.full_name}}</a></td>
+                            <td>{{ obj.organisations.first }}</td>
+                        </tr>
+                    {% if forloop.last %}
+                    </tbody>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No people found.</p>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

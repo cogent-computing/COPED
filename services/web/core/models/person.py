@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from uuid import uuid4
 from .raw_data import RawData
 from .external_link import ExternalLink
@@ -31,6 +32,9 @@ class Person(models.Model):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+    def get_absolute_url(self):
+        return reverse("person-detail", kwargs={"pk": self.pk})
 
     class Meta:
         db_table = "coped_person"

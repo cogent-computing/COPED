@@ -1,0 +1,124 @@
+{% load humanize %}
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Name</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ organisation.name }}
+            </div>
+        </div>
+        {% if organisation.about.strip %}
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">About</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ organisation.about|linebreaks }}
+            </div>
+        </div>
+        {% endif %}
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Projects</h6><br>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {% for project in organisation.project_set.all|dictsort:"status" %}
+
+                    {% if forloop.counter0|divisibleby:2 %}
+                    <div class="row d-flex"> 
+                    {%  endif %}
+
+                    <div class="col-sm-6 d-flex align-items-stretch">
+                        <div class="card w-100">
+                            <div class="card-header">{{ project.title }}</div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <small>
+                                        Status: {{ project.status }}<br>
+                                        Total funding: £{{ project.total_funding|intcomma }}<br>
+                                        From: {{ project.filter_start_date }}<br>
+                                        To: {{ project.filter_end_date }}<br>
+                                        Organisations: {{ project.projectorganisation_set.all|length }}<br>
+                                        People: {{ project.projectperson_set.all|length }}
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{{ project.get_absolute_url }}" class="card-link">Details</a>
+                            </div>
+                        </div><!-- card -->
+                    </div><!-- col-sm-6 -->
+                    
+                    {%  if forloop.counter|divisibleby:2 or forloop.last %}
+                    </div><!-- row closing --><br>
+                    {%  endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">People</h6>
+            </div>
+            <div class="col-sm-9">
+                <ul class="list-group">
+                {% for person in organisation.person_set.all|dictsort:"last_name" %}
+                    <li class="list-group-item"><a href="{{ person.get_absolute_url }}">{{ person.full_name }}</a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Addresses</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {% for address in organisation.addresses.all %}
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">{{ organisation.name }}</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            {% if address.line1 and address.line1 != "Unknown" %}
+                                <h6 class="card-subtitle mb-2 text-muted">{{ address.line1 }}</h6>
+                            {% endif %}
+                            {% if address.line2 and address.line2 != "Unknown" %}{{ address.line2 }}<br>{% endif %}
+                            {% if address.line3 and address.line3 != "Unknown" %}{{ address.line3 }}<br>{% endif %}
+                            {% if address.line4 and address.line4 != "Unknown" %}{{ address.line4 }}<br>{% endif %}
+                            {% if address.line5 and address.line5 != "Unknown" %}{{ address.line5 }}<br>{% endif %}
+                            {% if address.city and address.city != "Unknown" %}{{ address.city }}<br>{% endif %}
+                            {% if address.county and address.county != "Unknown" %}{{ address.county }}<br>{% endif %}
+                            {% if address.region and address.region != "Unknown" %}{{ address.region }}<br>{% endif %}
+                            {% if address.postcode and address.postcode != "Unknown" %}{{ address.postcode }}<br>{% endif %}
+                            {% if address.country and address.country != "Unknown" %}{{ address.country }}<br>{% endif %}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="" class="card-link">Map View</a>
+                    </div>
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Links</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="https://google.co.uk/search?q={{ organisation.name }}&safe=active" target="_blank">Organisation search <i class="fas fa-external-link-alt"></i></a></li>
+                {% for link in organisation.external_links.all %}
+                    <li class="list-group-item"><a href="{{ link.link }}">{{ link.description }}  <i class="fas fa-external-link-alt"></i></a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
