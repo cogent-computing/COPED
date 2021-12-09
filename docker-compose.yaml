@@ -5,6 +5,7 @@ services:
   ##########################
   web:
     build: ./services/web
+    restart: always
     container_name: coped_web
     command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
     volumes:
@@ -37,6 +38,7 @@ services:
 
   nginx:
     image: nginx:1.21-perl
+    restart: always
     container_name: coped_nginx
     volumes:
       - static_volume:${NGINX_STATIC_LOCATION:?}
@@ -56,6 +58,7 @@ services:
     # Ensure also that a Django migration is added to enable the extension.
     # See: https://docs.djangoproject.com/en/3.2/ref/contrib/gis/install/postgis/
     image: postgres:13.4-bullseye
+    restart: always
     container_name: coped_postgres
     expose:
       - 5432
@@ -73,6 +76,7 @@ services:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
+    restart: always
     container_name: coped_elastic
     volumes:
       - elasticsearch_volume:/usr/share/elasticsearch/data
