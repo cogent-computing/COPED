@@ -44,7 +44,7 @@ services:
       - static_volume:${NGINX_STATIC_LOCATION:?}
       - ./configs/nginx-default.conf.template:/etc/nginx/templates/default.conf.template
     ports:
-      - "1337:80"
+      - "80:80"
     environment:
       STATIC_LOCATION: ${NGINX_STATIC_LOCATION:?}
     depends_on:
