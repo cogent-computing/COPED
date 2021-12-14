@@ -2,6 +2,7 @@ import secrets
 import datetime
 import pytz
 
+from django.db.models import Count
 from django.core.paginator import Paginator
 from django.views import generic
 from django.urls import reverse
@@ -12,13 +13,14 @@ from django.template.loader import render_to_string
 from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
+from core.models.address import Address
 
 from core.models.organisation import Organisation
 from core.models.person import Person
 
 # from django.http import HttpRequest
 
-from .models.project import Project
+from .models.project import Project, ProjectSubject
 from .filters import ProjectFilter
 from .models import User
 from .models import Subject
@@ -43,6 +45,18 @@ class UserDetailView(UserPassesTestMixin, generic.DetailView):
 class ProjectDetailView(generic.DetailView):
     model = Project
     template_name = "project_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        addresses = Address.objects.filter(
+            organisation__in=self.get_object().organisations.all()
+        )
+        location_list = [[a.geo.lat, a.geo.lon] for a in addresses]
+        has_latlon = lambda loc: loc[0] != 0 or loc[1] != 0
+        location_list = list(filter(has_latlon, location_list))
+        print("LOCATIONS", location_list)
+        context["location_list"] = location_list
+        return context
 
 
 class OrganisationDetailView(generic.DetailView):
@@ -77,6 +91,28 @@ def subject_suggest(request):
         results = [s[0] for s in subjects]
 
     return JsonResponse({"results": results})
+
+
+def subject_list(request):
+    subject_counts = (
+        ProjectSubject.objects.all()
+        .values("subject__label", "subject")
+        .annotate(total=Count("subject"))
+        .order_by("-total")
+    )
+    max_font_size = 30
+    font_normalisation_factor = subject_counts[0]["total"] / max_font_size
+    subjects_with_sizes = [
+        {
+            "label": s["subject__label"],
+            "size": s["total"] / font_normalisation_factor,
+            "count": s["total"],
+        }
+        for s in subject_counts
+    ]
+    return render(
+        request, "project_subjects.html", context={"subjects": subjects_with_sizes}
+    )
 
 
 def project_list(request):

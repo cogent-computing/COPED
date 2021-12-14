@@ -1,6 +1,30 @@
 {% load leaflet_tags %}
 {% block content %}
+<script>
+    function map_init_basic (map, options) {
+        let bounds = L.latLngBounds();
+        let markers = L.markerClusterGroup({
+            zoomToBoundsOnClick: false,
+            showCoverageOnHover: true,
+            removeOutsideVisibleBounds: true,
+            spiderfyOnMaxZoom: true,
+        });
+        {% for lat_lon in location_list %}
+            markers.addLayer(L.marker({{lat_lon}}));
+            bounds.extend({{lat_lon}});
+        {% endfor %}
+        map.addLayer(markers);
+        map.fitBounds(bounds);
+        let zoom = map.getZoom();
+        if (zoom > 13) {
+            map.setZoom(13);
+        } else {
+            map.setZoom(zoom - 1);
+        }
+    }
+</script>
+
 <div class="leaflet_map_container">
-    {% leaflet_map "locationMap" %}
+    {% leaflet_map "locationMap" callback="window.map_init_basic" %}
 </div>
 {% endblock %}

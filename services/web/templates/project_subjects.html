@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item">Subjects</li>
+    </ol>
+</nav>
+
+<div class="container">
+    {% for subject in subjects %}
+        <a href="" class="text-nowrap"><font size={{subject.size|floatformat:0}}>{{subject.label}} <span class="badge badge-pill badge-info">{{subject.count}}</span></font>
+        <span class="sr-only">number of projects</span></a>&nbsp;&nbsp;
+    {% endfor %}
+</div>
+{% endblock content %}

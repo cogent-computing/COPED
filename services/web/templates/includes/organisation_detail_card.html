@@ -93,7 +93,7 @@
                             {% if address.line5 and address.line5 != "Unknown" %}{{ address.line5 }}<br>{% endif %}
                             {% if address.city and address.city != "Unknown" %}{{ address.city }}<br>{% endif %}
                             {% if address.county and address.county != "Unknown" %}{{ address.county }}<br>{% endif %}
-                            {% if address.region and address.region != "Unknown" %}{{ address.region }}<br>{% endif %}
+                            {% if address.region and address.region != "Unknown" and address.region != "Outside UK" %}{{ address.region }}<br>{% endif %}
                             {% if address.postcode and address.postcode != "Unknown" %}{{ address.postcode }}<br>{% endif %}
                             {% if address.country and address.country != "Unknown" %}{{ address.country }}<br>{% endif %}
                         </p>
@@ -115,7 +115,7 @@
                 <ul class="list-group">
                     <li class="list-group-item"><a href="https://google.co.uk/search?q={{ organisation.name }}&safe=active" target="_blank">Organisation search <i class="fas fa-external-link-alt"></i></a></li>
                 {% for link in organisation.external_links.all %}
-                    <li class="list-group-item"><a href="{{ link.link }}">{{ link.description }}  <i class="fas fa-external-link-alt"></i></a></li>
+                    <li class="list-group-item"><a href="{{ link.link }}" target="_blank">{{ link.description }}  <i class="fas fa-external-link-alt"></i></a></li>
                 {% endfor %}
                 </ul>
             </div>

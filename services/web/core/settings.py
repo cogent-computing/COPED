@@ -225,10 +225,20 @@ EMAIL_USE_SSL = True
 
 # Maps
 LEAFLET_CONFIG = {
-    "SPATIAL_EXTENT": (5.0, 44.0, 7.5, 46),
-    "DEFAULT_CENTER": (6.0, 45.0),
-    "DEFAULT_ZOOM": 16,
-    "MIN_ZOOM": 3,
+    # "SPATIAL_EXTENT": (5.0, 44.0, 7.5, 46),
+    # "DEFAULT_CENTER": (53.55, -2.433),
+    "DEFAULT_ZOOM": 15,
+    "MIN_ZOOM": 1,
     "MAX_ZOOM": 18,
-    "DEFAULT_PRECISION": 6,
+    "DEFAULT_PRECISION": 10,
+    "PLUGINS": {
+        "cluster": {
+            "css": [
+                "https://unpkg.com/leaflet.markercluster@1.1.0/dist/MarkerCluster.css",
+                "https://unpkg.com/leaflet.markercluster@1.1.0/dist/MarkerCluster.Default.css",
+            ],
+            "js": "https://unpkg.com/leaflet.markercluster@1.1.0/dist/leaflet.markercluster.js",
+            "auto-include": True,
+        }
+    },
 }
