@@ -27,54 +27,21 @@ The codebase aims to allow easy setup and teardown of development and testing en
 
 The following guidance provides an overview of the development process for contributors.
 
-> Links to user documentation will be added above once the codebase matures and user features are fully developed. 
 
 ## Development
 
 [Docker compose](https://docs.docker.com/compose/) is used to orchestrate COPED services.
 
-### Steps
-
-1. Clone the repository.
-2. Run `docker-compose up -d`
-
-### Summary
-
-* tries to mirror as much of the _production_ build as possible
-* application access point is `localhost:1337`
-* uses the `docker-compose.override.yaml` for development mode
-    - __turns on debugging__
-    - uses bind mounts to enable direct code editing inside containers
-        - VSCode's `Docker` extension is useful here :-)
-* automatically flushes the database when spun up
-    > to avoid this behaviour comment out the relevant line in `web/entrypoint.sh`.
-* limits memory usage by the Elasticsearch and Logstash services to avoid slowdowns
-
-### Notes
-
-1. The first `up` command will also build and cache the images. This will take many minutes on a slow connection. Subsequent `up` commands use the cache and take a couple of seconds.
-
-2. The [ELK stack](https://www.elastic.co/what-is/elk-stack) (Elasticsearch, Logstash, Kibana) is hungry for memory. When developing on a low-powered machine (desktop/laptop) ensure that the Docker Desktop application is configured with a reasonable amount of memory, otherwise the Java heap will use all the allocated memory and cause issues. A setting of __4GB__ for Docker Desktop on Mac seems to work, as a rough guide. 
-
-3. The Logstash service can be fussy on first launch, when the volume is also created, since it seems to require an existing volume with prior bootstrap configuration saved. If this happens (which can be confirmed by looking at the Logstash logs) simply restart the Logstash container over the now-existing volume.
-
-## Production
-
-To run a sample "deployment" version of CoPED do the following.
+[GitHub Large File Storage](https://git-lfs.github.com/) installation is required to access test/demo data.
 
 ### Steps
 
-1. _Delete or rename `docker-compose.override.yaml`._
-2. Copy `.env` to `.env.prod` and ensure `ENVIRONMENT=PRODUCTION` is set.
-3. Update permissions `chmod 0600 .env.prod` and update the production credentials.
-4. Run: `docker-compose --env-file .env.prod up -d`
+1. Clone the repository (Git LFS must be installed).
+2. Run `docker-compose build`.
+3. Copy `.env.example` to `.env` and update any configuration you wish to use.
+4. Run `docker-compose up -d db` to spin up the PostgreSQL database server.
+5. Run `docker-compose exec -T db psql -U <coped> -d <coped_development> < dbdata/<sql_filename>` to populate the database.
+6. Run `docker-compose up -d web` to launch the development web server.
 
-### Summary
+You should now be able to access the web UI at `<hostname>:<port>` where `<port>` is the port configured in the `docker-compose.override.yaml` file and `<hostname>` is where you are serving from (e.g. localhost if you are developing locally or through a port-mapped tunnel).
 
-* application access point is `localhost:1337`
-* volumes rather than binds are used where possible
-* does not flush database to protect existing data
-
-## Continuous Integration
-
-Pull requests targeting the `main` branch are automatically tested using a GitHub Actions CI workflow. Check out `.github/workflows` to view the current checks.
