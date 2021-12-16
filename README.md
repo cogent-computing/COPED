@@ -54,3 +54,5 @@ You should now be able to access the web UI at `<hostname>:<port>` where `<port>
 
 1. Launch the application as above.
 2. On the Docker host run `docker-compose exec web python manage.py test`.
+
+The Selenium test UI can be viewed (e.g. to see screen interaction) at `localhost:4444`.
