@@ -40,7 +40,7 @@ The following guidance provides an overview of the development process for contr
 2. Run `docker-compose build`.
 3. Copy `.env.example` to `.env` and update any configuration you wish to use.
 4. Run `docker-compose up -d db` to spin up the PostgreSQL database server.
-5. Run `docker-compose exec -T db psql -U <coped> -d <coped_development> < dbdata/<sql_filename>` to populate the database, replacing `<variable>` with the appropriate value (find values in the `.env` file and in the `dbdata/` directory).
+5. Run `docker-compose exec -T db psql -U <postgres> -d <coped_development> < dbdata/<sql_filename>` to populate the database, replacing `<variable>` with the appropriate value (find values in the `.env` file and in the `dbdata/` directory).
 
 ### Launch
 
