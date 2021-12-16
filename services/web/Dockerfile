@@ -5,18 +5,18 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends build-essential gcc netcat gettext
-
+# RUN apt-get update && apt-get install -y netcat
+RUN apt-get update && apt-get install -y gettext
+RUN apt-get update && apt-get install -y binutils
+RUN apt-get update && apt-get install -y libproj-dev
+RUN apt-get update && apt-get install -y gdal-bin
+RUN apt-get update && apt-get install -y build-essential
+RUN apt-get update && apt-get install -y gcc
 RUN pip install --upgrade pip
 RUN pip install textacy==0.11.0
 RUN python -m spacy download en_core_web_lg
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-
-# Set up dependencies for PostGIS use in Django with PostgreSQL
-# TODO: the postgres container needs to execute "CREATE EXTENSION postgis;" on the newly created CoPED DB at first run.
-RUN apt-get install -y binutils libproj-dev gdal-bin
 
 COPY ./entrypoint.sh .
 RUN sed -i 's/\r$//g' entrypoint.sh
