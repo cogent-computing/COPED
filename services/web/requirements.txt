@@ -37,3 +37,5 @@ django-debug-toolbar==3.2.2
 django-extensions==3.1.5
 Werkzeug==2.0.2
 black==21.11b1
+selenium==4.1.0
+ipdb==0.13.9

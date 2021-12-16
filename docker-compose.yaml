@@ -57,7 +57,8 @@ services:
     # 2. CREATE EXTENSION postgis;
     # Ensure also that a Django migration is added to enable the extension.
     # See: https://docs.djangoproject.com/en/3.2/ref/contrib/gis/install/postgis/
-    image: postgres:13.4-bullseye
+    build: ./services/db
+    # image: postgres:13.4-bullseye
     restart: always
     container_name: coped_postgres
     expose:

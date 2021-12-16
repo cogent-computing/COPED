@@ -8,6 +8,8 @@ services:
     environment:
       DEBUG: 1
     command: python manage.py runserver_plus 0.0.0.0:8000
+    links:
+      - selenium
     ports:
       - "8000:8000"
 
@@ -27,3 +29,11 @@ services:
       DEBUG: 1
     volumes:
       - ./tasks:/tasks:cached
+
+  selenium:
+    image: selenium/standalone-firefox
+    container_name: coped_selenium
+    # platform: linux/amd64
+    ports:
+      - 4444:4444
+      - 5900:5900
