@@ -1,6 +1,6 @@
 # COPED: Catalogue of Projects on Energy Data
 
-> __Development Status:__ Pre-Alpha - service orchestration, continuous integration setup, refactoring of prototype features.
+> __Development Status:__ Alpha
 
 ![screenshot_coped](docs/images/coped-landing.png "Figure 1 - Screenshot of Coped")
 
@@ -34,14 +34,17 @@ The following guidance provides an overview of the development process for contr
 
 [GitHub Large File Storage](https://git-lfs.github.com/) installation is required to access test/demo data.
 
-### Steps
+### Setup
 
 1. Clone the repository (Git LFS must be installed).
 2. Run `docker-compose build`.
 3. Copy `.env.example` to `.env` and update any configuration you wish to use.
 4. Run `docker-compose up -d db` to spin up the PostgreSQL database server.
 5. Run `docker-compose exec -T db psql -U <coped> -d <coped_development> < dbdata/<sql_filename>` to populate the database, replacing `<variable>` with the appropriate value (find values in the `.env` file and in the `dbdata/` directory).
-6. Run `docker-compose up -d web` to launch the development web server.
+
+### Launch
+
+1. Run `docker-compose up -d web` to launch the development web server.
 
 You should now be able to access the web UI at `<hostname>:<port>` where `<port>` is the port configured in the `docker-compose.override.yaml` file and `<hostname>` is where you are serving from (e.g. localhost if you are developing locally or through a port-mapped tunnel).
 
@@ -49,5 +52,5 @@ You should now be able to access the web UI at `<hostname>:<port>` where `<port>
 
 ### Steps
 
-1. Launch the application as above
-2. On the Docker host run `docker-compose exec web python manage.py test`
+1. Launch the application as above.
+2. On the Docker host run `docker-compose exec web python manage.py test`.
