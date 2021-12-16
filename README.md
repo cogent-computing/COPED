@@ -45,3 +45,9 @@ The following guidance provides an overview of the development process for contr
 
 You should now be able to access the web UI at `<hostname>:<port>` where `<port>` is the port configured in the `docker-compose.override.yaml` file and `<hostname>` is where you are serving from (e.g. localhost if you are developing locally or through a port-mapped tunnel).
 
+## Testing
+
+### Steps
+
+1. Launch the application as above
+2. On the Docker host run `docker-compose exec web python manage.py test`
