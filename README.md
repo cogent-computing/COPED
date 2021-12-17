@@ -38,15 +38,19 @@ The following guidance provides an overview of the development process for contr
 
 1. Clone the repository (Git LFS must be installed).
 2. Run `docker-compose build`.
-3. Copy `.env.example` to `.env` and update any configuration you wish to use.
-4. Run `docker-compose up -d db` to spin up the PostgreSQL database server.
-5. Run `docker-compose exec -T db psql -U <postgres> -d <coped_development> < dbdata/<sql_filename>` to populate the database, replacing `<variable>` with the appropriate value (find values in the `.env` file and in the `dbdata/` directory).
-
-### Launch
-
-1. Run `docker-compose up -d web` to launch the development web server.
+3. Copy `.env.example` to `.env` and update any environment configuration you wish to use.
+4. Ensure database name in `dbdata/repopulate_db.sh` matches your environment.
+5. Run `./dbdata/repopulate_db.sh` to populate the database and launch the application.
 
 You should now be able to access the web UI at `<hostname>:<port>` where `<port>` is the port configured in the `docker-compose.override.yaml` file and `<hostname>` is where you are serving from (e.g. localhost if you are developing locally or through a port-mapped tunnel).
+
+### Launch after setup
+
+* Run `docker-compose up -d web` to launch the development web server.
+
+### Repopulate database after setup
+
+* Run `./dbdata/repopulate_db.sh` to populate the database and launch the application.
 
 ## Testing
 
