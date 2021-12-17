@@ -7,6 +7,7 @@ services:
       - ./services/web:/app:cached
     environment:
       DEBUG: 1
+      SELENIUM_WEB_PORT: ${SELENIUM_WEB_PORT:-4444}
     command: python manage.py runserver_plus 0.0.0.0:8000
     links:
       - selenium
