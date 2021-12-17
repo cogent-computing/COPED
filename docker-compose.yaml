@@ -1,8 +1,8 @@
 services:
 
-  ##########################
-  ##  ALWAYS-ON SERVICES  ##
-  ##########################
+  ##############################
+  ##  DJANGO WEB APPLICATION  ##
+  ##############################
   web:
     build: ./services/web
     restart: always
@@ -36,6 +36,9 @@ services:
       elasticsearch:
         condition: service_healthy
 
+  ##########################
+  ## HTTP(S) PROXY SERVER ##
+  ##########################
   nginx:
     image: nginx:1.21-perl
     restart: always
@@ -44,21 +47,17 @@ services:
       - static_volume:${NGINX_STATIC_LOCATION:?}
       - ./configs/nginx-default.conf.template:/etc/nginx/templates/default.conf.template
     ports:
-      - "80:80"
+      - "${NGINX_HOST_PORT:-80}:80"
     environment:
       STATIC_LOCATION: ${NGINX_STATIC_LOCATION:?}
     depends_on:
       - web
 
+  ###################################
+  ## POSTGRESQL BACKEND FOR DJANGO ##
+  ###################################
   db:
-    # TODO: configure Dockerfile/entrypoint script to install POSTGIS 
-    # See: https://computingforgeeks.com/how-to-install-postgis-on-ubuntu-linux/
-    # 1. apt-get install postgresql-13-postgis-3
-    # 2. CREATE EXTENSION postgis;
-    # Ensure also that a Django migration is added to enable the extension.
-    # See: https://docs.djangoproject.com/en/3.2/ref/contrib/gis/install/postgis/
     build: ./services/db
-    # image: postgres:13.4-bullseye
     restart: always
     container_name: coped_postgres
     expose:
@@ -76,6 +75,9 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:?}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
 
+  ###############################
+  ## SEARCH BACKEND FOR DJANGO ##
+  ###############################
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
     restart: always
@@ -95,41 +97,11 @@ services:
       timeout: 5s
       retries: 5
 
-  ############################
-  ##  TASK RUNNER SERVICES  ##
-  ############################
-
-  tasks:
-    profiles:
-      - task-runner
-    build: ./tasks
-    container_name: coped_tasks
-    environment:
-      DEBUG: 0
-      PYTHONPATH: /tasks # this is where the build mounts the ./tasks directory
-      # defaults
-      COUCHDB_HOST: ${COUCHDB_HOST:-couch}
-      COUCHDB_PORT: ${COUCHDB_PORT:-5984}
-      POSTGRES_HOST: ${POSTGRES_HOST:-db}
-      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
-      POSTGRES_RESOURCE_TABLE: ${POSTGRES_RESOURCE_TABLE:-coped_resource}
-      POSTGRES_TYPE_TABLE: ${POSTGRES_TYPE_TABLE:-coped_resource_type}
-      # mandatory
-      POSTGRES_USER: ${POSTGRES_USER:?}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
-      POSTGRES_DB: ${POSTGRES_DB:?}
-      ELASTICSEARCH_USER: ${ELASTICSEARCH_USER:?}
-      ELASTICSEARCH_PASSWORD: ${ELASTICSEARCH_PASSWORD:?}
-    depends_on:
-      db:
-        condition: service_healthy
-      elasticsearch:
-        condition: service_healthy
-
 volumes:
   static_volume: null
   postgresql_volume: null
   elasticsearch_volume: null
+
 configs:
   NGINX_CONFIG:
     file: ./configs/nginx-default.conf.template
