@@ -26,7 +26,7 @@ services:
 
   selenium:
     image: selenium/standalone-firefox
-    container_name: coped_selenium
+    container_name: ${DOCKER_CONTAINER_NAME_PREFIX:-coped}_selenium
     # platform: linux/amd64
     ports:
       - ${SELENIUM_WEB_PORT:-4444}:4444
