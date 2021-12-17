@@ -6,7 +6,7 @@ services:
   web:
     build: ./services/web
     restart: always
-    container_name: coped_web
+    container_name: ${DOCKER_CONTAINER_NAME_PREFIX:-coped}_web
     command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:${DJANGO_STATIC_ROOT:?}
@@ -42,7 +42,7 @@ services:
   nginx:
     image: nginx:1.21-perl
     restart: always
-    container_name: coped_nginx
+    container_name: ${DOCKER_CONTAINER_NAME_PREFIX:-coped}_nginx
     volumes:
       - static_volume:${NGINX_STATIC_LOCATION:?}
       - ./configs/nginx-default.conf.template:/etc/nginx/templates/default.conf.template
@@ -59,7 +59,7 @@ services:
   db:
     build: ./services/db
     restart: always
-    container_name: coped_postgres
+    container_name: ${DOCKER_CONTAINER_NAME_PREFIX:-coped}_postgres
     expose:
       - ${POSTGRES_PORT:-5432}
     healthcheck:
@@ -82,7 +82,7 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
     restart: always
-    container_name: coped_elastic
+    container_name: ${DOCKER_CONTAINER_NAME_PREFIX:-coped}_elastic
     volumes:
       - elasticsearch_volume:/usr/share/elasticsearch/data
       - ./configs/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
