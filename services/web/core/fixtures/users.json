@@ -17,5 +17,24 @@
             "user_permissions": [],
             "coped_id": "e1c70276-451f-402a-a567-62b3c2066d08"
         }
+    },
+    {
+        "model": "core.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$36000$OHhaFQD2ks6O$3uS1OFIRgO3UWdYexebUn4vmal6dsTrNEKKgfht4+5c=",
+            "last_login": "2017-11-25T16:00:51.346Z",
+            "is_superuser": false,
+            "username": "cosmo",
+            "first_name": "Cosmo",
+            "last_name": "Kramer",
+            "email": "pennypacker@vandelayindustries.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2017-11-25T15:59:37.912Z",
+            "groups": [],
+            "user_permissions": [],
+            "coped_id": "e1c70276-451f-402a-a567-62b3c2066d07"
+        }
     }
 ]
