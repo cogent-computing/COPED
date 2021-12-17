@@ -26,7 +26,7 @@ jobs:
         run: curl -I 127.0.0.1:8983/admin/ | grep "302 Found"
 
       - name: Test the web service core functionality
-        run: docker-compose -p coped-ci exec web python manage.py test
+        run: docker-compose -p coped-ci exec web python manage.py test --noinput
 
   spin-down:
     runs-on: self-hosted
