@@ -7,7 +7,7 @@ services:
       - ./services/web:/app:cached
     environment:
       DEBUG: 1
-    command: python manage.py runserver_plus 0.0.0.0:${DJANGO_DEVELOPMENT_PORT:-8000}
+    command: python manage.py runserver_plus 0.0.0.0:8000
     links:
       - selenium
     ports:
@@ -23,12 +23,6 @@ services:
       - "${ELASTIC_CLUSTER_PORT:-9300}:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-
-  tasks:
-    environment:
-      DEBUG: 1
-    volumes:
-      - ./tasks:/tasks:cached
 
   selenium:
     image: selenium/standalone-firefox

@@ -3,10 +3,10 @@
 name: coped-test-runner
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   branches: [main]
 
   # Allows the workflow to be run manually from the Actions tab
   workflow_dispatch:
@@ -19,15 +19,14 @@ jobs:
       - uses: actions/checkout@v2
       - name: Start services
         run: |
-          rm -f docker-compose.override.yaml
           docker-compose -p coped-ci --env-file .env.ci up -d --build
           sleep 30
 
       - name: Test the web service responds to external requests
-        run: curl -I http://127.0.0.1:1337/admin/ | grep "302 Found"
+        run: curl -I 127.0.0.1:8983/admin/ | grep "302 Found"
 
-      - name: Test the web service can run CRUD actions on elasticsearch
-        run: docker exec coped_web python ./manage.py test
+      - name: Test the web service core functionality
+        run: docker-compose -p coped-ci exec web python manage.py test
 
   spin-down:
     runs-on: self-hosted
