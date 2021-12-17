@@ -26,7 +26,7 @@ class BaseTestCase(StaticLiveServerTestCase):
         cls.host = socket.gethostbyname(socket.gethostname())
         selenium_web_port = os.environ.get("SELENIUM_WEB_PORT", "4444")
         cls.selenium = webdriver.Remote(
-            command_executor=f"http://coped_selenium:${selenium_web_port}/wd/hub",
+            command_executor=f"http://coped_selenium:{selenium_web_port}/wd/hub",
             desired_capabilities=DesiredCapabilities.FIREFOX,
         )
         cls.selenium.implicitly_wait(5)
