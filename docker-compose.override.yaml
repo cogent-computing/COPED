@@ -7,20 +7,20 @@ services:
       - ./services/web:/app:cached
     environment:
       DEBUG: 1
-    command: python manage.py runserver_plus 0.0.0.0:8000
+    command: python manage.py runserver_plus 0.0.0.0:${DJANGO_DEVELOPMENT_PORT:-8000}
     links:
       - selenium
     ports:
-      - "8000:8000"
+      - "${DJANGO_DEVELOPMENT_PORT:-8000}:8000"
 
   db:
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
 
   elasticsearch:
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "${ELASTIC_API_PORT:-9200}:9200"
+      - "${ELASTIC_CLUSTER_PORT:-9300}:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
 
@@ -35,5 +35,5 @@ services:
     container_name: coped_selenium
     # platform: linux/amd64
     ports:
-      - 4444:4444
-      - 5900:5900
+      - ${SELENIUM_WEB_PORT:-4444}:4444
+      - ${SELENIUM_VNC_PORT:-5900}:5900
