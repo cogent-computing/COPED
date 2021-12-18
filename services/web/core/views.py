@@ -24,6 +24,7 @@ from .models.project import Project, ProjectSubject
 from .filters import ProjectFilter
 from .models import User
 from .models import Subject
+from .models import Organisation
 
 from elasticsearch_dsl.query import MoreLikeThis
 from .documents import ProjectDocument
@@ -89,6 +90,34 @@ def subject_suggest(request):
     if len(term) > 2:
         subjects = Subject.objects.filter(label__contains=term).values_list("label")
         results = [s[0] for s in subjects]
+
+    return JsonResponse({"results": results})
+
+
+def organisation_suggest(request):
+    """Provide a list of possible organisations to search for. Useful for auto-complete."""
+
+    results = []
+    term = request.GET.get("term", "")
+    if len(term) > 2:
+        organisations = Organisation.objects.filter(name__contains=term).values_list(
+            "name"
+        )
+        results = [s[0] for s in organisations]
+
+    return JsonResponse({"results": results})
+
+
+def person_suggest(request):
+    """Provide a list of possible people to search for. Useful for auto-complete."""
+
+    results = []
+    term = request.GET.get("term", "")
+    if len(term) > 2:
+        people = Person.objects.filter(last_name__contains=term).values_list(
+            "last_name"
+        )
+        results = [s[0] for s in people]
 
     return JsonResponse({"results": results})
 

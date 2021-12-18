@@ -30,14 +30,20 @@ urlpatterns = [
     path("projects/<int:pk>", views.ProjectDetailView.as_view(), name="project-detail"),
     path("projects/", views.project_list, name="project-list"),
     path(
-        "organisations/", views.OrganisationListView.as_view(), name="organisation-list"
+        "organisations/suggest/",
+        views.organisation_suggest,
+        name="organisation-suggest",
     ),
     path(
         "organisations/<int:pk>",
         views.OrganisationDetailView.as_view(),
         name="organisation-detail",
     ),
-    path("people/", views.PersonListView.as_view(), name="person-list"),
+    path(
+        "organisations/", views.OrganisationListView.as_view(), name="organisation-list"
+    ),
+    path("subjects/suggest/", views.subject_suggest, name="subject-suggest"),
+    path("people/suggest/", views.person_suggest, name="person-suggest"),
     path(
         "people/<int:pk>",
         views.PersonDetailView.as_view(),
