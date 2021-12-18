@@ -8,13 +8,27 @@
 
 (function () {
 
-    $('.advancedAutoComplete').autoComplete({
+    $('.advancedAutoCompleteProject').autoComplete({
         resolver: 'custom',
         events: {
             search: function (qry, callback) {
                 // let's do a custom ajax call
                 $.ajax(
                     `/subjects/suggest/?term=${qry}`
+                ).done(function (res) {
+                    console.log(res)
+                    callback(res.results)
+                });
+            }
+        }
+    });
+    $('.advancedAutoCompleteOrganisation').autoComplete({
+        resolver: 'custom',
+        events: {
+            search: function (qry, callback) {
+                // let's do a custom ajax call
+                $.ajax(
+                    `/organisations/suggest/?term=${qry}`
                 ).done(function (res) {
                     console.log(res)
                     callback(res.results)

@@ -21,13 +21,33 @@ from core.models.person import Person
 # from django.http import HttpRequest
 
 from .models.project import Project, ProjectSubject
-from .filters import ProjectFilter
+from .filters import ProjectFilter, OrganisationFilter
 from .models import User
 from .models import Subject
 from .models import Organisation
 
 from elasticsearch_dsl.query import MoreLikeThis
 from .documents import ProjectDocument
+
+
+class FilteredListView(generic.ListView):
+    filterset_class = None
+
+    def get_queryset(self):
+        # Get the standard queryset, which will use the subclass "model" attribute.
+        queryset = super().get_queryset()
+        # Then use the query parameters and the queryset to
+        # instantiate a filterset and save it as an attribute
+        # on the view instance for use later when setting the context.
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        # Return the filtered queryset
+        return self.filterset.qs.distinct().order_by("name")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Pass the filterset to the template - it provides the form.
+        context["filter"] = self.filterset
+        return context
 
 
 def index(request):
@@ -65,8 +85,9 @@ class OrganisationDetailView(generic.DetailView):
     template_name = "organisation_detail.html"
 
 
-class OrganisationListView(generic.ListView):
+class OrganisationListView(FilteredListView):
     model = Organisation
+    filterset_class = OrganisationFilter
     template_name = "organisation_list.html"
     paginate_by = 10
 
@@ -100,7 +121,7 @@ def organisation_suggest(request):
     results = []
     term = request.GET.get("term", "")
     if len(term) > 2:
-        organisations = Organisation.objects.filter(name__contains=term).values_list(
+        organisations = Organisation.objects.filter(name__icontains=term).values_list(
             "name"
         )
         results = [s[0] for s in organisations]

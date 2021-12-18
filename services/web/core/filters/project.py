@@ -47,7 +47,10 @@ class ProjectFilter(django_filters.FilterSet):
         widget=forms.TextInput(
             # set up advanced autocomplete for bootstrap autocomplete
             # see https://bootstrap-autocomplete.readthedocs.io/en/latest/
-            attrs={"class": "form-control advancedAutoComplete", "autocomplete": "off"}
+            attrs={
+                "class": "form-control advancedAutoCompleteProject",
+                "autocomplete": "off",
+            }
         ),
     )
     o = django_filters.OrderingFilter(
