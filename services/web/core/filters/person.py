@@ -5,8 +5,7 @@ from ..models import Person
 
 class PersonFilter(FilterSet):
     full_name = CharFilter(
-        label="Search by Name",
-        # method="search_query_filter",
+        label="Name",
         widget=forms.TextInput(
             # set up advanced autocomplete for bootstrap autocomplete
             # see https://bootstrap-autocomplete.readthedocs.io/en/latest/
@@ -16,6 +15,19 @@ class PersonFilter(FilterSet):
             }
         ),
         lookup_expr="icontains",
+    )
+    organisation = CharFilter(
+        label="Organisation",
+        widget=forms.TextInput(
+            # set up advanced autocomplete for bootstrap autocomplete
+            # see https://bootstrap-autocomplete.readthedocs.io/en/latest/
+            attrs={
+                "class": "form-control advancedAutoCompleteOrganisation",
+                "autocomplete": "off",
+            }
+        ),
+        lookup_expr="icontains",
+        field_name="organisations__name",
     )
     o = OrderingFilter(
         label="Sort By",
