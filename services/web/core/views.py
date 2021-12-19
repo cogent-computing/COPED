@@ -20,16 +20,19 @@ from .documents import ProjectDocument
 
 class FilteredListView(generic.ListView):
     filterset_class = None
+    order_by = None
 
     def get_queryset(self):
         # Get the standard queryset, which will use the subclass "model" attribute.
         queryset = super().get_queryset()
+        if self.order_by is not None:
+            queryset = queryset.order_by(self.order_by)
         # Then use the query parameters and the queryset to
         # instantiate a filterset and save it as an attribute
         # on the view instance for use later when setting the context.
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         # Return the filtered queryset
-        return self.filterset.qs.distinct().order_by(self.order_by)
+        return self.filterset.qs.distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -101,7 +104,7 @@ def subject_suggest(request):
     term = request.GET.get("term", "")
     if len(term) > 2:
         subjects = Subject.objects.filter(label__icontains=term).values_list("label")
-        results = [s[0] for s in subjects]
+        results = list(set([s[0] for s in subjects]))
 
     return JsonResponse({"results": results})
 
@@ -115,7 +118,7 @@ def organisation_suggest(request):
         organisations = Organisation.objects.filter(name__icontains=term).values_list(
             "name"
         )
-        results = [s[0] for s in organisations]
+        results = list(set([s[0] for s in organisations]))
 
     return JsonResponse({"results": results})
 
@@ -127,8 +130,8 @@ def person_suggest(request):
     term = request.GET.get("term", "")
     if len(term) > 2:
         # TODO: suggest based on full name (needs model annotation)
-        people = Person.objects.filter(last_name__icontains=term).values_list(
-            "last_name"
+        people = Person.objects.filter(full_name__icontains=term).values_list(
+            "full_name"
         )
         results = list(set([s[0] for s in people]))
 

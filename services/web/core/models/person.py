@@ -1,9 +1,30 @@
 from django.db import models
+from django.db.models import F, Value
+from django.db.models.functions import Concat
 from django.urls import reverse
 from uuid import uuid4
 from .raw_data import RawData
 from .external_link import ExternalLink
 from .organisation import Organisation
+
+
+class PersonQuerySet(models.QuerySet):
+    """Add some useful annotations to person querysets."""
+
+    def with_annotations(self):
+        self = self.annotate(
+            full_name=Concat(F("first_name"), Value(" "), F("last_name"))
+        )
+        return self
+
+
+class PersonManager(models.Manager):
+    """Enhance the usual queryset by using our custom annotations."""
+
+    def get_queryset(self):
+        return PersonQuerySet(
+            model=self.model, using=self._db, hints=self._hints
+        ).with_annotations()
 
 
 class Person(models.Model):
@@ -29,9 +50,9 @@ class Person(models.Model):
         through_fields=("person", "organisation"),
     )
 
-    @property
-    def full_name(self):
-        return f"{self.first_name} {self.last_name}"
+    objects = (
+        PersonManager()
+    )  # Use a custom manager to enhance querysets with annotations
 
     def get_absolute_url(self):
         return reverse("person-detail", kwargs={"pk": self.pk})
