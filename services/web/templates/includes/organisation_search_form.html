@@ -1,11 +1,7 @@
 {% comment %} Main form - controlled by Django-filter view(s) for drilling down into data {% endcomment %}
 <form method="get" action="." autocomplete="off" class="search-form">
+    <input type="submit" value="Search" class="btn btn-primary">
+    <a href="{%  url 'organisation-list' %}" class="btn btn-info">Clear all filters</a>
+    <br><br>
     {{filter.form.as_p}}
-    <tr>
-        <td>&nbsp;</td>
-        <td>
-            <input type="submit" value="Search" class="btn btn-primary">
-            <a href="{%  url 'organisation-list' %}" class="btn btn-info">Clear all filters</a>
-        </td>
-    </tr>
 </form>
