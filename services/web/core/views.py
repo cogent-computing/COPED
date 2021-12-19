@@ -1,32 +1,20 @@
-import secrets
-import datetime
-import pytz
-
 from django.db.models import Count
 from django.core.paginator import Paginator
 from django.views import generic
-from django.urls import reverse
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.shortcuts import redirect
-from django.template.loader import render_to_string
-from django.contrib import auth
-from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
-from core.models.address import Address
-
-from core.models.organisation import Organisation
-from core.models.person import Person
-
-# from django.http import HttpRequest
-
-from .models.project import Project, ProjectSubject
-from .filters import ProjectFilter, OrganisationFilter
-from .models import User
-from .models import Subject
-from .models import Organisation
-
 from elasticsearch_dsl.query import MoreLikeThis
+from .models import (
+    Address,
+    Organisation,
+    Person,
+    Project,
+    ProjectSubject,
+    Subject,
+    User,
+)
+from .filters import ProjectFilter, OrganisationFilter, PersonFilter
 from .documents import ProjectDocument
 
 
@@ -41,7 +29,7 @@ class FilteredListView(generic.ListView):
         # on the view instance for use later when setting the context.
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         # Return the filtered queryset
-        return self.filterset.qs.distinct().order_by("name")
+        return self.filterset.qs.distinct().order_by(self.order_by)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -90,6 +78,7 @@ class OrganisationListView(FilteredListView):
     filterset_class = OrganisationFilter
     template_name = "organisation_list.html"
     paginate_by = 10
+    order_by = "name"
 
 
 class PersonDetailView(generic.DetailView):
@@ -97,10 +86,12 @@ class PersonDetailView(generic.DetailView):
     template_name = "person_detail.html"
 
 
-class PersonListView(generic.ListView):
+class PersonListView(FilteredListView):
     model = Person
+    filterset_class = PersonFilter
     template_name = "person_list.html"
     paginate_by = 10
+    order_by = "first_name"
 
 
 def subject_suggest(request):
@@ -109,7 +100,7 @@ def subject_suggest(request):
     results = []
     term = request.GET.get("term", "")
     if len(term) > 2:
-        subjects = Subject.objects.filter(label__contains=term).values_list("label")
+        subjects = Subject.objects.filter(label__icontains=term).values_list("label")
         results = [s[0] for s in subjects]
 
     return JsonResponse({"results": results})
@@ -135,10 +126,11 @@ def person_suggest(request):
     results = []
     term = request.GET.get("term", "")
     if len(term) > 2:
-        people = Person.objects.filter(last_name__contains=term).values_list(
+        # TODO: suggest based on full name (needs model annotation)
+        people = Person.objects.filter(last_name__icontains=term).values_list(
             "last_name"
         )
-        results = [s[0] for s in people]
+        results = list(set([s[0] for s in people]))
 
     return JsonResponse({"results": results})
 

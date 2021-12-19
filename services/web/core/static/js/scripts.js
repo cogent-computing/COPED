@@ -36,5 +36,19 @@
             }
         }
     });
+    $('.advancedAutoCompletePerson').autoComplete({
+        resolver: 'custom',
+        events: {
+            search: function (qry, callback) {
+                // let's do a custom ajax call
+                $.ajax(
+                    `/people/suggest/?term=${qry}`
+                ).done(function (res) {
+                    console.log(res)
+                    callback(res.results)
+                });
+            }
+        }
+    });
 
 })();
