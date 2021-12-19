@@ -1,12 +1,11 @@
-from django_filters import FilterSet, CharFilter
+from django_filters import FilterSet, CharFilter, OrderingFilter
 from django import forms
 from ..models import Organisation
 
 
 class OrganisationFilter(FilterSet):
     name = CharFilter(
-        label="Organisation Name",
-        # method="search_query_filter",
+        label="Name",
         widget=forms.TextInput(
             # set up advanced autocomplete for bootstrap autocomplete
             # see https://bootstrap-autocomplete.readthedocs.io/en/latest/
@@ -17,11 +16,7 @@ class OrganisationFilter(FilterSet):
         ),
         lookup_expr="icontains",
     )
-
-    def search_query_filter(self, queryset, name, value):
-        print(name)
-        print(value)
-        return queryset.filter(name__icontains=value)
+    o = OrderingFilter(label="Sort By", fields=("name",))
 
     class Meta:
         model = Organisation
