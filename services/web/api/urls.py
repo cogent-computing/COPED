@@ -4,16 +4,20 @@ from rest_framework.schemas import get_schema_view
 from api import views
 
 urlpatterns = [
-    path("persons/", views.PersonList.as_view(), name="person-list"),
-    path("persons/<int:pk>/", views.PersonDetail.as_view(), name="person-detail"),
-    path("organisations/", views.OrganisationList.as_view(), name="organisation-list"),
+    path("persons/", views.PersonList.as_view(), name="api-person-list"),
+    path("persons/<int:pk>/", views.PersonDetail.as_view(), name="api-person-detail"),
+    path(
+        "organisations/", views.OrganisationList.as_view(), name="api-organisation-list"
+    ),
     path(
         "organisations/<int:pk>/",
         views.OrganisationDetail.as_view(),
-        name="organisation-detail",
+        name="api-organisation-detail",
     ),
-    path("projects/", views.ProjectList.as_view(), name="project-list"),
-    path("projects/<int:pk>/", views.ProjectDetail.as_view(), name="project-detail"),
+    path("projects/", views.ProjectList.as_view(), name="api-project-list"),
+    path(
+        "projects/<int:pk>/", views.ProjectDetail.as_view(), name="api-project-detail"
+    ),
     path(
         "openapi",
         get_schema_view(

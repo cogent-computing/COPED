@@ -16,11 +16,11 @@ from .serializers.project import ProjectSerializer
 def api_root(request, format=None):
     return Response(
         {
-            "projects": reverse("project-list", request=request, format=format),
+            "projects": reverse("api-project-list", request=request, format=format),
             "organisations": reverse(
-                "organisation-list", request=request, format=format
+                "api-organisation-list", request=request, format=format
             ),
-            "persons": reverse("person-list", request=request, format=format),
+            "persons": reverse("api-person-list", request=request, format=format),
         }
     )
 
