@@ -78,10 +78,11 @@
             >
             <a
               class="btn nav-item btn-secondary {% block nav_vis %}{% endblock %}"
-              href="/visuals/"
+              href="{% url 'visuals-index' %}"
             >
               <i class="fas fa-chart-pie"></i> Visuals</a
             >
+            &nbsp;
             {% if user.is_authenticated %}
             <div class="dropdown mr-1">
               <button

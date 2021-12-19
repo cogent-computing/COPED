@@ -60,5 +60,6 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("subjects/suggest/", views.subject_suggest, name="subject-suggest"),
     path("subjects/", views.subject_list, name="subject-list"),
+    path("visuals/", views.visuals, name="visuals-index"),
     path("", views.index, name="index"),
 ]

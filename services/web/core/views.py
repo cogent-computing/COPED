@@ -45,6 +45,10 @@ def index(request):
     return render(request, "index.html")
 
 
+def visuals(request):
+    return render(request, "visuals.html")
+
+
 class UserDetailView(UserPassesTestMixin, generic.DetailView):
     model = User
     template_name = "users/user_detail.html"
