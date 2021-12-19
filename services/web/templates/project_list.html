@@ -18,7 +18,7 @@
         <p>
         More like:
         <br>
-        <a href="{% url 'project-detail' more_like_this.id %}">{{more_like_this.title}}</a>
+        <a href="{% url 'project-detail' more_like_this.id %}">{{more_like_this.title}}</a> [<a href="{% url 'project-list' %}">Clear</a>]
         </p>
     {% else %}
         <br>
