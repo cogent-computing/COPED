@@ -13,7 +13,7 @@ class PersonQuerySet(models.QuerySet):
 
     def with_annotations(self):
         self = self.annotate(
-            full_name=Concat(F("first_name"), Value(" "), F("last_name"))
+            full_name_annotation=Concat(F("first_name"), Value(" "), F("last_name"))
         )
         return self
 
@@ -50,6 +50,10 @@ class Person(models.Model):
         through_fields=("person", "organisation"),
     )
 
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     objects = (
         PersonManager()
     )  # Use a custom manager to enhance querysets with annotations
@@ -61,7 +65,7 @@ class Person(models.Model):
         db_table = "coped_person"
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return self.full_name
 
 
 class PersonOrganisation(models.Model):

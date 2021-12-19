@@ -15,6 +15,7 @@ class PersonFilter(FilterSet):
             }
         ),
         lookup_expr="icontains",
+        field_name="full_name_annotation",
     )
     organisation = CharFilter(
         label="Organisation",

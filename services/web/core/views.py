@@ -130,9 +130,9 @@ def person_suggest(request):
     term = request.GET.get("term", "")
     if len(term) > 2:
         # TODO: suggest based on full name (needs model annotation)
-        people = Person.objects.filter(full_name__icontains=term).values_list(
-            "full_name"
-        )
+        people = Person.objects.filter(
+            full_name_annotation__icontains=term
+        ).values_list("full_name_annotation")
         results = list(set([s[0] for s in people]))
 
     return JsonResponse({"results": results})
