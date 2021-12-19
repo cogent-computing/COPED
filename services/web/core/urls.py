@@ -49,6 +49,7 @@ urlpatterns = [
         views.PersonDetailView.as_view(),
         name="person-detail",
     ),
+    path("people/", views.PersonListView.as_view(), name="person-list"),
     path("users/<int:pk>", views.UserDetailView.as_view(), name="user-detail"),
     path(
         "accounts/register/",
