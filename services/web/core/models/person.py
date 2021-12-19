@@ -61,7 +61,7 @@ class Person(models.Model):
         db_table = "coped_person"
 
     def __str__(self):
-        return self.full_name
+        return f"{self.first_name} {self.last_name}"
 
 
 class PersonOrganisation(models.Model):
