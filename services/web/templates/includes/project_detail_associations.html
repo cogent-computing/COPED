@@ -41,7 +41,7 @@
                     <tbody>
                         {% for person in project.projectperson_set.all %}
                         <tr>
-                            <td><a href="{{ person.person.get_absolute_url }}">{{ person.person.full_name }}</a></td>
+                            <td><a href="{{ person.person.get_absolute_url }}">{{ person.person.first_name }} {{ person.person.last_name }}</a></td>
                             <td>{{ person.role }}</td>
                         </tr>
                         {% endfor %}
