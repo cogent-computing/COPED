@@ -6,6 +6,7 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
+// TODO: abstract the following completions using a factory
 (function () {
 
     $('.advancedAutoCompleteProject').autoComplete({
