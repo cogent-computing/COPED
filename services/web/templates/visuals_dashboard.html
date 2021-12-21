@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Dashboard {% endblock title %}
+
+{% block nav_vis %}active{% endblock nav_vis %}
+
+{% block content %}
+<!-- Masthead-->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Visualisations</li>
+    </ol>
+</nav>
+<div class="embed-responsive embed-responsive-4by3">
+<iframe
+    class="embed-responsive-item"
+    src="http://localhost:3000/public/dashboard/cb964b63-42fa-4160-b55b-b565626b87b0"
+    allowtransparency
+></iframe>
+</div>
+
+{% endblock content %}
