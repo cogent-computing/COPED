@@ -53,6 +53,10 @@ def visuals_dashboard(request):
     return render(request, "visuals_dashboard.html")
 
 
+def visuals_dashboard2(request):
+    return render(request, "visuals_dashboard2.html")
+
+
 class UserDetailView(UserPassesTestMixin, generic.DetailView):
     model = User
     template_name = "users/user_detail.html"
