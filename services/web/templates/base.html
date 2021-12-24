@@ -77,10 +77,10 @@
               <i class="fas fa-landmark"></i> Organisations</a
             >
             <a
-              class="btn nav-item btn-secondary {% block nav_vis %}{% endblock %}"
+              class="btn nav-item btn-warning {% block nav_vis %}{% endblock %}"
               href="{% url 'visuals-index' %}"
             >
-              <i class="fas fa-chart-pie"></i> Visuals</a
+              <i class="fas fa-chart-pie"></i> Analysis</a
             >
             &nbsp;
             {% if user.is_authenticated %}

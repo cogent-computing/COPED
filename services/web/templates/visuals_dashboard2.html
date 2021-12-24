@@ -10,12 +10,28 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">Visualisations</li>
+        <li class="ml-auto">
+            <a class="btn btn-outline-warning btn-sm" href="/metabase" target="metabase_iframe">Data Home</a>
+        </li>
+        <li>&nbsp;</li>
+        <li>
+            <a class="btn btn-outline-secondary btn-sm" href="/metabase/browse" target="metabase_iframe">Browse Data</a>
+        </li>
+        <li>&nbsp;</li>
+        <li>
+            <a class="btn btn-outline-success btn-sm" href="/metabase/question/new" target="metabase_iframe">New Analysis</a>
+        </li>
+        <li>&nbsp;</li>
+        <li>
+            <a class="btn btn-outline-info btn-sm" href="https://www.metabase.com/learn/getting-started/getting-started.html" target="_blank">FAQs</a>
+        </li>
     </ol>
 </nav>
 <div class="embed-responsive embed-responsive-4by3">
 <iframe
+    name="metabase_iframe"
     class="embed-responsive-item"
-    src="http://localhost:3000/public/dashboard/2622e585-144a-47fa-b5c1-7ed36aa90907"
+    src="http://localhost/metabase/"
     allowtransparency
 ></iframe>
 </div>

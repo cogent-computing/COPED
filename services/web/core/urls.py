@@ -62,6 +62,11 @@ urlpatterns = [
     path("subjects/", views.subject_list, name="subject-list"),
     path("visuals/dashboard2", views.visuals_dashboard2, name="visuals-dashboard2"),
     path("visuals/dashboard", views.visuals_dashboard, name="visuals-dashboard"),
+    path(
+        "visuals/dashboard_experiment",
+        views.visuals_dashboard_experiment,
+        name="visuals-dashboard-experiment",
+    ),
     path("visuals/", views.visuals, name="visuals-index"),
     path("", views.index, name="index"),
 ]
