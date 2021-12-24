@@ -14,7 +14,7 @@ docker-compose exec db psql -d postgres -c "DROP DATABASE coped_development;"
 docker-compose exec db psql -d postgres -c "CREATE DATABASE coped_development;"
 docker-compose exec db psql -d coped_development < dbdata/coped.backup.sql
 
-echo "Repopulating CoPED database from backup."
+echo "Repopulating Metabase database from backup."
 docker-compose exec db psql -d postgres -c "SELECT pg_terminate_backend(psa.pid) FROM pg_stat_activity psa WHERE datname = 'metabase' AND pid <> pg_backend_pid();"
 docker-compose exec db psql -d postgres -c "DROP DATABASE metabase;"
 docker-compose exec db psql -d postgres -c "CREATE DATABASE metabase;"
