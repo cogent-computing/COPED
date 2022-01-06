@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from django_registration.signals import user_activated
+from django_registration.signals import user_registered
 
 
 class CoreConfig(AppConfig):
@@ -9,6 +9,6 @@ class CoreConfig(AppConfig):
     def ready(self):
         from . import signals
 
-        user_activated.connect(
-            signals.user_activation_handler, dispatch_uid="user_activation_handler"
+        user_registered.connect(
+            signals.user_registration_handler, dispatch_uid="user_registration_handler"
         )
