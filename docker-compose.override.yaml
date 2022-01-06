@@ -26,6 +26,10 @@ services:
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
 
+  metabase:
+    ports:
+      - 3000
+
   selenium:
     image: selenium/standalone-firefox
     container_name: ${DOCKER_CONTAINER_NAME_PREFIX:-coped}_selenium
