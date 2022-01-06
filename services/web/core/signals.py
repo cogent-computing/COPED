@@ -4,6 +4,7 @@ Application signal handlers.
 
 import requests
 import os
+from django.contrib.auth import get_user_model
 
 
 def user_registration_handler(sender, **kwargs):
@@ -48,6 +49,47 @@ def user_registration_handler(sender, **kwargs):
     auth = {"X-Metabase-Session": token}
     r = requests.post(
         f"{metabase_api_url}/user", json=user_to_save_in_metabase, headers=auth
+    )
+    result = r.json()
+    print("Response from Metabase API", result)
+
+
+def detect_password_change(sender, instance, **kwargs):
+    """
+    Checks if the user changed their password
+    """
+    if instance._password is None:
+        return
+
+    try:
+        user = get_user_model().objects.get(id=instance.id)
+    except get_user_model().DoesNotExist:
+        return
+
+    print("password changed for user", user)
+    print("old pass", user.password)
+    print("new pass", instance._password)
+
+    metabase_superuser_email = os.environ.get("METABASE_SUPERUSER_EMAIL")
+    metabase_superuser_password = os.environ.get("METABASE_SUPERUSER_PASSWORD")
+    metabase_api_url = "http://metabase:3000/api"
+    request_data = {
+        "username": metabase_superuser_email,
+        "password": metabase_superuser_password,
+    }
+    r = requests.post(f"{metabase_api_url}/session", json=request_data)
+    token = r.json().get("id")
+    print("Metabase admin session token", token)
+
+    new_password = {
+        "password": instance._password,
+    }
+
+    auth = {"X-Metabase-Session": token}
+    r = requests.put(
+        f"{metabase_api_url}/user/11/password",
+        json=new_password,
+        headers=auth,
     )
     result = r.json()
     print("Response from Metabase API", result)
