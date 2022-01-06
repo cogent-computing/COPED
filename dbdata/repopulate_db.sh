@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # NB: run this script from the top-level directory containing `docker-compose.yaml`
-# Re-populate the development database on demand.
-# Ensure the database names below matche what your environment uses.
+# Re-populates the specified CoPED database and Metabase database on demand.
+# Ensure the database names below match what your environment uses.
 
 coped_db=coped_development
 coped_backup=dbdata/coped.backup.sql
