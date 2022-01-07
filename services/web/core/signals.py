@@ -109,6 +109,18 @@ def detect_password_change(sender, instance, **kwargs):
         print("Response from Metabase API", result)
 
 
+def user_logout_handler(sender, request, user, **kwargs):
+    """
+    Remove any Metabase session record corresponding to the user logging out.
+    """
+    if settings.DEBUG:
+        print(
+            f"Logout by {user} at {timezone.now()}. Attempting to remove any Metabase token."
+        )
+    if user is not None:
+        MetabaseSession.objects.filter(user=user).delete()
+
+
 def user_login_handler(sender, request, user, **kwargs):
     """
     Get or create a valid Metabase auth token for this user.

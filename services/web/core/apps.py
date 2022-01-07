@@ -3,6 +3,7 @@ from django_registration.signals import user_registered
 from django.contrib.auth import get_user_model
 from django.db.models.signals import pre_save
 from django.contrib.auth.signals import user_logged_in
+from django.contrib.auth.signals import user_logged_out
 
 
 class CoreConfig(AppConfig):
@@ -26,4 +27,10 @@ class CoreConfig(AppConfig):
             signals.user_login_handler,
             sender=get_user_model(),
             dispatch_uid="user_login_handler",
+        )
+
+        user_logged_out.connect(
+            signals.user_logout_handler,
+            sender=get_user_model(),
+            dispatch_uid="user_logout_handler",
         )
