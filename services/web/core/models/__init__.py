@@ -9,3 +9,4 @@ from .keyword import Keyword
 from .user import User
 from .organisation import Organisation
 from .person import Person
+from .metabase_session import MetabaseSession
