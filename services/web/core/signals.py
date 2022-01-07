@@ -128,6 +128,13 @@ def user_login_handler(sender, request, user, **kwargs):
     if settings.DEBUG:
         print(f"Login by {user} at {timezone.now()}. Attempting to get Metabase token.")
 
+    # First, catch any rogue instances without a metabase_id
+    if not user.metabase_id:
+        if settings.DEBUG:
+            print(f"WARNING: the user {user} does not have a Metabase ID.")
+            print(f"They will need to log in to Metabase analytics manually.")
+        return
+
     def get_user_token():
         metabase_token_url = f"{METABASE_API_URL}/session"
         request_data = {
