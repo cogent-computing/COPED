@@ -4,8 +4,10 @@ Application signal handlers.
 
 import os
 import requests
+from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from .models import MetabaseSession
 
 METABASE_API_URL = "http://metabase:3000/api"
 
@@ -105,3 +107,41 @@ def detect_password_change(sender, instance, **kwargs):
     result = r.json()
     if settings.DEBUG:
         print("Response from Metabase API", result)
+
+
+def user_login_handler(sender, request, user, **kwargs):
+    """
+    Get or create a valid Metabase auth token for this user.
+    """
+    if settings.DEBUG:
+        print(f"Login by {user} at {timezone.now()}. Attempting to get Metabase token.")
+
+    def get_user_token():
+        metabase_token_url = f"{METABASE_API_URL}/session"
+        request_data = {
+            "username": user.email,
+            "password": request.POST["password"],
+        }
+
+        if settings.DEBUG:
+            print("Requesting token")
+            print(metabase_token_url)
+            print(request_data)
+
+        r = requests.post(metabase_token_url, json=request_data)
+        token = r.json().get("id")
+
+        if settings.DEBUG:
+            print("Response from Metabase")
+            print(r)
+            print(token)
+
+        return token
+
+    session_info, created = MetabaseSession.objects.get_or_create(
+        user=user, expires__gte=timezone.now(), defaults={"token": get_user_token}
+    )
+    if settings.DEBUG:
+        print(f"User {user} logged in.")
+        print(f"Created new record: {created}.")
+        print(f"Now using MetabaseSession instance {session_info}")
