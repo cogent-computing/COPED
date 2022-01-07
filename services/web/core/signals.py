@@ -162,5 +162,5 @@ def user_login_handler(sender, request, user, **kwargs):
     )
     if settings.DEBUG:
         print(f"User {user} logged in.")
-        print(f"Created new record: {created}.")
+        print(f"Created new session record: {created}.")
         print(f"Now using MetabaseSession instance {session_info}")

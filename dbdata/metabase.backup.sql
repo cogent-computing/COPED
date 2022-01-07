@@ -3240,14 +3240,12 @@ COPY public.activity (id, topic, "timestamp", user_id, model, model_id, database
 19	card-update	2021-12-23 12:49:50.370529+00	1	card	3	2	\N	\N	{"name":"Coped Projects","description":null}
 20	card-create	2021-12-23 12:56:06.500636+00	1	card	4	2	7	\N	{"name":"Coped Project Organisations, Filtered by ID","description":null}
 21	card-update	2021-12-24 00:07:29.717691+00	1	card	2	2	\N	\N	{"name":"Counts of Subject Hits by Organisation","description":"Count number of projects in each organisation associated to the given subject(s)."}
-22	user-joined	2021-12-24 04:04:14.073082+00	4	user	4	\N	\N	\N	{}
-23	card-update	2021-12-24 14:40:18.941745+00	4	card	4	2	7	\N	{"name":"Coped Project Organisations, Filtered by ID","description":null}
 24	card-update	2021-12-24 14:40:48.763545+00	1	card	4	2	7	\N	{"name":"Coped Project Organisations, Filtered by ID","description":null}
 25	dashboard-create	2021-12-24 16:18:09.925941+00	1	dashboard	3	\N	\N	\N	{"description":null,"name":"Testing 123"}
 26	dashboard-delete	2021-12-24 16:18:36.731387+00	1	dashboard	3	\N	\N	\N	{"description":null,"name":"Testing 123"}
-27	card-create	2021-12-24 17:05:43.750158+00	4	card	5	2	7	\N	{"name":"Coped Projects by Standard User","description":null}
-28	dashboard-create	2021-12-24 17:06:01.660407+00	4	dashboard	4	\N	\N	\N	{"description":null,"name":"Regular User Dashboard"}
-29	dashboard-add-cards	2021-12-24 17:08:30.699988+00	4	dashboard	4	\N	\N	\N	{"description":null,"name":"Regular User Dashboard","dashcards":[{"name":"Coped Projects by Standard User","description":null,"id":4,"card_id":5}]}
+33	user-joined	2022-01-07 11:18:48.62602+00	15	user	15	\N	\N	\N	{}
+34	user-joined	2022-01-07 13:25:47.86392+00	14	user	14	\N	\N	\N	{}
+35	user-joined	2022-01-07 18:09:35.170002+00	16	user	16	\N	\N	\N	{}
 \.
 
 
@@ -3265,8 +3263,8 @@ COPY public.card_label (id, card_id, label_id) FROM stdin;
 
 COPY public.collection (id, name, description, color, archived, location, personal_owner_id, slug, namespace, authority_level) FROM stdin;
 1	Colin Stephen's Personal Collection	\N	#31698A	f	/	1	colin_stephen_s_personal_collection	\N	\N
-2	Test User's Personal Collection	\N	#31698A	f	/	3	test_user_s_personal_collection	\N	\N
-3	Site Tester's Personal Collection	\N	#31698A	f	/	4	site_tester_s_personal_collection	\N	\N
+7	testregister17 testregister17's Personal Collection	\N	#31698A	f	/	15	testregister17_testregister17_s_personal_collection	\N	\N
+8	testregister16 testregister16's Personal Collection	\N	#31698A	f	/	14	testregister16_testregister16_s_personal_collection	\N	\N
 \.
 
 
@@ -3300,12 +3298,35 @@ COPY public.computation_job_result (id, job_id, created_at, updated_at, permanen
 
 COPY public.core_session (id, user_id, created_at, anti_csrf_token) FROM stdin;
 2ebd7ca9-a63d-42ab-99a4-f6271147dd1b	1	2021-12-23 10:42:32.809842+00	\N
-9e8a11f4-7f5b-4ace-bf32-ab9a7678044a	3	2021-12-24 04:00:03.098302+00	7ce81632f0f51ba890eac258e3153c6d
 5273cd13-50be-42d5-9879-0ef9978d93a4	1	2021-12-24 04:00:36.360063+00	cb2375a2bc9ce4e133f69ff9a5f5e68f
-2028f564-145c-4a04-b885-e67a2fc1f3e4	4	2021-12-24 04:04:14.03487+00	04bd6de3dea3d9fb11eb8d86bf547390
-7b7e3b07-6e6c-46a8-8448-a28571dbe44a	4	2021-12-24 04:04:50.715657+00	19d5835aa5b2b41e29f755b32f86d4df
-da83704a-93d0-46c1-b6fb-7ff3e5dc61af	4	2021-12-24 04:06:44.293506+00	\N
 b9fe34b0-d360-4ed8-8653-15b1ee612025	1	2021-12-24 14:40:33.757846+00	\N
+dca0eab4-2132-4ad9-80e4-c1dc8dc8d908	1	2022-01-06 15:30:55.489639+00	\N
+48b47991-f612-419e-9f1f-52ec37215991	1	2022-01-06 15:56:11.749296+00	\N
+517da692-fcb9-477b-9609-486dbb37a72f	1	2022-01-06 15:59:22.805844+00	\N
+acce98f0-5fee-4a89-ae7a-560d081648da	1	2022-01-06 16:03:15.021112+00	\N
+c9babc95-7685-490c-a28a-d9643d153d74	1	2022-01-06 20:33:52.292818+00	\N
+3ba6973f-daf1-4d97-bdec-f75201c53d0d	1	2022-01-06 20:35:29.167137+00	\N
+fa649fc7-94c1-4c8a-97b5-5dfd1408c815	1	2022-01-06 20:39:10.684205+00	\N
+6dee4241-f53f-4015-bb2e-3d924101653a	1	2022-01-06 20:42:12.851092+00	\N
+aecc2c8e-c088-489c-807d-5d80e9d1626f	1	2022-01-06 21:11:55.69021+00	\N
+2b0ae398-7890-4c0a-8a02-4eae58316926	1	2022-01-06 21:23:40.216044+00	\N
+382bb4b9-043d-430e-9ef5-d04d057c2a05	1	2022-01-06 22:39:28.091037+00	\N
+7f9d85ff-055f-4f95-a260-09d891d88c7e	1	2022-01-06 22:42:30.491174+00	\N
+a72b0ab5-ad3b-4778-94f9-c2985e39e571	1	2022-01-06 23:00:51.764539+00	\N
+6b21c720-958b-4b03-a91a-0366ce67fcb1	1	2022-01-07 09:49:26.048049+00	\N
+a67e8946-ce1f-43ec-b16b-90678d854c09	1	2022-01-07 09:52:32.319454+00	\N
+12e112a8-2dba-4b4f-8d51-98fab5faa2eb	1	2022-01-07 10:00:11.624559+00	\N
+40116600-eb8a-4080-9778-ee2fad9be39c	1	2022-01-07 10:13:46.746299+00	\N
+be9abe85-f94d-4c70-a331-b339c2657873	1	2022-01-07 10:45:08.929388+00	\N
+22e177a1-4761-47c2-94ef-83084cde3065	1	2022-01-07 11:15:57.297982+00	\N
+12c00380-7d8b-442c-966f-dcd1ca17a311	1	2022-01-07 11:20:32.351663+00	\N
+f544a257-27ed-4d77-8a49-9025bc121c70	1	2022-01-07 13:25:30.137129+00	\N
+7c1a8c14-7dd0-4a94-b1a1-0f5ab42eb0a9	14	2022-01-07 13:26:08.008502+00	\N
+3c436a54-1ab2-435e-b67e-847d49d655ea	14	2022-01-07 14:38:10.50851+00	\N
+5e4c60a2-8c21-4a73-9e43-14b884d4e899	1	2022-01-07 15:09:26.754764+00	\N
+cc940354-6393-4096-856f-eb3791743f45	1	2022-01-07 17:57:50.221404+00	\N
+06ba7eb8-c5b5-416a-abe5-102d0b33d333	1	2022-01-07 18:08:27.592499+00	\N
+ad4edc28-a3ea-41ae-9454-d0ebcbfcd98a	16	2022-01-07 18:09:35.11534+00	\N
 \.
 
 
@@ -3314,9 +3335,10 @@ b9fe34b0-d360-4ed8-8653-15b1ee612025	1	2021-12-24 14:40:33.757846+00	\N
 --
 
 COPY public.core_user (id, email, first_name, last_name, password, password_salt, date_joined, last_login, is_superuser, is_active, reset_token, reset_triggered, is_qbnewb, google_auth, ldap_auth, login_attributes, updated_at, sso_source, locale) FROM stdin;
-3	metabase.test@c0l.in	Test	User	$2a$10$5jRVjhwcFAlinGNtwVlzOOKdTfoCk7jBDQL/10.J/Jz.M2wixGjxi	2c2065b1-8d62-41bb-a44f-36bfd33cef54	2021-12-23 10:42:32.809842+00	2021-12-24 04:00:03.128156+00	f	f	\N	\N	t	f	f	\N	2021-12-24 04:01:26.643998	\N	\N
-1	metabase.local@c0l.in	Colin	Stephen	$2a$10$5jRVjhwcFAlinGNtwVlzOOKdTfoCk7jBDQL/10.J/Jz.M2wixGjxi	2c2065b1-8d62-41bb-a44f-36bfd33cef54	2021-12-23 10:42:32.809842+00	2021-12-24 14:40:33.784851+00	t	t	\N	\N	f	f	f	\N	2021-12-24 14:40:33.784851	\N	\N
-4	metabase.site.tester@c0l.in	Site	Tester	$2a$10$9CPsd0coj0Ats.D0cF6xsu1A9X896UGSUqTGitel.q0QMmYF6Ev/u	a558723a-0fd4-4e2e-bd73-cd52863b839b	2021-12-24 04:01:46.847493+00	2021-12-24 04:06:44.318304+00	f	t	$2a$10$OOFmhDCUmDR8b5/tkfuk3OTF8VwJt9ZpgEjUiCR4llhLu.z4kVhyi	1640318506982	f	f	f	\N	2021-12-24 17:09:00.660058	\N	\N
+1	copedadmin@c0l.in	Colin	Stephen	$2a$10$5jRVjhwcFAlinGNtwVlzOOKdTfoCk7jBDQL/10.J/Jz.M2wixGjxi	2c2065b1-8d62-41bb-a44f-36bfd33cef54	2021-12-23 10:42:32.809842+00	2022-01-07 18:08:27.639085+00	t	t	\N	\N	f	f	f	\N	2022-01-07 18:08:27.639085	\N	\N
+16	testregister18@c0l.in	testregister18	testregister18	$2a$10$XQiYunqtB47pxb1UH26qc.b4uVHhuygxJzV5YGYwiTG5sHx6qb6dO	2578d8ac-d365-4b4e-9a50-4f28d6335dce	2022-01-07 18:08:27.742086+00	2022-01-07 18:09:35.166373+00	f	t	$2a$10$MEZwrZXQQvaSUFWaB0D3q.07ZcZ9qHh3YEgUNWY5ZV7FDbyr4squK	1641578907840	t	f	f	\N	2022-01-07 18:09:35.166373	\N	\N
+15	testregister17@c0l.in	testregister17	testregister17	$2a$10$TPJC0YAtZMRKFTmsvGId3ubXdpvHISygEpWb3x9adxNjf8hYnCUGy	28851264-2064-4229-9183-1700bf414190	2022-01-07 11:15:57.404933+00	2022-01-07 11:21:14.580432+00	f	t	\N	\N	t	f	f	\N	2022-01-07 11:21:14.580432	\N	\N
+14	testregister16@c0l.in	testregister16	testregister16	$2a$10$suYVzlvE9XPlaYxXKOp87ezNZ6Wh7MlnCoYgZ3C8UhEro0/30ufka	316f6f67-a71d-49af-9510-dbd6bbafb552	2022-01-07 10:45:09.068517+00	2022-01-07 14:38:10.552735+00	f	t	\N	\N	t	f	f	\N	2022-01-07 14:38:10.552735	\N	\N
 \.
 
 
@@ -3362,27 +3384,43 @@ migrate-click-through	2021-12-23 10:40:01.809854
 
 COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted, exectype, md5sum, description, comments, tag, liquibase, contexts, labels, deployment_id) FROM stdin;
 2	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:38.716067	2	EXECUTED	8:bdcf1238e2ccb4fbe66d7f9e1d9b9529	createTable tableName=core_session		\N	3.6.3	\N	\N	0255974901
-21	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:40.833053	20	EXECUTED	8:fb2cd308b17ab81b502d057ecde4fc1b	createTable tableName=segment; createIndex indexName=idx_segment_creator_id, tableName=segment; createIndex indexName=idx_segment_table_id, tableName=segment		\N	3.6.3	\N	\N	0255974901
+77	senior	migrations/000_migrations.yaml	2021-12-23 10:39:47.871372	75	EXECUTED	8:07f0a6cd8dbbd9b89be0bd7378f7bdc8	addColumn tableName=core_user	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+68	sbelak	migrations/000_migrations.yaml	2021-12-23 10:39:47.392047	66	EXECUTED	8:b4ac06d133dfbdc6567d992c7e18c6ec	addColumn tableName=computation_job; addColumn tableName=computation_job	Added 0.27.0	\N	3.6.3	\N	\N	0255974901
+106	sb	migrations/000_migrations.yaml	2021-12-23 10:39:51.664082	102	EXECUTED	8:a3dd42bbe25c415ce21e4c180dc1c1d7	modifyDataType columnName=database_type, tableName=metabase_field	Added 0.33.5	\N	3.6.3	\N	\N	0255974901
+107	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.689983	103	MARK_RAN	8:605c2b4d212315c83727aa3d914cf57f	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
+78	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.126528	76	EXECUTED	8:1977d7278269cdd0dc4f941f9e82f548	createTable tableName=group_table_access_policy; createIndex indexName=idx_gtap_table_id_group_id, tableName=group_table_access_policy; addUniqueConstraint constraintName=unique_gtap_table_id_group_id, tableName=group_table_access_policy	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+108	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.715003	104	MARK_RAN	8:d11419da9384fd27d7b1670707ac864c	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
+79	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.251798	77	EXECUTED	8:3f31cb67f9cdf7754ca95cade22d87a2	addColumn tableName=report_dashboard; createIndex indexName=idx_dashboard_collection_id, tableName=report_dashboard; addColumn tableName=pulse; createIndex indexName=idx_pulse_collection_id, tableName=pulse	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+80	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.340482	78	EXECUTED	8:199d0ce28955117819ca15bcc29323e5	addColumn tableName=collection; createIndex indexName=idx_collection_location, tableName=collection		\N	3.6.3	\N	\N	0255974901
+81	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.387216	79	EXECUTED	8:3a6dc22403660529194d004ca7f7ad39	addColumn tableName=report_dashboard; addColumn tableName=report_card; addColumn tableName=pulse	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+82	senior	migrations/000_migrations.yaml	2021-12-23 10:39:48.426869	80	EXECUTED	8:ac4b94df8c648f88cfff661284d6392d	addColumn tableName=core_user; sql	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+83	senior	migrations/000_migrations.yaml	2021-12-23 10:39:48.46474	81	EXECUTED	8:ccd897d737737c05248293c7d56efe96	dropNotNullConstraint columnName=card_id, tableName=group_table_access_policy	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+84	senior	migrations/000_migrations.yaml	2021-12-23 10:39:48.506202	82	EXECUTED	8:58afc10c3e283a8050ea471aac447a97	renameColumn newColumnName=archived, oldColumnName=is_active, tableName=metric; addDefaultValue columnName=archived, tableName=metric; renameColumn newColumnName=archived, oldColumnName=is_active, tableName=segment; addDefaultValue columnName=arch...	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+85	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.632562	83	EXECUTED	8:9b4c9878a5018452dd63eb6d7c17f415	addColumn tableName=collection; createIndex indexName=idx_collection_personal_owner_id, tableName=collection; addColumn tableName=collection; sql; addNotNullConstraint columnName=_slug, tableName=collection; dropColumn columnName=slug, tableName=c...	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+86	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.653387	84	EXECUTED	8:50c75bb29f479e0b3fb782d89f7d6717	sql	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+87	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.693913	85	EXECUTED	8:0eccf19a93cb0ba4017aafd1d308c097	dropTable tableName=raw_column; dropTable tableName=raw_table	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+88	senior	migrations/000_migrations.yaml	2021-12-23 10:39:48.732835	86	EXECUTED	8:04ff5a0738473938fc31d68c1d9952e1	addColumn tableName=core_user	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+129	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.169448	125	MARK_RAN	8:f890168c47cc2113a8af77ed3875c4b3	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
+130	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.193491	126	MARK_RAN	8:ecdcf1fd66b3477e5b6882c3286b2fd8	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
 22	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:40.870788	21	EXECUTED	8:80bc8a62a90791a79adedcf1ac3c6f08	addColumn tableName=revision		\N	3.6.3	\N	\N	0255974901
-23	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.059993	22	EXECUTED	8:b6f054835db2b2688a1be1de3707f9a9	modifyDataType columnName=rows, tableName=metabase_table		\N	3.6.3	\N	\N	0255974901
-24	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.329083	23	EXECUTED	8:60825b125b452747098b577310c142b1	createTable tableName=dependency; createIndex indexName=idx_dependency_model, tableName=dependency; createIndex indexName=idx_dependency_model_id, tableName=dependency; createIndex indexName=idx_dependency_dependent_on_model, tableName=dependency;...		\N	3.6.3	\N	\N	0255974901
-25	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.547529	24	EXECUTED	8:61f25563911117df72f5621d78f10089	createTable tableName=metric; createIndex indexName=idx_metric_creator_id, tableName=metric; createIndex indexName=idx_metric_table_id, tableName=metric		\N	3.6.3	\N	\N	0255974901
-26	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.59204	25	EXECUTED	8:ddef40b95c55cf4ac0e6a5161911a4cb	addColumn tableName=metabase_database; sql		\N	3.6.3	\N	\N	0255974901
-27	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.784182	26	EXECUTED	8:001855139df2d5dac4eb954e5abe6486	createTable tableName=dashboardcard_series; createIndex indexName=idx_dashboardcard_series_dashboardcard_id, tableName=dashboardcard_series; createIndex indexName=idx_dashboardcard_series_card_id, tableName=dashboardcard_series		\N	3.6.3	\N	\N	0255974901
-28	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.870186	27	EXECUTED	8:428e4eb05e4e29141735adf9ae141a0b	addColumn tableName=core_user		\N	3.6.3	\N	\N	0255974901
-29	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.91133	28	EXECUTED	8:8b02731cc34add3722c926dfd7376ae0	addColumn tableName=pulse_channel		\N	3.6.3	\N	\N	0255974901
-30	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.954871	29	EXECUTED	8:2c3a50cef177cb90d47a9973cd5934e5	addColumn tableName=metabase_field; addNotNullConstraint columnName=visibility_type, tableName=metabase_field		\N	3.6.3	\N	\N	0255974901
-31	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.999629	30	EXECUTED	8:30a33a82bab0bcbb2ccb6738d48e1421	addColumn tableName=metabase_field		\N	3.6.3	\N	\N	0255974901
-57	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:46.602417	56	EXECUTED	8:aab81d477e2d19a9ab18c58b78c9af88	addColumn tableName=report_card	Added 0.25.0	\N	3.6.3	\N	\N	0255974901
-32	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:42.402391	31	EXECUTED	8:40830260b92cedad8da273afd5eca678	createTable tableName=label; createIndex indexName=idx_label_slug, tableName=label; createTable tableName=card_label; addUniqueConstraint constraintName=unique_card_label_card_id_label_id, tableName=card_label; createIndex indexName=idx_card_label...		\N	3.6.3	\N	\N	0255974901
-32	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:42.79316	32	EXECUTED	8:483c6c6c8e0a8d056f7b9112d0b0125c	createTable tableName=raw_table; createIndex indexName=idx_rawtable_database_id, tableName=raw_table; addUniqueConstraint constraintName=uniq_raw_table_db_schema_name, tableName=raw_table; createTable tableName=raw_column; createIndex indexName=id...		\N	3.6.3	\N	\N	0255974901
-34	tlrobinson	migrations/000_migrations.yaml	2021-12-23 10:39:42.842004	33	EXECUTED	8:52b082600b05bbbc46bfe837d1f37a82	addColumn tableName=pulse_channel		\N	3.6.3	\N	\N	0255974901
-36	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:42.98445	35	EXECUTED	8:252e08892449dceb16c3d91337bd9573	addColumn tableName=report_dashboard; addNotNullConstraint columnName=parameters, tableName=report_dashboard; addColumn tableName=report_dashboardcard; addNotNullConstraint columnName=parameter_mappings, tableName=report_dashboardcard		\N	3.6.3	\N	\N	0255974901
+89	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:50.558192	87	EXECUTED	8:94d5c406e3ec44e2bc85abe96f6fd91c	createTable tableName=QRTZ_JOB_DETAILS; addPrimaryKey constraintName=PK_QRTZ_JOB_DETAILS, tableName=QRTZ_JOB_DETAILS; createTable tableName=QRTZ_TRIGGERS; addPrimaryKey constraintName=PK_QRTZ_TRIGGERS, tableName=QRTZ_TRIGGERS; addForeignKeyConstra...	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+90	senior	migrations/000_migrations.yaml	2021-12-23 10:39:50.612719	88	EXECUTED	8:8562a72a1190deadc5fa59a23a6396dc	addColumn tableName=core_user; sql; dropColumn columnName=saml_auth, tableName=core_user	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+91	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:50.65771	89	EXECUTED	8:9b8831e1e409f08e874c4ece043d0340	dropColumn columnName=raw_table_id, tableName=metabase_table; dropColumn columnName=raw_column_id, tableName=metabase_field	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+92	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:50.698012	90	EXECUTED	8:1e5bc2d66778316ea640a561862c23b4	addColumn tableName=query_execution	Added 0.31.0	\N	3.6.3	\N	\N	0255974901
+48	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:45.279523	47	EXECUTED	8:720ce9d4b9e6f0917aea035e9dc5d95d	createTable tableName=collection_revision		\N	3.6.3	\N	\N	0255974901
+94	senior	migrations/000_migrations.yaml	2021-12-23 10:39:50.945456	92	EXECUTED	8:a2a1eedf1e8f8756856c9d49c7684bfe	createTable tableName=task_history; createIndex indexName=idx_task_history_end_time, tableName=task_history; createIndex indexName=idx_task_history_db_id, tableName=task_history	Added 0.31.0	\N	3.6.3	\N	\N	0255974901
+95	senior	migrations/000_migrations.yaml	2021-12-23 10:39:51.040891	93	EXECUTED	8:9824808283004e803003b938399a4cf0	addUniqueConstraint constraintName=idx_databasechangelog_id_author_filename, tableName=DATABASECHANGELOG	Added 0.31.0	\N	3.6.3	\N	\N	0255974901
+96	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.090689	94	EXECUTED	8:5cb2f36edcca9c6e14c5e109d6aeb68b	addColumn tableName=metabase_field	Added 0.31.0	\N	3.6.3	\N	\N	0255974901
+97	senior	migrations/000_migrations.yaml	2021-12-23 10:39:51.115746	95	MARK_RAN	8:9169e238663c5d036bd83428d2fa8e4b	modifyDataType columnName=results, tableName=query_cache	Added 0.32.0	\N	3.6.3	\N	\N	0255974901
+98	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.256094	96	EXECUTED	8:f036d20a4dc86fb60ffb64ea838ed6b9	addUniqueConstraint constraintName=idx_uniq_table_db_id_schema_name, tableName=metabase_table; sql	Added 0.32.0	\N	3.6.3	\N	\N	0255974901
+99	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.377578	97	EXECUTED	8:274bb516dd95b76c954b26084eed1dfe	addUniqueConstraint constraintName=idx_uniq_field_table_id_parent_id_name, tableName=metabase_field; sql	Added 0.32.0	\N	3.6.3	\N	\N	0255974901
+100	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.407737	98	EXECUTED	8:948014f13b6198b50e3b7a066fae2ae0	sql	Added 0.32.0	\N	3.6.3	\N	\N	0255974901
+101	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.4945	99	EXECUTED	8:58eabb08a175fafe8985208545374675	createIndex indexName=idx_field_parent_id, tableName=metabase_field	Added 0.32.0	\N	3.6.3	\N	\N	0255974901
+103	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.54237	100	EXECUTED	8:fda3670fd16a40fd9d0f89a003098d54	addColumn tableName=metabase_database	Added 0.32.10	\N	3.6.3	\N	\N	0255974901
 37	tlrobinson	migrations/000_migrations.yaml	2021-12-23 10:39:43.120391	36	EXECUTED	8:07d959eff81777e5690e2920583cfe5f	addColumn tableName=query_queryexecution; addNotNullConstraint columnName=query_hash, tableName=query_queryexecution; createIndex indexName=idx_query_queryexecution_query_hash, tableName=query_queryexecution; createIndex indexName=idx_query_querye...		\N	3.6.3	\N	\N	0255974901
 38	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:43.548554	37	EXECUTED	8:43604ab55179b50306eb39353e760b46	addColumn tableName=metabase_database; addColumn tableName=metabase_table; addColumn tableName=metabase_field; addColumn tableName=report_dashboard; addColumn tableName=metric; addColumn tableName=segment; addColumn tableName=metabase_database; ad...		\N	3.6.3	\N	\N	0255974901
 39	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:43.592905	38	EXECUTED	8:334adc22af5ded71ff27759b7a556951	addColumn tableName=core_user		\N	3.6.3	\N	\N	0255974901
 40	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:44.466731	39	EXECUTED	8:ee7f50a264d6cf8d891bd01241eebd2c	createTable tableName=permissions_group; createIndex indexName=idx_permissions_group_name, tableName=permissions_group; createTable tableName=permissions_group_membership; addUniqueConstraint constraintName=unique_permissions_group_membership_user...		\N	3.6.3	\N	\N	0255974901
-41	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:44.516604	40	EXECUTED	8:fae0855adf2f702f1133e32fc98d02a5	dropColumn columnName=field_type, tableName=metabase_field; addDefaultValue columnName=active, tableName=metabase_field; addDefaultValue columnName=preview_display, tableName=metabase_field; addDefaultValue columnName=position, tableName=metabase_...		\N	3.6.3	\N	\N	0255974901
 42	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:44.575507	41	EXECUTED	8:e32b3a1624fa289a6ee1f3f0a2dac1f6	dropForeignKeyConstraint baseTableName=query_queryexecution, constraintName=fk_queryexecution_ref_query_id; dropColumn columnName=query_id, tableName=query_queryexecution; dropColumn columnName=is_staff, tableName=core_user; dropColumn columnName=...		\N	3.6.3	\N	\N	0255974901
 43	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:44.703533	42	EXECUTED	8:165e9384e46d6f9c0330784955363f70	createTable tableName=permissions_revision		\N	3.6.3	\N	\N	0255974901
 44	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:44.745719	43	EXECUTED	8:2e356e8a1049286f1c78324828ee7867	dropColumn columnName=public_perms, tableName=report_card; dropColumn columnName=public_perms, tableName=report_dashboard; dropColumn columnName=public_perms, tableName=pulse		\N	3.6.3	\N	\N	0255974901
@@ -3404,9 +3442,7 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 62	senior	migrations/000_migrations.yaml	2021-12-23 10:39:47.01089	61	EXECUTED	8:cb32e6eaa1a2140703def2730f81fef2	addColumn tableName=metabase_database	Added 0.26.0	\N	3.6.3	\N	\N	0255974901
 63	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:47.059523	62	EXECUTED	8:226f73b9f6617495892d281b0f8303db	addColumn tableName=metabase_database	Added 0.26.0	\N	3.6.3	\N	\N	0255974901
 64	senior	migrations/000_migrations.yaml	2021-12-23 10:39:47.107599	63	EXECUTED	8:4dcc8ffd836b56756f494d5dfce07b50	dropForeignKeyConstraint baseTableName=raw_table, constraintName=fk_rawtable_ref_database	Added 0.26.0	\N	3.6.3	\N	\N	0255974901
-66	senior	migrations/000_migrations.yaml	2021-12-23 10:39:47.153362	64	EXECUTED	8:e77d66af8e3b83d46c5a0064a75a1aac	sql; sql	Added 0.26.0	\N	3.6.3	\N	\N	0255974901
 67	attekei	migrations/000_migrations.yaml	2021-12-23 10:39:47.352122	65	EXECUTED	8:59dfc37744fc362e0e312488fbc9a69b	createTable tableName=computation_job; createTable tableName=computation_job_result	Added 0.27.0	\N	3.6.3	\N	\N	0255974901
-68	sbelak	migrations/000_migrations.yaml	2021-12-23 10:39:47.392047	66	EXECUTED	8:b4ac06d133dfbdc6567d992c7e18c6ec	addColumn tableName=computation_job; addColumn tableName=computation_job	Added 0.27.0	\N	3.6.3	\N	\N	0255974901
 69	senior	migrations/000_migrations.yaml	2021-12-23 10:39:47.491923	67	EXECUTED	8:eadbe00e97eb53df4b3df60462f593f6	addColumn tableName=pulse; addColumn tableName=pulse; addColumn tableName=pulse; dropNotNullConstraint columnName=name, tableName=pulse	Added 0.27.0	\N	3.6.3	\N	\N	0255974901
 70	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:47.53947	68	EXECUTED	8:4e4eff7abb983b1127a32ba8107e7fb8	addColumn tableName=metabase_field; addNotNullConstraint columnName=database_type, tableName=metabase_field	Added 0.28.0	\N	3.6.3	\N	\N	0255974901
 71	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:47.585383	69	EXECUTED	8:755e5c3dd8a55793f29b2c95cb79c211	dropNotNullConstraint columnName=card_id, tableName=report_dashboardcard	Added 0.28.0	\N	3.6.3	\N	\N	0255974901
@@ -3414,38 +3450,6 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 73	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:47.672844	71	EXECUTED	8:3c0f03d18ff78a0bcc9915e1d9c518d6	addColumn tableName=metabase_database	Added 0.29.0	\N	3.6.3	\N	\N	0255974901
 74	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:47.712269	72	EXECUTED	8:16726d6560851325930c25caf3c8ab96	addColumn tableName=metabase_field	Added 0.29.0	\N	3.6.3	\N	\N	0255974901
 75	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:47.787175	73	EXECUTED	8:6072cabfe8188872d8e3da9a675f88c1	addColumn tableName=report_card	Added 0.28.2	\N	3.6.3	\N	\N	0255974901
-76	senior	migrations/000_migrations.yaml	2021-12-23 10:39:47.829303	74	EXECUTED	8:9b7190c9171ccca72617d508875c3c82	addColumn tableName=metabase_table	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-77	senior	migrations/000_migrations.yaml	2021-12-23 10:39:47.871372	75	EXECUTED	8:07f0a6cd8dbbd9b89be0bd7378f7bdc8	addColumn tableName=core_user	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-78	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.126528	76	EXECUTED	8:1977d7278269cdd0dc4f941f9e82f548	createTable tableName=group_table_access_policy; createIndex indexName=idx_gtap_table_id_group_id, tableName=group_table_access_policy; addUniqueConstraint constraintName=unique_gtap_table_id_group_id, tableName=group_table_access_policy	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-79	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.251798	77	EXECUTED	8:3f31cb67f9cdf7754ca95cade22d87a2	addColumn tableName=report_dashboard; createIndex indexName=idx_dashboard_collection_id, tableName=report_dashboard; addColumn tableName=pulse; createIndex indexName=idx_pulse_collection_id, tableName=pulse	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-80	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.340482	78	EXECUTED	8:199d0ce28955117819ca15bcc29323e5	addColumn tableName=collection; createIndex indexName=idx_collection_location, tableName=collection		\N	3.6.3	\N	\N	0255974901
-81	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.387216	79	EXECUTED	8:3a6dc22403660529194d004ca7f7ad39	addColumn tableName=report_dashboard; addColumn tableName=report_card; addColumn tableName=pulse	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-82	senior	migrations/000_migrations.yaml	2021-12-23 10:39:48.426869	80	EXECUTED	8:ac4b94df8c648f88cfff661284d6392d	addColumn tableName=core_user; sql	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-83	senior	migrations/000_migrations.yaml	2021-12-23 10:39:48.46474	81	EXECUTED	8:ccd897d737737c05248293c7d56efe96	dropNotNullConstraint columnName=card_id, tableName=group_table_access_policy	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-84	senior	migrations/000_migrations.yaml	2021-12-23 10:39:48.506202	82	EXECUTED	8:58afc10c3e283a8050ea471aac447a97	renameColumn newColumnName=archived, oldColumnName=is_active, tableName=metric; addDefaultValue columnName=archived, tableName=metric; renameColumn newColumnName=archived, oldColumnName=is_active, tableName=segment; addDefaultValue columnName=arch...	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-85	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.632562	83	EXECUTED	8:9b4c9878a5018452dd63eb6d7c17f415	addColumn tableName=collection; createIndex indexName=idx_collection_personal_owner_id, tableName=collection; addColumn tableName=collection; sql; addNotNullConstraint columnName=_slug, tableName=collection; dropColumn columnName=slug, tableName=c...	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-86	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.653387	84	EXECUTED	8:50c75bb29f479e0b3fb782d89f7d6717	sql	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-87	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:48.693913	85	EXECUTED	8:0eccf19a93cb0ba4017aafd1d308c097	dropTable tableName=raw_column; dropTable tableName=raw_table	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-88	senior	migrations/000_migrations.yaml	2021-12-23 10:39:48.732835	86	EXECUTED	8:04ff5a0738473938fc31d68c1d9952e1	addColumn tableName=core_user	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-129	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.169448	125	MARK_RAN	8:f890168c47cc2113a8af77ed3875c4b3	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
-130	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.193491	126	MARK_RAN	8:ecdcf1fd66b3477e5b6882c3286b2fd8	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
-89	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:50.558192	87	EXECUTED	8:94d5c406e3ec44e2bc85abe96f6fd91c	createTable tableName=QRTZ_JOB_DETAILS; addPrimaryKey constraintName=PK_QRTZ_JOB_DETAILS, tableName=QRTZ_JOB_DETAILS; createTable tableName=QRTZ_TRIGGERS; addPrimaryKey constraintName=PK_QRTZ_TRIGGERS, tableName=QRTZ_TRIGGERS; addForeignKeyConstra...	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-90	senior	migrations/000_migrations.yaml	2021-12-23 10:39:50.612719	88	EXECUTED	8:8562a72a1190deadc5fa59a23a6396dc	addColumn tableName=core_user; sql; dropColumn columnName=saml_auth, tableName=core_user	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-91	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:50.65771	89	EXECUTED	8:9b8831e1e409f08e874c4ece043d0340	dropColumn columnName=raw_table_id, tableName=metabase_table; dropColumn columnName=raw_column_id, tableName=metabase_field	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
-92	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:50.698012	90	EXECUTED	8:1e5bc2d66778316ea640a561862c23b4	addColumn tableName=query_execution	Added 0.31.0	\N	3.6.3	\N	\N	0255974901
-94	senior	migrations/000_migrations.yaml	2021-12-23 10:39:50.945456	92	EXECUTED	8:a2a1eedf1e8f8756856c9d49c7684bfe	createTable tableName=task_history; createIndex indexName=idx_task_history_end_time, tableName=task_history; createIndex indexName=idx_task_history_db_id, tableName=task_history	Added 0.31.0	\N	3.6.3	\N	\N	0255974901
-95	senior	migrations/000_migrations.yaml	2021-12-23 10:39:51.040891	93	EXECUTED	8:9824808283004e803003b938399a4cf0	addUniqueConstraint constraintName=idx_databasechangelog_id_author_filename, tableName=DATABASECHANGELOG	Added 0.31.0	\N	3.6.3	\N	\N	0255974901
-96	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.090689	94	EXECUTED	8:5cb2f36edcca9c6e14c5e109d6aeb68b	addColumn tableName=metabase_field	Added 0.31.0	\N	3.6.3	\N	\N	0255974901
-97	senior	migrations/000_migrations.yaml	2021-12-23 10:39:51.115746	95	MARK_RAN	8:9169e238663c5d036bd83428d2fa8e4b	modifyDataType columnName=results, tableName=query_cache	Added 0.32.0	\N	3.6.3	\N	\N	0255974901
-98	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.256094	96	EXECUTED	8:f036d20a4dc86fb60ffb64ea838ed6b9	addUniqueConstraint constraintName=idx_uniq_table_db_id_schema_name, tableName=metabase_table; sql	Added 0.32.0	\N	3.6.3	\N	\N	0255974901
-99	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.377578	97	EXECUTED	8:274bb516dd95b76c954b26084eed1dfe	addUniqueConstraint constraintName=idx_uniq_field_table_id_parent_id_name, tableName=metabase_field; sql	Added 0.32.0	\N	3.6.3	\N	\N	0255974901
-100	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.407737	98	EXECUTED	8:948014f13b6198b50e3b7a066fae2ae0	sql	Added 0.32.0	\N	3.6.3	\N	\N	0255974901
-101	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.4945	99	EXECUTED	8:58eabb08a175fafe8985208545374675	createIndex indexName=idx_field_parent_id, tableName=metabase_field	Added 0.32.0	\N	3.6.3	\N	\N	0255974901
-103	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.54237	100	EXECUTED	8:fda3670fd16a40fd9d0f89a003098d54	addColumn tableName=metabase_database	Added 0.32.10	\N	3.6.3	\N	\N	0255974901
-104	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.617812	101	EXECUTED	8:21709f17e6d1b521d3d3b8cbb5445218	addColumn tableName=core_session	Added EE 1.1.6/CE 0.33.0	\N	3.6.3	\N	\N	0255974901
-106	sb	migrations/000_migrations.yaml	2021-12-23 10:39:51.664082	102	EXECUTED	8:a3dd42bbe25c415ce21e4c180dc1c1d7	modifyDataType columnName=database_type, tableName=metabase_field	Added 0.33.5	\N	3.6.3	\N	\N	0255974901
-107	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.689983	103	MARK_RAN	8:605c2b4d212315c83727aa3d914cf57f	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
-108	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.715003	104	MARK_RAN	8:d11419da9384fd27d7b1670707ac864c	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
 109	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.7371	105	MARK_RAN	8:a5f4ea412eb1d5c1bc824046ad11692f	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
 110	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.757449	106	MARK_RAN	8:82343097044b9652f73f3d3a2ddd04fe	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
 111	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.777956	107	MARK_RAN	8:528de1245ba3aa106871d3e5b3eee0ba	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
@@ -3491,7 +3495,6 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 154	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.766423	150	MARK_RAN	8:7a1df4f7a679f47459ea1a1c0991cfba	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
 155	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.786058	151	MARK_RAN	8:3c78b79c784e3a3ce09a77db1b1d0374	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
 156	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.805998	152	MARK_RAN	8:51859ee6cca4aca9d141a3350eb5d6b1	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
-157	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.825934	153	MARK_RAN	8:0197c46bf8536a75dbf7e9aee731f3b2	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
 158	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.845933	154	MARK_RAN	8:2ebdd5a179ce2487b2e23b6be74a407c	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
 159	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.866061	155	MARK_RAN	8:c62719dad239c51f045315273b56e2a9	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
 162	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.936436	157	EXECUTED	8:c37f015ad11d77d66e09925eed605cdf	dropTable tableName=query_queryexecution	Added 0.23.0 as a data migration; converted to Liquibase migration in 0.35.0	\N	3.6.3	\N	\N	0255974901
@@ -3538,7 +3541,6 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 203	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:55.185832	198	EXECUTED	8:28b4ec07bfbf4b86532fe9357effdb8b	dropForeignKeyConstraint baseTableName=metric, constraintName=fk_metric_ref_creator_id	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
 204	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:55.240781	199	EXECUTED	8:7195937fd2144533edfa2302ba2ae653	addForeignKeyConstraint baseTableName=metric, constraintName=fk_metric_ref_creator_id, referencedTableName=core_user	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
 205	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:55.286753	200	EXECUTED	8:4b2d5f1458641dd1b9dbc5f41600be8e	dropForeignKeyConstraint baseTableName=metric, constraintName=fk_metric_ref_table_id	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
-207	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:55.380569	202	EXECUTED	8:18135d674f2fe502313adb0475f5f139	dropForeignKeyConstraint baseTableName=metric_important_field, constraintName=fk_metric_important_field_metabase_field_id	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
 208	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:55.426305	203	EXECUTED	8:4c86c17a00a81dfdf35a181e3dd3b08f	addForeignKeyConstraint baseTableName=metric_important_field, constraintName=fk_metric_important_field_metabase_field_id, referencedTableName=metabase_field	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
 209	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:55.473587	204	EXECUTED	8:1b9c3544bf89093fc9e4f7f191fdc6df	dropForeignKeyConstraint baseTableName=metric_important_field, constraintName=fk_metric_important_field_metric_id	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
 210	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:55.521994	205	EXECUTED	8:842d166cdf7b0a29c88efdaf95c9d0bf	addForeignKeyConstraint baseTableName=metric_important_field, constraintName=fk_metric_important_field_metric_id, referencedTableName=metric	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
@@ -3568,6 +3570,7 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 232	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:56.505779	227	EXECUTED	8:be2457ae1e386c9d5ec5bfa4ae681fd6	addForeignKeyConstraint baseTableName=pulse_channel_recipient, constraintName=fk_pulse_channel_recipient_ref_pulse_channel_id, referencedTableName=pulse_channel	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
 233	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:56.544708	228	EXECUTED	8:d5c018882af16093de446e025e2599b7	dropForeignKeyConstraint baseTableName=pulse_channel_recipient, constraintName=fk_pulse_channel_recipient_ref_user_id	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
 234	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:56.58605	229	EXECUTED	8:edb6ced6c353064c46fa00b54e187aef	addForeignKeyConstraint baseTableName=pulse_channel_recipient, constraintName=fk_pulse_channel_recipient_ref_user_id, referencedTableName=core_user	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
+21	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:40.833053	20	EXECUTED	8:fb2cd308b17ab81b502d057ecde4fc1b	createTable tableName=segment; createIndex indexName=idx_segment_creator_id, tableName=segment; createIndex indexName=idx_segment_table_id, tableName=segment		\N	3.6.3	\N	\N	0255974901
 235	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:56.628513	230	EXECUTED	8:550c64e41e55233d52ac3ef24d664be1	dropForeignKeyConstraint baseTableName=report_card, constraintName=fk_card_collection_id	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
 236	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:56.674024	231	EXECUTED	8:04300b298b663fc2a2f3a324d1051c3c	addForeignKeyConstraint baseTableName=report_card, constraintName=fk_card_collection_id, referencedTableName=collection	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
 237	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:56.715098	232	EXECUTED	8:227a9133cdff9f1b60d8af53688ab12e	dropForeignKeyConstraint baseTableName=report_card, constraintName=fk_card_made_public_by_id	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
@@ -3601,7 +3604,6 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 265	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:58.044082	260	EXECUTED	8:2e339ecb05463b3765f9bb266bd28297	dropForeignKeyConstraint baseTableName=view_log, constraintName=fk_view_log_ref_user_id	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
 266	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:58.085783	261	EXECUTED	8:31506e118764f5e520f755f26c696bb8	addForeignKeyConstraint baseTableName=view_log, constraintName=fk_view_log_ref_user_id, referencedTableName=core_user	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
 268	rlotun	migrations/000_migrations.yaml	2021-12-23 10:39:58.164206	262	EXECUTED	8:9da2f706a7cd42b5101601e0106fa929	createIndex indexName=idx_lower_email, tableName=core_user	Added 0.37.0	\N	3.6.3	\N	\N	0255974901
-269	rlotun	migrations/000_migrations.yaml	2021-12-23 10:39:58.190326	263	EXECUTED	8:215609ca9dce2181687b4fa65e7351ba	sql	Added 0.37.0	\N	3.6.3	\N	\N	0255974901
 270	rlotun	migrations/000_migrations.yaml	2021-12-23 10:39:58.322136	264	EXECUTED	8:17001a192ba1df02104cc0d15569cbe5	sql	Added 0.37.0	\N	3.6.3	\N	\N	0255974901
 271	rlotun	migrations/000_migrations.yaml	2021-12-23 10:39:58.444799	265	EXECUTED	8:ce8ddb253a303d4f8924ff5a187080c0	modifyDataType columnName=email, tableName=core_user	Added 0.37.0	\N	3.6.3	\N	\N	0255974901
 273	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:58.487249	266	EXECUTED	8:5348576bb9852f6f947e1aa39cd1626f	addDefaultValue columnName=is_superuser, tableName=core_user	Added 0.37.1	\N	3.6.3	\N	\N	0255974901
@@ -3625,8 +3627,8 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 290	dpsutton	migrations/000_migrations.yaml	2021-12-23 10:39:59.195995	283	EXECUTED	8:98ea7254bc843302db4afe493c4c75e6	sql	Added 0.39 - Semantic type system - Clobber semantic_type where there was a coercion	\N	3.6.3	\N	\N	0255974901
 291	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:59.341075	284	EXECUTED	8:b3b15e2ad791618e3ab1300a5d4f072f	createTable tableName=login_history	Added 0.39.0	\N	3.6.3	\N	\N	0255974901
 292	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:59.424311	285	EXECUTED	8:e4ac005f4d4e73d5e1176bcbde510d6e	createIndex indexName=idx_user_id, tableName=login_history	Added 0.39.0	\N	3.6.3	\N	\N	0255974901
-1	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:38.587209	1	EXECUTED	8:7182ca8e82947c24fa827d31f78b19aa	createTable tableName=core_organization; createTable tableName=core_user; createTable tableName=core_userorgperm; addUniqueConstraint constraintName=idx_unique_user_id_organization_id, tableName=core_userorgperm; createIndex indexName=idx_userorgp...		\N	3.6.3	\N	\N	0255974901
-4	cammsaul	migrations/000_migrations.yaml	2021-12-23 10:39:38.853068	3	EXECUTED	8:a8e7822a91ea122212d376f5c2d4158f	createTable tableName=setting		\N	3.6.3	\N	\N	0255974901
+41	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:44.516604	40	EXECUTED	8:fae0855adf2f702f1133e32fc98d02a5	dropColumn columnName=field_type, tableName=metabase_field; addDefaultValue columnName=active, tableName=metabase_field; addDefaultValue columnName=preview_display, tableName=metabase_field; addDefaultValue columnName=position, tableName=metabase_...		\N	3.6.3	\N	\N	0255974901
+11	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.335613	10	EXECUTED	8:ca6561cab1eedbcf4dcb6d6e22cd46c6	sql		\N	3.6.3	\N	\N	0255974901
 5	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:38.900669	4	EXECUTED	8:4f8653d16f4b102b3dff647277b6b988	addColumn tableName=core_organization		\N	3.6.3	\N	\N	0255974901
 35	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:42.887454	34	EXECUTED	8:91b72167fca724e6b6a94b64f886cf09	modifyDataType columnName=value, tableName=setting		\N	3.6.3	\N	\N	0255974901
 293	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:59.477204	286	EXECUTED	8:7ba1bd887f8ae11a186b0e3fe69ab3e0	addForeignKeyConstraint baseTableName=login_history, constraintName=fk_login_history_session_id, referencedTableName=core_session	Added 0.39.0	\N	3.6.3	\N	\N	0255974901
@@ -3642,19 +3644,26 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 7	cammsaul	migrations/000_migrations.yaml	2021-12-23 10:39:39.017149	6	EXECUTED	8:c57c69fd78d804beb77d261066521f7f	addColumn tableName=metabase_field		\N	3.6.3	\N	\N	0255974901
 8	tlrobinson	migrations/000_migrations.yaml	2021-12-23 10:39:39.064656	7	EXECUTED	8:960ec59bbcb4c9f3fa8362eca9af4075	addColumn tableName=metabase_table; addColumn tableName=metabase_field		\N	3.6.3	\N	\N	0255974901
 9	tlrobinson	migrations/000_migrations.yaml	2021-12-23 10:39:39.111083	8	EXECUTED	8:d560283a190e3c60802eb04f5532a49d	addColumn tableName=metabase_table		\N	3.6.3	\N	\N	0255974901
-10	cammsaul	migrations/000_migrations.yaml	2021-12-23 10:39:39.303467	9	EXECUTED	8:9f03a236be31f54e8e5c894fe5fc7f00	createTable tableName=revision; createIndex indexName=idx_revision_model_model_id, tableName=revision		\N	3.6.3	\N	\N	0255974901
-11	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.335613	10	EXECUTED	8:ca6561cab1eedbcf4dcb6d6e22cd46c6	sql		\N	3.6.3	\N	\N	0255974901
-12	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.381517	11	EXECUTED	8:e862a199cba5b4ce0cba713110f66cfb	addColumn tableName=report_card; addColumn tableName=report_card; addColumn tableName=report_card		\N	3.6.3	\N	\N	0255974901
-13	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.638207	12	EXECUTED	8:c2c65930bad8d3e9bab3bb6ae562fe0c	createTable tableName=activity; createIndex indexName=idx_activity_timestamp, tableName=activity; createIndex indexName=idx_activity_user_id, tableName=activity; createIndex indexName=idx_activity_custom_id, tableName=activity		\N	3.6.3	\N	\N	0255974901
-14	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.809258	13	EXECUTED	8:320d2ca8ead3f31309674b2b7f54f395	createTable tableName=view_log; createIndex indexName=idx_view_log_user_id, tableName=view_log; createIndex indexName=idx_view_log_timestamp, tableName=view_log		\N	3.6.3	\N	\N	0255974901
-15	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.847728	14	EXECUTED	8:505b91530103673a9be3382cd2db1070	addColumn tableName=revision		\N	3.6.3	\N	\N	0255974901
-16	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.885795	15	EXECUTED	8:ecc7f02641a589e6d35f88587ac6e02b	dropNotNullConstraint columnName=last_login, tableName=core_user		\N	3.6.3	\N	\N	0255974901
-17	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.944143	16	EXECUTED	8:051c23cd15359364b9895c1569c319e7	addColumn tableName=metabase_database; sql		\N	3.6.3	\N	\N	0255974901
-18	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:40.069511	17	EXECUTED	8:62a0483dde183cfd18dd0a86e9354288	createTable tableName=data_migrations; createIndex indexName=idx_data_migrations_id, tableName=data_migrations		\N	3.6.3	\N	\N	0255974901
-19	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:40.117439	18	EXECUTED	8:269b129dbfc39a6f9e0d3bc61c3c3b70	addColumn tableName=metabase_table		\N	3.6.3	\N	\N	0255974901
-20	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:40.622444	19	EXECUTED	8:0afa34e8b528b83aa19b4142984f8095	createTable tableName=pulse; createIndex indexName=idx_pulse_creator_id, tableName=pulse; createTable tableName=pulse_card; createIndex indexName=idx_pulse_card_pulse_id, tableName=pulse_card; createIndex indexName=idx_pulse_card_card_id, tableNam...		\N	3.6.3	\N	\N	0255974901
-48	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:45.279523	47	EXECUTED	8:720ce9d4b9e6f0917aea035e9dc5d95d	createTable tableName=collection_revision		\N	3.6.3	\N	\N	0255974901
-160	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.886407	156	MARK_RAN	8:1441c71af662abb809cba3b3b360ce81	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
+23	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.059993	22	EXECUTED	8:b6f054835db2b2688a1be1de3707f9a9	modifyDataType columnName=rows, tableName=metabase_table		\N	3.6.3	\N	\N	0255974901
+24	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.329083	23	EXECUTED	8:60825b125b452747098b577310c142b1	createTable tableName=dependency; createIndex indexName=idx_dependency_model, tableName=dependency; createIndex indexName=idx_dependency_model_id, tableName=dependency; createIndex indexName=idx_dependency_dependent_on_model, tableName=dependency;...		\N	3.6.3	\N	\N	0255974901
+25	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.547529	24	EXECUTED	8:61f25563911117df72f5621d78f10089	createTable tableName=metric; createIndex indexName=idx_metric_creator_id, tableName=metric; createIndex indexName=idx_metric_table_id, tableName=metric		\N	3.6.3	\N	\N	0255974901
+26	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.59204	25	EXECUTED	8:ddef40b95c55cf4ac0e6a5161911a4cb	addColumn tableName=metabase_database; sql		\N	3.6.3	\N	\N	0255974901
+27	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.784182	26	EXECUTED	8:001855139df2d5dac4eb954e5abe6486	createTable tableName=dashboardcard_series; createIndex indexName=idx_dashboardcard_series_dashboardcard_id, tableName=dashboardcard_series; createIndex indexName=idx_dashboardcard_series_card_id, tableName=dashboardcard_series		\N	3.6.3	\N	\N	0255974901
+28	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.870186	27	EXECUTED	8:428e4eb05e4e29141735adf9ae141a0b	addColumn tableName=core_user		\N	3.6.3	\N	\N	0255974901
+29	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.91133	28	EXECUTED	8:8b02731cc34add3722c926dfd7376ae0	addColumn tableName=pulse_channel		\N	3.6.3	\N	\N	0255974901
+30	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.954871	29	EXECUTED	8:2c3a50cef177cb90d47a9973cd5934e5	addColumn tableName=metabase_field; addNotNullConstraint columnName=visibility_type, tableName=metabase_field		\N	3.6.3	\N	\N	0255974901
+31	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:41.999629	30	EXECUTED	8:30a33a82bab0bcbb2ccb6738d48e1421	addColumn tableName=metabase_field		\N	3.6.3	\N	\N	0255974901
+57	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:46.602417	56	EXECUTED	8:aab81d477e2d19a9ab18c58b78c9af88	addColumn tableName=report_card	Added 0.25.0	\N	3.6.3	\N	\N	0255974901
+32	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:42.402391	31	EXECUTED	8:40830260b92cedad8da273afd5eca678	createTable tableName=label; createIndex indexName=idx_label_slug, tableName=label; createTable tableName=card_label; addUniqueConstraint constraintName=unique_card_label_card_id_label_id, tableName=card_label; createIndex indexName=idx_card_label...		\N	3.6.3	\N	\N	0255974901
+32	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:42.79316	32	EXECUTED	8:483c6c6c8e0a8d056f7b9112d0b0125c	createTable tableName=raw_table; createIndex indexName=idx_rawtable_database_id, tableName=raw_table; addUniqueConstraint constraintName=uniq_raw_table_db_schema_name, tableName=raw_table; createTable tableName=raw_column; createIndex indexName=id...		\N	3.6.3	\N	\N	0255974901
+34	tlrobinson	migrations/000_migrations.yaml	2021-12-23 10:39:42.842004	33	EXECUTED	8:52b082600b05bbbc46bfe837d1f37a82	addColumn tableName=pulse_channel		\N	3.6.3	\N	\N	0255974901
+36	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:42.98445	35	EXECUTED	8:252e08892449dceb16c3d91337bd9573	addColumn tableName=report_dashboard; addNotNullConstraint columnName=parameters, tableName=report_dashboard; addColumn tableName=report_dashboardcard; addNotNullConstraint columnName=parameter_mappings, tableName=report_dashboardcard		\N	3.6.3	\N	\N	0255974901
+76	senior	migrations/000_migrations.yaml	2021-12-23 10:39:47.829303	74	EXECUTED	8:9b7190c9171ccca72617d508875c3c82	addColumn tableName=metabase_table	Added 0.30.0	\N	3.6.3	\N	\N	0255974901
+104	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:51.617812	101	EXECUTED	8:21709f17e6d1b521d3d3b8cbb5445218	addColumn tableName=core_session	Added EE 1.1.6/CE 0.33.0	\N	3.6.3	\N	\N	0255974901
+207	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:55.380569	202	EXECUTED	8:18135d674f2fe502313adb0475f5f139	dropForeignKeyConstraint baseTableName=metric_important_field, constraintName=fk_metric_important_field_metabase_field_id	Added 0.36.0	\N	3.6.3	\N	\N	0255974901
+269	rlotun	migrations/000_migrations.yaml	2021-12-23 10:39:58.190326	263	EXECUTED	8:215609ca9dce2181687b4fa65e7351ba	sql	Added 0.37.0	\N	3.6.3	\N	\N	0255974901
+1	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:38.587209	1	EXECUTED	8:7182ca8e82947c24fa827d31f78b19aa	createTable tableName=core_organization; createTable tableName=core_user; createTable tableName=core_userorgperm; addUniqueConstraint constraintName=idx_unique_user_id_organization_id, tableName=core_userorgperm; createIndex indexName=idx_userorgp...		\N	3.6.3	\N	\N	0255974901
+4	cammsaul	migrations/000_migrations.yaml	2021-12-23 10:39:38.853068	3	EXECUTED	8:a8e7822a91ea122212d376f5c2d4158f	createTable tableName=setting		\N	3.6.3	\N	\N	0255974901
 383	camsaul	migrations/000_migrations.yaml	2021-12-23 10:40:00.808028	308	EXECUTED	8:eacd3281e0397c61047e4a69e725a5ec	createIndex indexName=idx_query_execution_card_id_started_at, tableName=query_execution	Added 0.41.3 -- Add index to QueryExecution card_id + started_at to fix performance issue	\N	3.6.3	\N	\N	0255974901
 139	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.427044	135	MARK_RAN	8:fdad4ec86aefb0cdf850b1929b618508	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
 295	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:59.658889	288	EXECUTED	8:501e85a50912649416ec22b2871af087	createIndex indexName=idx_timestamp, tableName=login_history	Added 0.39.0	\N	3.6.3	\N	\N	0255974901
@@ -3669,6 +3678,19 @@ COPY public.databasechangelog (id, author, filename, dateexecuted, orderexecuted
 305	camsaul	migrations/000_migrations.yaml	2021-12-23 10:40:00.213935	297	EXECUTED	8:0a0c65f58b80bf74c149a3854cbeeae4	sql	Added 0.40.0 (replaces a data migration dating back to 0.20.0)	\N	3.6.3	\N	\N	0255974901
 308	howonlee	migrations/000_migrations.yaml	2021-12-23 10:40:00.252859	298	EXECUTED	8:4a52c3a0391a0313a062b60a52c0d7de	addColumn tableName=query_execution	Added 0.40.0 Track cache hits in query_execution table	\N	3.6.3	\N	\N	0255974901
 309	dpsutton	migrations/000_migrations.yaml	2021-12-23 10:40:00.292551	299	EXECUTED	8:26cc1f3ba949d8ce0d56350caacffbd8	addColumn tableName=collection	Added 0.40.0 - Add type to collections	\N	3.6.3	\N	\N	0255974901
+157	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.825934	153	MARK_RAN	8:0197c46bf8536a75dbf7e9aee731f3b2	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
+10	cammsaul	migrations/000_migrations.yaml	2021-12-23 10:39:39.303467	9	EXECUTED	8:9f03a236be31f54e8e5c894fe5fc7f00	createTable tableName=revision; createIndex indexName=idx_revision_model_model_id, tableName=revision		\N	3.6.3	\N	\N	0255974901
+12	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.381517	11	EXECUTED	8:e862a199cba5b4ce0cba713110f66cfb	addColumn tableName=report_card; addColumn tableName=report_card; addColumn tableName=report_card		\N	3.6.3	\N	\N	0255974901
+13	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.638207	12	EXECUTED	8:c2c65930bad8d3e9bab3bb6ae562fe0c	createTable tableName=activity; createIndex indexName=idx_activity_timestamp, tableName=activity; createIndex indexName=idx_activity_user_id, tableName=activity; createIndex indexName=idx_activity_custom_id, tableName=activity		\N	3.6.3	\N	\N	0255974901
+14	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.809258	13	EXECUTED	8:320d2ca8ead3f31309674b2b7f54f395	createTable tableName=view_log; createIndex indexName=idx_view_log_user_id, tableName=view_log; createIndex indexName=idx_view_log_timestamp, tableName=view_log		\N	3.6.3	\N	\N	0255974901
+15	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.847728	14	EXECUTED	8:505b91530103673a9be3382cd2db1070	addColumn tableName=revision		\N	3.6.3	\N	\N	0255974901
+16	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.885795	15	EXECUTED	8:ecc7f02641a589e6d35f88587ac6e02b	dropNotNullConstraint columnName=last_login, tableName=core_user		\N	3.6.3	\N	\N	0255974901
+17	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:39.944143	16	EXECUTED	8:051c23cd15359364b9895c1569c319e7	addColumn tableName=metabase_database; sql		\N	3.6.3	\N	\N	0255974901
+18	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:40.069511	17	EXECUTED	8:62a0483dde183cfd18dd0a86e9354288	createTable tableName=data_migrations; createIndex indexName=idx_data_migrations_id, tableName=data_migrations		\N	3.6.3	\N	\N	0255974901
+19	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:40.117439	18	EXECUTED	8:269b129dbfc39a6f9e0d3bc61c3c3b70	addColumn tableName=metabase_table		\N	3.6.3	\N	\N	0255974901
+20	agilliland	migrations/000_migrations.yaml	2021-12-23 10:39:40.622444	19	EXECUTED	8:0afa34e8b528b83aa19b4142984f8095	createTable tableName=pulse; createIndex indexName=idx_pulse_creator_id, tableName=pulse; createTable tableName=pulse_card; createIndex indexName=idx_pulse_card_pulse_id, tableName=pulse_card; createIndex indexName=idx_pulse_card_card_id, tableNam...		\N	3.6.3	\N	\N	0255974901
+160	camsaul	migrations/000_migrations.yaml	2021-12-23 10:39:52.886407	156	MARK_RAN	8:1441c71af662abb809cba3b3b360ce81	sql	Added 0.34.2	\N	3.6.3	\N	\N	0255974901
+66	senior	migrations/000_migrations.yaml	2021-12-23 10:39:47.153362	64	EXECUTED	8:e77d66af8e3b83d46c5a0064a75a1aac	sql; sql	Added 0.26.0	\N	3.6.3	\N	\N	0255974901
 \.
 
 
@@ -3719,18 +3741,44 @@ COPY public.label (id, name, slug, icon) FROM stdin;
 
 COPY public.login_history (id, "timestamp", user_id, session_id, device_id, device_description, ip_address) FROM stdin;
 1	2021-12-23 10:48:55.513704+00	1	\N	b16204e7-b725-42fc-a589-d46bc639c179	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.19.0.1
-3	2021-12-24 00:20:06.841795+00	3	\N	fd3f734f-4bc2-4d8b-9710-b4aa60321c13	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.25.0.7
 2	2021-12-24 00:00:14.238313+00	1	\N	b16204e7-b725-42fc-a589-d46bc639c179	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.25.0.7
 4	2021-12-24 03:59:32.133297+00	1	\N	b16204e7-b725-42fc-a589-d46bc639c179	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.27.0.7
-5	2021-12-24 04:00:03.12554+00	3	9e8a11f4-7f5b-4ace-bf32-ab9a7678044a	b16204e7-b725-42fc-a589-d46bc639c179	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.27.0.7
 6	2021-12-24 04:00:36.385233+00	1	5273cd13-50be-42d5-9879-0ef9978d93a4	b16204e7-b725-42fc-a589-d46bc639c179	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.27.0.7
 7	2021-12-24 04:01:10.073504+00	1	\N	b16204e7-b725-42fc-a589-d46bc639c179	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.27.0.7
-9	2021-12-24 04:04:14.057532+00	4	2028f564-145c-4a04-b885-e67a2fc1f3e4	b16204e7-b725-42fc-a589-d46bc639c179	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.27.0.7
 8	2021-12-24 04:03:57.450806+00	1	\N	b16204e7-b725-42fc-a589-d46bc639c179	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.27.0.7
-10	2021-12-24 04:04:50.740181+00	4	7b7e3b07-6e6c-46a8-8448-a28571dbe44a	b16204e7-b725-42fc-a589-d46bc639c179	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.27.0.7
 11	2021-12-24 04:05:15.141336+00	1	\N	b16204e7-b725-42fc-a589-d46bc639c179	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.27.0.7
-12	2021-12-24 04:06:44.315691+00	4	da83704a-93d0-46c1-b6fb-7ff3e5dc61af	b16204e7-b725-42fc-a589-d46bc639c179	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.27.0.7
 13	2021-12-24 14:40:33.780277+00	1	b9fe34b0-d360-4ed8-8653-15b1ee612025	fd3f734f-4bc2-4d8b-9710-b4aa60321c13	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.27.0.7
+15	2022-01-06 15:30:55.514043+00	1	dca0eab4-2132-4ad9-80e4-c1dc8dc8d908	2c8c7def-8751-4c12-b1e3-050295af5438	python-requests/2.26.0	172.27.0.5
+14	2022-01-06 15:17:46.738018+00	1	\N	332d8e4b-82c1-4f76-962b-e5dccc3f7955	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.27.0.1
+17	2022-01-06 15:56:11.772651+00	1	48b47991-f612-419e-9f1f-52ec37215991	0d850951-c652-4c54-bcce-60730cf2fb5d	python-requests/2.26.0	172.27.0.5
+18	2022-01-06 15:59:22.835013+00	1	517da692-fcb9-477b-9609-486dbb37a72f	b2de6390-77b0-410e-9d2b-b5ef611f3923	python-requests/2.26.0	172.27.0.5
+19	2022-01-06 16:03:15.048812+00	1	acce98f0-5fee-4a89-ae7a-560d081648da	f0f42e60-5fec-46c6-8908-7c138afa2f13	python-requests/2.26.0	172.27.0.5
+20	2022-01-06 20:33:52.316592+00	1	c9babc95-7685-490c-a28a-d9643d153d74	a456a3d9-725c-431e-b6ed-2ad7ef38ef6f	python-requests/2.26.0	172.27.0.5
+21	2022-01-06 20:35:29.189963+00	1	3ba6973f-daf1-4d97-bdec-f75201c53d0d	0b913457-adc2-4741-a455-38b67a72f6fe	python-requests/2.26.0	172.27.0.5
+22	2022-01-06 20:39:10.714065+00	1	fa649fc7-94c1-4c8a-97b5-5dfd1408c815	930a70c0-8a0d-4bb4-9af8-24fb0bb23de1	python-requests/2.26.0	172.27.0.5
+23	2022-01-06 20:42:12.873208+00	1	6dee4241-f53f-4015-bb2e-3d924101653a	8743afa9-c49d-460c-ae44-b5723eacd2df	python-requests/2.26.0	172.27.0.5
+25	2022-01-06 21:11:55.732657+00	1	aecc2c8e-c088-489c-807d-5d80e9d1626f	8dc6da94-a4a1-49ed-9442-2dbed901a950	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.28.0.1
+26	2022-01-06 21:23:40.243849+00	1	2b0ae398-7890-4c0a-8a02-4eae58316926	b61a47b8-751f-4345-9d2c-82ee7b0c976e	python-requests/2.26.0	172.29.0.6
+28	2022-01-06 22:39:28.120376+00	1	382bb4b9-043d-430e-9ef5-d04d057c2a05	bc7a5ce8-ed52-47fa-81d5-62939e7edd3b	python-requests/2.26.0	172.29.0.6
+29	2022-01-06 22:42:30.52008+00	1	7f9d85ff-055f-4f95-a260-09d891d88c7e	c8c36dc5-ba32-43c0-bd96-5a3f64a6e504	python-requests/2.26.0	172.29.0.6
+30	2022-01-06 23:00:51.793859+00	1	a72b0ab5-ad3b-4778-94f9-c2985e39e571	d61fb6c5-5d82-4ead-9049-c9ddcaf494ea	python-requests/2.26.0	172.29.0.6
+32	2022-01-07 09:49:26.071754+00	1	6b21c720-958b-4b03-a91a-0366ce67fcb1	6c978dc3-d2ab-48d9-abee-a30e616dc92f	python-requests/2.26.0	172.29.0.6
+33	2022-01-07 09:52:32.341555+00	1	a67e8946-ce1f-43ec-b16b-90678d854c09	0745071b-5ac2-42e1-8396-cb2a52635a5c	python-requests/2.26.0	172.29.0.6
+34	2022-01-07 10:00:11.647635+00	1	12e112a8-2dba-4b4f-8d51-98fab5faa2eb	56d94813-c9af-4983-a72e-6870bf431aab	python-requests/2.26.0	172.29.0.6
+35	2022-01-07 10:13:46.779577+00	1	40116600-eb8a-4080-9778-ee2fad9be39c	e4da098b-f8f4-4afa-a4c1-f0aad6f55814	python-requests/2.26.0	172.29.0.6
+37	2022-01-07 10:45:08.957828+00	1	be9abe85-f94d-4c70-a331-b339c2657873	7d82d371-d6e8-479e-9b13-390bc1f57d47	python-requests/2.26.0	172.29.0.6
+38	2022-01-07 11:15:57.324101+00	1	22e177a1-4761-47c2-94ef-83084cde3065	476e370e-ce87-4439-a638-89d8d5c4a047	python-requests/2.26.0	172.29.0.6
+39	2022-01-07 11:18:48.616816+00	15	\N	88bdfd03-06ab-4d0d-9704-5f7aedaaad9f	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.29.0.1
+40	2022-01-07 11:20:32.379045+00	1	12c00380-7d8b-442c-966f-dcd1ca17a311	714a749d-0391-4657-86b6-fc8eb1b1eb77	python-requests/2.26.0	172.29.0.6
+41	2022-01-07 11:21:14.578205+00	15	\N	88bdfd03-06ab-4d0d-9704-5f7aedaaad9f	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.29.0.1
+50	2022-01-07 13:25:30.176426+00	1	f544a257-27ed-4d77-8a49-9025bc121c70	ecf62f14-d285-40b0-8b6e-d08f6cf40b00	python-requests/2.26.0	172.29.0.6
+51	2022-01-07 13:25:47.851059+00	14	\N	723e6809-b8e3-489c-ade6-07781edc8584	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36	172.29.0.1
+52	2022-01-07 13:26:08.035871+00	14	7c1a8c14-7dd0-4a94-b1a1-0f5ab42eb0a9	e3f898d9-7030-43a8-9631-c6722d31d9e5	python-requests/2.26.0	172.29.0.6
+53	2022-01-07 14:38:10.544106+00	14	3c436a54-1ab2-435e-b67e-847d49d655ea	252bcc0a-8261-4b64-b812-6a2c47ac60d8	python-requests/2.26.0	172.29.0.6
+54	2022-01-07 15:09:26.78196+00	1	5e4c60a2-8c21-4a73-9e43-14b884d4e899	ca043068-89f1-40de-9bea-79d4dbd11578	Thunder Client (https://www.thunderclient.io)	172.29.0.1
+55	2022-01-07 17:57:50.249571+00	1	cc940354-6393-4096-856f-eb3791743f45	92cec44a-3f67-4176-88e5-8d233d200a87	python-requests/2.26.0	172.29.0.6
+56	2022-01-07 18:08:27.622086+00	1	06ba7eb8-c5b5-416a-abe5-102d0b33d333	4b454e99-be8f-4a91-8bbd-d079d7c96904	python-requests/2.26.0	172.29.0.6
+57	2022-01-07 18:09:35.159014+00	16	ad4edc28-a3ea-41ae-9454-d0ebcbfcd98a	6b583382-f3ab-4625-9bb7-079a21889b75	python-requests/2.26.0	172.29.0.6
 \.
 
 
@@ -3749,6 +3797,10 @@ COPY public.metabase_database (id, created_at, updated_at, name, description, de
 
 COPY public.metabase_field (id, created_at, updated_at, name, base_type, semantic_type, active, description, preview_display, "position", table_id, parent_id, display_name, visibility_type, fk_target_field_id, last_analyzed, points_of_interest, caveats, fingerprint, fingerprint_version, database_type, has_field_values, settings, database_position, custom_position, effective_type, coercion_strategy) FROM stdin;
 146	2021-12-23 10:42:36.718883+00	2021-12-23 11:02:15.538364+00	label	type/Text	type/Category	t	\N	t	2	38	\N	Label	normal	\N	2021-12-23 10:42:45.758099+00	\N	\N	{"global":{"distinct-count":4422,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":13.990504182681438}}}	5	varchar	search	\N	2	0	type/Text	\N
+167	2022-01-07 12:46:01.161618+00	2022-01-07 12:46:01.161618+00	id	type/BigInteger	type/PK	t	\N	t	0	39	\N	ID	normal	\N	\N	\N	\N	\N	0	bigserial	\N	\N	0	0	type/BigInteger	\N
+168	2022-01-07 12:46:01.181417+00	2022-01-07 13:46:01.926116+00	expires	type/DateTimeWithLocalTZ	\N	t	\N	t	2	39	\N	Expires	normal	\N	2022-01-07 13:46:02.275419+00	\N	\N	{"global":{"distinct-count":2,"nil%":0.0},"type":{"type/DateTime":{"earliest":"2022-01-21T13:14:29.574333Z","latest":"2022-01-21T13:26:08.081888Z"}}}	5	timestamptz	\N	\N	2	0	type/DateTimeWithLocalTZ	\N
+165	2022-01-07 12:46:01.119954+00	2022-01-07 13:46:02.193283+00	user_id	type/BigInteger	type/Category	t	\N	t	3	39	\N	User ID	normal	\N	2022-01-07 13:46:02.275419+00	\N	\N	{"global":{"distinct-count":2,"nil%":0.0},"type":{"type/Number":{"min":33.0,"q1":33.0,"q3":36.0,"max":36.0,"sd":2.1213203435596424,"avg":34.5}}}	5	int8	auto-list	\N	3	0	type/BigInteger	\N
+166	2022-01-07 12:46:01.143195+00	2022-01-07 13:46:02.170576+00	token	type/Text	type/Category	t	\N	t	1	39	\N	Token	normal	\N	2022-01-07 13:46:02.275419+00	\N	\N	{"global":{"distinct-count":2,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":36.0}}}	5	varchar	auto-list	\N	1	0	type/Text	\N
 78	2021-12-23 10:42:35.008508+00	2021-12-23 10:42:35.008508+00	id	type/BigInteger	type/PK	t	\N	t	0	37	\N	ID	normal	\N	\N	\N	\N	\N	0	bigserial	\N	\N	0	0	type/BigInteger	\N
 83	2021-12-23 10:42:35.192691+00	2021-12-23 10:42:35.192691+00	id	type/BigInteger	type/PK	t	\N	t	0	5	\N	ID	normal	\N	\N	\N	\N	\N	0	bigserial	\N	\N	0	0	type/BigInteger	\N
 85	2021-12-23 10:42:35.243278+00	2021-12-23 10:42:35.243278+00	id	type/BigInteger	type/PK	t	\N	t	0	33	\N	ID	normal	\N	\N	\N	\N	\N	0	bigserial	\N	\N	0	0	type/BigInteger	\N
@@ -3905,6 +3957,8 @@ COPY public.metabase_fieldvalues (id, created_at, updated_at, "values", human_re
 24	2021-12-23 10:42:46.464684+00	2021-12-23 10:42:46.464684+00	["COFUND_ORG","COLLAB_ORG","FELLOW_ORG","LEAD_ORG","PARTICIPANT_ORG","PP_ORG","STUDENT_PP_ORG"]	\N	131
 25	2021-12-23 10:42:46.499445+00	2021-12-23 10:42:46.499445+00	["COI_PER","FELLOW_PER","PI_PER","PM_PER","RESEARCH_COI_PER","RESEARCH_PER","STUDENT_PER","SUPER_PER","TGH_PER"]	\N	135
 26	2021-12-23 10:42:46.565894+00	2021-12-23 10:42:46.565894+00	["ukri-projects-spider"]	\N	142
+27	2022-01-07 18:00:01.295539+00	2022-01-07 18:00:01.295539+00	["cc940354-6393-4096-856f-eb3791743f45"]	\N	166
+28	2022-01-07 18:00:01.337669+00	2022-01-07 18:00:01.337669+00	[1]	\N	165
 \.
 
 
@@ -3925,6 +3979,7 @@ COPY public.metabase_table (id, created_at, updated_at, name, description, entit
 24	2021-12-23 10:42:33.72669+00	2021-12-23 10:42:33.72669+00	django_content_type	\N	\N	\N	t	2	Django Content Type	cruft	public	\N	\N	f	database
 25	2021-12-23 10:42:33.748769+00	2021-12-23 10:42:33.748769+00	auth_group_permissions	\N	\N	\N	t	2	Auth Group Permissions	cruft	public	\N	\N	f	database
 29	2021-12-23 10:42:33.83349+00	2021-12-23 10:42:33.83349+00	django_session	\N	\N	\N	t	2	Django Session	cruft	public	\N	\N	f	database
+39	2022-01-07 12:46:00.844774+00	2022-01-07 12:46:03.02381+00	coped_metabase_session	\N	\N	entity/GenericTable	t	2	Coped Metabase Session	\N	public	\N	\N	f	database
 17	2021-12-23 10:42:33.565381+00	2021-12-23 10:42:45.135923+00	coped_address	\N	\N	entity/GenericTable	t	2	Coped Address	\N	public	\N	\N	f	database
 22	2021-12-23 10:42:33.679784+00	2021-12-23 10:42:45.173461+00	coped_external_link	\N	\N	entity/GenericTable	t	2	Coped External Link	\N	public	\N	\N	f	database
 35	2021-12-23 10:42:33.976895+00	2021-12-23 10:42:45.19345+00	coped_geo_data	\N	\N	entity/GenericTable	t	2	Coped Geo Data	\N	public	\N	\N	f	database
@@ -4013,8 +4068,9 @@ COPY public.permissions_group (id, name) FROM stdin;
 COPY public.permissions_group_membership (id, user_id, group_id) FROM stdin;
 1	1	1
 2	1	2
-3	3	1
-4	4	1
+14	14	1
+15	15	1
+16	16	1
 \.
 
 
@@ -4082,14 +4138,14 @@ COPY public.qrtz_calendars (sched_name, calendar_name, calendar) FROM stdin;
 --
 
 COPY public.qrtz_cron_triggers (sched_name, trigger_name, trigger_group, cron_expression, time_zone_id) FROM stdin;
-MetabaseScheduler	metabase.task.update-field-values.trigger.2	DEFAULT	0 0 18 * * ? *	Etc/UTC
 MetabaseScheduler	metabase.task.upgrade-checks.trigger	DEFAULT	0 15 6,18 * * ? *	Etc/UTC
-MetabaseScheduler	metabase.task.send-pulses.trigger	DEFAULT	0 0 * * * ? *	Etc/UTC
-MetabaseScheduler	metabase.task.task-history-cleanup.trigger	DEFAULT	0 0 * * * ? *	Etc/UTC
-MetabaseScheduler	metabase.task.sync-and-analyze.trigger.2	DEFAULT	0 46 * * * ? *	Etc/UTC
+MetabaseScheduler	metabase.task.anonymous-stats.trigger	DEFAULT	0 15 7 * * ? *	Etc/UTC
 MetabaseScheduler	metabase.task.abandonment-emails.trigger	DEFAULT	0 0 12 * * ? *	Etc/UTC
 MetabaseScheduler	metabase.task.follow-up-emails.trigger	DEFAULT	0 0 12 * * ? *	Etc/UTC
-MetabaseScheduler	metabase.task.anonymous-stats.trigger	DEFAULT	0 15 7 * * ? *	Etc/UTC
+MetabaseScheduler	metabase.task.sync-and-analyze.trigger.2	DEFAULT	0 46 * * * ? *	Etc/UTC
+MetabaseScheduler	metabase.task.send-pulses.trigger	DEFAULT	0 0 * * * ? *	Etc/UTC
+MetabaseScheduler	metabase.task.task-history-cleanup.trigger	DEFAULT	0 0 * * * ? *	Etc/UTC
+MetabaseScheduler	metabase.task.update-field-values.trigger.2	DEFAULT	0 0 18 * * ? *	Etc/UTC
 \.
 
 
@@ -4140,7 +4196,7 @@ COPY public.qrtz_paused_trigger_grps (sched_name, trigger_group) FROM stdin;
 --
 
 COPY public.qrtz_scheduler_state (sched_name, instance_name, last_checkin_time, checkin_interval) FROM stdin;
-MetabaseScheduler	44df0389dec31640307475325	1640386184496	7500
+MetabaseScheduler	1cb98ee2e3741641504017933	1641579031757	7500
 \.
 
 
@@ -4165,14 +4221,14 @@ COPY public.qrtz_simprop_triggers (sched_name, trigger_name, trigger_group, str_
 --
 
 COPY public.qrtz_triggers (sched_name, trigger_name, trigger_group, job_name, job_group, description, next_fire_time, prev_fire_time, priority, trigger_state, trigger_type, start_time, end_time, calendar_name, misfire_instr, job_data) FROM stdin;
-MetabaseScheduler	metabase.task.update-field-values.trigger.2	DEFAULT	metabase.task.update-field-values.job	DEFAULT	update-field-values Database 2	1640455200000	1640368800000	5	WAITING	CRON	1640256514000	0	\N	2	\\xaced0005737200156f72672e71756172747a2e4a6f62446174614d61709fb083e8bfa9b0cb020000787200266f72672e71756172747a2e7574696c732e537472696e674b65794469727479466c61674d61708208e8c3fbc55d280200015a0013616c6c6f77735472616e7369656e74446174617872001d6f72672e71756172747a2e7574696c732e4469727479466c61674d617013e62ead28760ace0200025a000564697274794c00036d617074000f4c6a6176612f7574696c2f4d61703b787001737200116a6176612e7574696c2e486173684d61700507dac1c31660d103000246000a6c6f6164466163746f724900097468726573686f6c6478703f4000000000000c7708000000100000000174000564622d6964737200116a6176612e6c616e672e496e746567657212e2a0a4f781873802000149000576616c7565787200106a6176612e6c616e672e4e756d62657286ac951d0b94e08b0200007870000000027800
-MetabaseScheduler	metabase.task.abandonment-emails.trigger	DEFAULT	metabase.task.abandonment-emails.job	DEFAULT	\N	1640433600000	1640347200000	5	WAITING	CRON	1640307475000	0	\N	0	\\x
-MetabaseScheduler	metabase.task.upgrade-checks.trigger	DEFAULT	metabase.task.upgrade-checks.job	DEFAULT	\N	1640412900000	1640369700000	5	WAITING	CRON	1640307475000	0	\N	0	\\x
-MetabaseScheduler	metabase.task.follow-up-emails.trigger	DEFAULT	metabase.task.follow-up-emails.job	DEFAULT	\N	1640433600000	1640347200000	5	WAITING	CRON	1640307475000	0	\N	0	\\x
-MetabaseScheduler	metabase.task.anonymous-stats.trigger	DEFAULT	metabase.task.anonymous-stats.job	DEFAULT	\N	1640416500000	1640356742362	5	WAITING	CRON	1640307475000	0	\N	0	\\x
-MetabaseScheduler	metabase.task.send-pulses.trigger	DEFAULT	metabase.task.send-pulses.job	DEFAULT	\N	1640386800000	1640385824702	5	WAITING	CRON	1640307475000	0	\N	1	\\x
-MetabaseScheduler	metabase.task.task-history-cleanup.trigger	DEFAULT	metabase.task.task-history-cleanup.job	DEFAULT	\N	1640386800000	1640385824718	5	WAITING	CRON	1640307475000	0	\N	0	\\x
-MetabaseScheduler	metabase.task.sync-and-analyze.trigger.2	DEFAULT	metabase.task.sync-and-analyze.job	DEFAULT	sync-and-analyze Database 2	1640389560000	1640385960000	5	WAITING	CRON	1640256514000	0	\N	2	\\xaced0005737200156f72672e71756172747a2e4a6f62446174614d61709fb083e8bfa9b0cb020000787200266f72672e71756172747a2e7574696c732e537472696e674b65794469727479466c61674d61708208e8c3fbc55d280200015a0013616c6c6f77735472616e7369656e74446174617872001d6f72672e71756172747a2e7574696c732e4469727479466c61674d617013e62ead28760ace0200025a000564697274794c00036d617074000f4c6a6176612f7574696c2f4d61703b787001737200116a6176612e7574696c2e486173684d61700507dac1c31660d103000246000a6c6f6164466163746f724900097468726573686f6c6478703f4000000000000c7708000000100000000174000564622d6964737200116a6176612e6c616e672e496e746567657212e2a0a4f781873802000149000576616c7565787200106a6176612e6c616e672e4e756d62657286ac951d0b94e08b0200007870000000027800
+MetabaseScheduler	metabase.task.sync-and-analyze.trigger.2	DEFAULT	metabase.task.sync-and-analyze.job	DEFAULT	sync-and-analyze Database 2	1641581160000	1641577560000	5	WAITING	CRON	1640256514000	0	\N	2	\\xaced0005737200156f72672e71756172747a2e4a6f62446174614d61709fb083e8bfa9b0cb020000787200266f72672e71756172747a2e7574696c732e537472696e674b65794469727479466c61674d61708208e8c3fbc55d280200015a0013616c6c6f77735472616e7369656e74446174617872001d6f72672e71756172747a2e7574696c732e4469727479466c61674d617013e62ead28760ace0200025a000564697274794c00036d617074000f4c6a6176612f7574696c2f4d61703b787001737200116a6176612e7574696c2e486173684d61700507dac1c31660d103000246000a6c6f6164466163746f724900097468726573686f6c6478703f4000000000000c7708000000100000000174000564622d6964737200116a6176612e6c616e672e496e746567657212e2a0a4f781873802000149000576616c7565787200106a6176612e6c616e672e4e756d62657286ac951d0b94e08b0200007870000000027800
+MetabaseScheduler	metabase.task.send-pulses.trigger	DEFAULT	metabase.task.send-pulses.job	DEFAULT	\N	1641582000000	1641578400000	5	WAITING	CRON	1641504018000	0	\N	1	\\x
+MetabaseScheduler	metabase.task.task-history-cleanup.trigger	DEFAULT	metabase.task.task-history-cleanup.job	DEFAULT	\N	1641582000000	1641578400000	5	WAITING	CRON	1641504018000	0	\N	0	\\x
+MetabaseScheduler	metabase.task.abandonment-emails.trigger	DEFAULT	metabase.task.abandonment-emails.job	DEFAULT	\N	1641643200000	1641556800000	5	WAITING	CRON	1641504018000	0	\N	0	\\x
+MetabaseScheduler	metabase.task.update-field-values.trigger.2	DEFAULT	metabase.task.update-field-values.job	DEFAULT	update-field-values Database 2	1641664800000	1641578400000	5	WAITING	CRON	1640256514000	0	\N	2	\\xaced0005737200156f72672e71756172747a2e4a6f62446174614d61709fb083e8bfa9b0cb020000787200266f72672e71756172747a2e7574696c732e537472696e674b65794469727479466c61674d61708208e8c3fbc55d280200015a0013616c6c6f77735472616e7369656e74446174617872001d6f72672e71756172747a2e7574696c732e4469727479466c61674d617013e62ead28760ace0200025a000564697274794c00036d617074000f4c6a6176612f7574696c2f4d61703b787001737200116a6176612e7574696c2e486173684d61700507dac1c31660d103000246000a6c6f6164466163746f724900097468726573686f6c6478703f4000000000000c7708000000100000000174000564622d6964737200116a6176612e6c616e672e496e746567657212e2a0a4f781873802000149000576616c7565787200106a6176612e6c616e672e4e756d62657286ac951d0b94e08b0200007870000000027800
+MetabaseScheduler	metabase.task.follow-up-emails.trigger	DEFAULT	metabase.task.follow-up-emails.job	DEFAULT	\N	1641643200000	1641556800000	5	WAITING	CRON	1641504018000	0	\N	0	\\x
+MetabaseScheduler	metabase.task.upgrade-checks.trigger	DEFAULT	metabase.task.upgrade-checks.job	DEFAULT	\N	1641579300000	1641547511020	5	WAITING	CRON	1641504018000	0	\N	0	\\x
+MetabaseScheduler	metabase.task.anonymous-stats.trigger	DEFAULT	metabase.task.anonymous-stats.job	DEFAULT	\N	1641626100000	1641547511036	5	WAITING	CRON	1641504018000	0	\N	0	\\x
 \.
 
 
@@ -4388,7 +4444,7 @@ COPY public.query (query_hash, average_execution_time, query) FROM stdin;
 \\x8c75d66996c877432fbd78fbda49732c695c0a3620c01d3fe675fd50fb6f39d2	11	{"database":2,"type":"query","query":{"source-table":8,"aggregation":["count"],"filter":["=",["field",132,null],"360"]},"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
 \\xc26165fa8289f779826039e06c0c6b1ec35cd682bbd38df1234bb0a1c767a98b	167	{"database":2,"query":{"source-table":5,"joins":[{"fields":"none","source-table":33,"condition":["=",["field",83,null],["field",86,{"join-alias":"Coped Organisation Addresses"}]],"alias":"Coped Organisation Addresses"},{"fields":"none","source-table":17,"condition":["=",["field",87,{"join-alias":"Coped Organisation Addresses"}],["field",61,{"join-alias":"Coped Address - Address"}]],"alias":"Coped Address - Address"},{"fields":[["field",71,{"join-alias":"Coped Geo Data - Geo"}],["field",73,{"join-alias":"Coped Geo Data - Geo"}]],"source-table":35,"condition":["=",["field",58,{"join-alias":"Coped Address - Address"}],["field",72,{"join-alias":"Coped Geo Data - Geo"}]],"alias":"Coped Geo Data - Geo"},{"fields":"none","source-table":8,"condition":["=",["field",83,null],["field",132,{"join-alias":"Coped Project Organisation"}]],"alias":"Coped Project Organisation"},{"fields":"none","source-table":19,"condition":["=",["field",130,{"join-alias":"Coped Project Organisation"}],["field",139,{"join-alias":"Coped Project Subject - Project"}]],"alias":"Coped Project Subject - Project"},{"source-table":38,"condition":["=",["field",141,{"join-alias":"Coped Project Subject - Project"}],["field",148,{"join-alias":"Coped Subject - Subject"}]],"alias":"Coped Subject - Subject"}],"breakout":[["field",83,null],["field",82,null],["field",71,{"join-alias":"Coped Geo Data - Geo"}],["field",73,{"join-alias":"Coped Geo Data - Geo"}]],"filter":["inside",["field",71,null],["field",73,null],40.97989944013221,-89.99999782070523,21.94304637537721,-67.49999836552892]},"type":"query","async?":false}
 \\xa98f3ef4eb52ada75427ceefbea83f1fc3bd89ac41460efb8624d6cbb18549e3	9	{"database":2,"type":"query","query":{"source-table":9,"aggregation":["count"],"filter":["=",["field",125,null],"360"]},"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
-\\x0b829e04c96a71c3d034cbee07cd1f833f5d76f410784d5ca0b81307a7f6157e	438	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT name organisation_name, lat latitude, lon longitude, co.id organisation_id\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nLIMIT 999","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"async?":true,"cache-ttl":null}
+\\x0b829e04c96a71c3d034cbee07cd1f833f5d76f410784d5ca0b81307a7f6157e	473	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT name organisation_name, lat latitude, lon longitude, co.id organisation_id\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nLIMIT 999","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"async?":true,"cache-ttl":null}
 \\x383f830b253551a87126b3674602de760eb793096d1c58326a28c619c61a2ae1	138	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["gas turbines","hydraulic turbines","turbines","wind turbines"],"target":["dimension",["template-tag","label"]]}],"async?":true,"cache-ttl":null}
 \\x1b1948b9ee043c61eb7181d9a5bd8604a6a50f60d53d2fc079c18bef14d29a5e	162	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT name organisation_name, lat latitude, lon longitude, co.id organisation_id\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nLIMIT 999","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["power lines","power plants"],"target":["dimension",["template-tag","label"]]}],"async?":true,"cache-ttl":null}
 \\x3d9676ce950d9644e626d1b45b59b76c810a9261edb7cfe68de29712d18b7e0f	193	{"database":2,"query":{"source-table":5,"joins":[{"fields":"none","source-table":33,"condition":["=",["field",83,null],["field",86,{"join-alias":"Coped Organisation Addresses"}]],"alias":"Coped Organisation Addresses"},{"fields":"none","source-table":17,"condition":["=",["field",87,{"join-alias":"Coped Organisation Addresses"}],["field",61,{"join-alias":"Coped Address - Address"}]],"alias":"Coped Address - Address"},{"fields":[["field",71,{"join-alias":"Coped Geo Data - Geo"}],["field",73,{"join-alias":"Coped Geo Data - Geo"}]],"source-table":35,"condition":["=",["field",58,{"join-alias":"Coped Address - Address"}],["field",72,{"join-alias":"Coped Geo Data - Geo"}]],"alias":"Coped Geo Data - Geo"},{"fields":"none","source-table":8,"condition":["=",["field",83,null],["field",132,{"join-alias":"Coped Project Organisation"}]],"alias":"Coped Project Organisation"},{"fields":"none","source-table":19,"condition":["=",["field",130,{"join-alias":"Coped Project Organisation"}],["field",139,{"join-alias":"Coped Project Subject - Project"}]],"alias":"Coped Project Subject - Project"},{"source-table":38,"condition":["=",["field",141,{"join-alias":"Coped Project Subject - Project"}],["field",148,{"join-alias":"Coped Subject - Subject"}]],"alias":"Coped Subject - Subject"}],"breakout":[["field",83,null],["field",82,null],["field",71,{"join-alias":"Coped Geo Data - Geo"}],["field",73,{"join-alias":"Coped Geo Data - Geo"}]],"filter":["inside",["field",71,null],["field",73,null],55.77657455019159,-89.99999782070523,40.97989944013221,-67.49999836552892]},"type":"query","async?":false}
@@ -4409,15 +4465,17 @@ COPY public.query (query_hash, average_execution_time, query) FROM stdin;
 \\x53bb9e762a93d5c662022ac943c6b0a29572a791e8f23fdc153cbfdfe320b3a7	75	{"type":"native","native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["power lines","power plants"],"target":["dimension",["template-tag","label"]]}],"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
 \\x4590ee10c49cba0550f14ef9ef7752f6d5ce493e5af5750eaf86a2b709064527	177	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT name organisation_name, lat latitude, lon longitude, co.id organisation_id\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nLIMIT 999","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["gas turbines","hydraulic turbines","turbines","wind turbines"],"target":["dimension",["template-tag","label"]]}],"async?":true,"cache-ttl":null}
 \\x5836f3b01301ec1b70166bda95a2b7104ebefe0716f2a8e62c9ceb6d8b39ca78	181	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"query","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"database":2,"query":{"source-table":7,"fields":[["field",108,null]],"joins":[{"fields":[["field",131,{"join-alias":"Coped Project Organisation"}]],"source-table":8,"condition":["=",["field",108,null],["field",130,{"join-alias":"Coped Project Organisation"}]],"alias":"Coped Project Organisation"},{"fields":[["field",82,{"join-alias":"Coped Organisation - Organisation"}]],"source-table":5,"condition":["=",["field",132,{"join-alias":"Coped Project Organisation"}],["field",83,{"join-alias":"Coped Organisation - Organisation"}]],"alias":"Coped Organisation - Organisation"}],"filter":["=",["field",108,null],80]},"async?":true,"cache-ttl":null}
-\\x09e3cd6972b75f995fcdaccdc4113b72232d26645caed5b0d0df62dafc5f215a	80	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT name organisation_name, lat latitude, lon longitude, co.id organisation_id\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nLIMIT 999","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["microgrids"],"target":["dimension",["template-tag","label"]]}],"async?":true,"cache-ttl":null}
 \\xe446109e4719cbc9db5747190ed4481c06c6eabc962c6e2c5382afad4f14f48c	122	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["power plants"],"target":["dimension",["template-tag","label"]]}],"async?":true,"cache-ttl":null}
 \\x2c3c9426c189a16fe53bdccfa21c5cb514692d929af673d66288f870c33bd828	636	{"database":2,"query":{"source-table":7,"fields":[["field",106,null],["field",107,null],["field",109,null],["field",110,null],["field",111,null],["field",113,null],["field",114,null]]},"type":"query","middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
 \\x88d885960f3013363f1ea6e564e70a489f2b6fc82b8acd9289ff191d6d4af7ce	75	{"query":{"source-table":7,"filter":["=",["field",108,null],"2086"]},"type":"query","database":2,"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
 \\x103fe9e491bf5de3905337700fad9ae72e10c9f462e1b1b35534d4c9c2a57c5e	564	{"database":2,"query":{"source-table":7},"type":"query","middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
-\\xfc8106d2ec863b1333e775e91b2b79437fa1e49d328f2f8777a17696e38ce363	98	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["microgrids"],"target":["dimension",["template-tag","label"]]}],"async?":true,"cache-ttl":null}
+\\x09e3cd6972b75f995fcdaccdc4113b72232d26645caed5b0d0df62dafc5f215a	80	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT name organisation_name, lat latitude, lon longitude, co.id organisation_id\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nLIMIT 999","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["microgrids"],"target":["dimension",["template-tag","label"]]}],"async?":true,"cache-ttl":null}
+\\xed95820b6105d09f2aed5c30c7b5aaee647fbfc8295d2ee6cd7a902f75f4d942	317	{"database":2,"query":{"source-table":"card__2"},"type":"query","middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
 \\x4b66221f051e244ab44c4d5b8987b303092a4340c56a59cd580f40f25f5ec960	120	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT name organisation_name, lat latitude, lon longitude, co.id organisation_id\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nLIMIT 999","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["power plants"],"target":["dimension",["template-tag","label"]]}],"async?":true,"cache-ttl":null}
 \\x17425f56f2b9c4bf1f65f5c2b99a7c4f55b44e57d4f083c4690e03f42741dcb9	560	{"type":"query","query":{"source-table":7,"fields":[["field",106,null],["field",107,null],["field",109,null],["field",110,null],["field",111,{"temporal-unit":"default"}],["field",113,{"temporal-unit":"default"}],["field",114,null],["field",108,null]]},"database":2,"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
 \\x58f785bcce4d51ef20eaa22ab74e5b16c2504773f0d761d6d6c4d2110d23fd48	8	{"database":2,"type":"query","query":{"source-table":37,"aggregation":["count"],"filter":["=",["field",79,null],"2086"]},"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
+\\xfc8106d2ec863b1333e775e91b2b79437fa1e49d328f2f8777a17696e38ce363	96	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["microgrids"],"target":["dimension",["template-tag","label"]]}],"async?":true,"cache-ttl":null}
+\\xe0f0eef7ac8c4ad3d902b6d407a42511595c8b757fe44eaf461e5703a172767f	363	{"type":"native","native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
 \\x4fb59c47e2123fa459cbf35462100580c94b8225acb98ad9acce6da98a4ab4ae	84	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["power lines","high voltage power lines","electric power lines"],"target":["dimension",["template-tag","label"]]}],"async?":true,"cache-ttl":null}
 \\xc5704cca77929c29bb1cd4209cb3b769bcd1f872b614d5b9e34f7a1556bd9d90	382	{"type":"native","native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(cpo.organisation_id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name, cpo.organisation_id\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
 \\x187418eddb3c52fe6f13ae074c65aaf42fa75bc30b7adb88ef5cd3089cb488f6	31	{"type":"native","native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(cp.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project cp ON cp.id = cpo.project_id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY cp.id, coped_subject.id\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
@@ -4480,8 +4538,8 @@ COPY public.query (query_hash, average_execution_time, query) FROM stdin;
 \\xd240afb67d0b0170d3f7833fc1cf43d6fbb7caaa64c8e89176b648f732dab42d	63	{"database":2,"type":"query","query":{"source-table":8,"filter":["=",["field",132,null],"117"]},"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
 \\x9db94e842eb9c065c628490ac3bac5a7aae3abe74a4e9323c16a06bcb33469d8	8	{"database":2,"type":"query","query":{"source-table":18,"aggregation":["count"],"filter":["=",["field",134,null],"2086"]},"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
 \\x6ff917cecaf7968b623c28821b469d50d8fd7dff21e536da6e163b30316172dc	127	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT name organisation_name, lat latitude, lon longitude, co.id organisation_id\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nLIMIT 999","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"parameters":[{"type":"category","value":["fishing","Fishing Act"],"target":["dimension",["template-tag","label"]]}],"async?":true,"cache-ttl":null}
-\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	347	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"async?":true,"cache-ttl":null}
 \\xa0655e96ea90524114ca81a8e14d1854226c8fab83e17105416e1e4288cfcc23	7	{"database":2,"type":"query","query":{"source-table":19,"aggregation":["count"],"filter":["=",["field",139,null],"2086"]},"middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
+\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	407	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2,"async?":true,"cache-ttl":null}
 \\x81613dd5240c8a287a0a33215984f4e795c94ad298a0a9d5708145b8be0605b4	573	{"database":2,"query":{"source-table":7,"fields":[["field",108,null],["field",106,null],["field",107,null],["field",109,null],["field",110,null],["field",111,{"temporal-unit":"default"}],["field",113,{"temporal-unit":"default"}],["field",114,null]]},"type":"query","middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
 \\x0485c4bbcdffad998953aff4b625a0a0a137286872fb80d99815eba8edfa7b61	277	{"constraints":{"max-results":10000,"max-results-bare-rows":2000},"type":"native","middleware":{"js-int-to-string?":true,"ignore-cached-results?":false,"process-viz-settings?":false},"native":{"query":"SELECT coped_id, title\\nFROM coped_project\\n[[WHERE title LIKE {{title}}]]","template-tags":{"title":{"id":"f75783f7-df91-e4e6-0035-2a0d8d2c8bdc","name":"title","display-name":"Title","type":"text"}}},"database":2,"async?":true,"cache-ttl":null}
 \\x151cfe7ff951ca254fa3c0be6a12aedc30eea47047f8c66fd3e85ddb060de229	437	{"database":2,"query":{"source-table":7,"fields":[],"joins":[{"fields":"all","source-table":8,"condition":["=",["field",108,null],["field",130,{"join-alias":"Coped Project Organisation"}]],"alias":"Coped Project Organisation"},{"fields":"all","source-table":5,"condition":["=",["field",132,{"join-alias":"Coped Project Organisation"}],["field",83,{"join-alias":"Coped Organisation - Organisation"}]],"alias":"Coped Organisation - Organisation"}]},"type":"query","middleware":{"js-int-to-string?":true,"add-default-userland-constraints?":true}}
@@ -5195,7 +5253,28 @@ COPY public.query_execution (id, hash, started_at, running_time, result_rows, na
 658	\\x0b829e04c96a71c3d034cbee07cd1f833f5d76f410784d5ca0b81307a7f6157e	2021-12-24 17:25:12.316906+00	441	999	t	public-dashboard	\N	4	1	1	\N	2	f
 659	\\x3b24f72327d8f0d4599fb56ec93156f7a8eb04f1046cac64cd9f9f6bf4d28e27	2021-12-24 18:07:59.716792+00	277	2000	f	question	\N	4	5	4	\N	2	f
 661	\\x3b24f72327d8f0d4599fb56ec93156f7a8eb04f1046cac64cd9f9f6bf4d28e27	2021-12-24 18:09:33.737575+00	196	2000	f	question	\N	4	5	4	\N	2	f
+662	\\x0b829e04c96a71c3d034cbee07cd1f833f5d76f410784d5ca0b81307a7f6157e	2022-01-05 13:23:31.348448+00	551	999	t	question	\N	4	1	1	\N	2	f
+664	\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	2022-01-05 13:23:54.62944+00	475	2000	t	question	\N	4	2	1	\N	2	f
 660	\\x3b24f72327d8f0d4599fb56ec93156f7a8eb04f1046cac64cd9f9f6bf4d28e27	2021-12-24 18:09:06.983625+00	220	2000	f	question	\N	4	5	4	\N	2	f
+663	\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	2022-01-05 13:23:31.348448+00	561	2000	t	question	\N	4	2	1	\N	2	f
+665	\\x0b829e04c96a71c3d034cbee07cd1f833f5d76f410784d5ca0b81307a7f6157e	2022-01-05 13:23:54.641998+00	502	999	t	question	\N	4	1	1	\N	2	f
+667	\\x09e3cd6972b75f995fcdaccdc4113b72232d26645caed5b0d0df62dafc5f215a	2022-01-05 13:24:37.656099+00	84	29	t	question	\N	4	1	1	\N	2	f
+666	\\xfc8106d2ec863b1333e775e91b2b79437fa1e49d328f2f8777a17696e38ce363	2022-01-05 13:24:37.641347+00	81	29	t	question	\N	4	2	1	\N	2	f
+668	\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	2022-01-06 14:36:51.491088+00	828	2000	t	question	\N	4	2	1	\N	2	f
+669	\\x0b829e04c96a71c3d034cbee07cd1f833f5d76f410784d5ca0b81307a7f6157e	2022-01-06 14:36:51.493049+00	843	999	t	question	\N	4	1	1	\N	2	f
+670	\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	2022-01-06 14:37:01.135501+00	361	2000	t	question	\N	4	2	\N	\N	2	f
+671	\\xed95820b6105d09f2aed5c30c7b5aaee647fbfc8295d2ee6cd7a902f75f4d942	2022-01-06 14:37:08.351137+00	317	2000	f	ad-hoc	\N	4	2	\N	\N	2	f
+672	\\xe0f0eef7ac8c4ad3d902b6d407a42511595c8b757fe44eaf461e5703a172767f	2022-01-06 14:37:13.425455+00	363	2000	t	ad-hoc	\N	4	\N	\N	\N	2	f
+673	\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	2022-01-06 14:37:16.368668+00	226	2000	t	question	\N	4	2	\N	\N	2	f
+674	\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	2022-01-06 14:37:18.104457+00	234	2000	t	question	\N	4	2	1	\N	2	f
+675	\\x0b829e04c96a71c3d034cbee07cd1f833f5d76f410784d5ca0b81307a7f6157e	2022-01-06 14:37:18.098537+00	342	999	t	question	\N	4	1	1	\N	2	f
+676	\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	2022-01-06 14:37:27.930822+00	298	2000	t	question	\N	4	2	\N	\N	2	f
+677	\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	2022-01-06 14:37:50.808633+00	243	2000	t	question	\N	4	2	1	\N	2	f
+678	\\x0b829e04c96a71c3d034cbee07cd1f833f5d76f410784d5ca0b81307a7f6157e	2022-01-06 14:37:50.808633+00	323	999	t	question	\N	4	1	1	\N	2	f
+679	\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	2022-01-06 14:38:26.31365+00	424	2000	t	question	\N	4	2	1	\N	2	f
+680	\\x0b829e04c96a71c3d034cbee07cd1f833f5d76f410784d5ca0b81307a7f6157e	2022-01-06 14:38:26.31365+00	467	999	t	question	\N	4	1	1	\N	2	f
+681	\\x0b829e04c96a71c3d034cbee07cd1f833f5d76f410784d5ca0b81307a7f6157e	2022-01-06 20:59:08.891879+00	567	999	t	public-dashboard	\N	\N	1	1	\N	2	f
+682	\\x48b049f11b63f5a140d6de8bdaebf7dd1fe56ef7c98c0d8037edec575d875f78	2022-01-06 20:59:08.894751+00	753	2000	t	public-dashboard	\N	\N	2	1	\N	2	f
 \.
 
 
@@ -5204,11 +5283,10 @@ COPY public.query_execution (id, hash, started_at, running_time, result_rows, na
 --
 
 COPY public.report_card (id, created_at, updated_at, name, description, display, dataset_query, visualization_settings, creator_id, database_id, table_id, query_type, archived, collection_id, public_uuid, made_public_by_id, enable_embedding, embedding_params, cache_ttl, result_metadata, collection_position) FROM stdin;
-1	2021-12-23 10:51:20.358245+00	2021-12-24 17:25:12.737822+00	Organisation Map Filtered by Subject(s)	Show locations of organisations who have an association to a project with the given subject(s).	map	{"type":"native","native":{"query":"SELECT DISTINCT name organisation_name, lat latitude, lon longitude, co.id organisation_id\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nLIMIT 999","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2}	{"map.type":"pin","map.latitude_column":"latitude","map.longitude_column":"longitude","table.pivot_column":"lat","table.cell_column":"lon","map.center_latitude":54.18563943134077,"map.center_longitude":-8.50236767586238,"map.zoom":4.832394669298182}	1	2	\N	native	f	\N	\N	\N	f	\N	\N	[{"name":"organisation_name","display_name":"organisation_name","base_type":"type/Text","effective_type":"type/Text","field_ref":["field","organisation_name",{"base-type":"type/Text"}],"semantic_type":null,"fingerprint":{"global":{"distinct-count":986,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":22.074074074074073}}}},{"name":"latitude","display_name":"latitude","base_type":"type/Float","effective_type":"type/Float","field_ref":["field","latitude",{"base-type":"type/Float"}],"semantic_type":"type/Latitude","fingerprint":{"global":{"distinct-count":701,"nil%":0.0},"type":{"type/Number":{"min":0.0,"q1":50.8535304116578,"q3":52.440000977424816,"max":58.9636512,"sd":21.297723054979443,"avg":41.33276597718441}}}},{"name":"longitude","display_name":"longitude","base_type":"type/Float","effective_type":"type/Float","field_ref":["field","longitude",{"base-type":"type/Float"}],"semantic_type":"type/Longitude","fingerprint":{"global":{"distinct-count":702,"nil%":0.0},"type":{"type/Number":{"min":-93.6481304,"q1":-1.9235769361651829,"q3":-0.021414446540835214,"max":120.1752726,"sd":8.118014273063695,"avg":-1.0831753527528327}}}},{"name":"organisation_id","display_name":"organisation_id","base_type":"type/BigInteger","effective_type":"type/BigInteger","field_ref":["field","organisation_id",{"base-type":"type/BigInteger"}],"semantic_type":null,"fingerprint":{"global":{"distinct-count":999,"nil%":0.0},"type":{"type/Number":{"min":8.0,"q1":876.1957298490609,"q3":2429.2110576708287,"max":3160.0,"sd":909.3913435412085,"avg":1653.923923923924}}}}]	\N
+1	2021-12-23 10:51:20.358245+00	2022-01-06 20:59:09.443024+00	Organisation Map Filtered by Subject(s)	Show locations of organisations who have an association to a project with the given subject(s).	map	{"type":"native","native":{"query":"SELECT DISTINCT name organisation_name, lat latitude, lon longitude, co.id organisation_id\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nLIMIT 999","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2}	{"map.type":"pin","map.latitude_column":"latitude","map.longitude_column":"longitude","table.pivot_column":"lat","table.cell_column":"lon","map.center_latitude":54.18563943134077,"map.center_longitude":-8.50236767586238,"map.zoom":4.832394669298182}	1	2	\N	native	f	\N	\N	\N	f	\N	\N	[{"name":"organisation_name","display_name":"organisation_name","base_type":"type/Text","effective_type":"type/Text","field_ref":["field","organisation_name",{"base-type":"type/Text"}],"semantic_type":null,"fingerprint":{"global":{"distinct-count":986,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":22.074074074074073}}}},{"name":"latitude","display_name":"latitude","base_type":"type/Float","effective_type":"type/Float","field_ref":["field","latitude",{"base-type":"type/Float"}],"semantic_type":"type/Latitude","fingerprint":{"global":{"distinct-count":701,"nil%":0.0},"type":{"type/Number":{"min":0.0,"q1":50.8535304116578,"q3":52.440000977424816,"max":58.9636512,"sd":21.297723054979443,"avg":41.33276597718441}}}},{"name":"longitude","display_name":"longitude","base_type":"type/Float","effective_type":"type/Float","field_ref":["field","longitude",{"base-type":"type/Float"}],"semantic_type":"type/Longitude","fingerprint":{"global":{"distinct-count":702,"nil%":0.0},"type":{"type/Number":{"min":-93.6481304,"q1":-1.9235769361651829,"q3":-0.021414446540835214,"max":120.1752726,"sd":8.118014273063695,"avg":-1.0831753527528327}}}},{"name":"organisation_id","display_name":"organisation_id","base_type":"type/BigInteger","effective_type":"type/BigInteger","field_ref":["field","organisation_id",{"base-type":"type/BigInteger"}],"semantic_type":null,"fingerprint":{"global":{"distinct-count":999,"nil%":0.0},"type":{"type/Number":{"min":8.0,"q1":876.1957298490609,"q3":2429.2110576708287,"max":3160.0,"sd":909.3913435412085,"avg":1653.923923923924}}}}]	\N
 3	2021-12-23 12:40:42.464981+00	2021-12-23 14:35:18.716457+00	Coped Projects	\N	table	{"type":"native","native":{"query":"SELECT coped_id, title\\nFROM coped_project\\n[[WHERE UPPER(title) LIKE UPPER(CONCAT('%', {{title}}, '%'))]]\\n","template-tags":{"title":{"id":"f75783f7-df91-e4e6-0035-2a0d8d2c8bdc","name":"title","display-name":"Title","type":"text"}}},"database":2}	{"table.columns":[{"name":"coped_id","fieldRef":["field","coped_id",{"base-type":"type/UUID"}],"enabled":true},{"name":"title","fieldRef":["field","title",{"base-type":"type/Text"}],"enabled":true}],"table.pivot_column":"end","table.cell_column":"extra_text"}	1	2	\N	native	f	\N	ebf9b4f7-7f17-4de2-ad67-c06115cc197c	1	f	\N	\N	[{"name":"coped_id","display_name":"coped_id","base_type":"type/UUID","effective_type":"type/UUID","field_ref":["field","coped_id",{"base-type":"type/UUID"}],"semantic_type":null,"fingerprint":{"global":{"distinct-count":2000,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":36.0}}}},{"name":"title","display_name":"title","base_type":"type/Text","effective_type":"type/Text","field_ref":["field","title",{"base-type":"type/Text"}],"semantic_type":"type/Title","fingerprint":{"global":{"distinct-count":1801,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":69.0845}}}}]	\N
 4	2021-12-23 12:56:06.453232+00	2021-12-24 17:06:24.83789+00	Coped Project Organisations, Filtered by ID	\N	table	{"type":"query","query":{"source-table":7,"fields":[["field",108,null]],"joins":[{"fields":[["field",131,{"join-alias":"Coped Project Organisation"}]],"source-table":8,"condition":["=",["field",108,null],["field",130,{"join-alias":"Coped Project Organisation"}]],"alias":"Coped Project Organisation"},{"fields":[["field",82,{"join-alias":"Coped Organisation - Organisation"}]],"source-table":5,"condition":["=",["field",132,{"join-alias":"Coped Project Organisation"}],["field",83,{"join-alias":"Coped Organisation - Organisation"}]],"alias":"Coped Organisation - Organisation"}],"filter":["=",["field",108,null],80]},"database":2}	{"table.columns":[{"name":"id","fieldRef":["field",108,null],"enabled":false},{"name":"coped_id","fieldRef":["field",106,null],"enabled":true},{"name":"status","fieldRef":["field",110,null],"enabled":true},{"name":"title","fieldRef":["field",107,null],"enabled":true},{"name":"description","fieldRef":["field",109,null],"enabled":false},{"name":"raw_data_id","fieldRef":["field",112,null],"enabled":false},{"name":"end","fieldRef":["field",111,{"temporal-unit":"default"}],"enabled":false},{"name":"start","fieldRef":["field",113,{"temporal-unit":"default"}],"enabled":false},{"name":"extra_text","fieldRef":["field",114,null],"enabled":false},{"name":"title","field_ref":["field",107,null],"enabled":true},{"name":"description","field_ref":["field",109,null],"enabled":true},{"name":"end","field_ref":["field",111,null],"enabled":true},{"name":"start","field_ref":["field",113,null],"enabled":true},{"name":"extra_text","field_ref":["field",114,null],"enabled":true},{"name":"id_3","field_ref":["field",83,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"coped_id_2","field_ref":["field",80,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"raw_data_id_2","field_ref":["field",84,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"name","field_ref":["field",82,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"role","field_ref":["field",131,{"join-alias":"Coped Project Organisation"}],"enabled":true}],"table.pivot_column":"id","table.cell_column":"name"}	1	2	7	query	f	\N	\N	\N	f	\N	\N	[{"semantic_type":"type/PK","coercion_strategy":null,"name":"id","field_ref":["field",108,null],"effective_type":"type/BigInteger","id":108,"display_name":"ID","fingerprint":null,"base_type":"type/BigInteger"},{"semantic_type":"type/Category","coercion_strategy":null,"name":"role","field_ref":["field",131,{"join-alias":"Coped Project Organisation"}],"effective_type":"type/Text","id":131,"display_name":"Coped Project Organisation → Role","fingerprint":{"global":{"distinct-count":7,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":9.487073560767591}}},"base_type":"type/Text"},{"semantic_type":"type/Name","coercion_strategy":null,"name":"name","field_ref":["field",82,{"join-alias":"Coped Organisation - Organisation"}],"effective_type":"type/Text","id":82,"display_name":"Coped Organisation - Organisation → Name","fingerprint":{"global":{"distinct-count":3101,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":23.089698890649764}}},"base_type":"type/Text"}]	\N
-5	2021-12-24 17:05:43.684592+00	2021-12-24 18:09:33.913173+00	Coped Projects by Standard User	\N	table	{"database":2,"query":{"source-table":7},"type":"query"}	{"table.pivot_column":"end","table.cell_column":"extra_text"}	4	2	7	query	f	3	\N	\N	f	\N	\N	[{"semantic_type":"type/PK","coercion_strategy":null,"name":"id","field_ref":["field",108,null],"effective_type":"type/BigInteger","id":108,"display_name":"ID","fingerprint":null,"base_type":"type/BigInteger"},{"semantic_type":null,"coercion_strategy":null,"name":"coped_id","field_ref":["field",106,null],"effective_type":"type/UUID","id":106,"display_name":"Coped ID","fingerprint":{"global":{"distinct-count":2034,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":36.0}}},"base_type":"type/UUID"},{"semantic_type":"type/Title","coercion_strategy":null,"name":"title","field_ref":["field",107,null],"effective_type":"type/Text","id":107,"display_name":"Title","fingerprint":{"global":{"distinct-count":1831,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":68.91937069813176}}},"base_type":"type/Text"},{"semantic_type":"type/Description","coercion_strategy":null,"name":"description","field_ref":["field",109,null],"effective_type":"type/Text","id":109,"display_name":"Description","fingerprint":{"global":{"distinct-count":1819,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":1152.9341199606686}}},"base_type":"type/Text"},{"semantic_type":"type/Category","coercion_strategy":null,"name":"status","field_ref":["field",110,null],"effective_type":"type/Text","id":110,"display_name":"Status","fingerprint":{"global":{"distinct-count":2,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":6.0}}},"base_type":"type/Text"},{"semantic_type":"type/FK","coercion_strategy":null,"name":"raw_data_id","field_ref":["field",112,null],"effective_type":"type/BigInteger","id":112,"display_name":"Raw Data ID","fingerprint":{"global":{"distinct-count":2034,"nil%":0.0}},"base_type":"type/BigInteger"},{"semantic_type":null,"coercion_strategy":null,"unit":"default","name":"end","field_ref":["field",111,{"temporal-unit":"default"}],"effective_type":"type/Date","id":111,"display_name":"End","fingerprint":{"global":{"distinct-count":4,"nil%":0.9985250737463127},"type":{"type/DateTime":{"earliest":"2021-04-02","latest":"2021-10-28"}}},"base_type":"type/Date"},{"semantic_type":"type/CreationDate","coercion_strategy":null,"unit":"default","name":"start","field_ref":["field",113,{"temporal-unit":"default"}],"effective_type":"type/Date","id":113,"display_name":"Start","fingerprint":{"global":{"distinct-count":4,"nil%":0.9985250737463127},"type":{"type/DateTime":{"earliest":"2017-05-01","latest":"2020-10-02"}}},"base_type":"type/Date"},{"semantic_type":null,"coercion_strategy":null,"name":"extra_text","field_ref":["field",114,null],"effective_type":"type/Text","id":114,"display_name":"Extra Text","fingerprint":{"global":{"distinct-count":581,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":375.007866273353}}},"base_type":"type/Text"}]	\N
-2	2021-12-23 11:49:21.498223+00	2021-12-24 17:25:12.634863+00	Counts of Subject Hits by Organisation	Count number of projects in each organisation associated to the given subject(s).	table	{"type":"native","native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2}	{"map.type":"pin","table.pivot":false,"map.longitude_column":"longitude","click_behavior":{"type":"link","linkType":"url","linkTemplate":"http://localhost:8000/organisations/{{organisation_id}}"},"map.latitude_column":"latitude","table.columns":[{"name":"organisation_id","fieldRef":["field","organisation_id",{"base-type":"type/BigInteger"}],"enabled":false},{"name":"organisation_name","fieldRef":["field","organisation_name",{"base-type":"type/Text"}],"enabled":true},{"name":"project_hits","fieldRef":["field","project_hits",{"base-type":"type/BigInteger"}],"enabled":true}],"map.center_longitude":-4.6495943908621715,"table.cell_column":"project_hits","map.zoom":5.198660367899508,"table.pivot_column":"organisation_name","column_settings":{"[\\"name\\",\\"organisation_name\\"]":{"view_as":null}},"map.center_latitude":55.14693635319655}	1	2	\N	native	f	\N	\N	\N	f	\N	\N	[{"name":"organisation_id","display_name":"organisation_id","base_type":"type/BigInteger","effective_type":"type/BigInteger","field_ref":["field","organisation_id",{"base-type":"type/BigInteger"}],"semantic_type":null,"fingerprint":{"global":{"distinct-count":2000,"nil%":0.0},"type":{"type/Number":{"min":6.0,"q1":657.5097176863592,"q3":1938.3003723410322,"max":3160.0,"sd":805.1087260586173,"avg":1337.583}}}},{"name":"organisation_name","display_name":"organisation_name","base_type":"type/Text","effective_type":"type/Text","field_ref":["field","organisation_name",{"base-type":"type/Text"}],"semantic_type":null,"fingerprint":{"global":{"distinct-count":1974,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":22.453}}}},{"name":"project_hits","display_name":"project_hits","base_type":"type/BigInteger","effective_type":"type/BigInteger","field_ref":["field","project_hits",{"base-type":"type/BigInteger"}],"semantic_type":null,"fingerprint":{"global":{"distinct-count":82,"nil%":0.0},"type":{"type/Number":{"min":20.0,"q1":20.653680061728952,"q3":48.63693357014452,"max":2931.0,"sd":155.90581665011388,"avg":61.371500000000005}}}}]	\N
+2	2021-12-23 11:49:21.498223+00	2022-01-06 20:59:09.620105+00	Counts of Subject Hits by Organisation	Count number of projects in each organisation associated to the given subject(s).	table	{"type":"native","native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2}	{"map.type":"pin","table.pivot":false,"map.longitude_column":"longitude","click_behavior":{"type":"link","linkType":"url","linkTemplate":"http://localhost:8000/organisations/{{organisation_id}}"},"map.latitude_column":"latitude","table.columns":[{"name":"organisation_id","fieldRef":["field","organisation_id",{"base-type":"type/BigInteger"}],"enabled":false},{"name":"organisation_name","fieldRef":["field","organisation_name",{"base-type":"type/Text"}],"enabled":true},{"name":"project_hits","fieldRef":["field","project_hits",{"base-type":"type/BigInteger"}],"enabled":true}],"map.center_longitude":-4.6495943908621715,"table.cell_column":"project_hits","map.zoom":5.198660367899508,"table.pivot_column":"organisation_name","column_settings":{"[\\"name\\",\\"organisation_name\\"]":{"view_as":null}},"map.center_latitude":55.14693635319655}	1	2	\N	native	f	\N	\N	\N	f	\N	\N	[{"name":"organisation_id","display_name":"organisation_id","base_type":"type/BigInteger","effective_type":"type/BigInteger","field_ref":["field","organisation_id",{"base-type":"type/BigInteger"}],"semantic_type":null,"fingerprint":{"global":{"distinct-count":2000,"nil%":0.0},"type":{"type/Number":{"min":6.0,"q1":657.5097176863592,"q3":1938.3003723410322,"max":3160.0,"sd":805.1087260586173,"avg":1337.583}}}},{"name":"organisation_name","display_name":"organisation_name","base_type":"type/Text","effective_type":"type/Text","field_ref":["field","organisation_name",{"base-type":"type/Text"}],"semantic_type":null,"fingerprint":{"global":{"distinct-count":1974,"nil%":0.0},"type":{"type/Text":{"percent-json":0.0,"percent-url":0.0,"percent-email":0.0,"percent-state":0.0,"average-length":22.453}}}},{"name":"project_hits","display_name":"project_hits","base_type":"type/BigInteger","effective_type":"type/BigInteger","field_ref":["field","project_hits",{"base-type":"type/BigInteger"}],"semantic_type":null,"fingerprint":{"global":{"distinct-count":82,"nil%":0.0},"type":{"type/Number":{"min":20.0,"q1":20.653680061728952,"q3":48.63693357014452,"max":2931.0,"sd":155.90581665011388,"avg":61.371500000000005}}}}]	\N
 \.
 
 
@@ -5225,9 +5303,8 @@ COPY public.report_cardfavorite (id, created_at, updated_at, card_id, owner_id) 
 --
 
 COPY public.report_dashboard (id, created_at, updated_at, name, description, creator_id, parameters, points_of_interest, caveats, show_in_getting_started, public_uuid, made_public_by_id, enable_embedding, embedding_params, archived, "position", collection_id, collection_position, cache_ttl) FROM stdin;
-2	2021-12-23 12:31:42.498717+00	2021-12-23 12:52:08.804015+00	Project Connections Dashboard	Summary information on project connections in the CoPED database.	1	[]	\N	\N	f	\N	\N	f	\N	f	\N	\N	\N	\N
-1	2021-12-23 10:56:01.072977+00	2021-12-24 14:57:57.706722+00	CoPED Organisation Map	View locations and details of organisations. Filter them by project subject topics.	1	[{"name":"Subject(s)","slug":"subject(s)","id":"7d611dc4","type":"category","filteringParameters":[]}]	\N	\N	f	b2fec45e-f595-4684-9cd8-d5cb9fcdb9a9	1	t	{"subject(s)":"enabled"}	f	\N	\N	\N	\N
-4	2021-12-24 17:06:01.612205+00	2021-12-24 17:08:49.287495+00	Regular User Dashboard	\N	4	[]	\N	\N	f	\N	\N	f	\N	f	\N	3	\N	\N
+1	2021-12-23 10:56:01.072977+00	2021-12-25 00:32:04.273983+00	CoPED Organisation Map	View locations and details of organisations. Filter them by project subject topics.	1	[{"name":"Subject(s)","slug":"subject(s)","id":"7d611dc4","type":"category","filteringParameters":[]}]	\N	\N	f	b2fec45e-f595-4684-9cd8-d5cb9fcdb9a9	1	t	{"subject(s)":"enabled"}	f	\N	\N	2	\N
+2	2021-12-23 12:31:42.498717+00	2021-12-25 00:32:08.970611+00	Project Connections Dashboard	Summary information on project connections in the CoPED database.	1	[]	\N	\N	f	\N	\N	f	\N	f	\N	\N	1	\N
 \.
 
 
@@ -5239,7 +5316,6 @@ COPY public.report_dashboardcard (id, created_at, updated_at, "sizeX", "sizeY", 
 1	2021-12-23 10:57:08.56637+00	2021-12-24 14:37:38.316819+00	9	11	0	4	1	1	[{"parameter_id":"7d611dc4","card_id":1,"target":["dimension",["template-tag","label"]]}]	{"map.center_latitude":55.14693635319655,"map.center_longitude":-4.6495943908621715,"map.zoom":5.198660367899508,"click_behavior":{"type":"link","linkType":"url","linkTemplate":"/organisations/{{organisation_id}}"}}
 2	2021-12-23 11:16:05.22107+00	2021-12-24 14:37:38.340349+00	4	11	0	0	\N	1	[]	{"virtual_card":{"name":null,"display":"text","visualization_settings":{},"dataset_query":{},"archived":false},"text":"# View Organisations by Project Subject(s)\\n\\nYou can update this dashboard by searching for project subject terms above. For example, if you enter \\"microgrids\\" the map and table will update to show you organisations with a connection to the term.\\n\\n1. The map to the right shows geographic locations of organisations that have been involved in projects with the chosen subject(s).\\n    - HINT: click on any pin to be taken to a detailed view of the organisation.\\n2. The table below shows a list of the currently displayed organisations, with additional details such as the number of projects they have been involved with that match one of the search terms."}
 3	2021-12-23 11:51:00.338117+00	2021-12-24 14:37:38.360932+00	5	11	0	13	2	1	[{"parameter_id":"7d611dc4","card_id":2,"target":["dimension",["template-tag","label"]]}]	{"column_settings":{"[\\"name\\",\\"organisation_name\\"]":{"click_behavior":{"type":"link","linkType":"url","linkTemplate":"/organisations/{{organisation_id}}"}}}}
-4	2021-12-24 17:08:30.625866+00	2021-12-24 17:08:49.206626+00	4	4	0	0	5	4	[]	{}
 \.
 
 
@@ -5265,29 +5341,12 @@ COPY public.revision (id, model, model_id, user_id, "timestamp", object, is_reve
 34	Card	4	1	2021-12-23 12:56:06.497614+00	{"description":null,"archived":false,"collection_position":null,"table_id":7,"database_id":2,"enable_embedding":false,"collection_id":null,"query_type":"query","name":"Coped Project Organisations, Filtered by ID","creator_id":1,"made_public_by_id":null,"embedding_params":null,"cache_ttl":null,"dataset_query":{"type":"query","query":{"source-table":7,"fields":[["field",108,null]],"joins":[{"fields":[["field",131,{"join-alias":"Coped Project Organisation"}]],"source-table":8,"condition":["=",["field",108,null],["field",130,{"join-alias":"Coped Project Organisation"}]],"alias":"Coped Project Organisation"},{"fields":[["field",82,{"join-alias":"Coped Organisation - Organisation"}]],"source-table":5,"condition":["=",["field",132,{"join-alias":"Coped Project Organisation"}],["field",83,{"join-alias":"Coped Organisation - Organisation"}]],"alias":"Coped Organisation - Organisation"}],"filter":["=",["field",108,null],80]},"database":2},"id":4,"display":"table","visualization_settings":{"table.columns":[{"name":"id","fieldRef":["field",108,null],"enabled":false},{"name":"coped_id","fieldRef":["field",106,null],"enabled":true},{"name":"status","fieldRef":["field",110,null],"enabled":true},{"name":"title","fieldRef":["field",107,null],"enabled":true},{"name":"description","fieldRef":["field",109,null],"enabled":false},{"name":"raw_data_id","fieldRef":["field",112,null],"enabled":false},{"name":"end","fieldRef":["field",111,{"temporal-unit":"default"}],"enabled":false},{"name":"start","fieldRef":["field",113,{"temporal-unit":"default"}],"enabled":false},{"name":"extra_text","fieldRef":["field",114,null],"enabled":false},{"name":"title","field_ref":["field",107,null],"enabled":true},{"name":"description","field_ref":["field",109,null],"enabled":true},{"name":"end","field_ref":["field",111,null],"enabled":true},{"name":"start","field_ref":["field",113,null],"enabled":true},{"name":"extra_text","field_ref":["field",114,null],"enabled":true},{"name":"id_3","field_ref":["field",83,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"coped_id_2","field_ref":["field",80,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"raw_data_id_2","field_ref":["field",84,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"name","field_ref":["field",82,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"role","field_ref":["field",131,{"join-alias":"Coped Project Organisation"}],"enabled":true}],"table.pivot_column":"id","table.cell_column":"name"},"public_uuid":null}	f	t	\N
 39	Card	2	1	2021-12-24 00:07:29.702211+00	{"description":"Count number of projects in each organisation associated to the given subject(s).","archived":false,"collection_position":null,"table_id":null,"database_id":2,"enable_embedding":false,"collection_id":null,"query_type":"native","name":"Counts of Subject Hits by Organisation","creator_id":1,"made_public_by_id":null,"embedding_params":null,"cache_ttl":null,"dataset_query":{"type":"native","native":{"query":"SELECT DISTINCT co.id organisation_id, name organisation_name, count(coped_subject.id) project_hits\\nFROM coped_organisation co\\n    JOIN coped_organisation_addresses coa ON co.id = coa.organisation_id\\n    JOIN coped_address ca ON ca.id = coa.address_id\\n    JOIN coped_geo_data cgd ON cgd.id = ca.geo_id\\n    JOIN coped_project_organisation cpo ON cpo.organisation_id = co.id\\n    JOIN coped_project_subject cps ON cps.project_id = cpo.project_id\\n    JOIN coped_subject ON coped_subject.id = cps.subject_id\\n[[WHERE {{label}}]]\\nGROUP BY co.id, co.name\\nORDER BY project_hits DESC\\n","template-tags":{"label":{"id":"679e203d-705c-4c7f-df40-83c565a0198c","name":"label","display-name":"Subject(s)","type":"dimension","dimension":["field",146,null],"widget-type":"category"}}},"database":2},"id":2,"display":"table","visualization_settings":{"map.type":"pin","table.pivot":false,"map.longitude_column":"longitude","click_behavior":{"type":"link","linkType":"url","linkTemplate":"http://localhost:8000/organisations/{{organisation_id}}"},"map.latitude_column":"latitude","table.columns":[{"name":"organisation_id","fieldRef":["field","organisation_id",{"base-type":"type/BigInteger"}],"enabled":false},{"name":"organisation_name","fieldRef":["field","organisation_name",{"base-type":"type/Text"}],"enabled":true},{"name":"project_hits","fieldRef":["field","project_hits",{"base-type":"type/BigInteger"}],"enabled":true}],"map.center_longitude":-4.6495943908621715,"table.cell_column":"project_hits","map.zoom":5.198660367899508,"table.pivot_column":"organisation_name","column_settings":{"[\\"name\\",\\"organisation_name\\"]":{"view_as":null}},"map.center_latitude":55.14693635319655},"public_uuid":null}	f	f	\N
 57	Dashboard	1	1	2021-12-24 03:12:44.434732+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
-62	Dashboard	1	4	2021-12-24 04:07:14.279744+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
-66	Dashboard	1	4	2021-12-24 14:37:38.398557+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
-67	Dashboard	1	4	2021-12-24 14:37:38.465163+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
-55	Dashboard	1	1	2021-12-24 02:45:40.978054+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
 56	Dashboard	1	1	2021-12-24 03:12:44.359436+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
 58	Dashboard	1	1	2021-12-24 04:00:54.493953+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
 59	Dashboard	1	1	2021-12-24 04:00:54.575953+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
-60	Dashboard	1	4	2021-12-24 04:05:05.507444+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
-61	Dashboard	1	4	2021-12-24 04:05:05.613471+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
-63	Dashboard	1	4	2021-12-24 04:07:14.356215+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
-64	Dashboard	1	4	2021-12-24 04:10:59.980367+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
-65	Dashboard	1	4	2021-12-24 04:11:00.057167+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
-68	Card	4	4	2021-12-24 14:40:18.741294+00	{"description":null,"archived":false,"collection_position":1,"table_id":7,"database_id":2,"enable_embedding":false,"collection_id":null,"query_type":"query","name":"Coped Project Organisations, Filtered by ID","creator_id":1,"made_public_by_id":null,"embedding_params":null,"cache_ttl":null,"dataset_query":{"type":"query","query":{"source-table":7,"fields":[["field",108,null]],"joins":[{"fields":[["field",131,{"join-alias":"Coped Project Organisation"}]],"source-table":8,"condition":["=",["field",108,null],["field",130,{"join-alias":"Coped Project Organisation"}]],"alias":"Coped Project Organisation"},{"fields":[["field",82,{"join-alias":"Coped Organisation - Organisation"}]],"source-table":5,"condition":["=",["field",132,{"join-alias":"Coped Project Organisation"}],["field",83,{"join-alias":"Coped Organisation - Organisation"}]],"alias":"Coped Organisation - Organisation"}],"filter":["=",["field",108,null],80]},"database":2},"id":4,"display":"table","visualization_settings":{"table.columns":[{"name":"id","fieldRef":["field",108,null],"enabled":false},{"name":"coped_id","fieldRef":["field",106,null],"enabled":true},{"name":"status","fieldRef":["field",110,null],"enabled":true},{"name":"title","fieldRef":["field",107,null],"enabled":true},{"name":"description","fieldRef":["field",109,null],"enabled":false},{"name":"raw_data_id","fieldRef":["field",112,null],"enabled":false},{"name":"end","fieldRef":["field",111,{"temporal-unit":"default"}],"enabled":false},{"name":"start","fieldRef":["field",113,{"temporal-unit":"default"}],"enabled":false},{"name":"extra_text","fieldRef":["field",114,null],"enabled":false},{"name":"title","field_ref":["field",107,null],"enabled":true},{"name":"description","field_ref":["field",109,null],"enabled":true},{"name":"end","field_ref":["field",111,null],"enabled":true},{"name":"start","field_ref":["field",113,null],"enabled":true},{"name":"extra_text","field_ref":["field",114,null],"enabled":true},{"name":"id_3","field_ref":["field",83,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"coped_id_2","field_ref":["field",80,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"raw_data_id_2","field_ref":["field",84,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"name","field_ref":["field",82,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"role","field_ref":["field",131,{"join-alias":"Coped Project Organisation"}],"enabled":true}],"table.pivot_column":"id","table.cell_column":"name"},"public_uuid":null}	f	f	\N
 69	Card	4	1	2021-12-24 14:40:48.729415+00	{"description":null,"archived":false,"collection_position":null,"table_id":7,"database_id":2,"enable_embedding":false,"collection_id":null,"query_type":"query","name":"Coped Project Organisations, Filtered by ID","creator_id":1,"made_public_by_id":null,"embedding_params":null,"cache_ttl":null,"dataset_query":{"type":"query","query":{"source-table":7,"fields":[["field",108,null]],"joins":[{"fields":[["field",131,{"join-alias":"Coped Project Organisation"}]],"source-table":8,"condition":["=",["field",108,null],["field",130,{"join-alias":"Coped Project Organisation"}]],"alias":"Coped Project Organisation"},{"fields":[["field",82,{"join-alias":"Coped Organisation - Organisation"}]],"source-table":5,"condition":["=",["field",132,{"join-alias":"Coped Project Organisation"}],["field",83,{"join-alias":"Coped Organisation - Organisation"}]],"alias":"Coped Organisation - Organisation"}],"filter":["=",["field",108,null],80]},"database":2},"id":4,"display":"table","visualization_settings":{"table.columns":[{"name":"id","fieldRef":["field",108,null],"enabled":false},{"name":"coped_id","fieldRef":["field",106,null],"enabled":true},{"name":"status","fieldRef":["field",110,null],"enabled":true},{"name":"title","fieldRef":["field",107,null],"enabled":true},{"name":"description","fieldRef":["field",109,null],"enabled":false},{"name":"raw_data_id","fieldRef":["field",112,null],"enabled":false},{"name":"end","fieldRef":["field",111,{"temporal-unit":"default"}],"enabled":false},{"name":"start","fieldRef":["field",113,{"temporal-unit":"default"}],"enabled":false},{"name":"extra_text","fieldRef":["field",114,null],"enabled":false},{"name":"title","field_ref":["field",107,null],"enabled":true},{"name":"description","field_ref":["field",109,null],"enabled":true},{"name":"end","field_ref":["field",111,null],"enabled":true},{"name":"start","field_ref":["field",113,null],"enabled":true},{"name":"extra_text","field_ref":["field",114,null],"enabled":true},{"name":"id_3","field_ref":["field",83,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"coped_id_2","field_ref":["field",80,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"raw_data_id_2","field_ref":["field",84,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"name","field_ref":["field",82,{"join-alias":"Coped Organisation - Organisation"}],"enabled":true},{"name":"role","field_ref":["field",131,{"join-alias":"Coped Project Organisation"}],"enabled":true}],"table.pivot_column":"id","table.cell_column":"name"},"public_uuid":null}	f	f	\N
 70	Dashboard	1	1	2021-12-24 14:41:07.657095+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
 71	Dashboard	1	1	2021-12-24 14:57:57.762858+00	{"description":"View locations and details of organisations. Filter them by project subject topics.","name":"CoPED Organisation Map","cache_ttl":null,"cards":[{"sizeX":9,"sizeY":11,"row":0,"col":4,"id":1,"card_id":1,"series":[]},{"sizeX":4,"sizeY":11,"row":0,"col":0,"id":2,"card_id":null,"series":[]},{"sizeX":5,"sizeY":11,"row":0,"col":13,"id":3,"card_id":2,"series":[]}]}	f	f	\N
-74	Card	5	4	2021-12-24 17:05:43.742635+00	{"description":null,"archived":false,"collection_position":null,"table_id":7,"database_id":2,"enable_embedding":false,"collection_id":3,"query_type":"query","name":"Coped Projects by Standard User","creator_id":4,"made_public_by_id":null,"embedding_params":null,"cache_ttl":null,"dataset_query":{"database":2,"query":{"source-table":7},"type":"query"},"id":5,"display":"table","visualization_settings":{"table.pivot_column":"end","table.cell_column":"extra_text"},"public_uuid":null}	f	t	\N
-75	Dashboard	4	4	2021-12-24 17:06:01.67083+00	{"description":null,"name":"Regular User Dashboard","cache_ttl":null,"cards":[]}	f	t	\N
-76	Dashboard	4	4	2021-12-24 17:08:30.690265+00	{"description":null,"name":"Regular User Dashboard","cache_ttl":null,"cards":[{"sizeX":2,"sizeY":2,"row":0,"col":0,"id":4,"card_id":5,"series":[]}]}	f	f	\N
-77	Dashboard	4	4	2021-12-24 17:08:30.758595+00	{"description":null,"name":"Regular User Dashboard","cache_ttl":null,"cards":[{"sizeX":4,"sizeY":4,"row":0,"col":0,"id":4,"card_id":5,"series":[]}]}	f	f	\N
-78	Dashboard	4	4	2021-12-24 17:08:30.799738+00	{"description":null,"name":"Regular User Dashboard","cache_ttl":null,"cards":[{"sizeX":4,"sizeY":4,"row":0,"col":0,"id":4,"card_id":5,"series":[]}]}	f	f	\N
-79	Dashboard	4	4	2021-12-24 17:08:49.246821+00	{"description":null,"name":"Regular User Dashboard","cache_ttl":null,"cards":[{"sizeX":4,"sizeY":4,"row":0,"col":0,"id":4,"card_id":5,"series":[]}]}	f	f	\N
-80	Dashboard	4	4	2021-12-24 17:08:49.319869+00	{"description":null,"name":"Regular User Dashboard","cache_ttl":null,"cards":[{"sizeX":4,"sizeY":4,"row":0,"col":0,"id":4,"card_id":5,"series":[]}]}	f	f	\N
 \.
 
 
@@ -5306,9 +5365,12 @@ COPY public.segment (id, table_id, creator_id, name, description, archived, defi
 COPY public.setting (key, value) FROM stdin;
 analytics-uuid	56cd9cd9-57c9-4f30-925b-bd7ea1a50abe
 instance-creation	2021-12-23T10:41:11.839257545Z
+version-info-last-checked	2022-01-07T09:25:11.57970947Z
 site-name	Coventry University
 admin-email	metabase.local@c0l.in
+version-info	{"latest":{"version":"v0.41.5","released":"2021-12-16","patch":true,"highlights":["Upgrade Log4j to 2.16.0","X-rays fails if there's a filter in the question","XLSX export does not respect \\"Separator style\\"","One cannot change any of the LDAP Settings once it's been initially setup","Custom Expression `coalesce` is using wrong field reference when nested query","Custom Expression `case` is using wrong field reference when nested query","Dashboard causes permission error, when \\"Click Behavior\\" linking to dashboard/question without access","Site URL validation too strict, doesn't accept underscore","Reverse proxy reset email should use site URL in email body and not localhost"]},"older":[{"version":"v0.41.4","released":"2021-12-10","patch":true,"highlights":[]},{"version":"v0.41.3.1","released":"2021-12-02","patch":true,"highlights":["BigQuery and Google Analytics drivers broken on x.41.3","BigQuery connection error on 0.41.1"]},{"version":"v0.41.3","released":"2021-12-01","patch":true,"highlights":["Static viz creates Picaso painting, when data is unordered Timeseries","Harmonize Google dependency versions, which could cause conflict between GA and new BigQuery driver","Saving/updating questions can take a very long time (seconds or minutes) on large instances","Funnel chart showing retained NaN% when all rows from aggregate column are zero","Changing a (old) pivoted table to less than 3 columns results in blank screen","Exports fails, when there's invalid visualization `column_settings` references","Cannot send test emails before creating subscription, when using non-default filter values","Native editor autocomplete suggestions makes object lookup without `limit`","Strip whitespace from Google sign-in client IDs","Validate Google sign-in client IDs","Dashboard causes permission error, when \\"Click Behavior\\" linking to dashboard/question without access","Clicking on legend in native question breaks the UI","Trend tile on dashboard differs from tile on full screen"]},{"version":"v0.41.2","released":"2021-11-09","patch":true,"highlights":["Frontend crashes when opening admin database permissions page","Cannot access Notebook for questions that uses a Custom Column as joining column","Requests to `GET /api/card/123` is making slow queries on larger instances","BigQuery can cause conflict with some column names like `source`","\\"Verify this question\\" button is shown even when content moderation feature is not enabled","New BigQuery driver with \\"Project ID (override)\\" defined causes different Field Filter references","Dashboard subscription send by Email fails with xlsx attachements","Textbox markdown links on images difficult to click","Some questions with old field dimensions or changed columns cannot be viewed, because of Javascript loop","Multi-column join interface defaults binning for numeric fields causing incorrect results","Sandboxing queries fails with caching is enabled","Changing redshift db details leads to closed or broken resource pool","Audit visualizations does not show correct information, when there's more than 1000 aggregated dates","\\"Set up your own alert\\" text needs padding ","Dashboard Subscriptions are not deactivated, when dashboard is archived","Update Uberjar builds on CircleCI to new build script","ED25519 keys not working for built-in SSH tunnels","Pin Maps with more than 1000 results (LeafletTilePinMap) not working with native queries"]},{"version":"v0.41.1","released":"2021-10-21","patch":true,"highlights":["Not all endpoints are called, when doing FullApp embedding","XLSX export of large columns fails because of formatting limitations","Caching on 0.41.0 caches results for very long time (does not respect settings defined)","Exporting large amount of data can result in OutOfMemory","Chart descriptions (except table) is not shown in dashboards","Better approach for column ordering in exports","Remapped (display value) columns are dropped in downloads","Tools for fixing errors problems with postgres semantics of limits (blank display of error table)","Filtering null-column via the drill-through action menu causes blank screen","Data Model shows blank page if there are any hidden tables in the database","Columns missing from exports, when viz settings are using older field dimensions","Pulses with rounded floats render a hanging decimal point in 0.41.0","Raise MB_DB_CONNECTION_TIMEOUT_MS to 10000 as default","Pulse/Subscription table cards with two columns (string, integer) fail to render","[Add Database > Presto] Multiple JDBC field options","Impossible to choose fields from different schema on Field Filters","In email subscription, the original question title is shown instead of the curated title (v41)","Audit > Questions > Total runtime displays link instead of an actual time","KeyExchange signature verification failed for key type=ssh-rsa","Export to XLSX can fail, when there's a very high integer value","Questions -> all questions in Audit feature sorts by null values","Allow caching of fonts and images","Dashboard Subscription test email button does not show error messages","EE Audit App frontend does not display error messages if queries fail","Dashboard Textbox does not render links unless using Markdown","Pin map only containing null location results causes the frontend to constantly reload or blank page","X-Rays: Table field is shown as \\"null\\" in the title","Custom Column with the same name as a table column returns incorrect results when grouped","Adding data series to dashboard widget lags then sometimes hangs the UI"]},{"version":"v0.41.0","released":"2021-10-06","patch":false,"highlights":["Went setting up multiple Dashboard Subscriptions, \\"Send email now\\" always sends the first one you set up until you refresh the page","Pull in translations for 0.41","Export in 0.41.0-rc1 does not include aggregated columns","Whitelabel color options are not translatable","Error inserting to view_log in 41-RC1","Fix filter alignment in emails with many or long values","Whitelabel includes `Metabase` in the subject for Alerts","XLSX download fails, when settings still has the old `k:mm` hour-format instead of `HH:mm`","History of last edited questions","Search fields in `Tools > Errors` should be disabled when there are no questions","\\"Rerun Selected\\" button is always enabled (even when there are no broken questions)","Dragging dashboards filters makes them hidden while dragging","Fix x-ray dashboards crash on first open","Fix Audit logging not showing ad-hoc native queries","X-ray dashboards crash on first opening","Send to Slack/Send email now buttons on dashboard subscriptions send the wrong dashboard","master - the upper-corner Run/Reload button has become very big","Schemas with only hidden tables are shown in the data selector","Saved Question: changing the breakout field (summarize) removes order-by (sort)","Notebook Join UI display wrong table name with multiple join (master)","Active filter widget are not using whitelabel color on border","Data point value can be slightly cut-off for the top Y-axis values","Dashboard sticky filter section is visible even when there aren't any filters","Click Behavior does not work with old Pivot","BigQuery Custom Column difficult to use because of name restrictions","Revision history does not update until page reload","Visualizations are not always using whitelabel colors by default","BigQuery Custom Expression function `Percentile` and `Median` not using correct backtick quoting","BigQuery `BIGNUMERIC` is recognized as `type/*` and displayed as string","Joining behavior on datetime columns needs to be clearer"]},{"version":"v0.40.5","released":"2021-09-21","patch":true,"highlights":["🤖 backported \\"GeoJSON URL validation fix\\"","Grid map causes frontend reload or blank screen, when hovering the grids if there is no metric","Cannot create more than 2 metrics, when UI language is Turkish - screen goes blank or displays \\"Something went wrong\\"","Visualizations with more than 100 series just shows a blank chart","Data point values uses formatting Style of first serie on all series"]},{"version":"v0.40.4","released":"2021-09-09","patch":true,"highlights":["Dashboard filter autocomplete not working with mixed Search/Dropdown when dropdown has a `null` value","Not possible to delete Dashboard Subscription unless dashboard is in root collection","Possible to not input recipient of Subscription, which will then cause blank screen","Valid Email settings disappear on save, but re-appear after refresh","Unable to click \\"Learn more\\" on custom expression","Editing an alert causes it to be deleted in some circumstances","New databases with \\"This is a large database ...\\" still uses the default sync+scan settings","Adding cards to dashboard via search can cause the card to show spinner until browser refresh","Cannot login with OpenAM SAML since 1.38.3","Native question \\"Filter widget type\\"=\\"None\\" hides the filter widget even after changing it to something else"]},{"version":"v0.40.3.1","released":"2021-08-26","patch":true,"highlights":[]},{"version":"v0.40.3","released":"2021-08-25","patch":true,"highlights":["🤖 backported \\"Keep `collection_id` of dashboard subscriptions in sync with same field on dashboard\\"","Run-overlay not going away on GUI question","Dashboard causes scrollbars to constantly go on/off depending on viewport size ","Serialization `--mode skip` incorrectly updates some objects","Serialization crashes on dump if there's no collections","Serialization: Cannot load into empty/blank target","Clicking the column formatting button when the sidebar is already open should correctly open that column's formatting sidebar","Dashboard Subscription doesn't follow the order of the cards on the dashboard","Clicking away from Sandbox modal breaks perms page"]},{"version":"v0.40.2","released":"2021-08-03","patch":true,"highlights":["Update strings for 0.40.2","Docs for 40.2","Snippet folder permissions are always applied to root","Cannot start development in VS Code because of missing Node.js","Search widget on question builder hangs tab, API field search limit not respected","Only 50 groups are displayed","People search dropdown goes outside of the screen","Only 50 users shown in email autocomplete and \\"Other user's personal collection\\"","Dashboard - Adding ‘Click Behavior’ to an image field converts image to URL","Cannot upgrade to v0.40.x on AWS Elastic Beanstalk due to AWS Inspector not being available in certain regions","Add Metabase Cloud link to admin settings for hosted instances","Fix dashboard card hovering buttons drag behaviour","Elastic Beanstalk nginx config is not updated on latest EB docker images","Cannot deactivate users after the first 50 users","Tabs in the Audit section look broken","Duplication of the displayed table","Allow selecting text in Textbox cards, while dashboard is in edit-mode","Metabase on old AWS Elastic Beanstalk (Amazon Linux w/ old Docker) upgrade to 0.40 failed","Popover footer is displaced when using filter with a search input","Public Sharing footer is double-size because action buttons are stacked","Error when setting column type to Number in data model settings","Site URL can sometimes be incorrectly defined during startup","Padding needed for button on map settings page","LDAP/Email settings gets cleared if validation fails","Serialization: Visualization column settings lost","Waterfall visualization does not work with ordinal X-axis","Clicking \\"Cancel\\" on collection archive modal should let you stay in that same collection","Snowflake Connector Requires Deprecated Region Id","Modify instead of replace default EB nginx config"]},{"version":"v0.40.1","released":"2021-07-14","patch":true,"highlights":["An error occurs when opening a public question with filters having default parameters","Remove Multi-Release from manifest","Questions filters does not work in Embedded/Public","Long titles in collections push out the last-edited-by and last-edited-at columns","Only first 50 databases are displayed","After hiding the column and then setting a required default value for SQL field filter (connected to that column) shows all fields as hidden and breaks SQL filters completely","Global search suggestions dropdown appears behind the dataset search widget when starting a simple question","Clean up the user-facing strings for coercion options","Clicking Visualize in Notebook makes the question \\"dirty\\" even if no changes was made"]},{"version":"v0.40.0","released":"2021-07-08","patch":false,"highlights":["Avoid error when user searches with no data perms","Updated saved question data picker - styling improvements","The pinned items from the main collection are not showed on the front page anymore","[0.40 blocker] Handle personal collections better in the new saved question data picker","Remove \\"Something went wrong\\"","Filter flag causes overlay for required \\"Number\\" filter with the default value set","Do not show Cloud CTA for Enterprise Edition","The list of collections available on homepage \\"Our analytics\\" depends on the name of the first 50 objects","Filter feature flag causes Run-overlay of results in Native editor unless editor is expanded","Error message missing when logging in to a disabled account with Google sign-in","unix-timestamp->honeysql implementation for h2 is incorrect for microseconds","Fix funnel appearance","Confusing UI when adding GeoJSON with no identifiers","Better error handling when adding malformed GeoJSON","Can't archive a question from the Question page","Can't move item to \\"Our analytics\\" using drag-n-drop","Can't \\"Select All\\" collection items if all items are pinned","Bulk archive doesn't work","Selecting bin count on intermediate data question fails","Collections Metadata FE Implementation","Group by on a `:Coercion/YYYYMMDDHHMMSSBytes->Temporal` postgres column fails","Double binning menu for date fields when using Saved Question (Native)","Cannot filter only on longitude/latitude range - UX is forcing user to fill out values for both fields","Bug in values on data points for waterfall charts","Table view on Permissions shows error on browser refresh","Password login on SSO instance drops the redirect URL","No error is reported when adding SQLite database that doesn't exist","Specific combination of filters can cause frontend reload or blank screen","Dashboard Contains filter doesn't remain when clicking on Question title","Normal login errors are not surfaced if SSO is also active"]},{"version":"v0.39.4","released":"2021-06-16","patch":true,"highlights":["Javascript error when enabling JWT authentication","Switch to column settings when sidebar is already open","Questions on MongoDB return 'No results!' after upgrade from 0.38.5 to 0.39.0 when filtering against array ","Login blocked till timeout if Metabase can't reach GeoJS API","Missing tooltip for sharing individual question","Histograms should filter out null x values","Shifted chart values on line with ordinal x axis","Don't show Custom Expression helper, when input is not in focus","Dashboard filters dropdown only list the first 100 values","Cannot use arithmetic between two `case()` function in Custom Expression","LDAP login fails with Group Sync when user is assigned to 1 group","LDAP auth errors with \\"did not match stored password\\" if `givenName` or `sn` is missing","Cannot join Saved Questions that themselves contains joins","Human-reable numering not working properly","Time series filter and granularity widgets at bottom of screen are missing","LDAP group sync - LDAPException after removing user from a mapped group","Dashboard text cards aren't scrolling"]},{"version":"v0.39.3","released":"2021-05-27","patch":true,"highlights":["Feature flag causes problems with Number filters in Native query","Revoking access to users in multiple groups does not correctly cleanup GTAP","LDAP settings form hitting wrong API endpoint on save","ExpressionEditor loses value when user resizes browser window","ExpressionEditor loses value when user clicks away from associated name input","Filter dropdown not working for non-data users, when field has 300+ distinct values.","Tooltip only shows first Y-axis value when X-axis is numeric and style is Ordinal/Histogram","Gauge visualization on small screens can cause frontend refresh on hover","Serialization: `field-literal` converted to `field` since 1.39.0","Serialization dumps with static references instead of paths in 1.39.0","Fix Serialization P1s","Incorrect result + loss of user input when summarizing with Saved Question","Some places shows `{0}` placeholder instead of expected value","Serialization load-process does not update `source-table` in joins, leading to broken questions","Unchecking \\"Remember me\\" box has no effect -- close the browser and reopen, then go back to your MB instance and you're still logged in","Serialization `dump` includes Personal Collections","Serialization: Nested question references questions in other collection are moved and becomes corrupted","Serialization: Snippet folders and Collections collide on `dump` because of missing namespace separation","Serialization: Snippets are not transferred correctly, leading to incorrect references and broken queries","Serialization: Click Behavior not translating entitiy ID on dump, potentially referencing wrong entities on load","Wrong LDAP port input (non-numeric) can cause complete lockout","Nested queries using metric got wrong SQL","Cannot aggregate question with unix timestamp column that is converted/cast in Metabase","Test LDAP settings before saving","Nested queries using metrics need to include all columns used in metric filters"]},{"version":"v0.39.2","released":"2021-05-17","patch":true,"highlights":["Regression combining Druid date filters with dimension filters","Regression in filtering Druid table where greater than date","Variable Field Type after upgrade \\"Input to parse-value-to-field-type does not match schema\\"","Whitelabel favicon does not work correctly in all browsers","Show right versions on enterprise custom builds","Not possible to select pinned collection item using checkbox","The new \\"contains\\" behavior for field value lookup doesn't work outside of dashboards","Cannot restore table visibility in Data Model, when database is down","LDAP user authorization failed with `$` in password","Difficult to use some filters, when user has no data permissions [FE - Filter widget stops working if API endpoint returns 403]","Serialization: Dashboard cards are corrupted, when questions are outside of dashboard collection","Collection tree loader causes UI jump","Filters with dropdown lists uses query on the database","Login Failing for LDAP if user email isn't lowercase","Startup warning about unsupported class will impact performance","Auth Returns 400 Bad Request instead of 401 Unauthorized upon wrong credentials submission","Need better instructions for setting up Google Auth"]},{"version":"v0.39.1","released":"2021-04-27","patch":true,"highlights":["Tooltip shows incorrect values on unaggregated data with breakout","Can't use parentheses as expected in filter expressions","UI prevents adding 2 parameters to `Percentile()` function","Login logo is left-aligned on EE, when whitelabel features are enabled","No loading spinner when clicking a Collection on the home page","Tooltip on unaggregated data does not show summed value like the visualization","Table with multiple Entity Key columns incorrectly filtering on \\"Connected To\\" drill-through"]},{"version":"v0.39.0.1","released":"2021-04-20","patch":false,"highlights":["Cannot select category Field Filter in Native query on 0.39.0","map category/location to string so we can treat them like string/= in UI"]},{"version":"v0.39.0","released":"2021-04-19","patch":false,"highlights":["Strings with placeholders like {0} aren't translating correctly","Wrong tooltip labels and values for multiple series charts in dashboard","Add feature flag for the new 0.39.0 dashboard filter types","Pulse fails when visualization_settings is referring to a field-literal column","Login History not recording correct IP address","Add an ENV var setting for typeahead search","BigQuery with filter after aggregation of join table fails query with wrong alias reference on 38.x","Dashboard Textbox images are 100% width","Questions based on Saved Questions is not using the same query for date filters leading to wrong results","0.39 string translations","0.39 Docs","Add missing \\"is\\" assertions to various tests","Custom Expression autocomplete operator selection is appended to what was typed","Custom Expression formula starts with high cursor placement on Firefox","Custom Expression filter not setting the \\"Done\\" button to current state of the formula until onblur","Custom Expression editor is removing spaces too aggressive","Hitting return when modifying a custom expression incorrectly discards changes","metabase/metabase-enterprise-head Docker image doesn't have enterprise extensions","Custom expressions: UI is too wide when shown in the sidebar","Search: some results are as being in a folder which doesn't exist in the data reference","Error saving metric in data reference","Dashboard Subscription Filters: Set Parameter Values","Normalize queries in URL fragments on FE","Support string and number filter operators in dashboard parameter filters ","defsetting macro throw an Exception if you try to define a setting that's already defined in a different namespace","Fix render error when removing a dashboard parameter","Upgrade HoneySQL version to latest","Dashboard Filter Improvements (to support large-scale rollout)","SSH Connectivity Improvements","MBQL Refactor: Combine various Field clauses into one new clause"]},{"version":"v0.38.4","released":"2021-04-12","patch":true,"highlights":["Not possible to position Y-axis if there's only one series","Tooltip on unaggregated data does not show summed value like the visualization","For a new Custom column, I can set Style to \\"Currency\\", but cannot choose the Unit of Currency","Add Kyrgyz Som to currency list"]},{"version":"v0.38.3","released":"2021-04-01","patch":true,"highlights":["Overflow text on Ask a question page ","Filtering on coerced column doesn't always know its coerced","Wrong series label in multiple series scatterplot","Dashboard Subscription fails for all SQL questions with a Field Filter on date column connected on dashboard","Dashboard Subscription Emails do not work with filtered Native Queries","Dashboard Subscription sidebar broken for Sandboxed users","Provide more logging information on permission errors when creating Cards"," In Settings > Email, Save Changes is enabled even when there are no changes","Exports always uses UTC as timezone instead of the selected Report Timezone","Invalid Redirect Location After SAML Sign-in via Full App Embed","Cannot download XLSX if there's more than 1 million results","Frontend load issue: SMTP Email","Pie chart sometimes does not show total","Users with collections \\"edit\\" permissions and no data access permissions can't edit question metadata","Add Bitcoin as a unit of currency","Column \\"Custom title\\" not working in tooltips","Schema sync does not update changes in column type case","Error on visualization change of a question with SQL queries view only permission","Line chart dots don't have `cursor: pointer` when hovering"]},{"version":"v0.38.2","released":"2021-03-17","patch":true,"highlights":["Data model not showing PostgreSQL tables when they are partitioned","Migrate old pre-1.37 \\"Custom Drill-through\\" settings to x.37+ \\"Click Behavior\\"","Regression with URL links"]},{"version":"v0.38.1","released":"2021-03-03","patch":true,"highlights":["Serialization `dump` of aggregated questions are not copied over on `load`","Serialization doesn't update Sub-Query variable reference","Oracle, BigQuery filtering by column with day-of-week bucketing not working","Pivot Table export not working on unsaved questions","Pivot Table does not work for users without data permissions","Pivot Table not working with Sandboxed user","BigQuery: Joins in the query builder generate invalid table aliases","BigQuery: Question Stays running until timeout when query is error in Native Query","Serialization: Archived items are included in `dump`","Breadcrumbs can be confusing (the current one \\"seems\\" clickable when it's not)","regexextract breaks query on sandboxed table","Multi-level aggregations fails when filter is the last section","Pivot queries aren't recorded to query execution log","Start of Week not applied to Field Filter in Native question, which can lead to incorrect results","In Safari 14, add-grouping button disappears randomly but consistently","Serialization does not initialize 3rd party drivers when loading a dump","Wrong day names are displayed when using not-Sunday as start of the week and grouping by \\"Day of week\\"","Difficult to see which cells has \\"Click behavior\\" vs normal behavior","Object Detail previous/next buttons not working correctly","Global number formatting does not apply to percentages","Native question filter widget reordering doesn't work"]},{"version":"v0.38.0.1","released":"2021-02-19","patch":false,"highlights":[]},{"version":"v0.38.0","released":"2021-02-16","patch":false,"highlights":["Sandboxed question with `case` Custom Field doesn't substitute the \\"else\\" argument's table","Custom Expression using `case()` function fails when referencing the same column names","Filtering a Custom Column does not give correct results when using \\"Not equal to\\"","Cannot remove columns via QB sidebar, then query fails, but works if being removed via Notebook","fix(rotate-encryption-key) settings-last-updated is not encrypted","For Pivot Tables, download popup doesn't show","Dashboard Subscriptions: Have to click the close button multiple times after viewing a Subscription","Advanced Sandboxing ignores Data Model features like Object Detail of FK","Publish \\"latest\\" OSS JAR","Custom GeoJSON files are not sorted in the dropdown","user@password JDBC connection strings for application DB no longer work","Shrunken bubbles shown in question for null values","Drilling down by a Region Map assigns the wrong value to the filter","Using \\"Reset to defaults\\" on textbox causes it to become a corrupted card on dashboard","Add a lightweight notify api endpoint","Sandboxing on tables with remapped FK (Display Values) causes query to fail","Allow usage of PKCS-12 certificates with Postgres connections","dump-to-h2 does not return a non-zero exit code on failure","Advanced Sandboxing using questions that return more/other columns than the sandboxed table is not possible anymore, but the errors are not helpful","Bar chart x-axis positions can cause different spacing depending on the dates returned","Custom Columns breaks Pivot Table","Pivot tables broken on dashboard after resize","dump-to-h2 with --dump-plaintext should check for presence of MB_ENCRYPTION_SECRET_KEY","Right alignment of pivot table value cells looks broken","Don't inform admins about MB cloud on EE instances","add cmd rotate-encryption-key","Token check retry is too aggressive","Login page should automatically focus on the email input field","Dashboard subscriptions including cards no longer in dashboard","UI should update when a collection changes parent"]},{"version":"v0.37.9","released":"2021-02-11","patch":true,"highlights":[]},{"version":"v0.37.8","released":"2021-01-29","patch":true,"highlights":["Cannot add (date) filter if calendar is collapsed"]},{"version":"v0.37.7","released":"2021-01-20","patch":true,"highlights":[]},{"version":"v0.37.6","released":"2021-01-13","patch":true,"highlights":[]},{"version":"v0.37.5","released":"2021-01-05","patch":true,"highlights":["Linked filters breaking SQL questions on v0.37.2","Embedding loading slow","Cannot toggle off 'Automatically run queries when doing simple filtering and summarizing' "]},{"version":"v0.37.4","released":"2020-12-17","patch":true,"highlights":["Error in Query: Input to aggregation-name does not match schema","Revert #13895","Exports always uses UTC as timezone instead of the selected Report Timezone","Between Dates filter behaves inconsistently based on whether the column is from a joined table or not"]},{"version":"v0.37.3","released":"2020-12-03","patch":true,"highlights":["Fix chain filtering with temporal string params like 'last32weeks'","Linked filters breaking SQL questions on v0.37.2","Running with timezone `Europe/Moscow` shows Pulse timezone as `MT` instead of `MSK` and sends pulses on incorrect time","Order fields to dump by ID","Remove object count from log output"]},{"version":"v0.37.2","released":"2020-11-16","patch":true,"highlights":["When visualization returns `null` (No results), then UI becomes broken"]},{"version":"v0.37.1","released":"2020-11-12","patch":true,"highlights":["Table schema sync performance impact","v0.37.0.2 doesn't sync Vertica schema","Pie chart shows spinner, when returned measure/value is `null` or `0`","Wrong day names are displayed when using not-Sunday as start of the week and grouping by \\"Day of week\\"","When result row is `null`, then frontend incorrectly shows as \\"No results!\\"","Snowflake tables with a GEOGRAPHY column cannot be explored","Cannot edit BigQuery settings without providing service account JSON again","Sync crashes with OOM on very large columns/row samples [proposal]","500 stack overflow error on collection/graph API call","Custom Column after aggregation creates wrong query and fails","The expression editor shouldn't start in error mode without any user input","Pulse attachment file sent without file extension","Metric with unnamed Custom Expression breaks Data Model for table","Nested queries with duplicate column names fail","pulse attachment file(question name) Korean support problem","Pulse Bar Chart Negative Values Formatting"]},{"version":"v0.37.0.2","released":"2020-10-26","patch":false,"highlights":[]},{"version":"v0.36.8.2","released":"2020-10-26","patch":true,"highlights":[]},{"version":"v0.37.0.1","released":"2020-10-23","patch":false,"highlights":[]},{"version":"v0.36.8.1","released":"2020-10-23","patch":true,"highlights":[]},{"version":"v0.37.0","released":"2020-10-22","patch":false,"highlights":["Fix null handling in filters regression","Add translation for Bulgarian","0.37.0-rc3: Click behavior to Dashboard shown on Public/Embedded","NO_COLOR/MB_COLORIZE_LOGS does not remove all ansi codes","0.37.0-rc3: Filtering a joined table column by \\"Is not\\" or \\"Does not contain\\" fails","Update translations for final 0.37 release","0.37.0-rc2: Monday week start displays incorrectly on bar chart","0.37.0-rc2: Linked filter showing all values (not filtering)","Only get substrings in fingerprinting when supported [ci drivers]","0.37.0-rc2: log4j should not output to file by default","0.37-RC2: we should suppress drag behavior when custom click behavior is set","0.37-RC2: disable Done button in cases where click behavior target isn't specified","0.37-RC2: weird edit state when saving a dashboard with incomplete click behavior","0.37-RC2: Interactivity summary tokens squashed on small dashboard cards","0.37.0-rc2: Hovering on custom map no longer displays region name, displays region identifier instead","0.37.0-rc1: \\"Click behavior\\" to URL for non-table card, doesn't show reference fields to use as variables","0.37.0-rc1: Variables from Saved Question are referencing the same question","0.37.0-rc2: Cannot create custom drill-through to dashboard","0.37-rc1: after clicking a custom link that passes a value to a param, clicking Back shouldn't bring that value to the original dashboard","0.37-rc1: When mapping dashboard filters to columns, SQL questions should display the name of the column mapped to the field filter","0.37-rc1: customizing a dashboard card's click behavior without specifying a destination causes strange behavior","0.37-rc1: canceling the dashboard archive action takes you to the collection","Embedded versions of new chain filters endpoints ","\\"Does not contain\\" and \\"Is not\\" filter also removes nulls","Docs - 37 release - new dashboard functionality","forward slash on table name causes ORA-01424 and blocks the sync step","Update login layout and illustration.","MySQL grouping on a TIME field is not working","Field Filter variables in SQL question don’t show table name when connecting filters in dashboard","Upgrade to log4j 2.x"]},{"version":"v0.36.8","released":"2020-10-22","patch":true,"highlights":[]},{"version":"v0.36.7","released":"2020-10-09","patch":true,"highlights":["Presto not respecting SSL and always uses http instead of https","Footer (with export/fullscreen/refresh buttons) on Public/Embedded questions disappears when using Premium Embedding","Postgres sync not respecting SSH tunneling"]},{"version":"v0.36.6","released":"2020-09-15T22:58:04.727Z","patch":true,"highlights":["Various bug fixes"]},{"version":"v0.36.5.1","released":"2020-09-11T23:16:26.199Z","patch":true,"highlights":["Remappings should work on broken out fields"]},{"version":"v0.36.4","released":"2020-08-17T22:41:20.449Z","patch":true,"highlights":["Various bug fixes"]},{"version":"v0.36.3","released":"2020-08-04T23:57:45.595Z","patch":true,"highlights":["Support for externally linked tables"]},{"version":"v0.36.2","released":"2020-07-31T17:46:34.479Z","patch":true,"highlights":["Various bug fixes"]},{"version":"v0.36.1","released":"2020-07-30T18:10:44.459Z","patch":true,"highlights":["Various bug fixes"]},{"version":"v0.36.0","released":"2020-07-21T19:56:40.066Z","patch":false,"highlights":["SQL/native query snippets","Language selection"]},{"version":"v0.35.4","released":"2020-05-29T17:31:58.191Z","patch":true,"highlights":["Security fix for BigQuery and SparkSQL","Turkish translation available again","More than 20 additional bug fixes and enhancements"]},{"version":"v0.35.3","released":"2020-04-21T21:18:24.959Z","patch":true,"highlights":["Various bug fixes"]},{"version":"v0.35.2","released":"2020-04-10T23:03:53.756Z","patch":true,"highlights":["Fix email and premium embedding settings","Fix table permissions for database without a schema","Fix \\"Error reducing result rows\\" error"]},{"version":"v0.35.1","released":"2020-04-02T21:52:06.867Z","patch":true,"highlights":["Issue with date field filters after v0.35.0 upgrade","Unable to filter on manually JOINed table"]},{"version":"v0.35.0","released":"2020-03-25T18:29:17.286Z","patch":false,"highlights":["Filter expressions, string extracts, and more","Reference saved questions in your SQL queries","Performance improvements"]},{"version":"v0.34.3","released":"2020-02-25T20:47:03.897Z","patch":true,"highlights":["Line, area, bar, combo, and scatter charts now allow a maximum of 100 series instead of 20.","Chart labels now have more options to show significant decimal values.","Various bug fixes"]},{"version":"v0.34.2","released":"2020-02-05T22:02:15.277Z","patch":true,"highlights":["Various bug fixes"]},{"version":"v0.34.1","released":"2020-01-14T00:02:42.489Z","patch":true,"highlights":["Various bug fixes"]},{"version":"v0.34.0","released":"2019-12-20T01:21:39.568Z","patch":false,"highlights":["Added support for variables and field filters in native Mongo queries","Added option to display data values on Line, Bar, and Area charts","Many Timezone fixes"]},{"version":"v0.33.7.3","released":"2019-12-17T01:45:45.720Z","patch":true,"highlights":["Important security fix for Google Auth login"]},{"version":"v0.33.7","released":"2019-12-13T20:35:14.667Z","patch":true,"highlights":["Important security fix for Google Auth login"]},{"version":"v0.33.6","released":"2019-11-19T20:35:14.667Z","patch":true,"highlights":["Fixed regression that could cause saved questions to fail to render (#11297)","Fixed regression where No Results icon didn't show (#11282)","Pie chart visual improvements (#10837)"]},{"version":"v0.33.5","released":"2019-11-08T20:35:14.667Z","patch":true,"highlights":["Added Slovak translation","Fixed support for MySQL 8 with the default authentication method","Fixed issues with X-axis label formatting in timeseries charts"]},{"version":"v0.33.4","released":"2019-10-08T20:35:14.667Z","patch":true,"highlights":["Custom expression support for joined columns","Fixed issue with filtering by month-of-year in MongoDB","Misc Bug Fixes"]},{"version":"v0.33.3","released":"2019-09-20T08:09:36.358Z","patch":true,"highlights":["Chinese and Persian translations now available again","Misc Bug Fixes "]},{"version":"v0.33.2","released":"2019-09-04T08:09:36.358Z","patch":true,"highlights":["Fixed Cards not saving","Fixed searrch not working "]},{"version":"v0.33.1","released":"2019-09-04T08:09:36.358Z","patch":true,"highlights":["Fixed conditional formatting not working","Fixed an issue where some previously saved column settings were not applied ","Fixed an issue where pulses were not loading "]},{"version":"v0.33.0","released":"2019-08-19T08:09:36.358Z","patch":false,"highlights":["Notebook mode + Simple Query Mode","Joins","Post Aggregation filters"]},{"version":"v0.32.10","released":"2019-07-28T08:09:36.358Z","patch":true,"highlights":["Fix User can't logout / gets automatically logged in.","Fix No data displayed when pivoting data","Fixed Dashboard Filters on Linked Entities Broke"]},{"version":"v0.32.9","released":"2019-06-14T08:09:36.358Z","patch":true,"highlights":["Fix issues connecting to MongoDB Atlas Cluster","Fix database addition on setup","Fixed numeric category error with Postgres"]},{"version":"v0.32.8","released":"2019-05-13T08:09:36.358Z","patch":true,"highlights":["Fix i18n"]},{"version":"v0.32.7","released":"2019-05-09T08:09:36.358Z","patch":true,"highlights":["Fix published SHA Hash"]},{"version":"v0.32.6","released":"2019-05-08T12:09:36.358Z","patch":true,"highlights":["Fixed regression where Dashboards would fail to fully populate","Performance improvements when running queries","Security improvements"]},{"version":"v0.32.5","released":"2019-04-20T12:09:36.358Z","patch":true,"highlights":["Improve long-running query handling","Fix H2 to MySQL/Postgres migration issue","Fix issue with embedded maps with custom GeoJSON"]},{"version":"v0.32.4","released":"2019-04-09T12:09:36.358Z","patch":true,"highlights":["Fix issue where Google Auth login did not work","FFix issue where Google Auth login did not work"]},{"version":"v0.32.3","released":"2019-04-08T12:09:36.358Z","patch":true,"highlights":["Fixed Snowflake connection issues","Fixed Dashboard copy","Fixed non-root context logins"]},{"version":"v0.32.2","released":"2019-04-03T12:09:36.358Z","patch":true,"highlights":["Fixed dashboard date filters ","Fixed SSL error using Quartz w/ MySQL","Fix colors in dashboards"]},{"version":"v0.32.1","released":"2019-03-29T12:09:36.358Z","patch":true,"highlights":["Fixed MySQL connections with SSL","Fixed table sync issue"]},{"version":"v0.32.0","released":"2019-03-28T12:09:36.358Z","patch":false,"highlights":["Modular Drivers (reducing memory consumption)","Async queries (improving responsiveness)","Reduced memory consumption."]},{"version":"v0.31.2","released":"2018-12-07T12:09:36.358Z","patch":true,"highlights":["Added German translation","Fixed Heroku out-of-memory errors","Fixed issue with Slack-based Pulses due to rate limiting."]},{"version":"v0.31.1","released":"2018-11-21T12:09:36.358Z","patch":true,"highlights":["Ability to clone dashboards","Faster startup time and lower memory consumption","Migration issue fixes."]},{"version":"v0.31.0","released":"2018-11-08T12:09:36.358Z","patch":false,"highlights":["New visualizations and combo charts","Granular formatting controls","Snowflake Support"]},{"version":"v0.30.4","released":"2018-09-27T12:09:36.358Z","patch":true,"highlights":["Metabase fails to launch in Chinese","Fix token status checking","Fix BigQuery SQL parameters with encrypted DB details"]},{"version":"v0.30.3","released":"2018-09-13T12:09:36.358Z","patch":true,"highlights":["Localization for Chinese, Japanese, Turkish, Persian","Self referencing FK leads to exception","Security improvements"]},{"version":"v0.30.2","released":"2018-09-06T12:09:36.358Z","patch":true,"highlights":["Localization for French + Norwegian","Stability fixes for HTTP/2"]},{"version":"v0.30.1","released":"2018-08-08T12:09:36.358Z","patch":true,"highlights":["Localization for Portuguese","Timezone fix","SQL Template tag re-ordering fix"]},{"version":"v0.30.0","released":"2018-08-08T12:09:36.358Z","patch":false,"highlights":["App wide search","Enhanced Collection permissions","Comparison X-Rays"]},{"version":"v0.29.3","released":"2018-05-12T12:09:36.358Z","patch":true,"highlights":["Fix X-ray rules loading on Oracle JVM 8"]},{"version":"v0.29.2","released":"2018-05-10T12:09:36.358Z","patch":true,"highlights":["Fix Spark Driver"]},{"version":"v0.29.1","released":"2018-05-10T11:09:36.358Z","patch":true,"highlights":["Better heroku memory consumption","Fixed X-Ray Bugs","Drill through from line chart selects wrong date"]},{"version":"v0.29.0","released":"2018-05-01T11:09:36.358Z","patch":false,"highlights":["New and Improved X-Rays","Search field values","Spark SQL Support"]},{"version":"v0.28.6","released":"2018-04-12T11:09:36.358Z","patch":true,"highlights":["Fix chart rendering in pulses"]},{"version":"v0.28.5","released":"2018-04-04T11:09:36.358Z","patch":true,"highlights":["Fix memory consumption for SQL templates","Fix public dashboards parameter validation","Fix Unable to add cards to dashboards or search for cards, StackOverflowError on backend"]},{"version":"v0.28.4","released":"2018-03-29T11:09:36.358Z","patch":true,"highlights":["Fix broken embedded dashboards","Fix migration regression","Fix input typing bug"]},{"version":"v0.28.3","released":"2018-03-23T11:09:36.358Z","patch":true,"highlights":["Security improvements"]},{"version":"v0.28.2","released":"2018-03-20T11:09:36.358Z","patch":true,"highlights":["Security improvements","Sort on custom and saved metrics","Performance improvements for large numbers of questions and dashboards"]},{"version":"v0.28.1","released":"2018-02-09T11:09:36.358Z","patch":true,"highlights":["Fix admin panel update string","Fix pulse rendering bug","Fix CSV & XLS download bug"]},{"version":"v0.28.0","released":"2018-02-07T11:09:36.358Z","patch":false,"highlights":["Text Cards in Dashboards","Pulse + Alert attachments","Performance Improvements"]},{"version":"v0.27.2","released":"2017-12-12T11:09:36.358Z","patch":true,"highlights":["Migration bug fix"]},{"version":"v0.27.1","released":"2017-12-01T11:09:36.358Z","patch":true,"highlights":["Migration bug fix","Apply filters to embedded downloads"]},{"version":"v0.27.0","released":"2017-11-27T11:09:36.358Z","patch":false,"highlights":["Alerts","X-Ray insights","Charting improvements"]},{"version":"v0.26.2","released":"2017-09-27T11:09:36.358Z","patch":true,"highlights":["Update Redshift Driver","Support Java 9","Fix performance issue with fields listing"]},{"version":"v0.26.1","released":"2017-09-27T11:09:36.358Z","patch":true,"highlights":["Fix migration issue on MySQL"]},{"version":"v0.26.0","released":"2017-09-26T11:09:36.358Z","patch":true,"highlights":["Segment + Metric X-Rays and Comparisons","Better control over metadata introspection process","Improved Timezone support and bug fixes"]},{"version":"v0.25.2","released":"2017-08-09T11:09:36.358Z","patch":true,"highlights":["Bug and performance fixes"]},{"version":"v0.25.1","released":"2017-07-27T11:09:36.358Z","patch":true,"highlights":["After upgrading to 0.25, unknown protocol error.","Don't show saved questions in the permissions database lists","Elastic beanstalk upgrades broken in 0.25 "]},{"version":"v0.25.0","released":"2017-07-25T11:09:36.358Z","patch":false,"highlights":["Nested questions","Enum and custom remapping support","LDAP authentication support"]},{"version":"v0.24.2","released":"2017-06-01T11:09:36.358Z","patch":true,"highlights":["Misc Bug fixes"]},{"version":"v0.24.1","released":"2017-05-10T11:09:36.358Z","patch":true,"highlights":["Fix upgrades with MySQL/Mariadb"]},{"version":"v0.24.0","released":"2017-05-10T11:09:36.358Z","patch":false,"highlights":["Drill-through + Actions","Result Caching","Presto Driver"]},{"version":"v0.23.1","released":"2017-03-30T11:09:36.358Z","patch":true,"highlights":["Filter widgets for SQL Template Variables","Fix spurious startup error","Java 7 startup bug fixed"]},{"version":"v0.23.0","released":"2017-03-21T11:09:36.358Z","patch":false,"highlights":["Public links for cards + dashboards","Embedding cards + dashboards in other applications","Encryption of database credentials"]},{"version":"v0.22.2","released":"2017-01-10T11:09:36.358Z","patch":true,"highlights":["Fix startup on OpenJDK 7"]},{"version":"v0.22.1","released":"2017-01-10T11:09:36.358Z","patch":true,"highlights":["IMPORTANT: Closed a Collections Permissions security hole","Improved startup performance","Bug fixes"]},{"version":"v0.22.0","released":"2017-01-10T11:09:36.358Z","patch":false,"highlights":["Collections + Collections Permissions","Multiple Aggregations","Custom Expressions"]},{"version":"v0.21.1","released":"2016-12-08T11:09:36.358Z","patch":true,"highlights":["BigQuery bug fixes","Charting bug fixes"]},{"version":"v0.21.0","released":"2016-12-08T11:09:36.358Z","patch":false,"highlights":["Google Analytics Driver","Vertica Driver","Better Time + Date Filters"]},{"version":"v0.20.3","released":"2016-10-26T11:09:36.358Z","patch":true,"highlights":["Fix H2->MySQL/PostgreSQL migrations, part 2"]},{"version":"v0.20.2","released":"2016-10-25T11:09:36.358Z","patch":true,"highlights":["Support Oracle 10+11","Fix H2->MySQL/PostgreSQL migrations","Revision timestamp fix"]},{"version":"v0.20.1","released":"2016-10-18T11:09:36.358Z","patch":true,"highlights":["Lots of bug fixes"]},{"version":"v0.20.0","released":"2016-10-11T11:09:36.358Z","patch":false,"highlights":["Data access permissions","Oracle Driver","Charting improvements"]},{"version":"v0.19.3","released":"2016-08-12T11:09:36.358Z","patch":true,"highlights":["fix Dashboard editing header"]},{"version":"v0.19.2","released":"2016-08-10T11:09:36.358Z","patch":true,"highlights":["fix Dashboard chart titles","fix pin map saving"]},{"version":"v0.19.1","released":"2016-08-04T11:09:36.358Z","patch":true,"highlights":["fix Dashboard Filter Editing","fix CSV Download of SQL Templates","fix Metabot enabled toggle"]},{"version":"v0.19.0","released":"2016-08-01T21:09:36.358Z","patch":false,"highlights":["SSO via Google Accounts","SQL Templates","Better charting controls"]},{"version":"v0.18.1","released":"2016-06-29T21:09:36.358Z","patch":true,"highlights":["Fix for Hour of day sorting bug","Fix for Column ordering bug in BigQuery","Fix for Mongo charting bug"]},{"version":"v0.18.0","released":"2016-06-022T21:09:36.358Z","patch":false,"highlights":["Dashboard Filters","Crate.IO Support","Checklist for Metabase Admins","Converting Metabase Questions -> SQL"]},{"version":"v0.17.1","released":"2016-05-04T21:09:36.358Z","patch":true,"highlights":["Fix for Line chart ordering bug","Fix for Time granularity bugs"]},{"version":"v0.17.0","released":"2016-05-04T21:09:36.358Z","patch":false,"highlights":["Tags + Search for Saved Questions","Calculated columns","Faster Syncing of Metadata","Lots of database driver improvements and bug fixes"]},{"version":"v0.16.1","released":"2016-05-04T21:09:36.358Z","patch":true,"highlights":["Fixes for several time alignment issues (timezones)","Resolved problem with SQL Server db connections"]},{"version":"v0.16.0","released":"2016-05-04T21:09:36.358Z","patch":false,"highlights":["Fullscreen (and fabulous) Dashboards","Say hello to Metabot in Slack"]}]}
 site-locale	en
+settings-last-updated	2022-01-07 09:25:12.505297+00
 anon-tracking-enabled	false
 enable-xrays	false
 enable-public-sharing	true
@@ -5316,8 +5378,6 @@ redirect-all-requests-to-https	false
 site-url	http://localhost/metabase
 enable-embedding	true
 embedding-secret-key	156812543071f0108b459434ebb9997b56865770f45fb9c19ff348772e72c0e4
-version-info-last-checked	2021-12-24T18:15:00.107325012Z
-settings-last-updated	2021-12-24 18:17:04.089739+00
 \.
 
 
@@ -5431,11 +5491,66 @@ COPY public.task_history (id, task, db_id, started_at, ended_at, duration, task_
 105	classify-fields	2	2021-12-23 20:46:01.864963+00	2021-12-23 20:46:01.881182+00	16	{"fields-classified":0,"fields-failed":0}
 106	classify-tables	2	2021-12-23 20:46:01.881225+00	2021-12-23 20:46:01.899051+00	17	{"total-tables":20,"tables-classified":0}
 108	send-pulses	\N	2021-12-23 21:00:00.112+00	2021-12-23 21:00:00.212+00	100	\N
+1241	task-history-cleanup	\N	2022-01-05 10:00:00.201+00	2022-01-05 10:00:00.366+00	165	\N
+1242	send-pulses	\N	2022-01-05 10:00:00.169+00	2022-01-05 10:00:00.492+00	323	\N
+1243	sync	2	2022-01-05 10:46:00.867238+00	2022-01-05 10:46:02.174232+00	1306	\N
+1244	sync-timezone	2	2022-01-05 10:46:00.879233+00	2022-01-05 10:46:01.270987+00	391	{"timezone-id":"UTC"}
+1245	sync-tables	2	2022-01-05 10:46:01.284242+00	2022-01-05 10:46:01.566887+00	282	{"updated-tables":0,"total-tables":34}
+1246	sync-fields	2	2022-01-05 10:46:01.566934+00	2022-01-05 10:46:01.975843+00	408	{"total-fields":95,"updated-fields":0}
+1247	sync-fks	2	2022-01-05 10:46:01.975872+00	2022-01-05 10:46:02.158473+00	182	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1248	sync-metabase-metadata	2	2022-01-05 10:46:02.158529+00	2022-01-05 10:46:02.174217+00	15	\N
+1249	analyze	2	2022-01-05 10:46:02.418858+00	2022-01-05 10:46:02.659591+00	240	\N
+1250	fingerprint-fields	2	2022-01-05 10:46:02.418881+00	2022-01-05 10:46:02.58831+00	169	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1251	classify-fields	2	2022-01-05 10:46:02.588359+00	2022-01-05 10:46:02.644507+00	56	{"fields-classified":0,"fields-failed":0}
+1252	classify-tables	2	2022-01-05 10:46:02.644549+00	2022-01-05 10:46:02.659566+00	15	{"total-tables":20,"tables-classified":0}
+1253	task-history-cleanup	\N	2022-01-05 11:00:00.137+00	2022-01-05 11:00:00.179+00	42	\N
+1254	send-pulses	\N	2022-01-05 11:00:00.085+00	2022-01-05 11:00:00.243+00	158	\N
+1255	sync	2	2022-01-05 11:46:00.149923+00	2022-01-05 11:46:02.0732+00	1923	\N
+1256	sync-timezone	2	2022-01-05 11:46:00.152266+00	2022-01-05 11:46:00.227661+00	75	{"timezone-id":"UTC"}
+1257	sync-tables	2	2022-01-05 11:46:00.227943+00	2022-01-05 11:46:00.378746+00	150	{"updated-tables":0,"total-tables":34}
+1258	sync-fields	2	2022-01-05 11:46:00.378799+00	2022-01-05 11:46:01.21141+00	832	{"total-fields":95,"updated-fields":0}
+1259	sync-fks	2	2022-01-05 11:46:01.211475+00	2022-01-05 11:46:01.398796+00	187	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1260	sync-metabase-metadata	2	2022-01-05 11:46:01.398853+00	2022-01-05 11:46:02.073158+00	674	\N
+1261	analyze	2	2022-01-05 11:46:02.244548+00	2022-01-05 11:46:02.485304+00	240	\N
+1262	fingerprint-fields	2	2022-01-05 11:46:02.244565+00	2022-01-05 11:46:02.381061+00	136	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1263	classify-fields	2	2022-01-05 11:46:02.381109+00	2022-01-05 11:46:02.436222+00	55	{"fields-classified":0,"fields-failed":0}
+1264	classify-tables	2	2022-01-05 11:46:02.436269+00	2022-01-05 11:46:02.485272+00	49	{"total-tables":20,"tables-classified":0}
+1266	task-history-cleanup	\N	2022-01-05 12:00:00.316+00	2022-01-05 12:00:00.317+00	1	\N
+1267	sync	2	2022-01-05 12:57:33.815538+00	2022-01-05 12:57:34.28872+00	473	\N
+1268	sync-timezone	2	2022-01-05 12:57:33.816105+00	2022-01-05 12:57:33.843299+00	27	{"timezone-id":"UTC"}
+1269	sync-tables	2	2022-01-05 12:57:33.843746+00	2022-01-05 12:57:33.876071+00	32	{"updated-tables":0,"total-tables":34}
+1270	sync-fields	2	2022-01-05 12:57:33.876099+00	2022-01-05 12:57:34.134441+00	258	{"total-fields":95,"updated-fields":0}
+1271	sync-fks	2	2022-01-05 12:57:34.134476+00	2022-01-05 12:57:34.259842+00	125	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1272	sync-metabase-metadata	2	2022-01-05 12:57:34.259879+00	2022-01-05 12:57:34.288699+00	28	\N
+1273	analyze	2	2022-01-05 12:57:34.421906+00	2022-01-05 12:57:34.551978+00	130	\N
+1274	fingerprint-fields	2	2022-01-05 12:57:34.421944+00	2022-01-05 12:57:34.501463+00	79	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1275	classify-fields	2	2022-01-05 12:57:34.501497+00	2022-01-05 12:57:34.519964+00	18	{"fields-classified":0,"fields-failed":0}
+1276	classify-tables	2	2022-01-05 12:57:34.520021+00	2022-01-05 12:57:34.551949+00	31	{"total-tables":20,"tables-classified":0}
+1278	task-history-cleanup	\N	2022-01-05 13:00:00.121+00	2022-01-05 13:00:00.122+00	1	\N
+1279	sync	2	2022-01-05 13:46:00.116128+00	2022-01-05 13:46:00.411356+00	295	\N
+1280	sync-timezone	2	2022-01-05 13:46:00.117247+00	2022-01-05 13:46:00.142238+00	24	{"timezone-id":"UTC"}
+1281	sync-tables	2	2022-01-05 13:46:00.142507+00	2022-01-05 13:46:00.173435+00	30	{"updated-tables":0,"total-tables":34}
+1282	sync-fields	2	2022-01-05 13:46:00.173472+00	2022-01-05 13:46:00.30359+00	130	{"total-fields":95,"updated-fields":0}
+1283	sync-fks	2	2022-01-05 13:46:00.303637+00	2022-01-05 13:46:00.39815+00	94	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1284	sync-metabase-metadata	2	2022-01-05 13:46:00.398182+00	2022-01-05 13:46:00.411343+00	13	\N
+1285	analyze	2	2022-01-05 13:46:00.537435+00	2022-01-05 13:46:00.579414+00	41	\N
+1286	fingerprint-fields	2	2022-01-05 13:46:00.537466+00	2022-01-05 13:46:00.560103+00	22	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1287	classify-fields	2	2022-01-05 13:46:00.560142+00	2022-01-05 13:46:00.572243+00	12	{"fields-classified":0,"fields-failed":0}
+1288	classify-tables	2	2022-01-05 13:46:00.572284+00	2022-01-05 13:46:00.579379+00	7	{"total-tables":20,"tables-classified":0}
+1289	send-pulses	\N	2022-01-05 14:00:00.05+00	2022-01-05 14:00:00.083+00	33	\N
+1290	task-history-cleanup	\N	2022-01-05 14:00:00.131+00	2022-01-05 14:00:00.132+00	1	\N
+1291	sync	2	2022-01-05 14:55:06.820887+00	2022-01-05 14:55:07.079204+00	258	\N
+1292	sync-timezone	2	2022-01-05 14:55:06.821366+00	2022-01-05 14:55:06.846875+00	25	{"timezone-id":"UTC"}
+1293	sync-tables	2	2022-01-05 14:55:06.847491+00	2022-01-05 14:55:06.875777+00	28	{"updated-tables":0,"total-tables":34}
+1294	sync-fields	2	2022-01-05 14:55:06.875806+00	2022-01-05 14:55:06.988307+00	112	{"total-fields":95,"updated-fields":0}
 90	sync-metabase-metadata	2	2021-12-23 19:46:00.959728+00	2021-12-23 19:46:00.975851+00	16	\N
 95	send-pulses	\N	2021-12-23 20:00:00.127+00	2021-12-23 20:00:00.398+00	271	\N
 107	task-history-cleanup	\N	2021-12-23 21:00:00.143+00	2021-12-23 21:00:00.175+00	32	\N
 117	classify-fields	2	2021-12-23 21:46:03.544843+00	2021-12-23 21:46:03.5549+00	10	{"fields-classified":0,"fields-failed":0}
 118	classify-tables	2	2021-12-23 21:46:03.554977+00	2021-12-23 21:46:03.586839+00	31	{"total-tables":20,"tables-classified":0}
+1265	send-pulses	\N	2022-01-05 12:00:00.248+00	2022-01-05 12:00:00.257+00	9	\N
+1277	send-pulses	\N	2022-01-05 13:00:00.067+00	2022-01-05 13:00:00.104+00	37	\N
+1316	task-history-cleanup	\N	2022-01-05 18:55:10.187+00	2022-01-05 18:55:10.195+00	8	\N
 109	sync	2	2021-12-23 21:46:00.433908+00	2021-12-23 21:46:03.291661+00	2857	\N
 110	sync-timezone	2	2021-12-23 21:46:00.435622+00	2021-12-23 21:46:00.651381+00	215	{"timezone-id":"UTC"}
 111	sync-tables	2	2021-12-23 21:46:00.652211+00	2021-12-23 21:46:00.992906+00	340	{"updated-tables":0,"total-tables":34}
@@ -5609,6 +5724,20 @@ COPY public.task_history (id, task, db_id, started_at, ended_at, duration, task_
 281	sync-fks	2	2021-12-24 20:49:20.021703+00	2021-12-24 20:49:20.147199+00	125	{"total-fks":28,"updated-fks":0,"total-failed":0}
 282	sync-metabase-metadata	2	2021-12-24 20:49:20.147226+00	2021-12-24 20:49:20.15749+00	10	\N
 287	send-pulses	\N	2021-12-24 21:01:46.968+00	2021-12-24 21:01:46.997+00	29	\N
+313	sync	2	2021-12-24 23:46:00.125112+00	2021-12-24 23:46:00.920849+00	795	\N
+314	sync-timezone	2	2021-12-24 23:46:00.125241+00	2021-12-24 23:46:00.142861+00	17	{"timezone-id":"UTC"}
+315	sync-tables	2	2021-12-24 23:46:00.143069+00	2021-12-24 23:46:00.187175+00	44	{"updated-tables":0,"total-tables":34}
+316	sync-fields	2	2021-12-24 23:46:00.187219+00	2021-12-24 23:46:00.763001+00	575	{"total-fields":95,"updated-fields":0}
+317	sync-fks	2	2021-12-24 23:46:00.763026+00	2021-12-24 23:46:00.893659+00	130	{"total-fks":28,"updated-fks":0,"total-failed":0}
+318	sync-metabase-metadata	2	2021-12-24 23:46:00.89371+00	2021-12-24 23:46:00.920819+00	27	\N
+319	analyze	2	2021-12-24 23:46:01.055615+00	2021-12-24 23:46:01.11265+00	57	\N
+320	fingerprint-fields	2	2021-12-24 23:46:01.055627+00	2021-12-24 23:46:01.094176+00	38	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+321	classify-fields	2	2021-12-24 23:46:01.094205+00	2021-12-24 23:46:01.100669+00	6	{"fields-classified":0,"fields-failed":0}
+323	send-pulses	\N	2021-12-25 00:00:00.102+00	2021-12-25 00:00:00.155+00	53	\N
+1295	sync-fks	2	2022-01-05 14:55:06.988345+00	2022-01-05 14:55:07.064969+00	76	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1296	sync-metabase-metadata	2	2022-01-05 14:55:07.064999+00	2022-01-05 14:55:07.079191+00	14	\N
+1301	task-history-cleanup	\N	2022-01-05 16:41:57.346+00	2022-01-05 16:41:57.348+00	2	\N
+1313	send-pulses	\N	2022-01-05 17:00:00.059+00	2022-01-05 17:00:00.097+00	38	\N
 283	analyze	2	2021-12-24 20:49:20.334848+00	2021-12-24 20:49:20.396665+00	61	\N
 284	fingerprint-fields	2	2021-12-24 20:49:20.334865+00	2021-12-24 20:49:20.377862+00	42	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
 285	classify-fields	2	2021-12-24 20:49:20.377918+00	2021-12-24 20:49:20.383476+00	5	{"fields-classified":0,"fields-failed":0}
@@ -5636,6 +5765,1265 @@ COPY public.task_history (id, task, db_id, started_at, ended_at, duration, task_
 308	fingerprint-fields	2	2021-12-24 22:46:00.540089+00	2021-12-24 22:46:00.569003+00	28	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
 309	classify-fields	2	2021-12-24 22:46:00.569038+00	2021-12-24 22:46:00.586347+00	17	{"fields-classified":0,"fields-failed":0}
 310	classify-tables	2	2021-12-24 22:46:00.58639+00	2021-12-24 22:46:00.59754+00	11	{"total-tables":20,"tables-classified":0}
+311	send-pulses	\N	2021-12-24 23:00:00.067+00	2021-12-24 23:00:00.102+00	35	\N
+312	task-history-cleanup	\N	2021-12-24 23:00:00.128+00	2021-12-24 23:00:00.135+00	7	\N
+322	classify-tables	2	2021-12-24 23:46:01.100692+00	2021-12-24 23:46:01.112626+00	11	{"total-tables":20,"tables-classified":0}
+324	task-history-cleanup	\N	2021-12-25 00:00:00.15+00	2021-12-25 00:00:00.16+00	10	\N
+325	sync	2	2021-12-25 00:46:00.096718+00	2021-12-25 00:46:00.392312+00	295	\N
+326	sync-timezone	2	2021-12-25 00:46:00.096799+00	2021-12-25 00:46:00.11904+00	22	{"timezone-id":"UTC"}
+327	sync-tables	2	2021-12-25 00:46:00.11977+00	2021-12-25 00:46:00.150798+00	31	{"updated-tables":0,"total-tables":34}
+328	sync-fields	2	2021-12-25 00:46:00.150828+00	2021-12-25 00:46:00.287254+00	136	{"total-fields":95,"updated-fields":0}
+329	sync-fks	2	2021-12-25 00:46:00.287284+00	2021-12-25 00:46:00.375816+00	88	{"total-fks":28,"updated-fks":0,"total-failed":0}
+330	sync-metabase-metadata	2	2021-12-25 00:46:00.37585+00	2021-12-25 00:46:00.392296+00	16	\N
+331	analyze	2	2021-12-25 00:46:00.520951+00	2021-12-25 00:46:00.573714+00	52	\N
+332	fingerprint-fields	2	2021-12-25 00:46:00.520961+00	2021-12-25 00:46:00.551464+00	30	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+333	classify-fields	2	2021-12-25 00:46:00.551493+00	2021-12-25 00:46:00.560869+00	9	{"fields-classified":0,"fields-failed":0}
+334	classify-tables	2	2021-12-25 00:46:00.5609+00	2021-12-25 00:46:00.573686+00	12	{"total-tables":20,"tables-classified":0}
+335	sync	2	2021-12-25 01:54:17.894992+00	2021-12-25 01:54:18.212672+00	317	\N
+336	sync-timezone	2	2021-12-25 01:54:17.895095+00	2021-12-25 01:54:17.910037+00	14	{"timezone-id":"UTC"}
+337	sync-tables	2	2021-12-25 01:54:17.910211+00	2021-12-25 01:54:17.949914+00	39	{"updated-tables":0,"total-tables":34}
+338	sync-fields	2	2021-12-25 01:54:17.950257+00	2021-12-25 01:54:18.093529+00	143	{"total-fields":95,"updated-fields":0}
+339	sync-fks	2	2021-12-25 01:54:18.093559+00	2021-12-25 01:54:18.194363+00	100	{"total-fks":28,"updated-fks":0,"total-failed":0}
+340	sync-metabase-metadata	2	2021-12-25 01:54:18.194388+00	2021-12-25 01:54:18.212653+00	18	\N
+341	analyze	2	2021-12-25 01:54:18.294421+00	2021-12-25 01:54:18.336307+00	41	\N
+342	fingerprint-fields	2	2021-12-25 01:54:18.294429+00	2021-12-25 01:54:18.320432+00	26	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+343	classify-fields	2	2021-12-25 01:54:18.320469+00	2021-12-25 01:54:18.326354+00	5	{"fields-classified":0,"fields-failed":0}
+344	classify-tables	2	2021-12-25 01:54:18.326379+00	2021-12-25 01:54:18.336279+00	9	{"total-tables":20,"tables-classified":0}
+345	sync	2	2021-12-25 02:54:08.512112+00	2021-12-25 02:54:08.889638+00	377	\N
+346	sync-timezone	2	2021-12-25 02:54:08.513758+00	2021-12-25 02:54:08.539278+00	25	{"timezone-id":"UTC"}
+347	sync-tables	2	2021-12-25 02:54:08.539863+00	2021-12-25 02:54:08.568349+00	28	{"updated-tables":0,"total-tables":34}
+348	sync-fields	2	2021-12-25 02:54:08.568785+00	2021-12-25 02:54:08.801516+00	232	{"total-fields":95,"updated-fields":0}
+349	sync-fks	2	2021-12-25 02:54:08.801546+00	2021-12-25 02:54:08.882282+00	80	{"total-fks":28,"updated-fks":0,"total-failed":0}
+350	sync-metabase-metadata	2	2021-12-25 02:54:08.882315+00	2021-12-25 02:54:08.889628+00	7	\N
+351	analyze	2	2021-12-25 02:54:08.993571+00	2021-12-25 02:54:09.039584+00	46	\N
+352	fingerprint-fields	2	2021-12-25 02:54:08.993584+00	2021-12-25 02:54:09.026303+00	32	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+353	classify-fields	2	2021-12-25 02:54:09.026333+00	2021-12-25 02:54:09.032568+00	6	{"fields-classified":0,"fields-failed":0}
+354	classify-tables	2	2021-12-25 02:54:09.032589+00	2021-12-25 02:54:09.039562+00	6	{"total-tables":20,"tables-classified":0}
+355	task-history-cleanup	\N	2021-12-25 23:31:13.728+00	2021-12-25 23:31:13.749+00	21	\N
+356	send-pulses	\N	2021-12-25 23:31:13.652+00	2021-12-25 23:31:13.73+00	78	\N
+357	send-pulses	\N	2021-12-26 00:03:39.756+00	2021-12-26 00:03:39.838+00	82	\N
+358	task-history-cleanup	\N	2021-12-26 00:03:39.794+00	2021-12-26 00:03:39.817+00	23	\N
+359	field values scanning	2	2021-12-26 18:00:00.187783+00	2021-12-26 18:00:00.811064+00	623	\N
+360	update-field-values	2	2021-12-26 18:00:00.189394+00	2021-12-26 18:00:00.810715+00	621	{"errors":0,"created":0,"updated":0,"deleted":0}
+361	task-history-cleanup	\N	2021-12-27 12:16:01.059+00	2021-12-27 12:16:01.352+00	293	\N
+362	send-pulses	\N	2021-12-27 12:16:01.052+00	2021-12-27 12:16:01.441+00	389	\N
+363	task-history-cleanup	\N	2021-12-29 08:17:19.818+00	2021-12-29 08:17:20.003+00	185	\N
+364	send-pulses	\N	2021-12-29 08:17:19.805+00	2021-12-29 08:17:20.108+00	303	\N
+365	task-history-cleanup	\N	2021-12-30 19:48:53.329+00	2021-12-30 19:48:53.372+00	43	\N
+366	send-pulses	\N	2021-12-30 19:48:53.37+00	2021-12-30 19:48:53.466+00	96	\N
+367	task-history-cleanup	\N	2021-12-30 20:00:00.047+00	2021-12-30 20:00:00.064+00	17	\N
+368	send-pulses	\N	2021-12-30 20:00:00.12+00	2021-12-30 20:00:00.136+00	16	\N
+369	sync	2	2021-12-30 20:46:00.161394+00	2021-12-30 20:46:01.20319+00	1041	\N
+370	sync-timezone	2	2021-12-30 20:46:00.161738+00	2021-12-30 20:46:00.243937+00	82	{"timezone-id":"UTC"}
+371	sync-tables	2	2021-12-30 20:46:00.244142+00	2021-12-30 20:46:00.37575+00	131	{"updated-tables":0,"total-tables":34}
+372	sync-fields	2	2021-12-30 20:46:00.375781+00	2021-12-30 20:46:01.108428+00	732	{"total-fields":95,"updated-fields":0}
+379	task-history-cleanup	\N	2021-12-30 21:00:00.07+00	2021-12-30 21:00:00.09+00	20	\N
+373	sync-fks	2	2021-12-30 20:46:01.108475+00	2021-12-30 20:46:01.195066+00	86	{"total-fks":28,"updated-fks":0,"total-failed":0}
+374	sync-metabase-metadata	2	2021-12-30 20:46:01.195108+00	2021-12-30 20:46:01.203177+00	8	\N
+375	analyze	2	2021-12-30 20:46:01.30394+00	2021-12-30 20:46:01.360171+00	56	\N
+376	fingerprint-fields	2	2021-12-30 20:46:01.303954+00	2021-12-30 20:46:01.336119+00	32	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+377	classify-fields	2	2021-12-30 20:46:01.336148+00	2021-12-30 20:46:01.342514+00	6	{"fields-classified":0,"fields-failed":0}
+378	classify-tables	2	2021-12-30 20:46:01.342533+00	2021-12-30 20:46:01.360139+00	17	{"total-tables":20,"tables-classified":0}
+380	send-pulses	\N	2021-12-30 21:00:00.145+00	2021-12-30 21:00:00.16+00	15	\N
+381	sync	2	2021-12-30 21:46:00.112114+00	2021-12-30 21:46:00.491906+00	379	\N
+382	sync-timezone	2	2021-12-30 21:46:00.112257+00	2021-12-30 21:46:00.13524+00	22	{"timezone-id":"UTC"}
+383	sync-tables	2	2021-12-30 21:46:00.135509+00	2021-12-30 21:46:00.175893+00	40	{"updated-tables":0,"total-tables":34}
+404	send-pulses	\N	2021-12-30 23:00:00.133+00	2021-12-30 23:00:00.147+00	14	\N
+408	send-pulses	\N	2021-12-31 01:00:00.119+00	2021-12-31 01:00:00.133+00	14	\N
+416	fingerprint-fields	2	2021-12-31 01:46:00.995032+00	2021-12-31 01:46:01.153559+00	158	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+417	classify-fields	2	2021-12-31 01:46:01.15361+00	2021-12-31 01:46:01.16422+00	10	{"fields-classified":0,"fields-failed":0}
+418	classify-tables	2	2021-12-31 01:46:01.164269+00	2021-12-31 01:46:01.317325+00	153	{"total-tables":20,"tables-classified":0}
+1297	analyze	2	2022-01-05 14:55:07.183723+00	2022-01-05 14:55:07.226233+00	42	\N
+1298	fingerprint-fields	2	2022-01-05 14:55:07.183736+00	2022-01-05 14:55:07.209676+00	25	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1299	classify-fields	2	2022-01-05 14:55:07.209715+00	2022-01-05 14:55:07.216403+00	6	{"fields-classified":0,"fields-failed":0}
+1300	classify-tables	2	2022-01-05 14:55:07.216424+00	2022-01-05 14:55:07.226206+00	9	{"total-tables":20,"tables-classified":0}
+1302	send-pulses	\N	2022-01-05 16:41:57.32+00	2022-01-05 16:41:57.346+00	26	\N
+1303	sync	2	2022-01-05 16:46:00.089471+00	2022-01-05 16:46:00.343565+00	254	\N
+1304	sync-timezone	2	2022-01-05 16:46:00.089699+00	2022-01-05 16:46:00.120664+00	30	{"timezone-id":"UTC"}
+1305	sync-tables	2	2022-01-05 16:46:00.120952+00	2022-01-05 16:46:00.142031+00	21	{"updated-tables":0,"total-tables":34}
+1306	sync-fields	2	2022-01-05 16:46:00.142059+00	2022-01-05 16:46:00.251799+00	109	{"total-fields":95,"updated-fields":0}
+1307	sync-fks	2	2022-01-05 16:46:00.251843+00	2022-01-05 16:46:00.338704+00	86	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1308	sync-metabase-metadata	2	2022-01-05 16:46:00.338739+00	2022-01-05 16:46:00.343557+00	4	\N
+1309	analyze	2	2022-01-05 16:46:00.465318+00	2022-01-05 16:46:00.511422+00	46	\N
+1310	fingerprint-fields	2	2022-01-05 16:46:00.46534+00	2022-01-05 16:46:00.498144+00	32	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1311	classify-fields	2	2022-01-05 16:46:00.498194+00	2022-01-05 16:46:00.505551+00	7	{"fields-classified":0,"fields-failed":0}
+1312	classify-tables	2	2022-01-05 16:46:00.505592+00	2022-01-05 16:46:00.511396+00	5	{"total-tables":20,"tables-classified":0}
+1314	task-history-cleanup	\N	2022-01-05 17:00:00.107+00	2022-01-05 17:00:00.109+00	2	\N
+1315	send-pulses	\N	2022-01-05 18:55:10.117+00	2022-01-05 18:55:10.168+00	51	\N
+1317	sync	2	2022-01-05 19:51:11.884151+00	2022-01-05 19:51:12.117063+00	232	\N
+1318	sync-timezone	2	2022-01-05 19:51:11.884351+00	2022-01-05 19:51:11.900128+00	15	{"timezone-id":"UTC"}
+1319	sync-tables	2	2022-01-05 19:51:11.900366+00	2022-01-05 19:51:11.926154+00	25	{"updated-tables":0,"total-tables":34}
+1320	sync-fields	2	2022-01-05 19:51:11.926187+00	2022-01-05 19:51:12.020581+00	94	{"total-fields":95,"updated-fields":0}
+1321	sync-fks	2	2022-01-05 19:51:12.020623+00	2022-01-05 19:51:12.105905+00	85	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1322	sync-metabase-metadata	2	2022-01-05 19:51:12.105945+00	2022-01-05 19:51:12.117053+00	11	\N
+1323	analyze	2	2022-01-05 19:51:12.241146+00	2022-01-05 19:51:12.287679+00	46	\N
+1324	fingerprint-fields	2	2022-01-05 19:51:12.24117+00	2022-01-05 19:51:12.268947+00	27	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1325	classify-fields	2	2022-01-05 19:51:12.268994+00	2022-01-05 19:51:12.280357+00	11	{"fields-classified":0,"fields-failed":0}
+1326	classify-tables	2	2022-01-05 19:51:12.280404+00	2022-01-05 19:51:12.287648+00	7	{"total-tables":20,"tables-classified":0}
+1327	send-pulses	\N	2022-01-05 20:18:44.753+00	2022-01-05 20:18:44.789+00	36	\N
+384	sync-fields	2	2021-12-30 21:46:00.175927+00	2021-12-30 21:46:00.388117+00	212	{"total-fields":95,"updated-fields":0}
+385	sync-fks	2	2021-12-30 21:46:00.388468+00	2021-12-30 21:46:00.471636+00	83	{"total-fks":28,"updated-fks":0,"total-failed":0}
+386	sync-metabase-metadata	2	2021-12-30 21:46:00.471664+00	2021-12-30 21:46:00.491885+00	20	\N
+387	analyze	2	2021-12-30 21:46:00.566678+00	2021-12-30 21:46:00.6294+00	62	\N
+388	fingerprint-fields	2	2021-12-30 21:46:00.566688+00	2021-12-30 21:46:00.603857+00	37	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+389	classify-fields	2	2021-12-30 21:46:00.603887+00	2021-12-30 21:46:00.616328+00	12	{"fields-classified":0,"fields-failed":0}
+390	classify-tables	2	2021-12-30 21:46:00.616375+00	2021-12-30 21:46:00.629368+00	12	{"total-tables":20,"tables-classified":0}
+391	task-history-cleanup	\N	2021-12-30 22:00:00.065+00	2021-12-30 22:00:00.084+00	19	\N
+406	send-pulses	\N	2021-12-31 00:58:54.88+00	2021-12-31 00:58:54.895+00	15	\N
+1328	task-history-cleanup	\N	2022-01-05 20:18:44.8+00	2022-01-05 20:18:44.808+00	8	\N
+1329	sync	2	2022-01-05 20:57:31.683579+00	2022-01-05 20:57:32.029616+00	346	\N
+1330	sync-timezone	2	2022-01-05 20:57:31.683792+00	2022-01-05 20:57:31.699317+00	15	{"timezone-id":"UTC"}
+1331	sync-tables	2	2022-01-05 20:57:31.699493+00	2022-01-05 20:57:31.735215+00	35	{"updated-tables":0,"total-tables":34}
+1332	sync-fields	2	2022-01-05 20:57:31.73525+00	2022-01-05 20:57:31.916112+00	180	{"total-fields":95,"updated-fields":0}
+1333	sync-fks	2	2022-01-05 20:57:31.916145+00	2022-01-05 20:57:32.014893+00	98	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1334	sync-metabase-metadata	2	2022-01-05 20:57:32.014924+00	2022-01-05 20:57:32.029588+00	14	\N
+1335	analyze	2	2022-01-05 20:57:32.163316+00	2022-01-05 20:57:32.227784+00	64	\N
+1336	fingerprint-fields	2	2022-01-05 20:57:32.163325+00	2022-01-05 20:57:32.200096+00	36	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1337	classify-fields	2	2022-01-05 20:57:32.200128+00	2022-01-05 20:57:32.222277+00	22	{"fields-classified":0,"fields-failed":0}
+1338	classify-tables	2	2022-01-05 20:57:32.222315+00	2022-01-05 20:57:32.22777+00	5	{"total-tables":20,"tables-classified":0}
+1443	sync	2	2022-01-06 14:52:45.878264+00	2022-01-06 14:52:46.322543+00	444	\N
+1444	sync-timezone	2	2022-01-06 14:52:45.880107+00	2022-01-06 14:52:45.913033+00	32	{"timezone-id":"UTC"}
+1445	sync-tables	2	2022-01-06 14:52:45.913573+00	2022-01-06 14:52:46.016167+00	102	{"updated-tables":0,"total-tables":34}
+1446	sync-fields	2	2022-01-06 14:52:46.016219+00	2022-01-06 14:52:46.20873+00	192	{"total-fields":95,"updated-fields":0}
+1447	sync-fks	2	2022-01-06 14:52:46.208766+00	2022-01-06 14:52:46.306412+00	97	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1448	sync-metabase-metadata	2	2022-01-06 14:52:46.306456+00	2022-01-06 14:52:46.322516+00	16	\N
+1449	analyze	2	2022-01-06 14:52:46.495073+00	2022-01-06 14:52:46.572522+00	77	\N
+1450	fingerprint-fields	2	2022-01-06 14:52:46.495147+00	2022-01-06 14:52:46.547685+00	52	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1451	classify-fields	2	2022-01-06 14:52:46.547736+00	2022-01-06 14:52:46.55749+00	9	{"fields-classified":0,"fields-failed":0}
+1452	classify-tables	2	2022-01-06 14:52:46.557559+00	2022-01-06 14:52:46.572486+00	14	{"total-tables":20,"tables-classified":0}
+1453	send-pulses	\N	2022-01-06 15:00:00.166+00	2022-01-06 15:00:00.233+00	67	\N
+1455	sync	2	2022-01-06 15:46:00.132686+00	2022-01-06 15:46:00.613021+00	480	\N
+1456	sync-timezone	2	2022-01-06 15:46:00.132867+00	2022-01-06 15:46:00.15972+00	26	{"timezone-id":"UTC"}
+1457	sync-tables	2	2022-01-06 15:46:00.159868+00	2022-01-06 15:46:00.247618+00	87	{"updated-tables":0,"total-tables":34}
+1458	sync-fields	2	2022-01-06 15:46:00.247677+00	2022-01-06 15:46:00.470384+00	222	{"total-fields":95,"updated-fields":0}
+1459	sync-fks	2	2022-01-06 15:46:00.470422+00	2022-01-06 15:46:00.583411+00	112	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1460	sync-metabase-metadata	2	2022-01-06 15:46:00.583447+00	2022-01-06 15:46:00.612989+00	29	\N
+1461	analyze	2	2022-01-06 15:46:00.738837+00	2022-01-06 15:46:00.815581+00	76	\N
+1462	fingerprint-fields	2	2022-01-06 15:46:00.738865+00	2022-01-06 15:46:00.787586+00	48	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1463	classify-fields	2	2022-01-06 15:46:00.787632+00	2022-01-06 15:46:00.800979+00	13	{"fields-classified":0,"fields-failed":0}
+1464	classify-tables	2	2022-01-06 15:46:00.801029+00	2022-01-06 15:46:00.815551+00	14	{"total-tables":20,"tables-classified":0}
+392	send-pulses	\N	2021-12-30 22:00:00.134+00	2021-12-30 22:00:00.15+00	16	\N
+393	sync	2	2021-12-30 22:46:00.105245+00	2021-12-30 22:46:00.418029+00	312	\N
+394	sync-timezone	2	2021-12-30 22:46:00.105388+00	2021-12-30 22:46:00.12794+00	22	{"timezone-id":"UTC"}
+395	sync-tables	2	2021-12-30 22:46:00.128112+00	2021-12-30 22:46:00.157739+00	29	{"updated-tables":0,"total-tables":34}
+396	sync-fields	2	2021-12-30 22:46:00.157773+00	2021-12-30 22:46:00.303873+00	146	{"total-fields":95,"updated-fields":0}
+397	sync-fks	2	2021-12-30 22:46:00.303901+00	2021-12-30 22:46:00.405054+00	101	{"total-fks":28,"updated-fks":0,"total-failed":0}
+398	sync-metabase-metadata	2	2021-12-30 22:46:00.405093+00	2021-12-30 22:46:00.41801+00	12	\N
+399	analyze	2	2021-12-30 22:46:00.539024+00	2021-12-30 22:46:00.596157+00	57	\N
+400	fingerprint-fields	2	2021-12-30 22:46:00.539047+00	2021-12-30 22:46:00.579751+00	40	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+401	classify-fields	2	2021-12-30 22:46:00.579778+00	2021-12-30 22:46:00.58894+00	9	{"fields-classified":0,"fields-failed":0}
+402	classify-tables	2	2021-12-30 22:46:00.588978+00	2021-12-30 22:46:00.59613+00	7	{"total-tables":20,"tables-classified":0}
+403	task-history-cleanup	\N	2021-12-30 23:00:00.082+00	2021-12-30 23:00:00.1+00	18	\N
+405	task-history-cleanup	\N	2021-12-31 00:58:54.82+00	2021-12-31 00:58:54.833+00	13	\N
+407	task-history-cleanup	\N	2021-12-31 01:00:00.056+00	2021-12-31 01:00:00.067+00	11	\N
+409	sync	2	2021-12-31 01:46:00.277137+00	2021-12-31 01:46:00.879975+00	602	\N
+410	sync-timezone	2	2021-12-31 01:46:00.277486+00	2021-12-31 01:46:00.449012+00	171	{"timezone-id":"UTC"}
+411	sync-tables	2	2021-12-31 01:46:00.449237+00	2021-12-31 01:46:00.516026+00	66	{"updated-tables":0,"total-tables":34}
+412	sync-fields	2	2021-12-31 01:46:00.516066+00	2021-12-31 01:46:00.751988+00	235	{"total-fields":95,"updated-fields":0}
+413	sync-fks	2	2021-12-31 01:46:00.75202+00	2021-12-31 01:46:00.863144+00	111	{"total-fks":28,"updated-fks":0,"total-failed":0}
+414	sync-metabase-metadata	2	2021-12-31 01:46:00.863177+00	2021-12-31 01:46:00.879946+00	16	\N
+415	analyze	2	2021-12-31 01:46:00.995019+00	2021-12-31 01:46:01.317382+00	322	\N
+419	task-history-cleanup	\N	2021-12-31 02:00:00.063+00	2021-12-31 02:00:00.082+00	19	\N
+420	send-pulses	\N	2021-12-31 02:00:00.111+00	2021-12-31 02:00:00.139+00	28	\N
+421	sync	2	2021-12-31 02:46:00.156305+00	2021-12-31 02:46:00.773329+00	617	\N
+422	sync-timezone	2	2021-12-31 02:46:00.156439+00	2021-12-31 02:46:00.222138+00	65	{"timezone-id":"UTC"}
+423	sync-tables	2	2021-12-31 02:46:00.222346+00	2021-12-31 02:46:00.29051+00	68	{"updated-tables":0,"total-tables":34}
+424	sync-fields	2	2021-12-31 02:46:00.290546+00	2021-12-31 02:46:00.600578+00	310	{"total-fields":95,"updated-fields":0}
+425	sync-fks	2	2021-12-31 02:46:00.600627+00	2021-12-31 02:46:00.747428+00	146	{"total-fks":28,"updated-fks":0,"total-failed":0}
+426	sync-metabase-metadata	2	2021-12-31 02:46:00.747469+00	2021-12-31 02:46:00.773309+00	25	\N
+427	analyze	2	2021-12-31 02:46:00.847041+00	2021-12-31 02:46:00.943126+00	96	\N
+428	fingerprint-fields	2	2021-12-31 02:46:00.847062+00	2021-12-31 02:46:00.904598+00	57	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+429	classify-fields	2	2021-12-31 02:46:00.904635+00	2021-12-31 02:46:00.918153+00	13	{"fields-classified":0,"fields-failed":0}
+430	classify-tables	2	2021-12-31 02:46:00.918202+00	2021-12-31 02:46:00.9431+00	24	{"total-tables":20,"tables-classified":0}
+431	task-history-cleanup	\N	2021-12-31 03:00:00.069+00	2021-12-31 03:00:00.085+00	16	\N
+432	send-pulses	\N	2021-12-31 03:00:00.134+00	2021-12-31 03:00:00.151+00	17	\N
+433	sync	2	2021-12-31 03:46:00.161932+00	2021-12-31 03:46:01.63301+00	1471	\N
+434	sync-timezone	2	2021-12-31 03:46:00.162345+00	2021-12-31 03:46:00.204895+00	42	{"timezone-id":"UTC"}
+435	sync-tables	2	2021-12-31 03:46:00.205061+00	2021-12-31 03:46:00.247508+00	42	{"updated-tables":0,"total-tables":34}
+436	sync-fields	2	2021-12-31 03:46:00.247547+00	2021-12-31 03:46:00.739551+00	492	{"total-fields":95,"updated-fields":0}
+437	sync-fks	2	2021-12-31 03:46:00.739588+00	2021-12-31 03:46:01.604828+00	865	{"total-fks":28,"updated-fks":0,"total-failed":0}
+438	sync-metabase-metadata	2	2021-12-31 03:46:01.604861+00	2021-12-31 03:46:01.63299+00	28	\N
+439	analyze	2	2021-12-31 03:46:01.769763+00	2021-12-31 03:46:01.876544+00	106	\N
+440	fingerprint-fields	2	2021-12-31 03:46:01.770171+00	2021-12-31 03:46:01.856235+00	86	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+441	classify-fields	2	2021-12-31 03:46:01.856268+00	2021-12-31 03:46:01.864454+00	8	{"fields-classified":0,"fields-failed":0}
+442	classify-tables	2	2021-12-31 03:46:01.864487+00	2021-12-31 03:46:01.87652+00	12	{"total-tables":20,"tables-classified":0}
+443	task-history-cleanup	\N	2021-12-31 04:00:00.067+00	2021-12-31 04:00:00.081+00	14	\N
+444	send-pulses	\N	2021-12-31 04:00:00.139+00	2021-12-31 04:00:00.156+00	17	\N
+445	sync	2	2021-12-31 04:46:00.103988+00	2021-12-31 04:46:00.42051+00	316	\N
+446	sync-timezone	2	2021-12-31 04:46:00.104156+00	2021-12-31 04:46:00.126914+00	22	{"timezone-id":"UTC"}
+447	sync-tables	2	2021-12-31 04:46:00.127158+00	2021-12-31 04:46:00.163482+00	36	{"updated-tables":0,"total-tables":34}
+448	sync-fields	2	2021-12-31 04:46:00.163522+00	2021-12-31 04:46:00.320706+00	157	{"total-fields":95,"updated-fields":0}
+449	sync-fks	2	2021-12-31 04:46:00.320729+00	2021-12-31 04:46:00.407833+00	87	{"total-fks":28,"updated-fks":0,"total-failed":0}
+450	sync-metabase-metadata	2	2021-12-31 04:46:00.407859+00	2021-12-31 04:46:00.420499+00	12	\N
+451	analyze	2	2021-12-31 04:46:00.536971+00	2021-12-31 04:46:00.601349+00	64	\N
+452	fingerprint-fields	2	2021-12-31 04:46:00.536983+00	2021-12-31 04:46:00.586103+00	49	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+453	classify-fields	2	2021-12-31 04:46:00.586136+00	2021-12-31 04:46:00.592511+00	6	{"fields-classified":0,"fields-failed":0}
+454	classify-tables	2	2021-12-31 04:46:00.592527+00	2021-12-31 04:46:00.601335+00	8	{"total-tables":20,"tables-classified":0}
+455	task-history-cleanup	\N	2021-12-31 05:00:00.051+00	2021-12-31 05:00:00.06+00	9	\N
+456	send-pulses	\N	2021-12-31 05:00:00.127+00	2021-12-31 05:00:00.138+00	11	\N
+457	sync	2	2021-12-31 05:46:00.173908+00	2021-12-31 05:46:00.841149+00	667	\N
+458	sync-timezone	2	2021-12-31 05:46:00.17401+00	2021-12-31 05:46:00.207759+00	33	{"timezone-id":"UTC"}
+459	sync-tables	2	2021-12-31 05:46:00.207938+00	2021-12-31 05:46:00.251994+00	44	{"updated-tables":0,"total-tables":34}
+460	sync-fields	2	2021-12-31 05:46:00.25203+00	2021-12-31 05:46:00.693232+00	441	{"total-fields":95,"updated-fields":0}
+461	sync-fks	2	2021-12-31 05:46:00.693275+00	2021-12-31 05:46:00.824551+00	131	{"total-fks":28,"updated-fks":0,"total-failed":0}
+462	sync-metabase-metadata	2	2021-12-31 05:46:00.824593+00	2021-12-31 05:46:00.841122+00	16	\N
+463	analyze	2	2021-12-31 05:46:00.965239+00	2021-12-31 05:46:01.050312+00	85	\N
+464	fingerprint-fields	2	2021-12-31 05:46:00.96525+00	2021-12-31 05:46:01.021785+00	56	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+465	classify-fields	2	2021-12-31 05:46:01.02183+00	2021-12-31 05:46:01.03417+00	12	{"fields-classified":0,"fields-failed":0}
+466	classify-tables	2	2021-12-31 05:46:01.034298+00	2021-12-31 05:46:01.050282+00	15	{"total-tables":20,"tables-classified":0}
+467	task-history-cleanup	\N	2021-12-31 06:00:00.055+00	2021-12-31 06:00:00.069+00	14	\N
+468	send-pulses	\N	2021-12-31 06:00:00.129+00	2021-12-31 06:00:00.156+00	27	\N
+469	send-pulses	\N	2021-12-31 17:20:31.243+00	2021-12-31 17:20:31.272+00	29	\N
+470	task-history-cleanup	\N	2021-12-31 17:20:31.298+00	2021-12-31 17:20:31.344+00	46	\N
+471	task-history-cleanup	\N	2021-12-31 21:18:04.401+00	2021-12-31 21:18:04.471+00	70	\N
+472	send-pulses	\N	2021-12-31 21:18:04.378+00	2021-12-31 21:18:04.506+00	128	\N
+473	sync	2	2021-12-31 21:46:00.093833+00	2021-12-31 21:46:00.540728+00	446	\N
+474	sync-timezone	2	2021-12-31 21:46:00.093984+00	2021-12-31 21:46:00.125575+00	31	{"timezone-id":"UTC"}
+475	sync-tables	2	2021-12-31 21:46:00.125834+00	2021-12-31 21:46:00.189777+00	63	{"updated-tables":0,"total-tables":34}
+476	sync-fields	2	2021-12-31 21:46:00.189822+00	2021-12-31 21:46:00.399556+00	209	{"total-fields":95,"updated-fields":0}
+477	sync-fks	2	2021-12-31 21:46:00.3996+00	2021-12-31 21:46:00.525302+00	125	{"total-fks":28,"updated-fks":0,"total-failed":0}
+478	sync-metabase-metadata	2	2021-12-31 21:46:00.525348+00	2021-12-31 21:46:00.540581+00	15	\N
+479	analyze	2	2021-12-31 21:46:00.671443+00	2021-12-31 21:46:00.715064+00	43	\N
+480	fingerprint-fields	2	2021-12-31 21:46:00.671455+00	2021-12-31 21:46:00.69911+00	27	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+481	classify-fields	2	2021-12-31 21:46:00.699145+00	2021-12-31 21:46:00.704286+00	5	{"fields-classified":0,"fields-failed":0}
+482	classify-tables	2	2021-12-31 21:46:00.704306+00	2021-12-31 21:46:00.715036+00	10	{"total-tables":20,"tables-classified":0}
+483	send-pulses	\N	2021-12-31 22:00:00.044+00	2021-12-31 22:00:00.07+00	26	\N
+486	task-history-cleanup	\N	2021-12-31 23:08:19.568+00	2021-12-31 23:08:19.575+00	7	\N
+487	sync	2	2021-12-31 23:50:07.513505+00	2021-12-31 23:50:07.910977+00	397	\N
+488	sync-timezone	2	2021-12-31 23:50:07.51363+00	2021-12-31 23:50:07.551122+00	37	{"timezone-id":"UTC"}
+489	sync-tables	2	2021-12-31 23:50:07.552167+00	2021-12-31 23:50:07.591976+00	39	{"updated-tables":0,"total-tables":34}
+490	sync-fields	2	2021-12-31 23:50:07.592029+00	2021-12-31 23:50:07.7926+00	200	{"total-fields":95,"updated-fields":0}
+491	sync-fks	2	2021-12-31 23:50:07.792634+00	2021-12-31 23:50:07.887804+00	95	{"total-fks":28,"updated-fks":0,"total-failed":0}
+492	sync-metabase-metadata	2	2021-12-31 23:50:07.887858+00	2021-12-31 23:50:07.910957+00	23	\N
+1339	send-pulses	\N	2022-01-05 21:00:00.041+00	2022-01-05 21:00:00.079+00	38	\N
+1352	task-history-cleanup	\N	2022-01-05 22:00:00.13+00	2022-01-05 22:00:00.132+00	2	\N
+1353	sync	2	2022-01-05 22:46:00.125366+00	2022-01-05 22:46:00.364863+00	239	\N
+1354	sync-timezone	2	2022-01-05 22:46:00.12562+00	2022-01-05 22:46:00.147709+00	22	{"timezone-id":"UTC"}
+1355	sync-tables	2	2022-01-05 22:46:00.14806+00	2022-01-05 22:46:00.189007+00	40	{"updated-tables":0,"total-tables":34}
+1356	sync-fields	2	2022-01-05 22:46:00.189042+00	2022-01-05 22:46:00.28253+00	93	{"total-fields":95,"updated-fields":0}
+1357	sync-fks	2	2022-01-05 22:46:00.28256+00	2022-01-05 22:46:00.357492+00	74	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1358	sync-metabase-metadata	2	2022-01-05 22:46:00.35752+00	2022-01-05 22:46:00.364851+00	7	\N
+1359	analyze	2	2022-01-05 22:46:00.483554+00	2022-01-05 22:46:00.520467+00	36	\N
+1360	fingerprint-fields	2	2022-01-05 22:46:00.483569+00	2022-01-05 22:46:00.506177+00	22	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1361	classify-fields	2	2022-01-05 22:46:00.506234+00	2022-01-05 22:46:00.513668+00	7	{"fields-classified":0,"fields-failed":0}
+1362	classify-tables	2	2022-01-05 22:46:00.51369+00	2022-01-05 22:46:00.520455+00	6	{"total-tables":20,"tables-classified":0}
+1363	send-pulses	\N	2022-01-05 23:00:00.063+00	2022-01-05 23:00:00.097+00	34	\N
+1376	task-history-cleanup	\N	2022-01-06 00:00:00.134+00	2022-01-06 00:00:00.136+00	2	\N
+1377	sync	2	2022-01-06 00:46:00.187868+00	2022-01-06 00:46:00.610325+00	422	\N
+1378	sync-timezone	2	2022-01-06 00:46:00.188892+00	2022-01-06 00:46:00.263888+00	74	{"timezone-id":"UTC"}
+1379	sync-tables	2	2022-01-06 00:46:00.264346+00	2022-01-06 00:46:00.307915+00	43	{"updated-tables":0,"total-tables":34}
+1380	sync-fields	2	2022-01-06 00:46:00.308218+00	2022-01-06 00:46:00.502757+00	194	{"total-fields":95,"updated-fields":0}
+1381	sync-fks	2	2022-01-06 00:46:00.50279+00	2022-01-06 00:46:00.593413+00	90	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1382	sync-metabase-metadata	2	2022-01-06 00:46:00.593456+00	2022-01-06 00:46:00.6103+00	16	\N
+1383	analyze	2	2022-01-06 00:46:00.746664+00	2022-01-06 00:46:00.822229+00	75	\N
+1384	fingerprint-fields	2	2022-01-06 00:46:00.746679+00	2022-01-06 00:46:00.787523+00	40	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1385	classify-fields	2	2022-01-06 00:46:00.78756+00	2022-01-06 00:46:00.810898+00	23	{"fields-classified":0,"fields-failed":0}
+1386	classify-tables	2	2022-01-06 00:46:00.810948+00	2022-01-06 00:46:00.822208+00	11	{"total-tables":20,"tables-classified":0}
+1388	send-pulses	\N	2022-01-06 01:00:00.07+00	2022-01-06 01:00:00.125+00	55	\N
+1395	analyze	2	2022-01-06 01:46:00.703809+00	2022-01-06 01:46:00.76753+00	63	\N
+1396	fingerprint-fields	2	2022-01-06 01:46:00.703822+00	2022-01-06 01:46:00.744798+00	40	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1399	send-pulses	\N	2022-01-06 02:00:00.072+00	2022-01-06 02:00:00.09+00	18	\N
+1401	sync	2	2022-01-06 02:46:00.066479+00	2022-01-06 02:46:00.312955+00	246	\N
+1402	sync-timezone	2	2022-01-06 02:46:00.066603+00	2022-01-06 02:46:00.083191+00	16	{"timezone-id":"UTC"}
+1403	sync-tables	2	2022-01-06 02:46:00.083343+00	2022-01-06 02:46:00.12136+00	38	{"updated-tables":0,"total-tables":34}
+1404	sync-fields	2	2022-01-06 02:46:00.121419+00	2022-01-06 02:46:00.227993+00	106	{"total-fields":95,"updated-fields":0}
+1405	sync-fks	2	2022-01-06 02:46:00.228028+00	2022-01-06 02:46:00.30017+00	72	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1406	sync-metabase-metadata	2	2022-01-06 02:46:00.301326+00	2022-01-06 02:46:00.312939+00	11	\N
+1407	analyze	2	2022-01-06 02:46:00.437591+00	2022-01-06 02:46:00.472604+00	35	\N
+1408	fingerprint-fields	2	2022-01-06 02:46:00.437604+00	2022-01-06 02:46:00.456161+00	18	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1409	classify-fields	2	2022-01-06 02:46:00.456195+00	2022-01-06 02:46:00.465777+00	9	{"fields-classified":0,"fields-failed":0}
+1410	classify-tables	2	2022-01-06 02:46:00.465823+00	2022-01-06 02:46:00.472584+00	6	{"total-tables":20,"tables-classified":0}
+1411	send-pulses	\N	2022-01-06 03:00:00.058+00	2022-01-06 03:00:00.086+00	28	\N
+1413	send-pulses	\N	2022-01-06 10:22:49.838+00	2022-01-06 10:22:49.856+00	18	\N
+1415	sync	2	2022-01-06 10:46:00.100284+00	2022-01-06 10:46:00.384702+00	284	\N
+1416	sync-timezone	2	2022-01-06 10:46:00.100454+00	2022-01-06 10:46:00.124362+00	23	{"timezone-id":"UTC"}
+1417	sync-tables	2	2022-01-06 10:46:00.124548+00	2022-01-06 10:46:00.154417+00	29	{"updated-tables":0,"total-tables":34}
+1418	sync-fields	2	2022-01-06 10:46:00.154456+00	2022-01-06 10:46:00.290636+00	136	{"total-fields":95,"updated-fields":0}
+1419	sync-fks	2	2022-01-06 10:46:00.290675+00	2022-01-06 10:46:00.372438+00	81	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1420	sync-metabase-metadata	2	2022-01-06 10:46:00.372462+00	2022-01-06 10:46:00.384691+00	12	\N
+1421	analyze	2	2022-01-06 10:46:00.505977+00	2022-01-06 10:46:00.538639+00	32	\N
+1422	fingerprint-fields	2	2022-01-06 10:46:00.505992+00	2022-01-06 10:46:00.525956+00	19	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1423	classify-fields	2	2022-01-06 10:46:00.525989+00	2022-01-06 10:46:00.532104+00	6	{"fields-classified":0,"fields-failed":0}
+1424	classify-tables	2	2022-01-06 10:46:00.53212+00	2022-01-06 10:46:00.53862+00	6	{"total-tables":20,"tables-classified":0}
+1425	send-pulses	\N	2022-01-06 11:00:00.036+00	2022-01-06 11:00:00.072+00	36	\N
+1454	task-history-cleanup	\N	2022-01-06 15:00:00.166+00	2022-01-06 15:00:00.19+00	24	\N
+1466	task-history-cleanup	\N	2022-01-06 16:00:00.118+00	2022-01-06 16:00:00.123+00	5	\N
+1468	task-history-cleanup	\N	2022-01-06 18:33:06.922+00	2022-01-06 18:33:06.93+00	8	\N
+1475	analyze	2	2022-01-06 18:52:47.442122+00	2022-01-06 18:52:47.680778+00	238	\N
+1476	fingerprint-fields	2	2022-01-06 18:52:47.442153+00	2022-01-06 18:52:47.511976+00	69	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1477	classify-fields	2	2022-01-06 18:52:47.51203+00	2022-01-06 18:52:47.521835+00	9	{"fields-classified":0,"fields-failed":0}
+1478	classify-tables	2	2022-01-06 18:52:47.521901+00	2022-01-06 18:52:47.680665+00	158	{"total-tables":20,"tables-classified":0}
+1479	sync	2	2022-01-06 19:53:36.505853+00	2022-01-06 19:53:36.924303+00	418	\N
+1480	sync-timezone	2	2022-01-06 19:53:36.50605+00	2022-01-06 19:53:36.528521+00	22	{"timezone-id":"UTC"}
+1481	sync-tables	2	2022-01-06 19:53:36.528706+00	2022-01-06 19:53:36.581378+00	52	{"updated-tables":0,"total-tables":34}
+1482	sync-fields	2	2022-01-06 19:53:36.581426+00	2022-01-06 19:53:36.799009+00	217	{"total-fields":95,"updated-fields":0}
+1483	sync-fks	2	2022-01-06 19:53:36.799053+00	2022-01-06 19:53:36.908294+00	109	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1484	sync-metabase-metadata	2	2022-01-06 19:53:36.90833+00	2022-01-06 19:53:36.924261+00	15	\N
+1485	analyze	2	2022-01-06 19:53:37.05638+00	2022-01-06 19:53:37.113014+00	56	\N
+1486	fingerprint-fields	2	2022-01-06 19:53:37.056409+00	2022-01-06 19:53:37.09182+00	35	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+484	task-history-cleanup	\N	2021-12-31 22:00:00.09+00	2021-12-31 22:00:00.092+00	2	\N
+485	send-pulses	\N	2021-12-31 23:08:19.48+00	2021-12-31 23:08:19.52+00	40	\N
+493	analyze	2	2021-12-31 23:50:08.035313+00	2021-12-31 23:50:08.122328+00	87	\N
+494	fingerprint-fields	2	2021-12-31 23:50:08.035715+00	2021-12-31 23:50:08.100158+00	64	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+495	classify-fields	2	2021-12-31 23:50:08.10019+00	2021-12-31 23:50:08.109224+00	9	{"fields-classified":0,"fields-failed":0}
+496	classify-tables	2	2021-12-31 23:50:08.109275+00	2021-12-31 23:50:08.122287+00	13	{"total-tables":20,"tables-classified":0}
+497	send-pulses	\N	2022-01-01 00:00:00.076+00	2022-01-01 00:00:00.113+00	37	\N
+1340	task-history-cleanup	\N	2022-01-05 21:00:00.099+00	2022-01-05 21:00:00.104+00	5	\N
+1400	task-history-cleanup	\N	2022-01-06 02:00:00.133+00	2022-01-06 02:00:00.143+00	10	\N
+1412	task-history-cleanup	\N	2022-01-06 03:00:00.096+00	2022-01-06 03:00:00.098+00	2	\N
+1437	task-history-cleanup	\N	2022-01-06 12:00:00.183+00	2022-01-06 12:00:00.187+00	4	\N
+1440	send-pulses	\N	2022-01-06 13:47:20.247+00	2022-01-06 13:47:20.407+00	160	\N
+1442	send-pulses	\N	2022-01-06 14:00:00.068+00	2022-01-06 14:00:00.115+00	47	\N
+1465	send-pulses	\N	2022-01-06 16:00:00.061+00	2022-01-06 16:00:00.101+00	40	\N
+1467	send-pulses	\N	2022-01-06 18:33:06.878+00	2022-01-06 18:33:06.915+00	37	\N
+1469	sync	2	2022-01-06 18:52:45.755876+00	2022-01-06 18:52:47.29356+00	1537	\N
+1470	sync-timezone	2	2022-01-06 18:52:45.758693+00	2022-01-06 18:52:45.884527+00	125	{"timezone-id":"UTC"}
+1471	sync-tables	2	2022-01-06 18:52:45.884735+00	2022-01-06 18:52:46.154305+00	269	{"updated-tables":0,"total-tables":34}
+1472	sync-fields	2	2022-01-06 18:52:46.154342+00	2022-01-06 18:52:47.010353+00	856	{"total-fields":95,"updated-fields":0}
+1473	sync-fks	2	2022-01-06 18:52:47.010391+00	2022-01-06 18:52:47.27651+00	266	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1474	sync-metabase-metadata	2	2022-01-06 18:52:47.277031+00	2022-01-06 18:52:47.29349+00	16	\N
+1487	classify-fields	2	2022-01-06 19:53:37.091862+00	2022-01-06 19:53:37.098662+00	6	{"fields-classified":0,"fields-failed":0}
+1490	task-history-cleanup	\N	2022-01-06 20:06:49.915+00	2022-01-06 20:06:49.918+00	3	\N
+1491	sync	2	2022-01-06 20:52:10.719401+00	2022-01-06 20:52:11.309648+00	590	\N
+1492	sync-timezone	2	2022-01-06 20:52:10.720125+00	2022-01-06 20:52:10.757316+00	37	{"timezone-id":"UTC"}
+1493	sync-tables	2	2022-01-06 20:52:10.757442+00	2022-01-06 20:52:10.852474+00	95	{"updated-tables":0,"total-tables":34}
+1494	sync-fields	2	2022-01-06 20:52:10.852505+00	2022-01-06 20:52:11.170894+00	318	{"total-fields":95,"updated-fields":0}
+1495	sync-fks	2	2022-01-06 20:52:11.170928+00	2022-01-06 20:52:11.291295+00	120	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1496	sync-metabase-metadata	2	2022-01-06 20:52:11.291324+00	2022-01-06 20:52:11.309617+00	18	\N
+1497	analyze	2	2022-01-06 20:52:11.439574+00	2022-01-06 20:52:11.687529+00	247	\N
+1498	fingerprint-fields	2	2022-01-06 20:52:11.439592+00	2022-01-06 20:52:11.517731+00	78	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1499	classify-fields	2	2022-01-06 20:52:11.517774+00	2022-01-06 20:52:11.665857+00	148	{"fields-classified":0,"fields-failed":0}
+1500	classify-tables	2	2022-01-06 20:52:11.665905+00	2022-01-06 20:52:11.68706+00	21	{"total-tables":20,"tables-classified":0}
+1501	send-pulses	\N	2022-01-06 21:00:00.064+00	2022-01-06 21:00:00.099+00	35	\N
+498	task-history-cleanup	\N	2022-01-01 00:00:00.125+00	2022-01-01 00:00:00.129+00	4	\N
+499	sync	2	2022-01-01 00:51:49.232813+00	2022-01-01 00:51:49.544546+00	311	\N
+500	sync-timezone	2	2022-01-01 00:51:49.233246+00	2022-01-01 00:51:49.262554+00	29	{"timezone-id":"UTC"}
+501	sync-tables	2	2022-01-01 00:51:49.263081+00	2022-01-01 00:51:49.297532+00	34	{"updated-tables":0,"total-tables":34}
+502	sync-fields	2	2022-01-01 00:51:49.29757+00	2022-01-01 00:51:49.440486+00	142	{"total-fields":95,"updated-fields":0}
+503	sync-fks	2	2022-01-01 00:51:49.440517+00	2022-01-01 00:51:49.530037+00	89	{"total-fks":28,"updated-fks":0,"total-failed":0}
+504	sync-metabase-metadata	2	2022-01-01 00:51:49.530079+00	2022-01-01 00:51:49.54453+00	14	\N
+505	analyze	2	2022-01-01 00:51:49.648698+00	2022-01-01 00:51:49.680871+00	32	\N
+506	fingerprint-fields	2	2022-01-01 00:51:49.648712+00	2022-01-01 00:51:49.668246+00	19	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+507	classify-fields	2	2022-01-01 00:51:49.668279+00	2022-01-01 00:51:49.675564+00	7	{"fields-classified":0,"fields-failed":0}
+508	classify-tables	2	2022-01-01 00:51:49.675604+00	2022-01-01 00:51:49.68085+00	5	{"total-tables":20,"tables-classified":0}
+509	sync	2	2022-01-01 01:46:00.133332+00	2022-01-01 01:46:00.423285+00	289	\N
+510	sync-timezone	2	2022-01-01 01:46:00.133423+00	2022-01-01 01:46:00.156059+00	22	{"timezone-id":"UTC"}
+511	sync-tables	2	2022-01-01 01:46:00.156283+00	2022-01-01 01:46:00.197246+00	40	{"updated-tables":0,"total-tables":34}
+512	sync-fields	2	2022-01-01 01:46:00.197274+00	2022-01-01 01:46:00.328953+00	131	{"total-fields":95,"updated-fields":0}
+513	sync-fks	2	2022-01-01 01:46:00.328983+00	2022-01-01 01:46:00.412992+00	84	{"total-fks":28,"updated-fks":0,"total-failed":0}
+514	sync-metabase-metadata	2	2022-01-01 01:46:00.413028+00	2022-01-01 01:46:00.423274+00	10	\N
+515	analyze	2	2022-01-01 01:46:00.544027+00	2022-01-01 01:46:00.581073+00	37	\N
+516	fingerprint-fields	2	2022-01-01 01:46:00.544041+00	2022-01-01 01:46:00.569353+00	25	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+517	classify-fields	2	2022-01-01 01:46:00.569406+00	2022-01-01 01:46:00.575444+00	6	{"fields-classified":0,"fields-failed":0}
+518	classify-tables	2	2022-01-01 01:46:00.575465+00	2022-01-01 01:46:00.581059+00	5	{"total-tables":20,"tables-classified":0}
+519	send-pulses	\N	2022-01-01 01:49:27.035+00	2022-01-01 01:49:27.057+00	22	\N
+520	task-history-cleanup	\N	2022-01-01 01:49:27.08+00	2022-01-01 01:49:27.082+00	2	\N
+521	send-pulses	\N	2022-01-01 02:00:00.07+00	2022-01-01 02:00:00.108+00	38	\N
+522	task-history-cleanup	\N	2022-01-01 02:00:00.14+00	2022-01-01 02:00:00.15+00	10	\N
+523	send-pulses	\N	2022-01-01 03:02:41.634+00	2022-01-01 03:02:41.66+00	26	\N
+524	task-history-cleanup	\N	2022-01-01 03:02:41.679+00	2022-01-01 03:02:41.681+00	2	\N
+525	send-pulses	\N	2022-01-01 04:51:50.429+00	2022-01-01 04:51:50.451+00	22	\N
+526	task-history-cleanup	\N	2022-01-01 04:51:50.46+00	2022-01-01 04:51:50.462+00	2	\N
+527	send-pulses	\N	2022-01-01 12:02:57.77+00	2022-01-01 12:02:57.823+00	53	\N
+528	task-history-cleanup	\N	2022-01-01 12:02:57.833+00	2022-01-01 12:02:57.836+00	3	\N
+529	sync	2	2022-01-01 12:46:00.062272+00	2022-01-01 12:46:00.372487+00	310	\N
+530	sync-timezone	2	2022-01-01 12:46:00.063169+00	2022-01-01 12:46:00.084871+00	21	{"timezone-id":"UTC"}
+531	sync-tables	2	2022-01-01 12:46:00.085026+00	2022-01-01 12:46:00.125652+00	40	{"updated-tables":0,"total-tables":34}
+532	sync-fields	2	2022-01-01 12:46:00.12568+00	2022-01-01 12:46:00.264733+00	139	{"total-fields":95,"updated-fields":0}
+533	sync-fks	2	2022-01-01 12:46:00.264761+00	2022-01-01 12:46:00.359153+00	94	{"total-fks":28,"updated-fks":0,"total-failed":0}
+534	sync-metabase-metadata	2	2022-01-01 12:46:00.359186+00	2022-01-01 12:46:00.372474+00	13	\N
+535	analyze	2	2022-01-01 12:46:00.499076+00	2022-01-01 12:46:00.569587+00	70	\N
+536	fingerprint-fields	2	2022-01-01 12:46:00.499091+00	2022-01-01 12:46:00.545474+00	46	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+537	classify-fields	2	2022-01-01 12:46:00.545517+00	2022-01-01 12:46:00.55856+00	13	{"fields-classified":0,"fields-failed":0}
+538	classify-tables	2	2022-01-01 12:46:00.558596+00	2022-01-01 12:46:00.569556+00	10	{"total-tables":20,"tables-classified":0}
+539	field values scanning	2	2022-01-01 18:04:48.787123+00	2022-01-01 18:04:49.821417+00	1034	\N
+540	update-field-values	2	2022-01-01 18:04:48.787935+00	2022-01-01 18:04:49.820417+00	1032	{"errors":0,"created":0,"updated":0,"deleted":0}
+541	send-pulses	\N	2022-01-01 19:18:45.73+00	2022-01-01 19:18:45.779+00	49	\N
+542	task-history-cleanup	\N	2022-01-01 19:18:45.776+00	2022-01-01 19:18:45.784+00	8	\N
+543	sync	2	2022-01-01 19:46:00.152715+00	2022-01-01 19:46:00.742511+00	589	\N
+544	sync-timezone	2	2022-01-01 19:46:00.15312+00	2022-01-01 19:46:00.202711+00	49	{"timezone-id":"UTC"}
+545	sync-tables	2	2022-01-01 19:46:00.203032+00	2022-01-01 19:46:00.259108+00	56	{"updated-tables":0,"total-tables":34}
+546	sync-fields	2	2022-01-01 19:46:00.259137+00	2022-01-01 19:46:00.635234+00	376	{"total-fields":95,"updated-fields":0}
+547	sync-fks	2	2022-01-01 19:46:00.635267+00	2022-01-01 19:46:00.726132+00	90	{"total-fks":28,"updated-fks":0,"total-failed":0}
+548	sync-metabase-metadata	2	2022-01-01 19:46:00.726171+00	2022-01-01 19:46:00.742491+00	16	\N
+549	analyze	2	2022-01-01 19:46:00.865129+00	2022-01-01 19:46:01.107408+00	242	\N
+550	fingerprint-fields	2	2022-01-01 19:46:00.865142+00	2022-01-01 19:46:00.971517+00	106	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+551	classify-fields	2	2022-01-01 19:46:00.971562+00	2022-01-01 19:46:01.013698+00	42	{"fields-classified":0,"fields-failed":0}
+552	classify-tables	2	2022-01-01 19:46:01.013768+00	2022-01-01 19:46:01.107375+00	93	{"total-tables":20,"tables-classified":0}
+553	send-pulses	\N	2022-01-01 20:00:00.071+00	2022-01-01 20:00:00.108+00	37	\N
+554	task-history-cleanup	\N	2022-01-01 20:00:00.135+00	2022-01-01 20:00:00.137+00	2	\N
+555	sync	2	2022-01-01 20:46:00.115286+00	2022-01-01 20:46:00.446348+00	331	\N
+556	sync-timezone	2	2022-01-01 20:46:00.11552+00	2022-01-01 20:46:00.133784+00	18	{"timezone-id":"UTC"}
+557	sync-tables	2	2022-01-01 20:46:00.13408+00	2022-01-01 20:46:00.167485+00	33	{"updated-tables":0,"total-tables":34}
+558	sync-fields	2	2022-01-01 20:46:00.167522+00	2022-01-01 20:46:00.33964+00	172	{"total-fields":95,"updated-fields":0}
+559	sync-fks	2	2022-01-01 20:46:00.339682+00	2022-01-01 20:46:00.422664+00	82	{"total-fks":28,"updated-fks":0,"total-failed":0}
+560	sync-metabase-metadata	2	2022-01-01 20:46:00.432571+00	2022-01-01 20:46:00.446327+00	13	\N
+561	analyze	2	2022-01-01 20:46:00.569733+00	2022-01-01 20:46:00.622501+00	52	\N
+562	fingerprint-fields	2	2022-01-01 20:46:00.570235+00	2022-01-01 20:46:00.606207+00	35	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+563	classify-fields	2	2022-01-01 20:46:00.606267+00	2022-01-01 20:46:00.611711+00	5	{"fields-classified":0,"fields-failed":0}
+564	classify-tables	2	2022-01-01 20:46:00.611728+00	2022-01-01 20:46:00.622481+00	10	{"total-tables":20,"tables-classified":0}
+565	send-pulses	\N	2022-01-01 21:00:00.081+00	2022-01-01 21:00:00.112+00	31	\N
+566	task-history-cleanup	\N	2022-01-01 21:00:00.125+00	2022-01-01 21:00:00.126+00	1	\N
+567	sync	2	2022-01-01 21:46:00.100345+00	2022-01-01 21:46:00.476586+00	376	\N
+568	sync-timezone	2	2022-01-01 21:46:00.100547+00	2022-01-01 21:46:00.126086+00	25	{"timezone-id":"UTC"}
+569	sync-tables	2	2022-01-01 21:46:00.12635+00	2022-01-01 21:46:00.171492+00	45	{"updated-tables":0,"total-tables":34}
+570	sync-fields	2	2022-01-01 21:46:00.171523+00	2022-01-01 21:46:00.352103+00	180	{"total-fields":95,"updated-fields":0}
+571	sync-fks	2	2022-01-01 21:46:00.352164+00	2022-01-01 21:46:00.464387+00	112	{"total-fks":28,"updated-fks":0,"total-failed":0}
+572	sync-metabase-metadata	2	2022-01-01 21:46:00.464423+00	2022-01-01 21:46:00.47657+00	12	\N
+573	analyze	2	2022-01-01 21:46:00.627509+00	2022-01-01 21:46:00.685072+00	57	\N
+574	fingerprint-fields	2	2022-01-01 21:46:00.627524+00	2022-01-01 21:46:00.662278+00	34	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+575	classify-fields	2	2022-01-01 21:46:00.662362+00	2022-01-01 21:46:00.676531+00	14	{"fields-classified":0,"fields-failed":0}
+576	classify-tables	2	2022-01-01 21:46:00.676556+00	2022-01-01 21:46:00.685055+00	8	{"total-tables":20,"tables-classified":0}
+577	send-pulses	\N	2022-01-01 22:00:00.059+00	2022-01-01 22:00:00.09+00	31	\N
+578	task-history-cleanup	\N	2022-01-01 22:00:00.132+00	2022-01-01 22:00:00.138+00	6	\N
+579	sync	2	2022-01-01 22:46:00.119173+00	2022-01-01 22:46:00.38616+00	266	\N
+580	sync-timezone	2	2022-01-01 22:46:00.119389+00	2022-01-01 22:46:00.135897+00	16	{"timezone-id":"UTC"}
+581	sync-tables	2	2022-01-01 22:46:00.136143+00	2022-01-01 22:46:00.162355+00	26	{"updated-tables":0,"total-tables":34}
+582	sync-fields	2	2022-01-01 22:46:00.162381+00	2022-01-01 22:46:00.28596+00	123	{"total-fields":95,"updated-fields":0}
+583	sync-fks	2	2022-01-01 22:46:00.285985+00	2022-01-01 22:46:00.374589+00	88	{"total-fks":28,"updated-fks":0,"total-failed":0}
+584	sync-metabase-metadata	2	2022-01-01 22:46:00.374625+00	2022-01-01 22:46:00.386133+00	11	\N
+585	analyze	2	2022-01-01 22:46:00.512664+00	2022-01-01 22:46:00.602212+00	89	\N
+586	fingerprint-fields	2	2022-01-01 22:46:00.512685+00	2022-01-01 22:46:00.585103+00	72	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+587	classify-fields	2	2022-01-01 22:46:00.585155+00	2022-01-01 22:46:00.594149+00	8	{"fields-classified":0,"fields-failed":0}
+588	classify-tables	2	2022-01-01 22:46:00.594194+00	2022-01-01 22:46:00.602187+00	7	{"total-tables":20,"tables-classified":0}
+1341	sync	2	2022-01-05 21:46:21.415635+00	2022-01-05 21:46:21.716458+00	300	\N
+1342	sync-timezone	2	2022-01-05 21:46:21.415926+00	2022-01-05 21:46:21.436786+00	20	{"timezone-id":"UTC"}
+1343	sync-tables	2	2022-01-05 21:46:21.437034+00	2022-01-05 21:46:21.474273+00	37	{"updated-tables":0,"total-tables":34}
+1344	sync-fields	2	2022-01-05 21:46:21.474322+00	2022-01-05 21:46:21.621433+00	147	{"total-fields":95,"updated-fields":0}
+1345	sync-fks	2	2022-01-05 21:46:21.621473+00	2022-01-05 21:46:21.701135+00	79	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1346	sync-metabase-metadata	2	2022-01-05 21:46:21.701168+00	2022-01-05 21:46:21.716442+00	15	\N
+1347	analyze	2	2022-01-05 21:46:21.836695+00	2022-01-05 21:46:21.873422+00	36	\N
+1348	fingerprint-fields	2	2022-01-05 21:46:21.836711+00	2022-01-05 21:46:21.860524+00	23	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1349	classify-fields	2	2022-01-05 21:46:21.860568+00	2022-01-05 21:46:21.866532+00	5	{"fields-classified":0,"fields-failed":0}
+1350	classify-tables	2	2022-01-05 21:46:21.866549+00	2022-01-05 21:46:21.873402+00	6	{"total-tables":20,"tables-classified":0}
+1351	send-pulses	\N	2022-01-05 22:00:00.068+00	2022-01-05 22:00:00.109+00	41	\N
+1364	task-history-cleanup	\N	2022-01-05 23:00:00.111+00	2022-01-05 23:00:00.113+00	2	\N
+1365	sync	2	2022-01-05 23:46:00.065404+00	2022-01-05 23:46:00.318716+00	253	\N
+1366	sync-timezone	2	2022-01-05 23:46:00.065619+00	2022-01-05 23:46:00.082327+00	16	{"timezone-id":"UTC"}
+1367	sync-tables	2	2022-01-05 23:46:00.082542+00	2022-01-05 23:46:00.122476+00	39	{"updated-tables":0,"total-tables":34}
+1368	sync-fields	2	2022-01-05 23:46:00.122512+00	2022-01-05 23:46:00.23183+00	109	{"total-fields":95,"updated-fields":0}
+1369	sync-fks	2	2022-01-05 23:46:00.231868+00	2022-01-05 23:46:00.308835+00	76	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1370	sync-metabase-metadata	2	2022-01-05 23:46:00.308872+00	2022-01-05 23:46:00.318669+00	9	\N
+1371	analyze	2	2022-01-05 23:46:00.439969+00	2022-01-05 23:46:00.506357+00	66	\N
+1372	fingerprint-fields	2	2022-01-05 23:46:00.439984+00	2022-01-05 23:46:00.494887+00	54	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1373	classify-fields	2	2022-01-05 23:46:00.494926+00	2022-01-05 23:46:00.499981+00	5	{"fields-classified":0,"fields-failed":0}
+1374	classify-tables	2	2022-01-05 23:46:00.500009+00	2022-01-05 23:46:00.506347+00	6	{"total-tables":20,"tables-classified":0}
+1375	send-pulses	\N	2022-01-06 00:00:00.078+00	2022-01-06 00:00:00.128+00	50	\N
+1387	task-history-cleanup	\N	2022-01-06 01:00:00.119+00	2022-01-06 01:00:00.122+00	3	\N
+1389	sync	2	2022-01-06 01:46:00.080965+00	2022-01-06 01:46:00.5763+00	495	\N
+1390	sync-timezone	2	2022-01-06 01:46:00.081121+00	2022-01-06 01:46:00.096079+00	14	{"timezone-id":"UTC"}
+1391	sync-tables	2	2022-01-06 01:46:00.096256+00	2022-01-06 01:46:00.122225+00	25	{"updated-tables":0,"total-tables":34}
+1392	sync-fields	2	2022-01-06 01:46:00.122263+00	2022-01-06 01:46:00.328502+00	206	{"total-fields":95,"updated-fields":0}
+1393	sync-fks	2	2022-01-06 01:46:00.328639+00	2022-01-06 01:46:00.557925+00	229	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1394	sync-metabase-metadata	2	2022-01-06 01:46:00.55796+00	2022-01-06 01:46:00.576204+00	18	\N
+1397	classify-fields	2	2022-01-06 01:46:00.744851+00	2022-01-06 01:46:00.754763+00	9	{"fields-classified":0,"fields-failed":0}
+1398	classify-tables	2	2022-01-06 01:46:00.754796+00	2022-01-06 01:46:00.767494+00	12	{"total-tables":20,"tables-classified":0}
+1414	task-history-cleanup	\N	2022-01-06 10:22:49.877+00	2022-01-06 10:22:49.879+00	2	\N
+1488	classify-tables	2	2022-01-06 19:53:37.098701+00	2022-01-06 19:53:37.11298+00	14	{"total-tables":20,"tables-classified":0}
+1489	send-pulses	\N	2022-01-06 20:06:49.867+00	2022-01-06 20:06:49.905+00	38	\N
+1502	task-history-cleanup	\N	2022-01-06 21:00:00.123+00	2022-01-06 21:00:00.127+00	4	\N
+589	send-pulses	\N	2022-01-01 23:00:00.057+00	2022-01-01 23:00:00.09+00	33	\N
+601	send-pulses	\N	2022-01-02 00:00:00.089+00	2022-01-02 00:00:00.117+00	28	\N
+613	send-pulses	\N	2022-01-02 01:00:00.065+00	2022-01-02 01:00:00.09+00	25	\N
+1426	task-history-cleanup	\N	2022-01-06 11:00:00.096+00	2022-01-06 11:00:00.103+00	7	\N
+1427	sync	2	2022-01-06 11:59:19.41826+00	2022-01-06 11:59:19.641702+00	223	\N
+1428	sync-timezone	2	2022-01-06 11:59:19.418469+00	2022-01-06 11:59:19.434954+00	16	{"timezone-id":"UTC"}
+1429	sync-tables	2	2022-01-06 11:59:19.43566+00	2022-01-06 11:59:19.470941+00	35	{"updated-tables":0,"total-tables":34}
+1430	sync-fields	2	2022-01-06 11:59:19.470967+00	2022-01-06 11:59:19.560863+00	89	{"total-fields":95,"updated-fields":0}
+1431	sync-fks	2	2022-01-06 11:59:19.560887+00	2022-01-06 11:59:19.635288+00	74	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1432	sync-metabase-metadata	2	2022-01-06 11:59:19.635315+00	2022-01-06 11:59:19.641693+00	6	\N
+1433	analyze	2	2022-01-06 11:59:19.77026+00	2022-01-06 11:59:19.827096+00	56	\N
+1434	fingerprint-fields	2	2022-01-06 11:59:19.770274+00	2022-01-06 11:59:19.805118+00	34	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1435	classify-fields	2	2022-01-06 11:59:19.805166+00	2022-01-06 11:59:19.821739+00	16	{"fields-classified":0,"fields-failed":0}
+1436	classify-tables	2	2022-01-06 11:59:19.82178+00	2022-01-06 11:59:19.827075+00	5	{"total-tables":20,"tables-classified":0}
+1503	sync	2	2022-01-06 21:46:00.198408+00	2022-01-06 21:46:00.883796+00	685	\N
+1504	sync-timezone	2	2022-01-06 21:46:00.200472+00	2022-01-06 21:46:00.343659+00	143	{"timezone-id":"UTC"}
+1505	sync-tables	2	2022-01-06 21:46:00.344131+00	2022-01-06 21:46:00.470794+00	126	{"updated-tables":0,"total-tables":34}
+1506	sync-fields	2	2022-01-06 21:46:00.470885+00	2022-01-06 21:46:00.715729+00	244	{"total-fields":95,"updated-fields":0}
+1507	sync-fks	2	2022-01-06 21:46:00.715811+00	2022-01-06 21:46:00.869346+00	153	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1508	sync-metabase-metadata	2	2022-01-06 21:46:00.869411+00	2022-01-06 21:46:00.883759+00	14	\N
+1509	analyze	2	2022-01-06 21:46:01.031838+00	2022-01-06 21:46:01.113639+00	81	\N
+1510	fingerprint-fields	2	2022-01-06 21:46:01.031859+00	2022-01-06 21:46:01.073901+00	42	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1511	classify-fields	2	2022-01-06 21:46:01.074027+00	2022-01-06 21:46:01.087866+00	13	{"fields-classified":0,"fields-failed":0}
+1512	classify-tables	2	2022-01-06 21:46:01.087922+00	2022-01-06 21:46:01.113605+00	25	{"total-tables":20,"tables-classified":0}
+1513	send-pulses	\N	2022-01-06 22:00:00.15+00	2022-01-06 22:00:00.205+00	55	\N
+590	task-history-cleanup	\N	2022-01-01 23:00:00.111+00	2022-01-01 23:00:00.115+00	4	\N
+591	sync	2	2022-01-01 23:46:00.158248+00	2022-01-01 23:46:00.535289+00	377	\N
+592	sync-timezone	2	2022-01-01 23:46:00.158794+00	2022-01-01 23:46:00.195798+00	37	{"timezone-id":"UTC"}
+593	sync-tables	2	2022-01-01 23:46:00.196032+00	2022-01-01 23:46:00.239517+00	43	{"updated-tables":0,"total-tables":34}
+594	sync-fields	2	2022-01-01 23:46:00.239559+00	2022-01-01 23:46:00.411993+00	172	{"total-fields":95,"updated-fields":0}
+595	sync-fks	2	2022-01-01 23:46:00.412033+00	2022-01-01 23:46:00.516576+00	104	{"total-fks":28,"updated-fks":0,"total-failed":0}
+596	sync-metabase-metadata	2	2022-01-01 23:46:00.51662+00	2022-01-01 23:46:00.535262+00	18	\N
+597	analyze	2	2022-01-01 23:46:00.679068+00	2022-01-01 23:46:00.805431+00	126	\N
+598	fingerprint-fields	2	2022-01-01 23:46:00.67908+00	2022-01-01 23:46:00.78033+00	101	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+599	classify-fields	2	2022-01-01 23:46:00.780373+00	2022-01-01 23:46:00.793273+00	12	{"fields-classified":0,"fields-failed":0}
+600	classify-tables	2	2022-01-01 23:46:00.7933+00	2022-01-01 23:46:00.805411+00	12	{"total-tables":20,"tables-classified":0}
+602	task-history-cleanup	\N	2022-01-02 00:00:00.147+00	2022-01-02 00:00:00.15+00	3	\N
+603	sync	2	2022-01-02 00:46:00.11149+00	2022-01-02 00:46:00.358911+00	247	\N
+604	sync-timezone	2	2022-01-02 00:46:00.111672+00	2022-01-02 00:46:00.129647+00	17	{"timezone-id":"UTC"}
+605	sync-tables	2	2022-01-02 00:46:00.129832+00	2022-01-02 00:46:00.153384+00	23	{"updated-tables":0,"total-tables":34}
+606	sync-fields	2	2022-01-02 00:46:00.153415+00	2022-01-02 00:46:00.266953+00	113	{"total-fields":95,"updated-fields":0}
+607	sync-fks	2	2022-01-02 00:46:00.266984+00	2022-01-02 00:46:00.343785+00	76	{"total-fks":28,"updated-fks":0,"total-failed":0}
+608	sync-metabase-metadata	2	2022-01-02 00:46:00.343818+00	2022-01-02 00:46:00.358883+00	15	\N
+609	analyze	2	2022-01-02 00:46:00.500831+00	2022-01-02 00:46:00.538067+00	37	\N
+610	fingerprint-fields	2	2022-01-02 00:46:00.500845+00	2022-01-02 00:46:00.521977+00	21	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+611	classify-fields	2	2022-01-02 00:46:00.52201+00	2022-01-02 00:46:00.527872+00	5	{"fields-classified":0,"fields-failed":0}
+612	classify-tables	2	2022-01-02 00:46:00.527931+00	2022-01-02 00:46:00.538036+00	10	{"total-tables":20,"tables-classified":0}
+614	task-history-cleanup	\N	2022-01-02 01:00:00.112+00	2022-01-02 01:00:00.114+00	2	\N
+615	sync	2	2022-01-02 01:46:00.080202+00	2022-01-02 01:46:00.422721+00	342	\N
+616	sync-timezone	2	2022-01-02 01:46:00.080439+00	2022-01-02 01:46:00.110069+00	29	{"timezone-id":"UTC"}
+617	sync-tables	2	2022-01-02 01:46:00.110433+00	2022-01-02 01:46:00.160518+00	50	{"updated-tables":0,"total-tables":34}
+618	sync-fields	2	2022-01-02 01:46:00.160594+00	2022-01-02 01:46:00.305319+00	144	{"total-fields":95,"updated-fields":0}
+619	sync-fks	2	2022-01-02 01:46:00.305349+00	2022-01-02 01:46:00.408608+00	103	{"total-fks":28,"updated-fks":0,"total-failed":0}
+620	sync-metabase-metadata	2	2022-01-02 01:46:00.408644+00	2022-01-02 01:46:00.422701+00	14	\N
+621	analyze	2	2022-01-02 01:46:00.516339+00	2022-01-02 01:46:00.577941+00	61	\N
+622	fingerprint-fields	2	2022-01-02 01:46:00.516358+00	2022-01-02 01:46:00.557702+00	41	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+623	classify-fields	2	2022-01-02 01:46:00.557758+00	2022-01-02 01:46:00.566485+00	8	{"fields-classified":0,"fields-failed":0}
+624	classify-tables	2	2022-01-02 01:46:00.566511+00	2022-01-02 01:46:00.577911+00	11	{"total-tables":20,"tables-classified":0}
+625	send-pulses	\N	2022-01-02 02:00:00.03+00	2022-01-02 02:00:00.051+00	21	\N
+626	task-history-cleanup	\N	2022-01-02 02:00:00.11+00	2022-01-02 02:00:00.115+00	5	\N
+627	task-history-cleanup	\N	2022-01-02 12:04:35.209+00	2022-01-02 12:04:35.219+00	10	\N
+628	send-pulses	\N	2022-01-02 12:04:35.183+00	2022-01-02 12:04:35.225+00	42	\N
+629	sync	2	2022-01-02 12:46:00.152619+00	2022-01-02 12:46:00.555903+00	403	\N
+630	sync-timezone	2	2022-01-02 12:46:00.154644+00	2022-01-02 12:46:00.241448+00	86	{"timezone-id":"UTC"}
+631	sync-tables	2	2022-01-02 12:46:00.242474+00	2022-01-02 12:46:00.309105+00	66	{"updated-tables":0,"total-tables":34}
+632	sync-fields	2	2022-01-02 12:46:00.309138+00	2022-01-02 12:46:00.442904+00	133	{"total-fields":95,"updated-fields":0}
+633	sync-fks	2	2022-01-02 12:46:00.442939+00	2022-01-02 12:46:00.533528+00	90	{"total-fks":28,"updated-fks":0,"total-failed":0}
+634	sync-metabase-metadata	2	2022-01-02 12:46:00.53358+00	2022-01-02 12:46:00.555885+00	22	\N
+635	analyze	2	2022-01-02 12:46:00.63396+00	2022-01-02 12:46:00.669368+00	35	\N
+636	fingerprint-fields	2	2022-01-02 12:46:00.63397+00	2022-01-02 12:46:00.653935+00	19	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+637	classify-fields	2	2022-01-02 12:46:00.654055+00	2022-01-02 12:46:00.663284+00	9	{"fields-classified":0,"fields-failed":0}
+638	classify-tables	2	2022-01-02 12:46:00.663316+00	2022-01-02 12:46:00.669339+00	6	{"total-tables":20,"tables-classified":0}
+639	task-history-cleanup	\N	2022-01-02 13:00:00.159+00	2022-01-02 13:00:00.176+00	17	\N
+640	send-pulses	\N	2022-01-02 13:00:00.099+00	2022-01-02 13:00:00.254+00	155	\N
+641	sync	2	2022-01-02 13:46:00.300394+00	2022-01-02 13:46:00.776857+00	476	\N
+642	sync-timezone	2	2022-01-02 13:46:00.302472+00	2022-01-02 13:46:00.374011+00	71	{"timezone-id":"UTC"}
+643	sync-tables	2	2022-01-02 13:46:00.375173+00	2022-01-02 13:46:00.442551+00	67	{"updated-tables":0,"total-tables":34}
+644	sync-fields	2	2022-01-02 13:46:00.442601+00	2022-01-02 13:46:00.653972+00	211	{"total-fields":95,"updated-fields":0}
+645	sync-fks	2	2022-01-02 13:46:00.654001+00	2022-01-02 13:46:00.753206+00	99	{"total-fks":28,"updated-fks":0,"total-failed":0}
+646	sync-metabase-metadata	2	2022-01-02 13:46:00.753243+00	2022-01-02 13:46:00.776829+00	23	\N
+647	analyze	2	2022-01-02 13:46:00.906513+00	2022-01-02 13:46:00.95593+00	49	\N
+648	fingerprint-fields	2	2022-01-02 13:46:00.906526+00	2022-01-02 13:46:00.942616+00	36	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+649	classify-fields	2	2022-01-02 13:46:00.942653+00	2022-01-02 13:46:00.948965+00	6	{"fields-classified":0,"fields-failed":0}
+650	classify-tables	2	2022-01-02 13:46:00.948982+00	2022-01-02 13:46:00.955917+00	6	{"total-tables":20,"tables-classified":0}
+651	task-history-cleanup	\N	2022-01-02 14:00:00.265+00	2022-01-02 14:00:00.467+00	202	\N
+652	send-pulses	\N	2022-01-02 14:00:00.177+00	2022-01-02 14:00:00.669+00	492	\N
+653	sync	2	2022-01-02 14:46:00.70481+00	2022-01-02 14:46:01.865409+00	1160	\N
+654	sync-timezone	2	2022-01-02 14:46:00.722831+00	2022-01-02 14:46:00.975294+00	252	{"timezone-id":"UTC"}
+655	sync-tables	2	2022-01-02 14:46:00.976245+00	2022-01-02 14:46:01.272789+00	296	{"updated-tables":0,"total-tables":34}
+656	sync-fields	2	2022-01-02 14:46:01.272833+00	2022-01-02 14:46:01.701728+00	428	{"total-fields":95,"updated-fields":0}
+657	sync-fks	2	2022-01-02 14:46:01.701766+00	2022-01-02 14:46:01.822536+00	120	{"total-fks":28,"updated-fks":0,"total-failed":0}
+658	sync-metabase-metadata	2	2022-01-02 14:46:01.822592+00	2022-01-02 14:46:01.865393+00	42	\N
+659	analyze	2	2022-01-02 14:46:02.008017+00	2022-01-02 14:46:02.117501+00	109	\N
+660	fingerprint-fields	2	2022-01-02 14:46:02.008043+00	2022-01-02 14:46:02.105017+00	96	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+661	classify-fields	2	2022-01-02 14:46:02.105054+00	2022-01-02 14:46:02.109139+00	4	{"fields-classified":0,"fields-failed":0}
+662	classify-tables	2	2022-01-02 14:46:02.109159+00	2022-01-02 14:46:02.117486+00	8	{"total-tables":20,"tables-classified":0}
+663	task-history-cleanup	\N	2022-01-02 15:00:00.224+00	2022-01-02 15:00:00.26+00	36	\N
+664	send-pulses	\N	2022-01-02 15:00:00.124+00	2022-01-02 15:00:00.353+00	229	\N
+665	task-history-cleanup	\N	2022-01-02 16:05:12.948+00	2022-01-02 16:05:13.012+00	64	\N
+666	send-pulses	\N	2022-01-02 16:05:12.915+00	2022-01-02 16:05:13.106+00	191	\N
+667	sync	2	2022-01-02 16:47:27.012498+00	2022-01-02 16:47:28.587779+00	1575	\N
+668	sync-timezone	2	2022-01-02 16:47:27.020262+00	2022-01-02 16:47:27.189072+00	168	{"timezone-id":"UTC"}
+669	sync-tables	2	2022-01-02 16:47:27.189663+00	2022-01-02 16:47:27.418215+00	228	{"updated-tables":0,"total-tables":34}
+670	sync-fields	2	2022-01-02 16:47:27.418262+00	2022-01-02 16:47:28.417238+00	998	{"total-fields":95,"updated-fields":0}
+671	sync-fks	2	2022-01-02 16:47:28.417404+00	2022-01-02 16:47:28.556779+00	139	{"total-fks":28,"updated-fks":0,"total-failed":0}
+672	sync-metabase-metadata	2	2022-01-02 16:47:28.556847+00	2022-01-02 16:47:28.587749+00	30	\N
+673	analyze	2	2022-01-02 16:47:28.730868+00	2022-01-02 16:47:28.859957+00	129	\N
+674	fingerprint-fields	2	2022-01-02 16:47:28.730879+00	2022-01-02 16:47:28.820788+00	89	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+675	classify-fields	2	2022-01-02 16:47:28.820833+00	2022-01-02 16:47:28.851775+00	30	{"fields-classified":0,"fields-failed":0}
+676	classify-tables	2	2022-01-02 16:47:28.851829+00	2022-01-02 16:47:28.859936+00	8	{"total-tables":20,"tables-classified":0}
+677	task-history-cleanup	\N	2022-01-02 19:55:45.405+00	2022-01-02 19:55:45.417+00	12	\N
+679	send-pulses	\N	2022-01-02 20:00:00.074+00	2022-01-02 20:00:00.126+00	52	\N
+681	sync	2	2022-01-02 20:46:00.4227+00	2022-01-02 20:46:01.693407+00	1270	\N
+682	sync-timezone	2	2022-01-02 20:46:00.42483+00	2022-01-02 20:46:00.627014+00	202	{"timezone-id":"UTC"}
+683	sync-tables	2	2022-01-02 20:46:00.628172+00	2022-01-02 20:46:00.766538+00	138	{"updated-tables":0,"total-tables":34}
+684	sync-fields	2	2022-01-02 20:46:00.766579+00	2022-01-02 20:46:01.499643+00	733	{"total-fields":95,"updated-fields":0}
+685	sync-fks	2	2022-01-02 20:46:01.49968+00	2022-01-02 20:46:01.655583+00	155	{"total-fks":28,"updated-fks":0,"total-failed":0}
+686	sync-metabase-metadata	2	2022-01-02 20:46:01.655622+00	2022-01-02 20:46:01.693389+00	37	\N
+687	analyze	2	2022-01-02 20:46:01.869425+00	2022-01-02 20:46:02.05982+00	190	\N
+688	fingerprint-fields	2	2022-01-02 20:46:01.869439+00	2022-01-02 20:46:02.02732+00	157	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+689	classify-fields	2	2022-01-02 20:46:02.027361+00	2022-01-02 20:46:02.042645+00	15	{"fields-classified":0,"fields-failed":0}
+690	classify-tables	2	2022-01-02 20:46:02.042683+00	2022-01-02 20:46:02.059786+00	17	{"total-tables":20,"tables-classified":0}
+691	task-history-cleanup	\N	2022-01-02 21:09:04.487+00	2022-01-02 21:09:04.494+00	7	\N
+693	sync	2	2022-01-02 21:46:00.142325+00	2022-01-02 21:46:01.836161+00	1693	\N
+694	sync-timezone	2	2022-01-02 21:46:00.143283+00	2022-01-02 21:46:00.22393+00	80	{"timezone-id":"UTC"}
+695	sync-tables	2	2022-01-02 21:46:00.224196+00	2022-01-02 21:46:00.352827+00	128	{"updated-tables":0,"total-tables":34}
+696	sync-fields	2	2022-01-02 21:46:00.352862+00	2022-01-02 21:46:01.696297+00	1343	{"total-fields":95,"updated-fields":0}
+697	sync-fks	2	2022-01-02 21:46:01.696329+00	2022-01-02 21:46:01.820857+00	124	{"total-fks":28,"updated-fks":0,"total-failed":0}
+698	sync-metabase-metadata	2	2022-01-02 21:46:01.820894+00	2022-01-02 21:46:01.836137+00	15	\N
+703	send-pulses	\N	2022-01-02 22:00:00.06+00	2022-01-02 22:00:00.093+00	33	\N
+705	sync	2	2022-01-02 22:46:00.219531+00	2022-01-02 22:46:01.097115+00	877	\N
+706	sync-timezone	2	2022-01-02 22:46:00.219682+00	2022-01-02 22:46:00.328595+00	108	{"timezone-id":"UTC"}
+707	sync-tables	2	2022-01-02 22:46:00.3321+00	2022-01-02 22:46:00.467699+00	135	{"updated-tables":0,"total-tables":34}
+708	sync-fields	2	2022-01-02 22:46:00.467742+00	2022-01-02 22:46:00.927028+00	459	{"total-fields":95,"updated-fields":0}
+709	sync-fks	2	2022-01-02 22:46:00.927061+00	2022-01-02 22:46:01.079677+00	152	{"total-fks":28,"updated-fks":0,"total-failed":0}
+710	sync-metabase-metadata	2	2022-01-02 22:46:01.079722+00	2022-01-02 22:46:01.097097+00	17	\N
+711	analyze	2	2022-01-02 22:46:01.232863+00	2022-01-02 22:46:01.361455+00	128	\N
+712	fingerprint-fields	2	2022-01-02 22:46:01.23288+00	2022-01-02 22:46:01.33724+00	104	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+713	classify-fields	2	2022-01-02 22:46:01.337278+00	2022-01-02 22:46:01.349351+00	12	{"fields-classified":0,"fields-failed":0}
+714	classify-tables	2	2022-01-02 22:46:01.349385+00	2022-01-02 22:46:01.361434+00	12	{"total-tables":20,"tables-classified":0}
+715	send-pulses	\N	2022-01-02 23:01:18.617+00	2022-01-02 23:01:18.651+00	34	\N
+1438	send-pulses	\N	2022-01-06 12:00:00.164+00	2022-01-06 12:00:00.2+00	36	\N
+1439	task-history-cleanup	\N	2022-01-06 13:47:20.321+00	2022-01-06 13:47:20.383+00	62	\N
+1441	task-history-cleanup	\N	2022-01-06 14:00:00.118+00	2022-01-06 14:00:00.125+00	7	\N
+1514	task-history-cleanup	\N	2022-01-06 22:00:00.179+00	2022-01-06 22:00:00.19+00	11	\N
+1515	sync	2	2022-01-06 22:46:00.176019+00	2022-01-06 22:46:00.810873+00	634	\N
+1516	sync-timezone	2	2022-01-06 22:46:00.176992+00	2022-01-06 22:46:00.233358+00	56	{"timezone-id":"UTC"}
+1517	sync-tables	2	2022-01-06 22:46:00.236222+00	2022-01-06 22:46:00.332323+00	96	{"updated-tables":0,"total-tables":34}
+1518	sync-fields	2	2022-01-06 22:46:00.332409+00	2022-01-06 22:46:00.64258+00	310	{"total-fields":95,"updated-fields":0}
+1519	sync-fks	2	2022-01-06 22:46:00.642658+00	2022-01-06 22:46:00.792055+00	149	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1520	sync-metabase-metadata	2	2022-01-06 22:46:00.792422+00	2022-01-06 22:46:00.810819+00	18	\N
+678	send-pulses	\N	2022-01-02 19:55:45.388+00	2022-01-02 19:55:45.481+00	93	\N
+680	task-history-cleanup	\N	2022-01-02 20:00:00.182+00	2022-01-02 20:00:00.184+00	2	\N
+692	send-pulses	\N	2022-01-02 21:09:04.437+00	2022-01-02 21:09:04.483+00	46	\N
+699	analyze	2	2022-01-02 21:46:02.108158+00	2022-01-02 21:46:02.201079+00	92	\N
+700	fingerprint-fields	2	2022-01-02 21:46:02.108169+00	2022-01-02 21:46:02.172514+00	64	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+701	classify-fields	2	2022-01-02 21:46:02.172562+00	2022-01-02 21:46:02.193338+00	20	{"fields-classified":0,"fields-failed":0}
+702	classify-tables	2	2022-01-02 21:46:02.193375+00	2022-01-02 21:46:02.201062+00	7	{"total-tables":20,"tables-classified":0}
+704	task-history-cleanup	\N	2022-01-02 22:00:00.109+00	2022-01-02 22:00:00.111+00	2	\N
+716	task-history-cleanup	\N	2022-01-02 23:01:18.684+00	2022-01-02 23:01:18.687+00	3	\N
+717	sync	2	2022-01-02 23:46:00.268899+00	2022-01-02 23:46:01.395048+00	1126	\N
+718	sync-timezone	2	2022-01-02 23:46:00.270098+00	2022-01-02 23:46:00.34394+00	73	{"timezone-id":"UTC"}
+719	sync-tables	2	2022-01-02 23:46:00.344415+00	2022-01-02 23:46:00.455216+00	110	{"updated-tables":0,"total-tables":34}
+720	sync-fields	2	2022-01-02 23:46:00.455269+00	2022-01-02 23:46:01.154804+00	699	{"total-fields":95,"updated-fields":0}
+721	sync-fks	2	2022-01-02 23:46:01.154856+00	2022-01-02 23:46:01.375343+00	220	{"total-fks":28,"updated-fks":0,"total-failed":0}
+722	sync-metabase-metadata	2	2022-01-02 23:46:01.375401+00	2022-01-02 23:46:01.395025+00	19	\N
+723	analyze	2	2022-01-02 23:46:01.6823+00	2022-01-02 23:46:01.8176+00	135	\N
+724	fingerprint-fields	2	2022-01-02 23:46:01.682324+00	2022-01-02 23:46:01.762357+00	80	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+725	classify-fields	2	2022-01-02 23:46:01.762426+00	2022-01-02 23:46:01.789942+00	27	{"fields-classified":0,"fields-failed":0}
+726	classify-tables	2	2022-01-02 23:46:01.789988+00	2022-01-02 23:46:01.817544+00	27	{"total-tables":20,"tables-classified":0}
+727	send-pulses	\N	2022-01-03 00:00:00.142+00	2022-01-03 00:00:00.199+00	57	\N
+728	task-history-cleanup	\N	2022-01-03 00:00:00.249+00	2022-01-03 00:00:00.276+00	27	\N
+729	sync	2	2022-01-03 00:46:00.315754+00	2022-01-03 00:46:01.013388+00	697	\N
+730	sync-timezone	2	2022-01-03 00:46:00.316749+00	2022-01-03 00:46:00.42187+00	105	{"timezone-id":"UTC"}
+731	sync-tables	2	2022-01-03 00:46:00.4277+00	2022-01-03 00:46:00.537693+00	109	{"updated-tables":0,"total-tables":34}
+732	sync-fields	2	2022-01-03 00:46:00.537735+00	2022-01-03 00:46:00.839379+00	301	{"total-fields":95,"updated-fields":0}
+733	sync-fks	2	2022-01-03 00:46:00.839417+00	2022-01-03 00:46:00.991785+00	152	{"total-fks":28,"updated-fks":0,"total-failed":0}
+734	sync-metabase-metadata	2	2022-01-03 00:46:00.991819+00	2022-01-03 00:46:01.013362+00	21	\N
+735	analyze	2	2022-01-03 00:46:01.148954+00	2022-01-03 00:46:01.265152+00	116	\N
+736	fingerprint-fields	2	2022-01-03 00:46:01.148969+00	2022-01-03 00:46:01.221485+00	72	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+737	classify-fields	2	2022-01-03 00:46:01.222295+00	2022-01-03 00:46:01.251545+00	29	{"fields-classified":0,"fields-failed":0}
+738	classify-tables	2	2022-01-03 00:46:01.25158+00	2022-01-03 00:46:01.265129+00	13	{"total-tables":20,"tables-classified":0}
+739	send-pulses	\N	2022-01-03 01:00:00.083+00	2022-01-03 01:00:00.123+00	40	\N
+740	task-history-cleanup	\N	2022-01-03 01:00:00.146+00	2022-01-03 01:00:00.154+00	8	\N
+741	sync	2	2022-01-03 01:46:00.234778+00	2022-01-03 01:46:01.281288+00	1046	\N
+742	sync-timezone	2	2022-01-03 01:46:00.235715+00	2022-01-03 01:46:00.307039+00	71	{"timezone-id":"UTC"}
+743	sync-tables	2	2022-01-03 01:46:00.307242+00	2022-01-03 01:46:00.394457+00	87	{"updated-tables":0,"total-tables":34}
+744	sync-fields	2	2022-01-03 01:46:00.394498+00	2022-01-03 01:46:01.099857+00	705	{"total-fields":95,"updated-fields":0}
+745	sync-fks	2	2022-01-03 01:46:01.099911+00	2022-01-03 01:46:01.255566+00	155	{"total-fks":28,"updated-fks":0,"total-failed":0}
+746	sync-metabase-metadata	2	2022-01-03 01:46:01.255658+00	2022-01-03 01:46:01.281268+00	25	\N
+747	analyze	2	2022-01-03 01:46:01.422146+00	2022-01-03 01:46:01.513072+00	90	\N
+748	fingerprint-fields	2	2022-01-03 01:46:01.422158+00	2022-01-03 01:46:01.481662+00	59	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+749	classify-fields	2	2022-01-03 01:46:01.482509+00	2022-01-03 01:46:01.497879+00	15	{"fields-classified":0,"fields-failed":0}
+750	classify-tables	2	2022-01-03 01:46:01.497913+00	2022-01-03 01:46:01.513041+00	15	{"total-tables":20,"tables-classified":0}
+751	send-pulses	\N	2022-01-03 02:00:00.068+00	2022-01-03 02:00:00.114+00	46	\N
+752	task-history-cleanup	\N	2022-01-03 02:00:00.127+00	2022-01-03 02:00:00.135+00	8	\N
+753	sync	2	2022-01-03 02:46:00.281141+00	2022-01-03 02:46:01.12785+00	846	\N
+754	sync-timezone	2	2022-01-03 02:46:00.281778+00	2022-01-03 02:46:00.367379+00	85	{"timezone-id":"UTC"}
+755	sync-tables	2	2022-01-03 02:46:00.36799+00	2022-01-03 02:46:00.45891+00	90	{"updated-tables":0,"total-tables":34}
+756	sync-fields	2	2022-01-03 02:46:00.458942+00	2022-01-03 02:46:00.780466+00	321	{"total-fields":95,"updated-fields":0}
+757	sync-fks	2	2022-01-03 02:46:00.780499+00	2022-01-03 02:46:00.940486+00	159	{"total-fks":28,"updated-fks":0,"total-failed":0}
+758	sync-metabase-metadata	2	2022-01-03 02:46:00.94052+00	2022-01-03 02:46:01.127822+00	187	\N
+759	analyze	2	2022-01-03 02:46:01.208578+00	2022-01-03 02:46:01.365502+00	156	\N
+760	fingerprint-fields	2	2022-01-03 02:46:01.208591+00	2022-01-03 02:46:01.316914+00	108	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+761	classify-fields	2	2022-01-03 02:46:01.316982+00	2022-01-03 02:46:01.333772+00	16	{"fields-classified":0,"fields-failed":0}
+762	classify-tables	2	2022-01-03 02:46:01.333821+00	2022-01-03 02:46:01.365441+00	31	{"total-tables":20,"tables-classified":0}
+763	send-pulses	\N	2022-01-03 03:00:00.071+00	2022-01-03 03:00:00.107+00	36	\N
+764	task-history-cleanup	\N	2022-01-03 03:00:00.12+00	2022-01-03 03:00:00.125+00	5	\N
+765	sync	2	2022-01-03 03:46:00.222343+00	2022-01-03 03:46:00.790478+00	568	\N
+766	sync-timezone	2	2022-01-03 03:46:00.223133+00	2022-01-03 03:46:00.259841+00	36	{"timezone-id":"UTC"}
+767	sync-tables	2	2022-01-03 03:46:00.260062+00	2022-01-03 03:46:00.342419+00	82	{"updated-tables":0,"total-tables":34}
+768	sync-fields	2	2022-01-03 03:46:00.342452+00	2022-01-03 03:46:00.68176+00	339	{"total-fields":95,"updated-fields":0}
+769	sync-fks	2	2022-01-03 03:46:00.681796+00	2022-01-03 03:46:00.784357+00	102	{"total-fks":28,"updated-fks":0,"total-failed":0}
+770	sync-metabase-metadata	2	2022-01-03 03:46:00.78439+00	2022-01-03 03:46:00.790467+00	6	\N
+771	analyze	2	2022-01-03 03:46:00.918627+00	2022-01-03 03:46:01.057535+00	138	\N
+772	fingerprint-fields	2	2022-01-03 03:46:00.918641+00	2022-01-03 03:46:01.008236+00	89	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+773	classify-fields	2	2022-01-03 03:46:01.008285+00	2022-01-03 03:46:01.044324+00	36	{"fields-classified":0,"fields-failed":0}
+774	classify-tables	2	2022-01-03 03:46:01.044365+00	2022-01-03 03:46:01.053758+00	9	{"total-tables":20,"tables-classified":0}
+775	send-pulses	\N	2022-01-03 04:00:00.066+00	2022-01-03 04:00:00.102+00	36	\N
+776	task-history-cleanup	\N	2022-01-03 04:00:00.117+00	2022-01-03 04:00:00.121+00	4	\N
+777	sync	2	2022-01-03 04:46:00.294587+00	2022-01-03 04:46:00.984052+00	689	\N
+778	sync-timezone	2	2022-01-03 04:46:00.294749+00	2022-01-03 04:46:00.409388+00	114	{"timezone-id":"UTC"}
+779	sync-tables	2	2022-01-03 04:46:00.409583+00	2022-01-03 04:46:00.600619+00	191	{"updated-tables":0,"total-tables":34}
+780	sync-fields	2	2022-01-03 04:46:00.600661+00	2022-01-03 04:46:00.87023+00	269	{"total-fields":95,"updated-fields":0}
+781	sync-fks	2	2022-01-03 04:46:00.870272+00	2022-01-03 04:46:00.970047+00	99	{"total-fks":28,"updated-fks":0,"total-failed":0}
+782	sync-metabase-metadata	2	2022-01-03 04:46:00.970079+00	2022-01-03 04:46:00.984032+00	13	\N
+783	analyze	2	2022-01-03 04:46:01.099575+00	2022-01-03 04:46:01.190993+00	91	\N
+784	fingerprint-fields	2	2022-01-03 04:46:01.099586+00	2022-01-03 04:46:01.131959+00	32	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+785	classify-fields	2	2022-01-03 04:46:01.131998+00	2022-01-03 04:46:01.175099+00	43	{"fields-classified":0,"fields-failed":0}
+787	send-pulses	\N	2022-01-03 05:00:00.076+00	2022-01-03 05:00:00.1+00	24	\N
+786	classify-tables	2	2022-01-03 04:46:01.175141+00	2022-01-03 04:46:01.190963+00	15	{"total-tables":20,"tables-classified":0}
+788	task-history-cleanup	\N	2022-01-03 05:00:00.12+00	2022-01-03 05:00:00.126+00	6	\N
+1521	analyze	2	2022-01-06 22:46:00.94136+00	2022-01-06 22:46:01.07812+00	136	\N
+1522	fingerprint-fields	2	2022-01-06 22:46:00.941685+00	2022-01-06 22:46:01.013979+00	72	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1523	classify-fields	2	2022-01-06 22:46:01.014032+00	2022-01-06 22:46:01.033271+00	19	{"fields-classified":0,"fields-failed":0}
+1524	classify-tables	2	2022-01-06 22:46:01.033336+00	2022-01-06 22:46:01.077138+00	43	{"total-tables":20,"tables-classified":0}
+789	send-pulses	\N	2022-01-03 11:14:56.038+00	2022-01-03 11:14:56.1+00	62	\N
+790	task-history-cleanup	\N	2022-01-03 11:14:56.078+00	2022-01-03 11:14:56.084+00	6	\N
+791	sync	2	2022-01-03 11:46:00.165056+00	2022-01-03 11:46:00.695285+00	530	\N
+792	sync-timezone	2	2022-01-03 11:46:00.16579+00	2022-01-03 11:46:00.223305+00	57	{"timezone-id":"UTC"}
+793	sync-tables	2	2022-01-03 11:46:00.223947+00	2022-01-03 11:46:00.287859+00	63	{"updated-tables":0,"total-tables":34}
+794	sync-fields	2	2022-01-03 11:46:00.287888+00	2022-01-03 11:46:00.5586+00	270	{"total-fields":95,"updated-fields":0}
+795	sync-fks	2	2022-01-03 11:46:00.558642+00	2022-01-03 11:46:00.679193+00	120	{"total-fks":28,"updated-fks":0,"total-failed":0}
+796	sync-metabase-metadata	2	2022-01-03 11:46:00.679224+00	2022-01-03 11:46:00.695269+00	16	\N
+797	analyze	2	2022-01-03 11:46:00.754237+00	2022-01-03 11:46:00.866854+00	112	\N
+798	fingerprint-fields	2	2022-01-03 11:46:00.754249+00	2022-01-03 11:46:00.826829+00	72	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+799	classify-fields	2	2022-01-03 11:46:00.826871+00	2022-01-03 11:46:00.843819+00	16	{"fields-classified":0,"fields-failed":0}
+800	classify-tables	2	2022-01-03 11:46:00.843862+00	2022-01-03 11:46:00.866824+00	22	{"total-tables":20,"tables-classified":0}
+801	send-pulses	\N	2022-01-03 12:00:00.213+00	2022-01-03 12:00:00.221+00	8	\N
+803	sync	2	2022-01-03 12:46:00.228302+00	2022-01-03 12:46:00.864468+00	636	\N
+804	sync-timezone	2	2022-01-03 12:46:00.228728+00	2022-01-03 12:46:00.279286+00	50	{"timezone-id":"UTC"}
+805	sync-tables	2	2022-01-03 12:46:00.279464+00	2022-01-03 12:46:00.356179+00	76	{"updated-tables":0,"total-tables":34}
+806	sync-fields	2	2022-01-03 12:46:00.35622+00	2022-01-03 12:46:00.705209+00	348	{"total-fields":95,"updated-fields":0}
+807	sync-fks	2	2022-01-03 12:46:00.70524+00	2022-01-03 12:46:00.847835+00	142	{"total-fks":28,"updated-fks":0,"total-failed":0}
+808	sync-metabase-metadata	2	2022-01-03 12:46:00.847868+00	2022-01-03 12:46:00.864451+00	16	\N
+809	analyze	2	2022-01-03 12:46:00.9885+00	2022-01-03 12:46:01.05673+00	68	\N
+810	fingerprint-fields	2	2022-01-03 12:46:00.988514+00	2022-01-03 12:46:01.036894+00	48	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+811	classify-fields	2	2022-01-03 12:46:01.036941+00	2022-01-03 12:46:01.045148+00	8	{"fields-classified":0,"fields-failed":0}
+812	classify-tables	2	2022-01-03 12:46:01.045174+00	2022-01-03 12:46:01.056692+00	11	{"total-tables":20,"tables-classified":0}
+813	task-history-cleanup	\N	2022-01-03 13:00:00.175+00	2022-01-03 13:00:00.252+00	77	\N
+826	send-pulses	\N	2022-01-03 14:14:45.265+00	2022-01-03 14:14:45.558+00	293	\N
+827	task-history-cleanup	\N	2022-01-03 16:40:52.52+00	2022-01-03 16:40:52.525+00	5	\N
+839	send-pulses	\N	2022-01-03 17:00:00.058+00	2022-01-03 17:00:00.152+00	94	\N
+840	task-history-cleanup	\N	2022-01-03 17:00:00.177+00	2022-01-03 17:00:00.179+00	2	\N
+841	sync	2	2022-01-03 17:46:00.096362+00	2022-01-03 17:46:00.464335+00	367	\N
+842	sync-timezone	2	2022-01-03 17:46:00.096509+00	2022-01-03 17:46:00.111665+00	15	{"timezone-id":"UTC"}
+843	sync-tables	2	2022-01-03 17:46:00.111855+00	2022-01-03 17:46:00.161076+00	49	{"updated-tables":0,"total-tables":34}
+844	sync-fields	2	2022-01-03 17:46:00.161148+00	2022-01-03 17:46:00.339648+00	178	{"total-fields":95,"updated-fields":0}
+845	sync-fks	2	2022-01-03 17:46:00.33968+00	2022-01-03 17:46:00.449775+00	110	{"total-fks":28,"updated-fks":0,"total-failed":0}
+846	sync-metabase-metadata	2	2022-01-03 17:46:00.449808+00	2022-01-03 17:46:00.464303+00	14	\N
+847	analyze	2	2022-01-03 17:46:00.572032+00	2022-01-03 17:46:00.673894+00	101	\N
+848	fingerprint-fields	2	2022-01-03 17:46:00.572047+00	2022-01-03 17:46:00.637747+00	65	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+849	classify-fields	2	2022-01-03 17:46:00.637799+00	2022-01-03 17:46:00.656888+00	19	{"fields-classified":0,"fields-failed":0}
+850	classify-tables	2	2022-01-03 17:46:00.656927+00	2022-01-03 17:46:00.673854+00	16	{"total-tables":20,"tables-classified":0}
+852	task-history-cleanup	\N	2022-01-03 18:00:00.186+00	2022-01-03 18:00:00.187+00	1	\N
+853	field values scanning	2	2022-01-03 18:00:00.113918+00	2022-01-03 18:00:02.569194+00	2455	\N
+854	update-field-values	2	2022-01-03 18:00:00.114078+00	2022-01-03 18:00:02.569146+00	2455	{"errors":0,"created":0,"updated":0,"deleted":0}
+855	sync	2	2022-01-03 18:56:22.521456+00	2022-01-03 18:56:23.034358+00	512	\N
+856	sync-timezone	2	2022-01-03 18:56:22.521671+00	2022-01-03 18:56:22.570558+00	48	{"timezone-id":"UTC"}
+857	sync-tables	2	2022-01-03 18:56:22.570766+00	2022-01-03 18:56:22.626936+00	56	{"updated-tables":0,"total-tables":34}
+858	sync-fields	2	2022-01-03 18:56:22.626982+00	2022-01-03 18:56:22.866031+00	239	{"total-fields":95,"updated-fields":0}
+859	sync-fks	2	2022-01-03 18:56:22.866086+00	2022-01-03 18:56:23.015744+00	149	{"total-fks":28,"updated-fks":0,"total-failed":0}
+860	sync-metabase-metadata	2	2022-01-03 18:56:23.015781+00	2022-01-03 18:56:23.034334+00	18	\N
+1525	task-history-cleanup	\N	2022-01-06 23:00:00.181+00	2022-01-06 23:00:00.185+00	4	\N
+1528	task-history-cleanup	\N	2022-01-07 09:25:11.449+00	2022-01-07 09:25:11.459+00	10	\N
+1541	sync	2	2022-01-07 10:46:00.17305+00	2022-01-07 10:46:00.822328+00	649	\N
+1542	sync-timezone	2	2022-01-07 10:46:00.173816+00	2022-01-07 10:46:00.228986+00	55	{"timezone-id":"UTC"}
+1543	sync-tables	2	2022-01-07 10:46:00.230377+00	2022-01-07 10:46:00.302023+00	71	{"updated-tables":0,"total-tables":34}
+1544	sync-fields	2	2022-01-07 10:46:00.302058+00	2022-01-07 10:46:00.57983+00	277	{"total-fields":95,"updated-fields":0}
+1545	sync-fks	2	2022-01-07 10:46:00.579872+00	2022-01-07 10:46:00.795998+00	216	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1546	sync-metabase-metadata	2	2022-01-07 10:46:00.796063+00	2022-01-07 10:46:00.8223+00	26	\N
+1551	send-pulses	\N	2022-01-07 11:00:00.044+00	2022-01-07 11:00:00.094+00	50	\N
+802	task-history-cleanup	\N	2022-01-03 12:00:00.289+00	2022-01-03 12:00:00.293+00	4	\N
+814	send-pulses	\N	2022-01-03 13:00:00.152+00	2022-01-03 13:00:00.344+00	192	\N
+815	sync	2	2022-01-03 13:46:00.354786+00	2022-01-03 13:46:00.881926+00	527	\N
+816	sync-timezone	2	2022-01-03 13:46:00.35553+00	2022-01-03 13:46:00.45824+00	102	{"timezone-id":"UTC"}
+817	sync-tables	2	2022-01-03 13:46:00.465515+00	2022-01-03 13:46:00.543459+00	77	{"updated-tables":0,"total-tables":34}
+818	sync-fields	2	2022-01-03 13:46:00.543502+00	2022-01-03 13:46:00.766257+00	222	{"total-fields":95,"updated-fields":0}
+819	sync-fks	2	2022-01-03 13:46:00.766286+00	2022-01-03 13:46:00.864169+00	97	{"total-fks":28,"updated-fks":0,"total-failed":0}
+820	sync-metabase-metadata	2	2022-01-03 13:46:00.864202+00	2022-01-03 13:46:00.881902+00	17	\N
+821	analyze	2	2022-01-03 13:46:00.997752+00	2022-01-03 13:46:01.071615+00	73	\N
+822	fingerprint-fields	2	2022-01-03 13:46:00.997771+00	2022-01-03 13:46:01.040035+00	42	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+823	classify-fields	2	2022-01-03 13:46:01.040068+00	2022-01-03 13:46:01.053617+00	13	{"fields-classified":0,"fields-failed":0}
+824	classify-tables	2	2022-01-03 13:46:01.054255+00	2022-01-03 13:46:01.071581+00	17	{"total-tables":20,"tables-classified":0}
+825	task-history-cleanup	\N	2022-01-03 14:14:45.347+00	2022-01-03 14:14:45.407+00	60	\N
+828	send-pulses	\N	2022-01-03 16:40:52.462+00	2022-01-03 16:40:52.626+00	164	\N
+829	sync	2	2022-01-03 16:46:00.215158+00	2022-01-03 16:46:01.762067+00	1546	\N
+830	sync-timezone	2	2022-01-03 16:46:00.216636+00	2022-01-03 16:46:00.34171+00	125	{"timezone-id":"UTC"}
+831	sync-tables	2	2022-01-03 16:46:00.344838+00	2022-01-03 16:46:00.453183+00	108	{"updated-tables":0,"total-tables":34}
+832	sync-fields	2	2022-01-03 16:46:00.453248+00	2022-01-03 16:46:01.641084+00	1187	{"total-fields":95,"updated-fields":0}
+833	sync-fks	2	2022-01-03 16:46:01.641169+00	2022-01-03 16:46:01.74288+00	101	{"total-fks":28,"updated-fks":0,"total-failed":0}
+834	sync-metabase-metadata	2	2022-01-03 16:46:01.743262+00	2022-01-03 16:46:01.762048+00	18	\N
+835	analyze	2	2022-01-03 16:46:01.883016+00	2022-01-03 16:46:02.076709+00	193	\N
+836	fingerprint-fields	2	2022-01-03 16:46:01.88303+00	2022-01-03 16:46:01.971386+00	88	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+837	classify-fields	2	2022-01-03 16:46:01.97152+00	2022-01-03 16:46:02.031895+00	60	{"fields-classified":0,"fields-failed":0}
+838	classify-tables	2	2022-01-03 16:46:02.031994+00	2022-01-03 16:46:02.076666+00	44	{"total-tables":20,"tables-classified":0}
+851	send-pulses	\N	2022-01-03 18:00:00.125+00	2022-01-03 18:00:00.134+00	9	\N
+861	analyze	2	2022-01-03 18:56:23.181954+00	2022-01-03 18:56:23.293174+00	111	\N
+862	fingerprint-fields	2	2022-01-03 18:56:23.181965+00	2022-01-03 18:56:23.264388+00	82	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+863	classify-fields	2	2022-01-03 18:56:23.264427+00	2022-01-03 18:56:23.279813+00	15	{"fields-classified":0,"fields-failed":0}
+864	classify-tables	2	2022-01-03 18:56:23.279852+00	2022-01-03 18:56:23.293132+00	13	{"total-tables":20,"tables-classified":0}
+865	task-history-cleanup	\N	2022-01-03 19:00:00.114+00	2022-01-03 19:00:00.127+00	13	\N
+866	send-pulses	\N	2022-01-03 19:00:00.062+00	2022-01-03 19:00:00.114+00	52	\N
+867	sync	2	2022-01-03 19:46:00.168761+00	2022-01-03 19:46:00.592914+00	424	\N
+868	sync-timezone	2	2022-01-03 19:46:00.169732+00	2022-01-03 19:46:00.210867+00	41	{"timezone-id":"UTC"}
+869	sync-tables	2	2022-01-03 19:46:00.211145+00	2022-01-03 19:46:00.245515+00	34	{"updated-tables":0,"total-tables":34}
+870	sync-fields	2	2022-01-03 19:46:00.245548+00	2022-01-03 19:46:00.450075+00	204	{"total-fields":95,"updated-fields":0}
+871	sync-fks	2	2022-01-03 19:46:00.450395+00	2022-01-03 19:46:00.561601+00	111	{"total-fks":28,"updated-fks":0,"total-failed":0}
+872	sync-metabase-metadata	2	2022-01-03 19:46:00.561893+00	2022-01-03 19:46:00.59288+00	30	\N
+873	analyze	2	2022-01-03 19:46:00.72243+00	2022-01-03 19:46:00.786701+00	64	\N
+874	fingerprint-fields	2	2022-01-03 19:46:00.722449+00	2022-01-03 19:46:00.766826+00	44	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+875	classify-fields	2	2022-01-03 19:46:00.766862+00	2022-01-03 19:46:00.773297+00	6	{"fields-classified":0,"fields-failed":0}
+876	classify-tables	2	2022-01-03 19:46:00.773325+00	2022-01-03 19:46:00.786667+00	13	{"total-tables":20,"tables-classified":0}
+877	send-pulses	\N	2022-01-03 20:00:00.045+00	2022-01-03 20:00:00.093+00	48	\N
+878	task-history-cleanup	\N	2022-01-03 20:00:00.149+00	2022-01-03 20:00:00.151+00	2	\N
+879	sync	2	2022-01-03 20:46:00.213128+00	2022-01-03 20:46:00.698658+00	485	\N
+880	sync-timezone	2	2022-01-03 20:46:00.213311+00	2022-01-03 20:46:00.236787+00	23	{"timezone-id":"UTC"}
+881	sync-tables	2	2022-01-03 20:46:00.237604+00	2022-01-03 20:46:00.293665+00	56	{"updated-tables":0,"total-tables":34}
+882	sync-fields	2	2022-01-03 20:46:00.2937+00	2022-01-03 20:46:00.51939+00	225	{"total-fields":95,"updated-fields":0}
+883	sync-fks	2	2022-01-03 20:46:00.51942+00	2022-01-03 20:46:00.672244+00	152	{"total-fks":28,"updated-fks":0,"total-failed":0}
+884	sync-metabase-metadata	2	2022-01-03 20:46:00.672284+00	2022-01-03 20:46:00.698638+00	26	\N
+885	analyze	2	2022-01-03 20:46:00.804303+00	2022-01-03 20:46:00.89974+00	95	\N
+886	fingerprint-fields	2	2022-01-03 20:46:00.804318+00	2022-01-03 20:46:00.871334+00	67	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+887	classify-fields	2	2022-01-03 20:46:00.871376+00	2022-01-03 20:46:00.889622+00	18	{"fields-classified":0,"fields-failed":0}
+888	classify-tables	2	2022-01-03 20:46:00.889658+00	2022-01-03 20:46:00.899724+00	10	{"total-tables":20,"tables-classified":0}
+889	send-pulses	\N	2022-01-03 21:00:00.055+00	2022-01-03 21:00:00.094+00	39	\N
+890	task-history-cleanup	\N	2022-01-03 21:00:00.116+00	2022-01-03 21:00:00.128+00	12	\N
+891	sync	2	2022-01-03 21:46:00.131131+00	2022-01-03 21:46:00.61667+00	485	\N
+892	sync-timezone	2	2022-01-03 21:46:00.131568+00	2022-01-03 21:46:00.168804+00	37	{"timezone-id":"UTC"}
+893	sync-tables	2	2022-01-03 21:46:00.168956+00	2022-01-03 21:46:00.219744+00	50	{"updated-tables":0,"total-tables":34}
+894	sync-fields	2	2022-01-03 21:46:00.219784+00	2022-01-03 21:46:00.459699+00	239	{"total-fields":95,"updated-fields":0}
+895	sync-fks	2	2022-01-03 21:46:00.459736+00	2022-01-03 21:46:00.59333+00	133	{"total-fks":28,"updated-fks":0,"total-failed":0}
+896	sync-metabase-metadata	2	2022-01-03 21:46:00.593371+00	2022-01-03 21:46:00.616644+00	23	\N
+897	analyze	2	2022-01-03 21:46:00.726987+00	2022-01-03 21:46:00.835779+00	108	\N
+898	fingerprint-fields	2	2022-01-03 21:46:00.727001+00	2022-01-03 21:46:00.809396+00	82	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+899	classify-fields	2	2022-01-03 21:46:00.809469+00	2022-01-03 21:46:00.827338+00	17	{"fields-classified":0,"fields-failed":0}
+900	classify-tables	2	2022-01-03 21:46:00.827375+00	2022-01-03 21:46:00.835749+00	8	{"total-tables":20,"tables-classified":0}
+901	send-pulses	\N	2022-01-03 22:00:00.097+00	2022-01-03 22:00:00.154+00	57	\N
+902	task-history-cleanup	\N	2022-01-03 22:00:00.216+00	2022-01-03 22:00:00.27+00	54	\N
+903	sync	2	2022-01-03 22:53:42.32315+00	2022-01-03 22:53:42.803012+00	479	\N
+904	sync-timezone	2	2022-01-03 22:53:42.323329+00	2022-01-03 22:53:42.350375+00	27	{"timezone-id":"UTC"}
+905	sync-tables	2	2022-01-03 22:53:42.350542+00	2022-01-03 22:53:42.406892+00	56	{"updated-tables":0,"total-tables":34}
+906	sync-fields	2	2022-01-03 22:53:42.40694+00	2022-01-03 22:53:42.664679+00	257	{"total-fields":95,"updated-fields":0}
+907	sync-fks	2	2022-01-03 22:53:42.664713+00	2022-01-03 22:53:42.78553+00	120	{"total-fks":28,"updated-fks":0,"total-failed":0}
+908	sync-metabase-metadata	2	2022-01-03 22:53:42.785561+00	2022-01-03 22:53:42.802995+00	17	\N
+909	analyze	2	2022-01-03 22:53:42.93234+00	2022-01-03 22:53:43.045118+00	112	\N
+910	fingerprint-fields	2	2022-01-03 22:53:42.932355+00	2022-01-03 22:53:42.99896+00	66	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+911	classify-fields	2	2022-01-03 22:53:42.999004+00	2022-01-03 22:53:43.032997+00	33	{"fields-classified":0,"fields-failed":0}
+912	classify-tables	2	2022-01-03 22:53:43.033041+00	2022-01-03 22:53:43.045093+00	12	{"total-tables":20,"tables-classified":0}
+913	send-pulses	\N	2022-01-03 23:00:00.064+00	2022-01-03 23:00:00.104+00	40	\N
+914	task-history-cleanup	\N	2022-01-03 23:00:00.129+00	2022-01-03 23:00:00.132+00	3	\N
+921	analyze	2	2022-01-03 23:46:00.652881+00	2022-01-03 23:46:00.712895+00	60	\N
+922	fingerprint-fields	2	2022-01-03 23:46:00.652895+00	2022-01-03 23:46:00.69876+00	45	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+923	classify-fields	2	2022-01-03 23:46:00.698794+00	2022-01-03 23:46:00.706044+00	7	{"fields-classified":0,"fields-failed":0}
+924	classify-tables	2	2022-01-03 23:46:00.706087+00	2022-01-03 23:46:00.712868+00	6	{"total-tables":20,"tables-classified":0}
+925	send-pulses	\N	2022-01-04 00:00:00.078+00	2022-01-04 00:00:00.12+00	42	\N
+926	task-history-cleanup	\N	2022-01-04 00:00:00.156+00	2022-01-04 00:00:00.16+00	4	\N
+938	send-pulses	\N	2022-01-04 01:00:00.078+00	2022-01-04 01:00:00.153+00	75	\N
+939	sync	2	2022-01-04 01:46:00.139202+00	2022-01-04 01:46:00.534043+00	394	\N
+943	sync-fks	2	2022-01-04 01:46:00.412792+00	2022-01-04 01:46:00.519982+00	107	{"total-fks":28,"updated-fks":0,"total-failed":0}
+944	sync-metabase-metadata	2	2022-01-04 01:46:00.520016+00	2022-01-04 01:46:00.534022+00	14	\N
+945	analyze	2	2022-01-04 01:46:00.647139+00	2022-01-04 01:46:00.776552+00	129	\N
+946	fingerprint-fields	2	2022-01-04 01:46:00.647149+00	2022-01-04 01:46:00.726838+00	79	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+950	task-history-cleanup	\N	2022-01-04 02:00:00.104+00	2022-01-04 02:00:00.107+00	3	\N
+951	sync	2	2022-01-04 02:46:00.094055+00	2022-01-04 02:46:00.691225+00	597	\N
+952	sync-timezone	2	2022-01-04 02:46:00.094299+00	2022-01-04 02:46:00.118256+00	23	{"timezone-id":"UTC"}
+961	send-pulses	\N	2022-01-04 03:00:00.063+00	2022-01-04 03:00:00.101+00	38	\N
+973	send-pulses	\N	2022-01-04 04:06:38.608+00	2022-01-04 04:06:38.641+00	33	\N
+979	sync-fks	2	2022-01-04 04:51:28.814416+00	2022-01-04 04:51:28.91424+00	99	{"total-fks":28,"updated-fks":0,"total-failed":0}
+980	sync-metabase-metadata	2	2022-01-04 04:51:28.914267+00	2022-01-04 04:51:28.926009+00	11	\N
+981	analyze	2	2022-01-04 04:51:29.07038+00	2022-01-04 04:51:29.123314+00	52	\N
+982	fingerprint-fields	2	2022-01-04 04:51:29.070402+00	2022-01-04 04:51:29.110183+00	39	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+983	classify-fields	2	2022-01-04 04:51:29.110216+00	2022-01-04 04:51:29.118425+00	8	{"fields-classified":0,"fields-failed":0}
+984	classify-tables	2	2022-01-04 04:51:29.118446+00	2022-01-04 04:51:29.123303+00	4	{"total-tables":20,"tables-classified":0}
+985	send-pulses	\N	2022-01-04 05:06:40.865+00	2022-01-04 05:06:40.894+00	29	\N
+987	sync	2	2022-01-04 05:51:23.303861+00	2022-01-04 05:51:23.597268+00	293	\N
+998	task-history-cleanup	\N	2022-01-04 06:06:31.127+00	2022-01-04 06:06:31.131+00	4	\N
+1002	task-history-cleanup	\N	2022-01-04 08:02:35.916+00	2022-01-04 08:02:35.919+00	3	\N
+1526	send-pulses	\N	2022-01-06 23:00:00.104+00	2022-01-06 23:00:00.191+00	87	\N
+1527	send-pulses	\N	2022-01-07 09:25:11.394+00	2022-01-07 09:25:11.442+00	48	\N
+1535	analyze	2	2022-01-07 09:46:01.196549+00	2022-01-07 09:46:01.264869+00	68	\N
+1536	fingerprint-fields	2	2022-01-07 09:46:01.196568+00	2022-01-07 09:46:01.233925+00	37	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1537	classify-fields	2	2022-01-07 09:46:01.233967+00	2022-01-07 09:46:01.243141+00	9	{"fields-classified":0,"fields-failed":0}
+1538	classify-tables	2	2022-01-07 09:46:01.243191+00	2022-01-07 09:46:01.264821+00	21	{"total-tables":20,"tables-classified":0}
+1540	task-history-cleanup	\N	2022-01-07 10:00:00.146+00	2022-01-07 10:00:00.152+00	6	\N
+1547	analyze	2	2022-01-07 10:46:01.037209+00	2022-01-07 10:46:01.18941+00	152	\N
+1548	fingerprint-fields	2	2022-01-07 10:46:01.037236+00	2022-01-07 10:46:01.110789+00	73	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1549	classify-fields	2	2022-01-07 10:46:01.110885+00	2022-01-07 10:46:01.136936+00	26	{"fields-classified":0,"fields-failed":0}
+1550	classify-tables	2	2022-01-07 10:46:01.137078+00	2022-01-07 10:46:01.189218+00	52	{"total-tables":20,"tables-classified":0}
+1552	task-history-cleanup	\N	2022-01-07 11:00:00.11+00	2022-01-07 11:00:00.112+00	2	\N
+1553	sync	2	2022-01-07 11:51:38.657077+00	2022-01-07 11:51:39.728507+00	1071	\N
+1554	sync-timezone	2	2022-01-07 11:51:38.658729+00	2022-01-07 11:51:38.769647+00	110	{"timezone-id":"UTC"}
+1555	sync-tables	2	2022-01-07 11:51:38.770302+00	2022-01-07 11:51:38.978763+00	208	{"updated-tables":0,"total-tables":34}
+1556	sync-fields	2	2022-01-07 11:51:38.979052+00	2022-01-07 11:51:39.5359+00	556	{"total-fields":95,"updated-fields":0}
+1557	sync-fks	2	2022-01-07 11:51:39.535973+00	2022-01-07 11:51:39.680441+00	144	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1558	sync-metabase-metadata	2	2022-01-07 11:51:39.6805+00	2022-01-07 11:51:39.728477+00	47	\N
+1559	analyze	2	2022-01-07 11:51:39.890172+00	2022-01-07 11:51:40.023784+00	133	\N
+1560	fingerprint-fields	2	2022-01-07 11:51:39.890213+00	2022-01-07 11:51:39.976946+00	86	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1561	classify-fields	2	2022-01-07 11:51:39.977037+00	2022-01-07 11:51:39.998562+00	21	{"fields-classified":0,"fields-failed":0}
+1562	classify-tables	2	2022-01-07 11:51:39.998603+00	2022-01-07 11:51:40.023739+00	25	{"total-tables":20,"tables-classified":0}
+1563	task-history-cleanup	\N	2022-01-07 12:00:00.147+00	2022-01-07 12:00:00.153+00	6	\N
+1575	send-pulses	\N	2022-01-07 13:00:00.104+00	2022-01-07 13:00:00.19+00	86	\N
+1583	analyze	2	2022-01-07 13:46:01.564423+00	2022-01-07 13:46:02.241286+00	676	\N
+1584	fingerprint-fields	2	2022-01-07 13:46:01.564459+00	2022-01-07 13:46:02.08157+00	517	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":3,"fingerprints-attempted":3}
+1585	classify-fields	2	2022-01-07 13:46:02.081653+00	2022-01-07 13:46:02.222571+00	140	{"fields-classified":3,"fields-failed":0}
+1586	classify-tables	2	2022-01-07 13:46:02.222614+00	2022-01-07 13:46:02.241239+00	18	{"total-tables":21,"tables-classified":0}
+1588	task-history-cleanup	\N	2022-01-07 14:00:00.137+00	2022-01-07 14:00:00.143+00	6	\N
+1589	sync	2	2022-01-07 14:46:00.174382+00	2022-01-07 14:46:01.238369+00	1063	\N
+1590	sync-timezone	2	2022-01-07 14:46:00.176419+00	2022-01-07 14:46:00.245652+00	69	{"timezone-id":"UTC"}
+1591	sync-tables	2	2022-01-07 14:46:00.245862+00	2022-01-07 14:46:00.443114+00	197	{"updated-tables":0,"total-tables":35}
+1592	sync-fields	2	2022-01-07 14:46:00.443176+00	2022-01-07 14:46:01.052089+00	608	{"total-fields":99,"updated-fields":0}
+1593	sync-fks	2	2022-01-07 14:46:01.052146+00	2022-01-07 14:46:01.216198+00	164	{"total-fks":29,"updated-fks":0,"total-failed":0}
+1594	sync-metabase-metadata	2	2022-01-07 14:46:01.21623+00	2022-01-07 14:46:01.238324+00	22	\N
+1595	analyze	2	2022-01-07 14:46:01.410652+00	2022-01-07 14:46:01.55884+00	148	\N
+1596	fingerprint-fields	2	2022-01-07 14:46:01.410673+00	2022-01-07 14:46:01.5164+00	105	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1597	classify-fields	2	2022-01-07 14:46:01.516444+00	2022-01-07 14:46:01.546165+00	29	{"fields-classified":0,"fields-failed":0}
+1598	classify-tables	2	2022-01-07 14:46:01.546206+00	2022-01-07 14:46:01.558815+00	12	{"total-tables":21,"tables-classified":0}
+1599	send-pulses	\N	2022-01-07 15:00:00.063+00	2022-01-07 15:00:00.12+00	57	\N
+1601	sync	2	2022-01-07 15:46:00.179987+00	2022-01-07 15:46:01.107222+00	927	\N
+1602	sync-timezone	2	2022-01-07 15:46:00.180467+00	2022-01-07 15:46:00.214877+00	34	{"timezone-id":"UTC"}
+1603	sync-tables	2	2022-01-07 15:46:00.215453+00	2022-01-07 15:46:00.335863+00	120	{"updated-tables":0,"total-tables":35}
+1604	sync-fields	2	2022-01-07 15:46:00.336327+00	2022-01-07 15:46:00.939546+00	603	{"total-fields":99,"updated-fields":0}
+1605	sync-fks	2	2022-01-07 15:46:00.939582+00	2022-01-07 15:46:01.083441+00	143	{"total-fks":29,"updated-fks":0,"total-failed":0}
+1606	sync-metabase-metadata	2	2022-01-07 15:46:01.083476+00	2022-01-07 15:46:01.107202+00	23	\N
+1607	analyze	2	2022-01-07 15:46:01.248677+00	2022-01-07 15:46:01.389205+00	140	\N
+1608	fingerprint-fields	2	2022-01-07 15:46:01.248692+00	2022-01-07 15:46:01.349335+00	100	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1609	classify-fields	2	2022-01-07 15:46:01.349377+00	2022-01-07 15:46:01.369399+00	20	{"fields-classified":0,"fields-failed":0}
+1610	classify-tables	2	2022-01-07 15:46:01.369837+00	2022-01-07 15:46:01.389177+00	19	{"total-tables":21,"tables-classified":0}
+1611	send-pulses	\N	2022-01-07 16:00:00.07+00	2022-01-07 16:00:00.115+00	45	\N
+915	sync	2	2022-01-03 23:46:00.115769+00	2022-01-03 23:46:00.532885+00	417	\N
+916	sync-timezone	2	2022-01-03 23:46:00.11603+00	2022-01-03 23:46:00.134571+00	18	{"timezone-id":"UTC"}
+917	sync-tables	2	2022-01-03 23:46:00.134892+00	2022-01-03 23:46:00.16404+00	29	{"updated-tables":0,"total-tables":34}
+918	sync-fields	2	2022-01-03 23:46:00.164333+00	2022-01-03 23:46:00.384504+00	220	{"total-fields":95,"updated-fields":0}
+919	sync-fks	2	2022-01-03 23:46:00.384549+00	2022-01-03 23:46:00.51754+00	132	{"total-fks":28,"updated-fks":0,"total-failed":0}
+920	sync-metabase-metadata	2	2022-01-03 23:46:00.517577+00	2022-01-03 23:46:00.532866+00	15	\N
+963	sync	2	2022-01-04 03:46:00.095659+00	2022-01-04 03:46:00.413269+00	317	\N
+964	sync-timezone	2	2022-01-04 03:46:00.095892+00	2022-01-04 03:46:00.114111+00	18	{"timezone-id":"UTC"}
+965	sync-tables	2	2022-01-04 03:46:00.114346+00	2022-01-04 03:46:00.156662+00	42	{"updated-tables":0,"total-tables":34}
+966	sync-fields	2	2022-01-04 03:46:00.156709+00	2022-01-04 03:46:00.296672+00	139	{"total-fields":95,"updated-fields":0}
+967	sync-fks	2	2022-01-04 03:46:00.296713+00	2022-01-04 03:46:00.401749+00	105	{"total-fks":28,"updated-fks":0,"total-failed":0}
+968	sync-metabase-metadata	2	2022-01-04 03:46:00.401794+00	2022-01-04 03:46:00.413241+00	11	\N
+969	analyze	2	2022-01-04 03:46:00.481004+00	2022-01-04 03:46:00.620657+00	139	\N
+970	fingerprint-fields	2	2022-01-04 03:46:00.481014+00	2022-01-04 03:46:00.584786+00	103	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+971	classify-fields	2	2022-01-04 03:46:00.584828+00	2022-01-04 03:46:00.607919+00	23	{"fields-classified":0,"fields-failed":0}
+972	classify-tables	2	2022-01-04 03:46:00.607964+00	2022-01-04 03:46:00.620623+00	12	{"total-tables":20,"tables-classified":0}
+974	task-history-cleanup	\N	2022-01-04 04:06:38.643+00	2022-01-04 04:06:38.646+00	3	\N
+988	sync-timezone	2	2022-01-04 05:51:23.304102+00	2022-01-04 05:51:23.338188+00	34	{"timezone-id":"UTC"}
+989	sync-tables	2	2022-01-04 05:51:23.338407+00	2022-01-04 05:51:23.384815+00	46	{"updated-tables":0,"total-tables":34}
+990	sync-fields	2	2022-01-04 05:51:23.384849+00	2022-01-04 05:51:23.498224+00	113	{"total-fields":95,"updated-fields":0}
+991	sync-fks	2	2022-01-04 05:51:23.498256+00	2022-01-04 05:51:23.584507+00	86	{"total-fks":28,"updated-fks":0,"total-failed":0}
+992	sync-metabase-metadata	2	2022-01-04 05:51:23.584535+00	2022-01-04 05:51:23.597252+00	12	\N
+993	analyze	2	2022-01-04 05:51:23.72743+00	2022-01-04 05:51:23.770403+00	42	\N
+994	fingerprint-fields	2	2022-01-04 05:51:23.727445+00	2022-01-04 05:51:23.758189+00	30	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+995	classify-fields	2	2022-01-04 05:51:23.758222+00	2022-01-04 05:51:23.764112+00	5	{"fields-classified":0,"fields-failed":0}
+996	classify-tables	2	2022-01-04 05:51:23.764152+00	2022-01-04 05:51:23.770382+00	6	{"total-tables":20,"tables-classified":0}
+997	send-pulses	\N	2022-01-04 06:06:31.101+00	2022-01-04 06:06:31.136+00	35	\N
+1000	send-pulses	\N	2022-01-04 07:09:14.684+00	2022-01-04 07:09:14.742+00	58	\N
+1001	send-pulses	\N	2022-01-04 08:02:35.871+00	2022-01-04 08:02:35.911+00	40	\N
+1529	sync	2	2022-01-07 09:46:00.274385+00	2022-01-07 09:46:01.113573+00	839	\N
+1530	sync-timezone	2	2022-01-07 09:46:00.277186+00	2022-01-07 09:46:00.33072+00	53	{"timezone-id":"UTC"}
+1531	sync-tables	2	2022-01-07 09:46:00.331145+00	2022-01-07 09:46:00.419186+00	88	{"updated-tables":0,"total-tables":34}
+1532	sync-fields	2	2022-01-07 09:46:00.419269+00	2022-01-07 09:46:00.994323+00	575	{"total-fields":95,"updated-fields":0}
+1533	sync-fks	2	2022-01-07 09:46:00.99437+00	2022-01-07 09:46:01.096665+00	102	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1534	sync-metabase-metadata	2	2022-01-07 09:46:01.096715+00	2022-01-07 09:46:01.113539+00	16	\N
+1539	send-pulses	\N	2022-01-07 10:00:00.098+00	2022-01-07 10:00:00.144+00	46	\N
+1564	send-pulses	\N	2022-01-07 12:00:00.106+00	2022-01-07 12:00:00.19+00	84	\N
+1577	sync	2	2022-01-07 13:46:00.22272+00	2022-01-07 13:46:01.424801+00	1202	\N
+1578	sync-timezone	2	2022-01-07 13:46:00.223944+00	2022-01-07 13:46:00.754171+00	530	{"timezone-id":"UTC"}
+1579	sync-tables	2	2022-01-07 13:46:00.755386+00	2022-01-07 13:46:00.96519+00	209	{"updated-tables":0,"total-tables":35}
+1580	sync-fields	2	2022-01-07 13:46:00.96525+00	2022-01-07 13:46:01.280576+00	315	{"total-fields":99,"updated-fields":0}
+1581	sync-fks	2	2022-01-07 13:46:01.280635+00	2022-01-07 13:46:01.410657+00	130	{"total-fks":29,"updated-fks":0,"total-failed":0}
+1582	sync-metabase-metadata	2	2022-01-07 13:46:01.41072+00	2022-01-07 13:46:01.424777+00	14	\N
+1587	send-pulses	\N	2022-01-07 14:00:00.085+00	2022-01-07 14:00:00.125+00	40	\N
+1600	task-history-cleanup	\N	2022-01-07 15:00:00.117+00	2022-01-07 15:00:00.123+00	6	\N
+1624	task-history-cleanup	\N	2022-01-07 17:00:00.11+00	2022-01-07 17:00:00.113+00	3	\N
+1630	sync-metabase-metadata	2	2022-01-07 17:46:00.906493+00	2022-01-07 17:46:00.932236+00	25	\N
+1631	analyze	2	2022-01-07 17:46:01.077603+00	2022-01-07 17:46:01.186976+00	109	\N
+1632	fingerprint-fields	2	2022-01-07 17:46:01.077617+00	2022-01-07 17:46:01.144306+00	66	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1633	classify-fields	2	2022-01-07 17:46:01.144344+00	2022-01-07 17:46:01.157971+00	13	{"fields-classified":0,"fields-failed":0}
+1634	classify-tables	2	2022-01-07 17:46:01.158012+00	2022-01-07 17:46:01.186948+00	28	{"total-tables":21,"tables-classified":0}
+927	sync	2	2022-01-04 00:46:00.349463+00	2022-01-04 00:46:00.823181+00	473	\N
+928	sync-timezone	2	2022-01-04 00:46:00.351+00	2022-01-04 00:46:00.423826+00	72	{"timezone-id":"UTC"}
+929	sync-tables	2	2022-01-04 00:46:00.424809+00	2022-01-04 00:46:00.506037+00	81	{"updated-tables":0,"total-tables":34}
+930	sync-fields	2	2022-01-04 00:46:00.506071+00	2022-01-04 00:46:00.714447+00	208	{"total-fields":95,"updated-fields":0}
+931	sync-fks	2	2022-01-04 00:46:00.714483+00	2022-01-04 00:46:00.811134+00	96	{"total-fks":28,"updated-fks":0,"total-failed":0}
+932	sync-metabase-metadata	2	2022-01-04 00:46:00.811172+00	2022-01-04 00:46:00.823158+00	11	\N
+933	analyze	2	2022-01-04 00:46:00.956107+00	2022-01-04 00:46:01.025895+00	69	\N
+934	fingerprint-fields	2	2022-01-04 00:46:00.956121+00	2022-01-04 00:46:01.002601+00	46	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+935	classify-fields	2	2022-01-04 00:46:01.003013+00	2022-01-04 00:46:01.009322+00	6	{"fields-classified":0,"fields-failed":0}
+936	classify-tables	2	2022-01-04 00:46:01.009341+00	2022-01-04 00:46:01.025871+00	16	{"total-tables":20,"tables-classified":0}
+937	task-history-cleanup	\N	2022-01-04 01:00:00.136+00	2022-01-04 01:00:00.147+00	11	\N
+940	sync-timezone	2	2022-01-04 01:46:00.139676+00	2022-01-04 01:46:00.179866+00	40	{"timezone-id":"UTC"}
+941	sync-tables	2	2022-01-04 01:46:00.180072+00	2022-01-04 01:46:00.234783+00	54	{"updated-tables":0,"total-tables":34}
+942	sync-fields	2	2022-01-04 01:46:00.234816+00	2022-01-04 01:46:00.412754+00	177	{"total-fields":95,"updated-fields":0}
+947	classify-fields	2	2022-01-04 01:46:00.726872+00	2022-01-04 01:46:00.740301+00	13	{"fields-classified":0,"fields-failed":0}
+948	classify-tables	2	2022-01-04 01:46:00.740332+00	2022-01-04 01:46:00.776529+00	36	{"total-tables":20,"tables-classified":0}
+949	send-pulses	\N	2022-01-04 02:00:00.039+00	2022-01-04 02:00:00.074+00	35	\N
+953	sync-tables	2	2022-01-04 02:46:00.118584+00	2022-01-04 02:46:00.180414+00	61	{"updated-tables":0,"total-tables":34}
+954	sync-fields	2	2022-01-04 02:46:00.180448+00	2022-01-04 02:46:00.545856+00	365	{"total-fields":95,"updated-fields":0}
+955	sync-fks	2	2022-01-04 02:46:00.545897+00	2022-01-04 02:46:00.660998+00	115	{"total-fks":28,"updated-fks":0,"total-failed":0}
+956	sync-metabase-metadata	2	2022-01-04 02:46:00.66106+00	2022-01-04 02:46:00.691206+00	30	\N
+957	analyze	2	2022-01-04 02:46:00.81808+00	2022-01-04 02:46:00.916822+00	98	\N
+958	fingerprint-fields	2	2022-01-04 02:46:00.818103+00	2022-01-04 02:46:00.863115+00	45	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+959	classify-fields	2	2022-01-04 02:46:00.863162+00	2022-01-04 02:46:00.888862+00	25	{"fields-classified":0,"fields-failed":0}
+960	classify-tables	2	2022-01-04 02:46:00.888909+00	2022-01-04 02:46:00.916799+00	27	{"total-tables":20,"tables-classified":0}
+962	task-history-cleanup	\N	2022-01-04 03:00:00.12+00	2022-01-04 03:00:00.123+00	3	\N
+975	sync	2	2022-01-04 04:51:28.585502+00	2022-01-04 04:51:28.926023+00	340	\N
+976	sync-timezone	2	2022-01-04 04:51:28.586287+00	2022-01-04 04:51:28.641513+00	55	{"timezone-id":"UTC"}
+977	sync-tables	2	2022-01-04 04:51:28.642124+00	2022-01-04 04:51:28.678599+00	36	{"updated-tables":0,"total-tables":34}
+978	sync-fields	2	2022-01-04 04:51:28.678631+00	2022-01-04 04:51:28.81439+00	135	{"total-fields":95,"updated-fields":0}
+986	task-history-cleanup	\N	2022-01-04 05:06:40.905+00	2022-01-04 05:06:40.907+00	2	\N
+999	task-history-cleanup	\N	2022-01-04 07:09:14.738+00	2022-01-04 07:09:14.743+00	5	\N
+1003	sync	2	2022-01-04 08:46:00.203022+00	2022-01-04 08:46:00.776243+00	573	\N
+1004	sync-timezone	2	2022-01-04 08:46:00.203726+00	2022-01-04 08:46:00.265387+00	61	{"timezone-id":"UTC"}
+1005	sync-tables	2	2022-01-04 08:46:00.266168+00	2022-01-04 08:46:00.323357+00	57	{"updated-tables":0,"total-tables":34}
+1006	sync-fields	2	2022-01-04 08:46:00.323388+00	2022-01-04 08:46:00.63335+00	309	{"total-fields":95,"updated-fields":0}
+1007	sync-fks	2	2022-01-04 08:46:00.633412+00	2022-01-04 08:46:00.757218+00	123	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1008	sync-metabase-metadata	2	2022-01-04 08:46:00.7573+00	2022-01-04 08:46:00.776216+00	18	\N
+1009	analyze	2	2022-01-04 08:46:00.910803+00	2022-01-04 08:46:00.95593+00	45	\N
+1010	fingerprint-fields	2	2022-01-04 08:46:00.910823+00	2022-01-04 08:46:00.940629+00	29	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1011	classify-fields	2	2022-01-04 08:46:00.94067+00	2022-01-04 08:46:00.949929+00	9	{"fields-classified":0,"fields-failed":0}
+1012	classify-tables	2	2022-01-04 08:46:00.949972+00	2022-01-04 08:46:00.955895+00	5	{"total-tables":20,"tables-classified":0}
+1013	task-history-cleanup	\N	2022-01-04 09:00:00.119+00	2022-01-04 09:00:00.13+00	11	\N
+1014	send-pulses	\N	2022-01-04 09:00:00.081+00	2022-01-04 09:00:00.13+00	49	\N
+1015	sync	2	2022-01-04 09:46:00.084173+00	2022-01-04 09:46:00.430561+00	346	\N
+1016	sync-timezone	2	2022-01-04 09:46:00.084427+00	2022-01-04 09:46:00.101837+00	17	{"timezone-id":"UTC"}
+1017	sync-tables	2	2022-01-04 09:46:00.102054+00	2022-01-04 09:46:00.138683+00	36	{"updated-tables":0,"total-tables":34}
+1018	sync-fields	2	2022-01-04 09:46:00.138738+00	2022-01-04 09:46:00.304367+00	165	{"total-fields":95,"updated-fields":0}
+1019	sync-fks	2	2022-01-04 09:46:00.304404+00	2022-01-04 09:46:00.412816+00	108	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1020	sync-metabase-metadata	2	2022-01-04 09:46:00.412851+00	2022-01-04 09:46:00.430521+00	17	\N
+1021	analyze	2	2022-01-04 09:46:00.557309+00	2022-01-04 09:46:00.615258+00	57	\N
+1022	fingerprint-fields	2	2022-01-04 09:46:00.557324+00	2022-01-04 09:46:00.592015+00	34	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1023	classify-fields	2	2022-01-04 09:46:00.59205+00	2022-01-04 09:46:00.605518+00	13	{"fields-classified":0,"fields-failed":0}
+1024	classify-tables	2	2022-01-04 09:46:00.605578+00	2022-01-04 09:46:00.615231+00	9	{"total-tables":20,"tables-classified":0}
+1025	send-pulses	\N	2022-01-04 10:00:00.021+00	2022-01-04 10:00:00.044+00	23	\N
+1026	task-history-cleanup	\N	2022-01-04 10:00:00.118+00	2022-01-04 10:00:00.122+00	4	\N
+1027	task-history-cleanup	\N	2022-01-04 11:08:41.307+00	2022-01-04 11:08:41.311+00	4	\N
+1028	send-pulses	\N	2022-01-04 11:08:41.284+00	2022-01-04 11:08:41.345+00	61	\N
+1029	send-pulses	\N	2022-01-04 12:54:53.988+00	2022-01-04 12:54:54.011+00	23	\N
+1030	task-history-cleanup	\N	2022-01-04 12:54:54.011+00	2022-01-04 12:54:54.06+00	49	\N
+1031	send-pulses	\N	2022-01-04 13:00:00.068+00	2022-01-04 13:00:00.117+00	49	\N
+1032	task-history-cleanup	\N	2022-01-04 13:00:00.144+00	2022-01-04 13:00:00.151+00	7	\N
+1033	sync	2	2022-01-04 13:46:00.134399+00	2022-01-04 13:46:00.450166+00	315	\N
+1034	sync-timezone	2	2022-01-04 13:46:00.134575+00	2022-01-04 13:46:00.165205+00	30	{"timezone-id":"UTC"}
+1035	sync-tables	2	2022-01-04 13:46:00.165572+00	2022-01-04 13:46:00.204267+00	38	{"updated-tables":0,"total-tables":34}
+1036	sync-fields	2	2022-01-04 13:46:00.204307+00	2022-01-04 13:46:00.334559+00	130	{"total-fields":95,"updated-fields":0}
+1037	sync-fks	2	2022-01-04 13:46:00.334587+00	2022-01-04 13:46:00.437423+00	102	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1038	sync-metabase-metadata	2	2022-01-04 13:46:00.437454+00	2022-01-04 13:46:00.45015+00	12	\N
+1039	analyze	2	2022-01-04 13:46:00.578129+00	2022-01-04 13:46:00.666123+00	87	\N
+1040	fingerprint-fields	2	2022-01-04 13:46:00.578143+00	2022-01-04 13:46:00.627489+00	49	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1041	classify-fields	2	2022-01-04 13:46:00.627531+00	2022-01-04 13:46:00.657984+00	30	{"fields-classified":0,"fields-failed":0}
+1042	classify-tables	2	2022-01-04 13:46:00.658035+00	2022-01-04 13:46:00.666076+00	8	{"total-tables":20,"tables-classified":0}
+1043	send-pulses	\N	2022-01-04 14:00:00.045+00	2022-01-04 14:00:00.071+00	26	\N
+1044	task-history-cleanup	\N	2022-01-04 14:00:00.093+00	2022-01-04 14:00:00.095+00	2	\N
+1045	task-history-cleanup	\N	2022-01-04 15:07:13.346+00	2022-01-04 15:07:13.348+00	2	\N
+1046	send-pulses	\N	2022-01-04 15:07:13.319+00	2022-01-04 15:07:13.343+00	24	\N
+1047	send-pulses	\N	2022-01-04 16:00:00.047+00	2022-01-04 16:00:00.08+00	33	\N
+1048	task-history-cleanup	\N	2022-01-04 16:00:00.101+00	2022-01-04 16:00:00.111+00	10	\N
+1049	sync	2	2022-01-04 16:46:00.109405+00	2022-01-04 16:46:00.443049+00	333	\N
+1050	sync-timezone	2	2022-01-04 16:46:00.109877+00	2022-01-04 16:46:00.1286+00	18	{"timezone-id":"UTC"}
+1060	task-history-cleanup	\N	2022-01-04 17:00:00.122+00	2022-01-04 17:00:00.124+00	2	\N
+1051	sync-tables	2	2022-01-04 16:46:00.129178+00	2022-01-04 16:46:00.155067+00	25	{"updated-tables":0,"total-tables":34}
+1052	sync-fields	2	2022-01-04 16:46:00.155103+00	2022-01-04 16:46:00.312447+00	157	{"total-fields":95,"updated-fields":0}
+1055	analyze	2	2022-01-04 16:46:00.569632+00	2022-01-04 16:46:00.610992+00	41	\N
+1056	fingerprint-fields	2	2022-01-04 16:46:00.569658+00	2022-01-04 16:46:00.597639+00	27	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1057	classify-fields	2	2022-01-04 16:46:00.597692+00	2022-01-04 16:46:00.604929+00	7	{"fields-classified":0,"fields-failed":0}
+1058	classify-tables	2	2022-01-04 16:46:00.604946+00	2022-01-04 16:46:00.610978+00	6	{"total-tables":20,"tables-classified":0}
+1059	send-pulses	\N	2022-01-04 17:00:00.064+00	2022-01-04 17:00:00.089+00	25	\N
+1061	sync	2	2022-01-04 18:25:58.155273+00	2022-01-04 18:25:58.540481+00	385	\N
+1062	sync-timezone	2	2022-01-04 18:25:58.155578+00	2022-01-04 18:25:58.176818+00	21	{"timezone-id":"UTC"}
+1063	sync-tables	2	2022-01-04 18:25:58.177099+00	2022-01-04 18:25:58.221446+00	44	{"updated-tables":0,"total-tables":34}
+1064	sync-fields	2	2022-01-04 18:25:58.221478+00	2022-01-04 18:25:58.406382+00	184	{"total-fields":95,"updated-fields":0}
+1067	analyze	2	2022-01-04 18:25:58.642242+00	2022-01-04 18:25:58.66967+00	27	\N
+1068	fingerprint-fields	2	2022-01-04 18:25:58.642261+00	2022-01-04 18:25:58.657316+00	15	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1069	classify-fields	2	2022-01-04 18:25:58.657357+00	2022-01-04 18:25:58.664033+00	6	{"fields-classified":0,"fields-failed":0}
+1070	classify-tables	2	2022-01-04 18:25:58.664062+00	2022-01-04 18:25:58.669658+00	5	{"total-tables":20,"tables-classified":0}
+1086	task-history-cleanup	\N	2022-01-04 21:00:20.851+00	2022-01-04 21:00:20.855+00	4	\N
+1087	sync	2	2022-01-04 21:46:00.1117+00	2022-01-04 21:46:00.375724+00	264	\N
+1088	sync-timezone	2	2022-01-04 21:46:00.111905+00	2022-01-04 21:46:00.12678+00	14	{"timezone-id":"UTC"}
+1089	sync-tables	2	2022-01-04 21:46:00.126997+00	2022-01-04 21:46:00.153661+00	26	{"updated-tables":0,"total-tables":34}
+1090	sync-fields	2	2022-01-04 21:46:00.153699+00	2022-01-04 21:46:00.271116+00	117	{"total-fields":95,"updated-fields":0}
+1091	sync-fks	2	2022-01-04 21:46:00.271152+00	2022-01-04 21:46:00.363438+00	92	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1092	sync-metabase-metadata	2	2022-01-04 21:46:00.363487+00	2022-01-04 21:46:00.375707+00	12	\N
+1097	send-pulses	\N	2022-01-04 22:00:00.051+00	2022-01-04 22:00:00.087+00	36	\N
+1105	analyze	2	2022-01-04 22:46:00.577244+00	2022-01-04 22:46:00.642365+00	65	\N
+1106	fingerprint-fields	2	2022-01-04 22:46:00.577257+00	2022-01-04 22:46:00.61641+00	39	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1107	classify-fields	2	2022-01-04 22:46:00.616454+00	2022-01-04 22:46:00.63241+00	15	{"fields-classified":0,"fields-failed":0}
+1108	classify-tables	2	2022-01-04 22:46:00.632452+00	2022-01-04 22:46:00.642341+00	9	{"total-tables":20,"tables-classified":0}
+1122	task-history-cleanup	\N	2022-01-05 00:00:00.19+00	2022-01-05 00:00:00.193+00	3	\N
+1147	sync	2	2022-01-05 02:56:39.152921+00	2022-01-05 02:56:39.620082+00	467	\N
+1148	sync-timezone	2	2022-01-05 02:56:39.153054+00	2022-01-05 02:56:39.191376+00	38	{"timezone-id":"UTC"}
+1149	sync-tables	2	2022-01-05 02:56:39.19249+00	2022-01-05 02:56:39.265215+00	72	{"updated-tables":0,"total-tables":34}
+1150	sync-fields	2	2022-01-05 02:56:39.265251+00	2022-01-05 02:56:39.473184+00	207	{"total-fields":95,"updated-fields":0}
+1151	sync-fks	2	2022-01-05 02:56:39.473213+00	2022-01-05 02:56:39.58827+00	115	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1152	sync-metabase-metadata	2	2022-01-05 02:56:39.588325+00	2022-01-05 02:56:39.620057+00	31	\N
+1153	analyze	2	2022-01-05 02:56:39.724581+00	2022-01-05 02:56:39.79976+00	75	\N
+1154	fingerprint-fields	2	2022-01-05 02:56:39.724601+00	2022-01-05 02:56:39.786322+00	61	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1155	classify-fields	2	2022-01-05 02:56:39.786355+00	2022-01-05 02:56:39.793596+00	7	{"fields-classified":0,"fields-failed":0}
+1156	classify-tables	2	2022-01-05 02:56:39.793614+00	2022-01-05 02:56:39.799745+00	6	{"total-tables":20,"tables-classified":0}
+1565	sync	2	2022-01-07 12:46:00.30846+00	2022-01-07 12:46:01.700323+00	1391	\N
+1566	sync-timezone	2	2022-01-07 12:46:00.309487+00	2022-01-07 12:46:00.398513+00	89	{"timezone-id":"UTC"}
+1567	sync-tables	2	2022-01-07 12:46:00.398664+00	2022-01-07 12:46:00.909829+00	511	{"updated-tables":1,"total-tables":34}
+1568	sync-fields	2	2022-01-07 12:46:00.909958+00	2022-01-07 12:46:01.537042+00	627	{"total-fields":99,"updated-fields":4}
+1569	sync-fks	2	2022-01-07 12:46:01.537089+00	2022-01-07 12:46:01.679099+00	142	{"total-fks":29,"updated-fks":0,"total-failed":0}
+1570	sync-metabase-metadata	2	2022-01-07 12:46:01.679143+00	2022-01-07 12:46:01.700289+00	21	\N
+1571	analyze	2	2022-01-07 12:46:01.762748+00	2022-01-07 12:46:03.062481+00	1299	\N
+1572	fingerprint-fields	2	2022-01-07 12:46:01.762765+00	2022-01-07 12:46:02.99361+00	1230	{"no-data-fingerprints":3,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":3}
+1573	classify-fields	2	2022-01-07 12:46:02.993711+00	2022-01-07 12:46:03.007673+00	13	{"fields-classified":0,"fields-failed":0}
+1574	classify-tables	2	2022-01-07 12:46:03.008059+00	2022-01-07 12:46:03.062439+00	54	{"total-tables":21,"tables-classified":1}
+1576	task-history-cleanup	\N	2022-01-07 13:00:00.156+00	2022-01-07 13:00:00.187+00	31	\N
+1612	task-history-cleanup	\N	2022-01-07 16:00:00.139+00	2022-01-07 16:00:00.156+00	17	\N
+1623	send-pulses	\N	2022-01-07 17:00:00.067+00	2022-01-07 17:00:00.103+00	36	\N
+1053	sync-fks	2	2022-01-04 16:46:00.31249+00	2022-01-04 16:46:00.425851+00	113	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1054	sync-metabase-metadata	2	2022-01-04 16:46:00.425886+00	2022-01-04 16:46:00.443021+00	17	\N
+1072	task-history-cleanup	\N	2022-01-04 19:59:29.256+00	2022-01-04 19:59:29.259+00	3	\N
+1073	send-pulses	\N	2022-01-04 20:00:00.053+00	2022-01-04 20:00:00.077+00	24	\N
+1075	sync	2	2022-01-04 20:48:49.385431+00	2022-01-04 20:48:49.775117+00	389	\N
+1076	sync-timezone	2	2022-01-04 20:48:49.385614+00	2022-01-04 20:48:49.400644+00	15	{"timezone-id":"UTC"}
+1077	sync-tables	2	2022-01-04 20:48:49.400857+00	2022-01-04 20:48:49.432873+00	32	{"updated-tables":0,"total-tables":34}
+1078	sync-fields	2	2022-01-04 20:48:49.432935+00	2022-01-04 20:48:49.629736+00	196	{"total-fields":95,"updated-fields":0}
+1079	sync-fks	2	2022-01-04 20:48:49.629776+00	2022-01-04 20:48:49.754546+00	124	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1080	sync-metabase-metadata	2	2022-01-04 20:48:49.754577+00	2022-01-04 20:48:49.775099+00	20	\N
+1081	analyze	2	2022-01-04 20:48:49.899311+00	2022-01-04 20:48:49.937069+00	37	\N
+1082	fingerprint-fields	2	2022-01-04 20:48:49.899324+00	2022-01-04 20:48:49.925267+00	25	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1083	classify-fields	2	2022-01-04 20:48:49.925299+00	2022-01-04 20:48:49.931464+00	6	{"fields-classified":0,"fields-failed":0}
+1084	classify-tables	2	2022-01-04 20:48:49.93151+00	2022-01-04 20:48:49.937052+00	5	{"total-tables":20,"tables-classified":0}
+1110	task-history-cleanup	\N	2022-01-04 23:00:00.13+00	2022-01-04 23:00:00.139+00	9	\N
+1123	sync	2	2022-01-05 00:46:00.148192+00	2022-01-05 00:46:00.624592+00	476	\N
+1124	sync-timezone	2	2022-01-05 00:46:00.148977+00	2022-01-05 00:46:00.194877+00	45	{"timezone-id":"UTC"}
+1125	sync-tables	2	2022-01-05 00:46:00.195401+00	2022-01-05 00:46:00.267096+00	71	{"updated-tables":0,"total-tables":34}
+1126	sync-fields	2	2022-01-05 00:46:00.267136+00	2022-01-05 00:46:00.492809+00	225	{"total-fields":95,"updated-fields":0}
+1127	sync-fks	2	2022-01-05 00:46:00.492868+00	2022-01-05 00:46:00.604777+00	111	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1128	sync-metabase-metadata	2	2022-01-05 00:46:00.604821+00	2022-01-05 00:46:00.624573+00	19	\N
+1129	analyze	2	2022-01-05 00:46:00.757744+00	2022-01-05 00:46:00.830574+00	72	\N
+1130	fingerprint-fields	2	2022-01-05 00:46:00.757776+00	2022-01-05 00:46:00.810543+00	52	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1131	classify-fields	2	2022-01-05 00:46:00.810579+00	2022-01-05 00:46:00.818975+00	8	{"fields-classified":0,"fields-failed":0}
+1132	classify-tables	2	2022-01-05 00:46:00.819017+00	2022-01-05 00:46:00.830545+00	11	{"total-tables":20,"tables-classified":0}
+1134	task-history-cleanup	\N	2022-01-05 01:00:00.109+00	2022-01-05 01:00:00.111+00	2	\N
+1135	sync	2	2022-01-05 01:46:00.082321+00	2022-01-05 01:46:00.461561+00	379	\N
+1136	sync-timezone	2	2022-01-05 01:46:00.082568+00	2022-01-05 01:46:00.096483+00	13	{"timezone-id":"UTC"}
+1137	sync-tables	2	2022-01-05 01:46:00.096711+00	2022-01-05 01:46:00.131939+00	35	{"updated-tables":0,"total-tables":34}
+1138	sync-fields	2	2022-01-05 01:46:00.131989+00	2022-01-05 01:46:00.32482+00	192	{"total-fields":95,"updated-fields":0}
+1139	sync-fks	2	2022-01-05 01:46:00.324856+00	2022-01-05 01:46:00.437894+00	113	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1140	sync-metabase-metadata	2	2022-01-05 01:46:00.437929+00	2022-01-05 01:46:00.461535+00	23	\N
+1141	analyze	2	2022-01-05 01:46:00.592166+00	2022-01-05 01:46:00.664717+00	72	\N
+1142	fingerprint-fields	2	2022-01-05 01:46:00.592179+00	2022-01-05 01:46:00.650017+00	57	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1143	classify-fields	2	2022-01-05 01:46:00.650065+00	2022-01-05 01:46:00.657102+00	7	{"fields-classified":0,"fields-failed":0}
+1144	classify-tables	2	2022-01-05 01:46:00.657122+00	2022-01-05 01:46:00.664692+00	7	{"total-tables":20,"tables-classified":0}
+1145	send-pulses	\N	2022-01-05 02:00:00.034+00	2022-01-05 02:00:00.066+00	32	\N
+1613	sync	2	2022-01-07 16:46:00.151187+00	2022-01-07 16:46:00.658519+00	507	\N
+1614	sync-timezone	2	2022-01-07 16:46:00.151289+00	2022-01-07 16:46:00.181247+00	29	{"timezone-id":"UTC"}
+1615	sync-tables	2	2022-01-07 16:46:00.181427+00	2022-01-07 16:46:00.235481+00	54	{"updated-tables":0,"total-tables":35}
+1616	sync-fields	2	2022-01-07 16:46:00.235539+00	2022-01-07 16:46:00.531646+00	296	{"total-fields":99,"updated-fields":0}
+1617	sync-fks	2	2022-01-07 16:46:00.531699+00	2022-01-07 16:46:00.64684+00	115	{"total-fks":29,"updated-fks":0,"total-failed":0}
+1618	sync-metabase-metadata	2	2022-01-07 16:46:00.646873+00	2022-01-07 16:46:00.658502+00	11	\N
+1619	analyze	2	2022-01-07 16:46:00.7743+00	2022-01-07 16:46:00.826295+00	51	\N
+1620	fingerprint-fields	2	2022-01-07 16:46:00.774312+00	2022-01-07 16:46:00.810639+00	36	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1621	classify-fields	2	2022-01-07 16:46:00.810673+00	2022-01-07 16:46:00.816243+00	5	{"fields-classified":0,"fields-failed":0}
+1622	classify-tables	2	2022-01-07 16:46:00.816265+00	2022-01-07 16:46:00.826267+00	10	{"total-tables":21,"tables-classified":0}
+1636	send-pulses	\N	2022-01-07 18:00:00.066+00	2022-01-07 18:00:00.131+00	65	\N
+1637	field values scanning	2	2022-01-07 18:00:00.391138+00	2022-01-07 18:00:01.913691+00	1522	\N
+1638	update-field-values	2	2022-01-07 18:00:00.391231+00	2022-01-07 18:00:01.913549+00	1522	{"errors":0,"created":2,"updated":0,"deleted":0}
+1065	sync-fks	2	2022-01-04 18:25:58.406436+00	2022-01-04 18:25:58.524722+00	118	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1066	sync-metabase-metadata	2	2022-01-04 18:25:58.524755+00	2022-01-04 18:25:58.540461+00	15	\N
+1071	send-pulses	\N	2022-01-04 19:59:29.21+00	2022-01-04 19:59:29.237+00	27	\N
+1074	task-history-cleanup	\N	2022-01-04 20:00:00.104+00	2022-01-04 20:00:00.112+00	8	\N
+1085	send-pulses	\N	2022-01-04 21:00:20.798+00	2022-01-04 21:00:20.822+00	24	\N
+1093	analyze	2	2022-01-04 21:46:00.479678+00	2022-01-04 21:46:00.514075+00	34	\N
+1094	fingerprint-fields	2	2022-01-04 21:46:00.479694+00	2022-01-04 21:46:00.498616+00	18	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1095	classify-fields	2	2022-01-04 21:46:00.498646+00	2022-01-04 21:46:00.505448+00	6	{"fields-classified":0,"fields-failed":0}
+1096	classify-tables	2	2022-01-04 21:46:00.505499+00	2022-01-04 21:46:00.514048+00	8	{"total-tables":20,"tables-classified":0}
+1098	task-history-cleanup	\N	2022-01-04 22:00:00.115+00	2022-01-04 22:00:00.118+00	3	\N
+1099	sync	2	2022-01-04 22:46:00.118761+00	2022-01-04 22:46:00.450691+00	331	\N
+1100	sync-timezone	2	2022-01-04 22:46:00.118979+00	2022-01-04 22:46:00.138265+00	19	{"timezone-id":"UTC"}
+1101	sync-tables	2	2022-01-04 22:46:00.138502+00	2022-01-04 22:46:00.176395+00	37	{"updated-tables":0,"total-tables":34}
+1102	sync-fields	2	2022-01-04 22:46:00.176435+00	2022-01-04 22:46:00.315943+00	139	{"total-fields":95,"updated-fields":0}
+1103	sync-fks	2	2022-01-04 22:46:00.315991+00	2022-01-04 22:46:00.433083+00	117	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1104	sync-metabase-metadata	2	2022-01-04 22:46:00.433152+00	2022-01-04 22:46:00.450655+00	17	\N
+1109	send-pulses	\N	2022-01-04 23:00:00.078+00	2022-01-04 23:00:00.115+00	37	\N
+1111	sync	2	2022-01-04 23:46:00.093051+00	2022-01-04 23:46:00.39839+00	305	\N
+1112	sync-timezone	2	2022-01-04 23:46:00.093288+00	2022-01-04 23:46:00.109206+00	15	{"timezone-id":"UTC"}
+1113	sync-tables	2	2022-01-04 23:46:00.109434+00	2022-01-04 23:46:00.14136+00	31	{"updated-tables":0,"total-tables":34}
+1114	sync-fields	2	2022-01-04 23:46:00.141401+00	2022-01-04 23:46:00.285862+00	144	{"total-fields":95,"updated-fields":0}
+1115	sync-fks	2	2022-01-04 23:46:00.285899+00	2022-01-04 23:46:00.380642+00	94	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1116	sync-metabase-metadata	2	2022-01-04 23:46:00.380686+00	2022-01-04 23:46:00.398368+00	17	\N
+1117	analyze	2	2022-01-04 23:46:00.51634+00	2022-01-04 23:46:00.551367+00	35	\N
+1118	fingerprint-fields	2	2022-01-04 23:46:00.516351+00	2022-01-04 23:46:00.535547+00	19	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1119	classify-fields	2	2022-01-04 23:46:00.53558+00	2022-01-04 23:46:00.544972+00	9	{"fields-classified":0,"fields-failed":0}
+1120	classify-tables	2	2022-01-04 23:46:00.544993+00	2022-01-04 23:46:00.551355+00	6	{"total-tables":20,"tables-classified":0}
+1121	send-pulses	\N	2022-01-05 00:00:00.098+00	2022-01-05 00:00:00.17+00	72	\N
+1133	send-pulses	\N	2022-01-05 01:00:00.062+00	2022-01-05 01:00:00.091+00	29	\N
+1146	task-history-cleanup	\N	2022-01-05 02:00:00.084+00	2022-01-05 02:00:00.087+00	3	\N
+1157	task-history-cleanup	\N	2022-01-05 03:00:00.126+00	2022-01-05 03:00:00.137+00	11	\N
+1158	send-pulses	\N	2022-01-05 03:00:00.086+00	2022-01-05 03:00:00.178+00	92	\N
+1159	sync	2	2022-01-05 03:46:00.152748+00	2022-01-05 03:46:00.490903+00	338	\N
+1160	sync-timezone	2	2022-01-05 03:46:00.152895+00	2022-01-05 03:46:00.186251+00	33	{"timezone-id":"UTC"}
+1161	sync-tables	2	2022-01-05 03:46:00.186452+00	2022-01-05 03:46:00.222241+00	35	{"updated-tables":0,"total-tables":34}
+1162	sync-fields	2	2022-01-05 03:46:00.222283+00	2022-01-05 03:46:00.378276+00	155	{"total-fields":95,"updated-fields":0}
+1163	sync-fks	2	2022-01-05 03:46:00.378308+00	2022-01-05 03:46:00.468917+00	90	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1164	sync-metabase-metadata	2	2022-01-05 03:46:00.468949+00	2022-01-05 03:46:00.490881+00	21	\N
+1165	analyze	2	2022-01-05 03:46:00.56979+00	2022-01-05 03:46:00.600358+00	30	\N
+1166	fingerprint-fields	2	2022-01-05 03:46:00.569803+00	2022-01-05 03:46:00.586759+00	16	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1167	classify-fields	2	2022-01-05 03:46:00.586793+00	2022-01-05 03:46:00.592623+00	5	{"fields-classified":0,"fields-failed":0}
+1168	classify-tables	2	2022-01-05 03:46:00.592655+00	2022-01-05 03:46:00.600335+00	7	{"total-tables":20,"tables-classified":0}
+1169	task-history-cleanup	\N	2022-01-05 04:00:00.144+00	2022-01-05 04:00:00.194+00	50	\N
+1170	send-pulses	\N	2022-01-05 04:00:00.091+00	2022-01-05 04:00:00.267+00	176	\N
+1171	sync	2	2022-01-05 04:46:00.318435+00	2022-01-05 04:46:00.851158+00	532	\N
+1172	sync-timezone	2	2022-01-05 04:46:00.320034+00	2022-01-05 04:46:00.437747+00	117	{"timezone-id":"UTC"}
+1173	sync-tables	2	2022-01-05 04:46:00.439002+00	2022-01-05 04:46:00.515234+00	76	{"updated-tables":0,"total-tables":34}
+1174	sync-fields	2	2022-01-05 04:46:00.515266+00	2022-01-05 04:46:00.722991+00	207	{"total-fields":95,"updated-fields":0}
+1175	sync-fks	2	2022-01-05 04:46:00.723129+00	2022-01-05 04:46:00.843083+00	119	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1176	sync-metabase-metadata	2	2022-01-05 04:46:00.843136+00	2022-01-05 04:46:00.851137+00	8	\N
+1177	analyze	2	2022-01-05 04:46:00.996533+00	2022-01-05 04:46:01.060745+00	64	\N
+1178	fingerprint-fields	2	2022-01-05 04:46:00.996548+00	2022-01-05 04:46:01.031766+00	35	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1179	classify-fields	2	2022-01-05 04:46:01.031799+00	2022-01-05 04:46:01.048508+00	16	{"fields-classified":0,"fields-failed":0}
+1180	classify-tables	2	2022-01-05 04:46:01.048537+00	2022-01-05 04:46:01.060705+00	12	{"total-tables":20,"tables-classified":0}
+1181	task-history-cleanup	\N	2022-01-05 05:00:00.128+00	2022-01-05 05:00:00.185+00	57	\N
+1182	send-pulses	\N	2022-01-05 05:00:00.1+00	2022-01-05 05:00:00.284+00	184	\N
+1183	sync	2	2022-01-05 05:46:00.283324+00	2022-01-05 05:46:01.091087+00	807	\N
+1184	sync-timezone	2	2022-01-05 05:46:00.284856+00	2022-01-05 05:46:00.440036+00	155	{"timezone-id":"UTC"}
+1185	sync-tables	2	2022-01-05 05:46:00.440558+00	2022-01-05 05:46:00.549824+00	109	{"updated-tables":0,"total-tables":34}
+1186	sync-fields	2	2022-01-05 05:46:00.549861+00	2022-01-05 05:46:00.838368+00	288	{"total-fields":95,"updated-fields":0}
+1187	sync-fks	2	2022-01-05 05:46:00.838406+00	2022-01-05 05:46:01.074733+00	236	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1188	sync-metabase-metadata	2	2022-01-05 05:46:01.07477+00	2022-01-05 05:46:01.091067+00	16	\N
+1189	analyze	2	2022-01-05 05:46:01.2334+00	2022-01-05 05:46:01.310964+00	77	\N
+1190	fingerprint-fields	2	2022-01-05 05:46:01.233421+00	2022-01-05 05:46:01.279622+00	46	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1191	classify-fields	2	2022-01-05 05:46:01.279657+00	2022-01-05 05:46:01.292004+00	12	{"fields-classified":0,"fields-failed":0}
+1192	classify-tables	2	2022-01-05 05:46:01.292046+00	2022-01-05 05:46:01.310934+00	18	{"total-tables":20,"tables-classified":0}
+1193	task-history-cleanup	\N	2022-01-05 06:00:00.233+00	2022-01-05 06:00:00.392+00	159	\N
+1194	send-pulses	\N	2022-01-05 06:00:00.206+00	2022-01-05 06:00:00.685+00	479	\N
+1195	sync	2	2022-01-05 06:46:00.41526+00	2022-01-05 06:46:01.336853+00	921	\N
+1196	sync-timezone	2	2022-01-05 06:46:00.417051+00	2022-01-05 06:46:00.591337+00	174	{"timezone-id":"UTC"}
+1197	sync-tables	2	2022-01-05 06:46:00.596844+00	2022-01-05 06:46:00.739174+00	142	{"updated-tables":0,"total-tables":34}
+1198	sync-fields	2	2022-01-05 06:46:00.739216+00	2022-01-05 06:46:01.164721+00	425	{"total-fields":95,"updated-fields":0}
+1199	sync-fks	2	2022-01-05 06:46:01.164752+00	2022-01-05 06:46:01.307279+00	142	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1200	sync-metabase-metadata	2	2022-01-05 06:46:01.307311+00	2022-01-05 06:46:01.336833+00	29	\N
+1201	analyze	2	2022-01-05 06:46:01.51634+00	2022-01-05 06:46:01.611969+00	95	\N
+1202	fingerprint-fields	2	2022-01-05 06:46:01.516362+00	2022-01-05 06:46:01.573155+00	56	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1203	classify-fields	2	2022-01-05 06:46:01.573212+00	2022-01-05 06:46:01.591951+00	18	{"fields-classified":0,"fields-failed":0}
+1204	classify-tables	2	2022-01-05 06:46:01.591985+00	2022-01-05 06:46:01.611942+00	19	{"total-tables":20,"tables-classified":0}
+1205	task-history-cleanup	\N	2022-01-05 07:00:00.187+00	2022-01-05 07:00:00.212+00	25	\N
+1206	send-pulses	\N	2022-01-05 07:00:00.12+00	2022-01-05 07:00:00.299+00	179	\N
+1207	sync	2	2022-01-05 07:46:00.369079+00	2022-01-05 07:46:01.848525+00	1479	\N
+1208	sync-timezone	2	2022-01-05 07:46:00.371767+00	2022-01-05 07:46:00.547536+00	175	{"timezone-id":"UTC"}
+1209	sync-tables	2	2022-01-05 07:46:00.548727+00	2022-01-05 07:46:00.698377+00	149	{"updated-tables":0,"total-tables":34}
+1210	sync-fields	2	2022-01-05 07:46:00.698417+00	2022-01-05 07:46:01.646287+00	947	{"total-fields":95,"updated-fields":0}
+1211	sync-fks	2	2022-01-05 07:46:01.647266+00	2022-01-05 07:46:01.819964+00	172	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1212	sync-metabase-metadata	2	2022-01-05 07:46:01.819998+00	2022-01-05 07:46:01.848503+00	28	\N
+1213	analyze	2	2022-01-05 07:46:01.998418+00	2022-01-05 07:46:02.135038+00	136	\N
+1214	fingerprint-fields	2	2022-01-05 07:46:01.99843+00	2022-01-05 07:46:02.080542+00	82	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1215	classify-fields	2	2022-01-05 07:46:02.0806+00	2022-01-05 07:46:02.118446+00	37	{"fields-classified":0,"fields-failed":0}
+1216	classify-tables	2	2022-01-05 07:46:02.118483+00	2022-01-05 07:46:02.135014+00	16	{"total-tables":20,"tables-classified":0}
+1218	send-pulses	\N	2022-01-05 08:00:00.239+00	2022-01-05 08:00:00.651+00	412	\N
+1219	sync	2	2022-01-05 08:46:00.974408+00	2022-01-05 08:46:02.86972+00	1895	\N
+1220	sync-timezone	2	2022-01-05 08:46:00.975881+00	2022-01-05 08:46:01.325787+00	349	{"timezone-id":"UTC"}
+1221	sync-tables	2	2022-01-05 08:46:01.328648+00	2022-01-05 08:46:01.526285+00	197	{"updated-tables":0,"total-tables":34}
+1230	send-pulses	\N	2022-01-05 09:00:00.138+00	2022-01-05 09:00:00.343+00	205	\N
+1231	sync	2	2022-01-05 09:46:00.437856+00	2022-01-05 09:46:01.982508+00	1544	\N
+1232	sync-timezone	2	2022-01-05 09:46:00.439569+00	2022-01-05 09:46:00.561285+00	121	{"timezone-id":"UTC"}
+1233	sync-tables	2	2022-01-05 09:46:00.562862+00	2022-01-05 09:46:00.707557+00	144	{"updated-tables":0,"total-tables":34}
+1234	sync-fields	2	2022-01-05 09:46:00.707586+00	2022-01-05 09:46:01.663508+00	955	{"total-fields":95,"updated-fields":0}
+1235	sync-fks	2	2022-01-05 09:46:01.663551+00	2022-01-05 09:46:01.914448+00	250	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1236	sync-metabase-metadata	2	2022-01-05 09:46:01.91451+00	2022-01-05 09:46:01.982487+00	67	\N
+1237	analyze	2	2022-01-05 09:46:02.383765+00	2022-01-05 09:46:02.481347+00	97	\N
+1238	fingerprint-fields	2	2022-01-05 09:46:02.383776+00	2022-01-05 09:46:02.431392+00	47	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1239	classify-fields	2	2022-01-05 09:46:02.43143+00	2022-01-05 09:46:02.455326+00	23	{"fields-classified":0,"fields-failed":0}
+1240	classify-tables	2	2022-01-05 09:46:02.455376+00	2022-01-05 09:46:02.481277+00	25	{"total-tables":20,"tables-classified":0}
+1625	sync	2	2022-01-07 17:46:00.219777+00	2022-01-07 17:46:00.932254+00	712	\N
+1626	sync-timezone	2	2022-01-07 17:46:00.220169+00	2022-01-07 17:46:00.293362+00	73	{"timezone-id":"UTC"}
+1627	sync-tables	2	2022-01-07 17:46:00.294095+00	2022-01-07 17:46:00.376015+00	81	{"updated-tables":0,"total-tables":35}
+1628	sync-fields	2	2022-01-07 17:46:00.376063+00	2022-01-07 17:46:00.743666+00	367	{"total-fields":99,"updated-fields":0}
+1629	sync-fks	2	2022-01-07 17:46:00.743722+00	2022-01-07 17:46:00.906443+00	162	{"total-fks":29,"updated-fks":0,"total-failed":0}
+1635	task-history-cleanup	\N	2022-01-07 18:00:00.112+00	2022-01-07 18:00:00.131+00	19	\N
+1217	task-history-cleanup	\N	2022-01-05 08:00:00.328+00	2022-01-05 08:00:00.367+00	39	\N
+1222	sync-fields	2	2022-01-05 08:46:01.526327+00	2022-01-05 08:46:02.542896+00	1016	{"total-fields":95,"updated-fields":0}
+1223	sync-fks	2	2022-01-05 08:46:02.54294+00	2022-01-05 08:46:02.826177+00	283	{"total-fks":28,"updated-fks":0,"total-failed":0}
+1224	sync-metabase-metadata	2	2022-01-05 08:46:02.826211+00	2022-01-05 08:46:02.869699+00	43	\N
+1225	analyze	2	2022-01-05 08:46:03.200852+00	2022-01-05 08:46:03.47023+00	269	\N
+1226	fingerprint-fields	2	2022-01-05 08:46:03.200883+00	2022-01-05 08:46:03.349411+00	148	{"no-data-fingerprints":0,"failed-fingerprints":0,"updated-fingerprints":0,"fingerprints-attempted":0}
+1227	classify-fields	2	2022-01-05 08:46:03.349474+00	2022-01-05 08:46:03.449682+00	100	{"fields-classified":0,"fields-failed":0}
+1228	classify-tables	2	2022-01-05 08:46:03.449724+00	2022-01-05 08:46:03.470196+00	20	{"total-tables":20,"tables-classified":0}
+1229	task-history-cleanup	\N	2022-01-05 09:00:00.175+00	2022-01-05 09:00:00.251+00	76	\N
 \.
 
 
@@ -5815,13 +7203,8 @@ COPY public.view_log (id, user_id, model, model_id, "timestamp", metadata) FROM 
 169	1	card	2	2021-12-24 00:10:36.660483+00	{"cached":null,"ignore_cache":false}
 170	1	card	1	2021-12-24 00:13:07.044001+00	{"cached":null,"ignore_cache":null}
 171	1	card	2	2021-12-24 00:13:07.128159+00	{"cached":null,"ignore_cache":null}
-172	3	dashboard	1	2021-12-24 00:21:29.450603+00	{"cached":null,"ignore_cache":null}
-173	3	card	2	2021-12-24 00:21:30.016957+00	{"cached":null,"ignore_cache":false}
-174	3	card	1	2021-12-24 00:21:30.06479+00	{"cached":null,"ignore_cache":false}
-175	3	dashboard	1	2021-12-24 00:23:44.206942+00	{"cached":null,"ignore_cache":null}
 176	1	card	2	2021-12-24 00:24:45.221836+00	{"cached":null,"ignore_cache":null}
 177	1	card	1	2021-12-24 00:24:45.287391+00	{"cached":null,"ignore_cache":null}
-178	3	dashboard	1	2021-12-24 00:25:23.633509+00	{"cached":null,"ignore_cache":null}
 179	1	card	1	2021-12-24 00:25:48.370248+00	{"cached":null,"ignore_cache":null}
 180	1	card	2	2021-12-24 00:25:48.499178+00	{"cached":null,"ignore_cache":null}
 181	1	dashboard	1	2021-12-24 00:27:39.821509+00	{"cached":null,"ignore_cache":null}
@@ -5990,9 +7373,6 @@ COPY public.view_log (id, user_id, model, model_id, "timestamp", metadata) FROM 
 344	1	card	1	2021-12-24 03:30:30.808936+00	{"cached":null,"ignore_cache":null}
 345	1	card	2	2021-12-24 03:30:33.870447+00	{"cached":null,"ignore_cache":null}
 346	1	card	1	2021-12-24 03:30:33.914741+00	{"cached":null,"ignore_cache":null}
-347	3	dashboard	1	2021-12-24 04:00:20.409334+00	{"cached":null,"ignore_cache":null}
-348	3	card	2	2021-12-24 04:00:20.80985+00	{"cached":null,"ignore_cache":false}
-349	3	card	1	2021-12-24 04:00:20.929934+00	{"cached":null,"ignore_cache":false}
 350	1	dashboard	1	2021-12-24 04:00:41.174562+00	{"cached":null,"ignore_cache":null}
 351	1	card	2	2021-12-24 04:00:41.568332+00	{"cached":null,"ignore_cache":false}
 352	1	card	1	2021-12-24 04:00:41.606452+00	{"cached":null,"ignore_cache":false}
@@ -6001,160 +7381,13 @@ COPY public.view_log (id, user_id, model, model_id, "timestamp", metadata) FROM 
 355	\N	card	1	2021-12-24 04:02:40.2469+00	{"cached":null,"ignore_cache":null}
 356	\N	card	2	2021-12-24 04:03:11.992981+00	{"cached":null,"ignore_cache":null}
 357	\N	card	1	2021-12-24 04:03:12.120215+00	{"cached":null,"ignore_cache":null}
-358	4	dashboard	1	2021-12-24 04:04:55.986759+00	{"cached":null,"ignore_cache":null}
-359	4	card	2	2021-12-24 04:04:56.373156+00	{"cached":null,"ignore_cache":false}
-360	4	card	1	2021-12-24 04:04:56.411827+00	{"cached":null,"ignore_cache":false}
-361	4	dashboard	1	2021-12-24 04:05:05.642454+00	{"cached":null,"ignore_cache":null}
-362	4	dashboard	1	2021-12-24 04:07:01.639664+00	{"cached":null,"ignore_cache":null}
-363	4	card	2	2021-12-24 04:07:02.022527+00	{"cached":null,"ignore_cache":false}
-364	4	card	1	2021-12-24 04:07:02.192816+00	{"cached":null,"ignore_cache":false}
-365	4	dashboard	1	2021-12-24 04:07:14.393719+00	{"cached":null,"ignore_cache":null}
-366	4	dashboard	1	2021-12-24 04:11:00.088502+00	{"cached":null,"ignore_cache":null}
-367	4	card	2	2021-12-24 04:11:07.63992+00	{"cached":null,"ignore_cache":false}
-368	4	card	1	2021-12-24 04:11:07.718726+00	{"cached":null,"ignore_cache":false}
-369	4	card	2	2021-12-24 14:36:02.428757+00	{"cached":null,"ignore_cache":null}
-370	4	card	1	2021-12-24 14:36:02.470888+00	{"cached":null,"ignore_cache":null}
-371	4	dashboard	1	2021-12-24 14:37:38.497174+00	{"cached":null,"ignore_cache":null}
-372	4	card	2	2021-12-24 14:37:45.710361+00	{"cached":null,"ignore_cache":false}
-373	4	card	1	2021-12-24 14:37:45.795558+00	{"cached":null,"ignore_cache":false}
-374	4	card	2	2021-12-24 14:37:49.769629+00	{"cached":null,"ignore_cache":null}
-375	4	card	1	2021-12-24 14:37:49.83573+00	{"cached":null,"ignore_cache":null}
-376	4	table	10	2021-12-24 14:55:14.805657+00	{"cached":null,"ignore_cache":null}
-377	4	table	10	2021-12-24 14:55:40.595086+00	{"cached":null,"ignore_cache":null}
-378	4	table	10	2021-12-24 14:55:48.090702+00	{"cached":null,"ignore_cache":null}
-379	4	table	12	2021-12-24 14:55:48.253792+00	{"cached":null,"ignore_cache":null}
-380	4	table	12	2021-12-24 14:55:48.33445+00	{"cached":null,"ignore_cache":null}
-381	4	table	18	2021-12-24 14:55:48.370227+00	{"cached":null,"ignore_cache":null}
-382	4	table	6	2021-12-24 14:55:54.769931+00	{"cached":null,"ignore_cache":null}
-383	4	table	5	2021-12-24 14:55:54.963238+00	{"cached":null,"ignore_cache":null}
-384	4	table	10	2021-12-24 14:55:54.989758+00	{"cached":null,"ignore_cache":null}
-385	4	table	7	2021-12-24 14:55:55.020579+00	{"cached":null,"ignore_cache":null}
-386	4	table	9	2021-12-24 14:55:55.060795+00	{"cached":null,"ignore_cache":null}
-387	4	table	10	2021-12-24 14:56:10.350284+00	{"cached":null,"ignore_cache":null}
-388	4	table	30	2021-12-24 14:56:10.472706+00	{"cached":null,"ignore_cache":null}
-389	4	table	12	2021-12-24 14:56:10.528178+00	{"cached":null,"ignore_cache":null}
-390	4	table	18	2021-12-24 14:56:10.558502+00	{"cached":null,"ignore_cache":null}
-391	4	table	12	2021-12-24 14:56:17.611142+00	{"cached":null,"ignore_cache":null}
-392	4	table	5	2021-12-24 14:56:23.425658+00	{"cached":null,"ignore_cache":null}
-393	4	table	21	2021-12-24 14:56:23.500784+00	{"cached":null,"ignore_cache":null}
-394	4	table	21	2021-12-24 14:56:23.543229+00	{"cached":null,"ignore_cache":null}
-395	4	table	12	2021-12-24 14:56:23.601393+00	{"cached":null,"ignore_cache":null}
-396	4	table	9	2021-12-24 14:56:23.642788+00	{"cached":null,"ignore_cache":null}
-397	4	table	8	2021-12-24 14:56:23.680785+00	{"cached":null,"ignore_cache":null}
-398	4	table	8	2021-12-24 14:56:42.091921+00	{"cached":null,"ignore_cache":null}
-399	4	dashboard	1	2021-12-24 14:57:28.144323+00	{"cached":null,"ignore_cache":null}
-400	4	card	2	2021-12-24 14:57:28.633479+00	{"cached":null,"ignore_cache":false}
-401	4	card	1	2021-12-24 14:57:28.668669+00	{"cached":null,"ignore_cache":false}
-402	4	dashboard	1	2021-12-24 14:59:10.31244+00	{"cached":null,"ignore_cache":null}
-403	4	card	2	2021-12-24 14:59:10.631648+00	{"cached":null,"ignore_cache":false}
-404	4	card	1	2021-12-24 14:59:10.676997+00	{"cached":null,"ignore_cache":false}
 405	1	dashboard	1	2021-12-24 15:00:24.228714+00	{"cached":null,"ignore_cache":null}
 406	1	card	2	2021-12-24 15:00:24.673275+00	{"cached":null,"ignore_cache":false}
 407	1	card	1	2021-12-24 15:00:24.757154+00	{"cached":null,"ignore_cache":false}
-408	4	dashboard	1	2021-12-24 15:48:47.056846+00	{"cached":null,"ignore_cache":null}
-409	4	card	2	2021-12-24 15:48:47.377039+00	{"cached":null,"ignore_cache":false}
-410	4	card	1	2021-12-24 15:48:47.4779+00	{"cached":null,"ignore_cache":false}
-411	4	dashboard	1	2021-12-24 15:48:56.012716+00	{"cached":null,"ignore_cache":null}
-412	4	card	2	2021-12-24 15:48:56.422519+00	{"cached":null,"ignore_cache":false}
-413	4	card	1	2021-12-24 15:48:56.506246+00	{"cached":null,"ignore_cache":false}
-414	4	table	9	2021-12-24 15:56:02.061022+00	{"cached":null,"ignore_cache":null}
-415	4	table	9	2021-12-24 15:56:37.973761+00	{"cached":null,"ignore_cache":null}
-416	4	table	9	2021-12-24 15:56:55.435909+00	{"cached":null,"ignore_cache":null}
-417	4	table	9	2021-12-24 15:57:14.537534+00	{"cached":null,"ignore_cache":null}
-418	4	table	9	2021-12-24 15:57:32.661423+00	{"cached":null,"ignore_cache":null}
-419	4	table	9	2021-12-24 15:57:38.871698+00	{"cached":null,"ignore_cache":null}
-420	4	table	9	2021-12-24 15:57:52.363+00	{"cached":null,"ignore_cache":null}
-421	4	table	9	2021-12-24 16:00:56.237013+00	{"cached":null,"ignore_cache":null}
-422	4	table	9	2021-12-24 16:02:12.934721+00	{"cached":null,"ignore_cache":null}
-423	4	table	5	2021-12-24 16:10:55.096097+00	{"cached":null,"ignore_cache":null}
-424	4	table	5	2021-12-24 16:11:07.046386+00	{"cached":null,"ignore_cache":null}
-425	4	table	21	2021-12-24 16:11:07.180563+00	{"cached":null,"ignore_cache":null}
-426	4	table	21	2021-12-24 16:11:07.20243+00	{"cached":null,"ignore_cache":null}
-427	4	table	12	2021-12-24 16:11:07.23933+00	{"cached":null,"ignore_cache":null}
-428	4	table	9	2021-12-24 16:11:07.282347+00	{"cached":null,"ignore_cache":null}
-429	4	table	8	2021-12-24 16:11:07.319469+00	{"cached":null,"ignore_cache":null}
-430	4	table	5	2021-12-24 16:12:31.415891+00	{"cached":null,"ignore_cache":null}
-431	4	table	33	2021-12-24 16:12:31.493477+00	{"cached":null,"ignore_cache":null}
-432	4	table	21	2021-12-24 16:12:31.540499+00	{"cached":null,"ignore_cache":null}
-433	4	table	12	2021-12-24 16:12:31.562713+00	{"cached":null,"ignore_cache":null}
-434	4	table	9	2021-12-24 16:12:31.600723+00	{"cached":null,"ignore_cache":null}
-435	4	table	8	2021-12-24 16:12:31.770406+00	{"cached":null,"ignore_cache":null}
-436	4	table	5	2021-12-24 16:12:34.812205+00	{"cached":null,"ignore_cache":null}
-437	4	table	33	2021-12-24 16:12:34.900177+00	{"cached":null,"ignore_cache":null}
-438	4	table	21	2021-12-24 16:12:34.932955+00	{"cached":null,"ignore_cache":null}
-439	4	table	12	2021-12-24 16:12:34.958248+00	{"cached":null,"ignore_cache":null}
-440	4	table	9	2021-12-24 16:12:34.991966+00	{"cached":null,"ignore_cache":null}
-441	4	table	8	2021-12-24 16:12:35.028332+00	{"cached":null,"ignore_cache":null}
-442	4	table	5	2021-12-24 16:12:36.997565+00	{"cached":null,"ignore_cache":null}
-443	4	table	33	2021-12-24 16:12:37.051517+00	{"cached":null,"ignore_cache":null}
-444	4	table	21	2021-12-24 16:12:37.078138+00	{"cached":null,"ignore_cache":null}
-445	4	table	12	2021-12-24 16:12:37.117387+00	{"cached":null,"ignore_cache":null}
-446	4	table	9	2021-12-24 16:12:37.15574+00	{"cached":null,"ignore_cache":null}
-447	4	table	8	2021-12-24 16:12:37.190675+00	{"cached":null,"ignore_cache":null}
-448	4	table	5	2021-12-24 16:12:38.260586+00	{"cached":null,"ignore_cache":null}
-449	4	table	33	2021-12-24 16:12:38.327216+00	{"cached":null,"ignore_cache":null}
-450	4	table	21	2021-12-24 16:12:38.361467+00	{"cached":null,"ignore_cache":null}
-451	4	table	12	2021-12-24 16:12:38.417093+00	{"cached":null,"ignore_cache":null}
-452	4	table	9	2021-12-24 16:12:38.452305+00	{"cached":null,"ignore_cache":null}
-453	4	table	8	2021-12-24 16:12:38.48901+00	{"cached":null,"ignore_cache":null}
-454	4	table	5	2021-12-24 16:12:39.189245+00	{"cached":null,"ignore_cache":null}
-455	4	table	33	2021-12-24 16:12:39.245816+00	{"cached":null,"ignore_cache":null}
-456	4	table	21	2021-12-24 16:12:39.273378+00	{"cached":null,"ignore_cache":null}
-457	4	table	12	2021-12-24 16:12:39.310021+00	{"cached":null,"ignore_cache":null}
-458	4	table	9	2021-12-24 16:12:39.342026+00	{"cached":null,"ignore_cache":null}
-459	4	table	8	2021-12-24 16:12:39.379974+00	{"cached":null,"ignore_cache":null}
-460	4	table	33	2021-12-24 16:12:41.145049+00	{"cached":null,"ignore_cache":null}
-461	4	table	17	2021-12-24 16:12:45.669407+00	{"cached":null,"ignore_cache":null}
-462	4	table	33	2021-12-24 16:12:45.803701+00	{"cached":null,"ignore_cache":null}
-463	4	table	33	2021-12-24 16:12:52.778884+00	{"cached":null,"ignore_cache":null}
-464	4	table	5	2021-12-24 16:12:54.327775+00	{"cached":null,"ignore_cache":null}
-465	4	table	33	2021-12-24 16:12:54.375655+00	{"cached":null,"ignore_cache":null}
-466	4	table	21	2021-12-24 16:12:54.406981+00	{"cached":null,"ignore_cache":null}
-467	4	table	12	2021-12-24 16:12:54.446522+00	{"cached":null,"ignore_cache":null}
-468	4	table	9	2021-12-24 16:12:54.484471+00	{"cached":null,"ignore_cache":null}
-469	4	table	8	2021-12-24 16:12:54.522118+00	{"cached":null,"ignore_cache":null}
-470	4	table	7	2021-12-24 16:13:06.979915+00	{"cached":null,"ignore_cache":null}
-471	4	table	7	2021-12-24 16:13:32.008673+00	{"cached":null,"ignore_cache":null}
 472	1	dashboard	3	2021-12-24 16:18:10.011796+00	{"cached":null,"ignore_cache":null}
 473	1	dashboard	3	2021-12-24 16:18:24.392704+00	{"cached":null,"ignore_cache":null}
-474	4	dashboard	1	2021-12-24 16:30:34.723449+00	{"cached":null,"ignore_cache":null}
-475	4	card	2	2021-12-24 16:30:35.080351+00	{"cached":null,"ignore_cache":false}
-476	4	card	1	2021-12-24 16:30:35.246008+00	{"cached":null,"ignore_cache":false}
-477	4	card	2	2021-12-24 16:31:05.246452+00	{"cached":null,"ignore_cache":false}
-478	4	card	1	2021-12-24 16:31:05.287973+00	{"cached":null,"ignore_cache":false}
-479	4	card	2	2021-12-24 16:31:16.047499+00	{"cached":null,"ignore_cache":false}
-480	4	card	1	2021-12-24 16:31:16.09675+00	{"cached":null,"ignore_cache":false}
-481	4	card	2	2021-12-24 16:31:38.515195+00	{"cached":null,"ignore_cache":null}
-482	4	dashboard	1	2021-12-24 16:31:57.72737+00	{"cached":null,"ignore_cache":null}
-483	4	card	2	2021-12-24 16:31:57.914307+00	{"cached":null,"ignore_cache":false}
-484	4	card	1	2021-12-24 16:31:57.977623+00	{"cached":null,"ignore_cache":false}
-485	4	table	7	2021-12-24 17:05:02.358765+00	{"cached":null,"ignore_cache":null}
-486	4	card	5	2021-12-24 17:05:43.735732+00	{"cached":null,"ignore_cache":null}
-487	4	dashboard	4	2021-12-24 17:06:01.770302+00	{"cached":null,"ignore_cache":null}
-488	4	card	5	2021-12-24 17:06:01.815703+00	{"cached":null,"ignore_cache":null}
-489	4	card	5	2021-12-24 17:06:02.091919+00	{"cached":null,"ignore_cache":false}
-490	4	card	4	2021-12-24 17:06:24.575129+00	{"cached":null,"ignore_cache":null}
-491	4	card	4	2021-12-24 17:06:24.861523+00	{"cached":null,"ignore_cache":false}
-492	4	card	1	2021-12-24 17:06:37.793247+00	{"cached":null,"ignore_cache":null}
-493	4	card	1	2021-12-24 17:06:38.374682+00	{"cached":null,"ignore_cache":false}
-494	4	dashboard	4	2021-12-24 17:08:13.438601+00	{"cached":null,"ignore_cache":null}
-495	4	card	5	2021-12-24 17:08:28.640197+00	{"cached":null,"ignore_cache":null}
-496	4	card	5	2021-12-24 17:08:28.901667+00	{"cached":null,"ignore_cache":false}
-498	4	dashboard	4	2021-12-24 17:08:49.343906+00	{"cached":null,"ignore_cache":null}
-499	4	card	5	2021-12-24 17:08:58.163716+00	{"cached":null,"ignore_cache":null}
-500	4	card	5	2021-12-24 17:08:58.565865+00	{"cached":null,"ignore_cache":false}
-503	4	card	2	2021-12-24 17:25:12.661927+00	{"cached":null,"ignore_cache":null}
-504	4	card	1	2021-12-24 17:25:12.757967+00	{"cached":null,"ignore_cache":null}
-507	4	dashboard	4	2021-12-24 18:08:33.538583+00	{"cached":null,"ignore_cache":null}
-497	4	dashboard	4	2021-12-24 17:08:30.818835+00	{"cached":null,"ignore_cache":null}
-502	4	card	5	2021-12-24 17:10:08.646229+00	{"cached":null,"ignore_cache":false}
-505	4	dashboard	4	2021-12-24 18:07:59.678208+00	{"cached":null,"ignore_cache":null}
-506	4	card	5	2021-12-24 18:07:59.994761+00	{"cached":null,"ignore_cache":false}
-501	4	dashboard	4	2021-12-24 17:10:08.378684+00	{"cached":null,"ignore_cache":null}
-508	4	dashboard	4	2021-12-24 18:09:06.899669+00	{"cached":null,"ignore_cache":null}
-509	4	card	5	2021-12-24 18:09:07.20437+00	{"cached":null,"ignore_cache":false}
-510	4	dashboard	4	2021-12-24 18:09:33.692571+00	{"cached":null,"ignore_cache":null}
-511	4	card	5	2021-12-24 18:09:33.934639+00	{"cached":null,"ignore_cache":false}
+539	\N	card	1	2022-01-06 20:59:09.460977+00	{"cached":null,"ignore_cache":null}
+540	\N	card	2	2022-01-06 20:59:09.649427+00	{"cached":null,"ignore_cache":null}
 \.
 
 
@@ -6162,7 +7395,7 @@ COPY public.view_log (id, user_id, model, model_id, "timestamp", metadata) FROM 
 -- Name: activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.activity_id_seq', 29, true);
+SELECT pg_catalog.setval('public.activity_id_seq', 35, true);
 
 
 --
@@ -6176,7 +7409,7 @@ SELECT pg_catalog.setval('public.card_label_id_seq', 1, false);
 -- Name: collection_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.collection_id_seq', 3, true);
+SELECT pg_catalog.setval('public.collection_id_seq', 14, true);
 
 
 --
@@ -6204,7 +7437,7 @@ SELECT pg_catalog.setval('public.computation_job_result_id_seq', 1, false);
 -- Name: core_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.core_user_id_seq', 4, true);
+SELECT pg_catalog.setval('public.core_user_id_seq', 16, true);
 
 
 --
@@ -6253,7 +7486,7 @@ SELECT pg_catalog.setval('public.label_id_seq', 1, false);
 -- Name: login_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.login_history_id_seq', 13, true);
+SELECT pg_catalog.setval('public.login_history_id_seq', 57, true);
 
 
 --
@@ -6267,21 +7500,21 @@ SELECT pg_catalog.setval('public.metabase_database_id_seq', 2, true);
 -- Name: metabase_field_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.metabase_field_id_seq', 164, true);
+SELECT pg_catalog.setval('public.metabase_field_id_seq', 168, true);
 
 
 --
 -- Name: metabase_fieldvalues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.metabase_fieldvalues_id_seq', 26, true);
+SELECT pg_catalog.setval('public.metabase_fieldvalues_id_seq', 28, true);
 
 
 --
 -- Name: metabase_table_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.metabase_table_id_seq', 38, true);
+SELECT pg_catalog.setval('public.metabase_table_id_seq', 39, true);
 
 
 --
@@ -6323,7 +7556,7 @@ SELECT pg_catalog.setval('public.permissions_group_id_seq', 3, true);
 -- Name: permissions_group_membership_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.permissions_group_membership_id_seq', 4, true);
+SELECT pg_catalog.setval('public.permissions_group_membership_id_seq', 16, true);
 
 
 --
@@ -6372,7 +7605,7 @@ SELECT pg_catalog.setval('public.pulse_id_seq', 1, false);
 -- Name: query_execution_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.query_execution_id_seq', 661, true);
+SELECT pg_catalog.setval('public.query_execution_id_seq', 682, true);
 
 
 --
@@ -6407,7 +7640,7 @@ SELECT pg_catalog.setval('public.report_dashboardcard_id_seq', 4, true);
 -- Name: revision_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.revision_id_seq', 80, true);
+SELECT pg_catalog.setval('public.revision_id_seq', 82, true);
 
 
 --
@@ -6421,14 +7654,14 @@ SELECT pg_catalog.setval('public.segment_id_seq', 1, false);
 -- Name: task_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.task_history_id_seq', 310, true);
+SELECT pg_catalog.setval('public.task_history_id_seq', 1638, true);
 
 
 --
 -- Name: view_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.view_log_id_seq', 511, true);
+SELECT pg_catalog.setval('public.view_log_id_seq', 540, true);
 
 
 --
