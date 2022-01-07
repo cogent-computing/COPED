@@ -54,7 +54,7 @@ class AdminLoginTest(BaseTestCase):
         """
         A superuser with valid credentials should gain access to the Django admin.
         """
-        self.fill_and_submit_admin_login_form("george", "password1234")
+        self.fill_and_submit_admin_login_form("copedadmin", "Password123!")
         path = urlparse(self.selenium.current_url).path
         admin_path = reverse("admin:index")
         self.assertEqual(
@@ -65,7 +65,7 @@ class AdminLoginTest(BaseTestCase):
 
         body_text = self.selenium.find_element_by_tag_name("body").text
         self.assertIn(
-            "WELCOME, GEORGE.",
+            "WELCOME, COPEDADMIN.",
             body_text,
             "Administrators should see a welcome on the admin landing page.",
         )
@@ -74,7 +74,7 @@ class AdminLoginTest(BaseTestCase):
         """
         A registered regular user should not gain access to the Django admin.
         """
-        self.fill_and_submit_admin_login_form("cosmo", "password1234")
+        self.fill_and_submit_admin_login_form("testregister16", "Password321!")
         path = urlparse(self.selenium.current_url).path
         self.assertEqual(
             self.admin_login_path,
@@ -108,7 +108,7 @@ class SiteLoginTest(BaseTestCase):
         """
         A user with valid credentials can log in and will be redirected to the main page.
         """
-        self.fill_and_submit_login_form("cosmo", "password1234")
+        self.fill_and_submit_login_form("testregister16", "Password321!")
 
         path = urlparse(self.selenium.current_url).path
         main_page_path = reverse("index")
@@ -116,7 +116,7 @@ class SiteLoginTest(BaseTestCase):
 
         logged_in_email = self.selenium.find_element_by_id("dropdownMenuButton2").text
         self.assertIn(
-            "pennypacker@vandelayindustries.com",
+            "testregister16@example.com",
             logged_in_email,
             "Logged in email should be shown in dropdown",
         )
@@ -125,7 +125,7 @@ class SiteLoginTest(BaseTestCase):
         """
         A user with invalid credentials cannot log in and sees an error message.
         """
-        self.fill_and_submit_login_form("cosmo", "fakepassword")
+        self.fill_and_submit_login_form("testregister16", "fakepassword")
 
         path = urlparse(self.selenium.current_url).path
         self.assertEqual(

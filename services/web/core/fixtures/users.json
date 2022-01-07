@@ -1,40 +1,42 @@
 [
-    {
-        "model": "core.user",
-        "pk": 1,
-        "fields": {
-            "password": "pbkdf2_sha256$36000$OHhaFQD2ks6O$3uS1OFIRgO3UWdYexebUn4vmal6dsTrNEKKgfht4+5c=",
-            "last_login": "2017-11-25T16:00:51.346Z",
-            "is_superuser": true,
-            "username": "george",
-            "first_name": "George",
-            "last_name": "Costanza",
-            "email": "george@vandelayindustries.com",
-            "is_staff": true,
-            "is_active": true,
-            "date_joined": "2017-11-25T15:59:37.912Z",
-            "groups": [],
-            "user_permissions": [],
-            "coped_id": "e1c70276-451f-402a-a567-62b3c2066d08"
-        }
-    },
-    {
-        "model": "core.user",
-        "pk": 2,
-        "fields": {
-            "password": "pbkdf2_sha256$36000$OHhaFQD2ks6O$3uS1OFIRgO3UWdYexebUn4vmal6dsTrNEKKgfht4+5c=",
-            "last_login": "2017-11-25T16:00:51.346Z",
-            "is_superuser": false,
-            "username": "cosmo",
-            "first_name": "Cosmo",
-            "last_name": "Kramer",
-            "email": "pennypacker@vandelayindustries.com",
-            "is_staff": false,
-            "is_active": true,
-            "date_joined": "2017-11-25T15:59:37.912Z",
-            "groups": [],
-            "user_permissions": [],
-            "coped_id": "e1c70276-451f-402a-a567-62b3c2066d07"
-        }
+  {
+    "model": "core.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$5UYddAMEMKIqHN9XA6C7Cb$WKrzO/6/XCcw4RvS8mUFHq+CAHNe8gAM2KNWqXIKtnw=",
+      "last_login": "2022-01-07T17:57:49.816Z",
+      "is_superuser": true,
+      "coped_id": "e1c70276-451f-402a-a567-62b3c2066d08",
+      "username": "copedadmin",
+      "email": "copedadmin@example.com",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2021-11-16T09:40:49.335Z",
+      "metabase_id": 1,
+      "groups": [],
+      "user_permissions": []
     }
+  },
+  {
+    "model": "core.user",
+    "pk": 36,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$9wJiD6gO9hthrIBSQO9n5a$K6zt+21HlKKD9iYrUHWZDeMmiL0No2N4ydUnQnPJdXo=",
+      "last_login": "2022-01-07T14:38:09.904Z",
+      "is_superuser": false,
+      "coped_id": "e87731a3-dbce-4c7e-a32f-6743e7064b2b",
+      "username": "testregister16",
+      "email": "testregister16@example.com",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-01-07T10:45:07.785Z",
+      "metabase_id": 14,
+      "groups": [],
+      "user_permissions": []
+    }
+  }
 ]
