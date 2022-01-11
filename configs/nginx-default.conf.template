@@ -23,12 +23,13 @@ server {
     }
 
     location /metabase/ {
-        proxy_pass http://meta/;
         proxy_set_header Accept-Encoding "";
         sub_filter '</head>' '<base target="_parent"></head>';
         sub_filter_once on;
         proxy_hide_header Content-Security-Policy;
         add_header Content-Security-Policy "frame-ancestors 'self';";
+        proxy_set_header Host $host;
+        proxy_pass http://meta/;
     }
 
     location /static/ {
