@@ -17,7 +17,6 @@ same hostname as used by the Django web service.
 """
 
 from django.conf import settings
-from ..models import MetabaseSession
 
 
 def metabase_cookie_middleware(get_response):
@@ -26,7 +25,7 @@ def metabase_cookie_middleware(get_response):
         # Pre-process the request here if needed
         pass
 
-        # Send the request downstream
+        # Send the request towards the view handlers
         response = get_response(request)
 
         # Post-process the response here if needed
@@ -44,7 +43,7 @@ def metabase_cookie_middleware(get_response):
         ):
             response.delete_cookie("metabase.SESSION")
 
-        # Pass the response back upstream
+        # Pass the response back in the direction of the client
         return response
 
     return middleware
