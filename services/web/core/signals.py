@@ -117,8 +117,17 @@ def user_logout_handler(sender, request, user, **kwargs):
         print(
             f"Logout by {user} at {timezone.now()}. Attempting to remove any Metabase token."
         )
-    if user is not None:
-        MetabaseSession.objects.filter(user=user).delete()
+    token = request.COOKIES.get("metabase.SESSION")
+    if token is not None:
+        auth = {"X-Metabase-Session": token}
+        r = requests.delete(
+            f"{METABASE_API_URL}/session",
+            json={"metabase-session-id": token},
+            headers=auth,
+        )
+        if settings.DEBUG:
+            print("Response from Metabase API", r)
+    user.metabasesession.delete()
 
 
 def user_login_handler(sender, request, user, **kwargs):
