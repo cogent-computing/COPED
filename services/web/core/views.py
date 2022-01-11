@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.views import generic
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
 from elasticsearch_dsl.query import MoreLikeThis
 from .models import (
@@ -79,6 +80,7 @@ def visuals_dashboard_experiment(request):
     )
 
 
+@login_required
 def visuals_dashboard2(request):
     return render(request, "visuals_dashboard2.html")
 
