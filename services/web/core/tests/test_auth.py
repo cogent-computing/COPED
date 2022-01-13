@@ -14,7 +14,10 @@ from unittest.mock import Mock
 import re
 from django.urls import reverse
 from django.core import mail
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import get_user_model
+
+from ..models import MetabaseSession
 
 User = get_user_model()
 
@@ -43,12 +46,10 @@ class SignupAndLoginFlow(TestCase):
 
     @patch("core.forms.registration.ReCaptchaField.validate")
     @patch("core.signals.requests.post")
-    def test_registration(self, mock_post, mock_recaptcha):
+    def test_registration_and_activation(self, mock_post, mock_recaptcha):
         """A regular user can register on the site and is added to Metabase when they do."""
 
         # Mock the POST calls to the Metabase API
-        # TODO: check that the correct POST request is sent to the Metabase API to get an admin token
-        # TODO: check that the correct POST request is sent to the Metabase API to add a user
         mock_response = Mock()
         mock_response.json.side_effect = [
             # First Metabase API call returns a superuser auth token.
@@ -72,9 +73,9 @@ class SignupAndLoginFlow(TestCase):
             },
         )
 
-        # Check expectations
+        # Check expectations...
 
-        # Registration flow
+        # Initial registration works
         self.assertEqual(
             mock_post.call_count,
             2,
@@ -93,7 +94,7 @@ class SignupAndLoginFlow(TestCase):
             msg_prefix="Successful registration form submission should be confirmed.",
         )
 
-        # New user attributes
+        # New user attributes are correct
         self.assertFalse(
             User.objects.get(username=regular_user["username"]).is_active,
             "New user should not be active by default.",
@@ -104,7 +105,7 @@ class SignupAndLoginFlow(TestCase):
             "New user's metabase id should be set from the Metabase API response.",
         )
 
-        # Activation email and link validity
+        # Activation email is sent and its validation link works
         self.assertEqual(
             len(mail.outbox),
             1,
@@ -141,15 +142,15 @@ class SignupAndLoginFlow(TestCase):
         )
 
     @patch("core.signals.requests.post")
-    def test_login(self, mock_post):
-        """A registered and active user can log in to the site"""
+    def test_login_and_logout(self, mock_post):
+        """A registered and active user can log into and out of the site."""
 
         # Mock the POST call to the Metabase API. Return a session token for Metabase as the id value.
         mock_response = Mock()
         mock_response.json.return_value = {"id": regular_user["metabase_auth_token"]}
         mock_post.return_value = mock_response
 
-        # Add the user to the DB
+        # Add a user to the DB
         User.objects.create_user(
             username=regular_user["username"],
             email=regular_user["email"],
@@ -181,7 +182,8 @@ class SignupAndLoginFlow(TestCase):
             msg_prefix="Login form error should display.",
         )
 
-        # Log in with correct credentials: check cookies and redirection.
+        # After logging in with correct credentials client cookies and the CoPED
+        # database should contain Metabase session details.
         response = self.client.post(
             reverse("login"),
             data={
@@ -189,9 +191,40 @@ class SignupAndLoginFlow(TestCase):
                 "password": regular_user["password"],
             },
         )
-        self.assertRedirects(response, reverse("index"), 302, 200)
+        self.assertRedirects(
+            response,
+            reverse("index"),
+            302,
+            200,
+            msg_prefix="Logged in user should be redirected to homepage.",
+        )
+        self.assertEqual(
+            User.objects.get(username=regular_user["username"]).metabasesession.token,
+            regular_user["metabase_auth_token"],
+            "Metabase session token for logged in user should be reflected in the CoPED database.",
+        )
         self.assertEqual(
             response.client.cookies["metabase.SESSION"].value,
             regular_user["metabase_auth_token"],
-            "Client should receive correct Metabase session token value in cookie.",
+            "Client should receive correct Metabase session token value in a cookie.",
+        )
+
+        # After logout the cookie and table record holding the Metabase session token should be removed.
+        response = self.client.get(reverse("logout"))
+        self.assertRedirects(
+            response,
+            reverse("index"),
+            302,
+            200,
+            msg_prefix="Logged out user should be redirected to homepage.",
+        )
+        self.assertFalse(
+            response.client.cookies["metabase.SESSION"].value,
+            "Client cookie for Metabase session should be removed.",
+        )
+        self.assertRaises(
+            MetabaseSession.DoesNotExist,
+            MetabaseSession.objects.get,
+            token=regular_user["metabase_auth_token"],
+            # User's related Metabase session should be removed.
         )
