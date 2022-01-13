@@ -1,8 +1,8 @@
 """
-Test authentication flows:
+Integration tests for authentication flows:
 * Ensure registration, email activation, login, logout, and password change all function.
 * Ensure corresponding Metabase user records are created/modified during these actions.
-* Ensure the corresponding signal handlers run correctly.
+* Ensure the corresponding signal handlers run correctly and call the Metabase API as expected.
 * Ensure client cookies are set and deleted at the appropriate stages.
 * Ensure the correct confirmation / validation emails are sent to users when required.
 """
@@ -10,6 +10,7 @@ Test authentication flows:
 from django.test import TestCase
 from unittest.mock import patch
 from unittest.mock import Mock
+from unittest.mock import call
 
 import re
 from django.urls import reverse
@@ -45,7 +46,7 @@ class SignupAndLoginFlow(TestCase):
     """Tests to ensure registration and login are working."""
 
     @patch("core.forms.registration.ReCaptchaField.validate")
-    @patch("core.signals.requests.post")
+    @patch("core.signals.requests.post", autospec=True)
     def test_registration_and_activation(self, mock_post, mock_recaptcha):
         """A regular user can register on the site and is added to Metabase when they do."""
 
@@ -82,9 +83,19 @@ class SignupAndLoginFlow(TestCase):
             "Metabase API should be called twice: 1. create superuser session, 2. add new user record",
         )
         self.assertEqual(
+            mock_post.call_args.kwargs.get("json"),
+            {
+                "first_name": regular_user["username"],
+                "last_name": regular_user["username"],
+                "email": regular_user["email"],
+                "password": regular_user["password"],
+            },
+            "User data posted to Metabase API should contain CoPED user's attributes.",
+        )
+        self.assertEqual(
             User.objects.all().count(),
             1,
-            "User should be added to the database.",
+            "User should be added to the CoPED database.",
         )
         self.assertRedirects(
             response,
@@ -102,7 +113,7 @@ class SignupAndLoginFlow(TestCase):
         self.assertEqual(
             User.objects.get(username=regular_user["username"]).metabase_id,
             regular_user["metabase_id"],
-            "New user's metabase id should be set from the Metabase API response.",
+            "New user's Metabase id should be set from the Metabase API's response.",
         )
 
         # Activation email is sent and its validation link works
@@ -138,7 +149,7 @@ class SignupAndLoginFlow(TestCase):
         self.assertTemplateUsed(
             response,
             "django_registration/activation_failed.html",
-            "Activation link should be invalid after user has followed it.",
+            "Activation link should be invalid after user has used it.",
         )
 
     @patch("core.signals.requests.post")
