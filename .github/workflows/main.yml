@@ -22,10 +22,7 @@ jobs:
           docker-compose -p coped-ci --env-file .env.ci up -d --build
           sleep 30
 
-      - name: Test the web service responds to external requests
-        run: curl -I 127.0.0.1:8983/admin/ | grep "302 Found"
-
-      - name: Test the web service core functionality
+      - name: Test CoPED core functionality
         run: docker-compose -p coped-ci exec web python manage.py test --noinput
 
   spin-down:
