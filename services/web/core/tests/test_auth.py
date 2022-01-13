@@ -10,34 +10,27 @@ Integration tests for authentication flows:
 from django.test import TestCase
 from unittest.mock import patch
 from unittest.mock import Mock
-from unittest.mock import call
 
 import re
 from django.urls import reverse
 from django.core import mail
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import get_user_model
 
 from ..models import MetabaseSession
 
 User = get_user_model()
 
-# Set up some data for testing
+# Data to use during testing
 regular_user = {
     "email": "user@example.com",
     "username": "testuser",
     "password": "Password123!",
+    "new_password": "!321drowssaP",
     "is_active": True,
     "metabase_id": 42,
     "metabase_auth_token": "000-000",
 }
 admin_user = {
-    "email": "admin@example.com",
-    "password": "Password123!",
-    "username": "adminuser",
-    "is_active": True,
-    "is_staff": True,
-    "is_superuser": True,
     "metabase_auth_token": "111-111",
 }
 
@@ -152,7 +145,7 @@ class SignupAndLoginFlow(TestCase):
             "Activation link should be invalid after user has used it.",
         )
 
-    @patch("core.signals.requests.post")
+    @patch("core.signals.requests.post", autospec=True)
     def test_login_and_logout(self, mock_post):
         """A registered and active user can log into and out of the site."""
 
@@ -238,4 +231,80 @@ class SignupAndLoginFlow(TestCase):
             MetabaseSession.objects.get,
             token=regular_user["metabase_auth_token"],
             # User's related Metabase session should be removed.
+        )
+
+    @patch("core.signals.get_metabase_superuser_access_token")
+    @patch("core.signals.requests.put", autospec=True)
+    def test_password_reset_flow(self, mock_put, mock_get_token):
+        """A registered user can request a password reset token and use it."""
+
+        # Mock the PUT call to the Metabase API that updates the user password.
+        mock_response = Mock()
+        mock_response.json.return_value = {}
+        mock_put.return_value = mock_response
+
+        # Add a user to the DB
+        User.objects.create_user(
+            username=regular_user["username"],
+            email=regular_user["email"],
+            password=regular_user["password"],
+            is_active=regular_user["is_active"],
+            metabase_id=regular_user["metabase_id"],
+        )
+        self.assertEqual(User.objects.all().count(), 1)
+
+        response = self.client.post(
+            reverse("password_reset"),
+            data={"email": regular_user["email"]},
+            follow=True,
+        )
+
+        self.assertTemplateUsed(
+            response,
+            "registration/password_reset_done.html",
+            msg_prefix="Email address submissions are acknowledged.",
+        )
+
+        # Password reset email is sent and its reset link works
+        self.assertEqual(
+            len(mail.outbox),
+            1,
+            "A password reset email should be sent.",
+        )
+        reset_link_match = re.search("(?P<url>https?://[^\s]+)", mail.outbox[0].body)
+        self.assertIsNotNone(
+            reset_link_match,
+            "Email should contain a reset link",
+        )
+        reset_link = reset_link_match.group("url")
+        response = self.client.get(reset_link, follow=True)
+        self.assertTemplateUsed(
+            response,
+            "registration/password_reset_confirm.html",
+            msg_prefix="Reset link should redirect to a form to set a new password.",
+        )
+        reset_form_link = response.redirect_chain[-1][
+            0
+        ]  # The reset_link above redirects to here.
+        response = self.client.post(
+            reset_form_link,
+            data={
+                "new_password1": regular_user["new_password"],
+                "new_password2": regular_user["new_password"],
+            },
+            follow=True,
+        )
+        self.assertTemplateUsed(
+            response,
+            "registration/password_reset_complete.html",
+            "Reset form submission should be confirmed.",
+        )
+        self.assertTrue(
+            mock_put.called,
+            "A PUT request should be sent to the Metabase API",
+        )
+        self.assertEqual(
+            mock_put.call_args.kwargs.get("json"),
+            {"password": regular_user["new_password"]},
+            "Password PUT to Metabase API should be the password from the form.",
         )
