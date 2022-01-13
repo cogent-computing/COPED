@@ -42,7 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         editable=False, null=True, verbose_name="Metabase ID"
     )
 
-    USERNAME_FIELD = "email"  # Needed for Django-Registration
+    USERNAME_FIELD = "username"  # Needed for Django-Registration
 
     objects = UserManager()  # Every custom User model needs an explicit manager
 

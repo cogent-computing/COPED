@@ -17,6 +17,7 @@ def get_metabase_superuser_access_token():
     Each request to add a new user to Metabase must be authenticated using a token.
 
     TODO: save this in the DB during its validity period to avoid excessive token requests.
+    TODO: superuser credentials should be set up at service build time or through an entrypoint script.
     """
     metabase_superuser_email = os.environ.get("METABASE_SUPERUSER_EMAIL")
     metabase_superuser_password = os.environ.get("METABASE_SUPERUSER_PASSWORD")
@@ -27,6 +28,8 @@ def get_metabase_superuser_access_token():
     }
     r = requests.post(metabase_token_url, json=request_data)
     token = r.json().get("id")
+    if settings.DEBUG:
+        print("Superuser session token for Metabase", token)
     return token
 
 
@@ -66,8 +69,6 @@ def user_registration_handler(sender, **kwargs):
         f"{METABASE_API_URL}/user", json=user_to_save_in_metabase, headers=auth
     )
     result = r.json()
-    if settings.DEBUG:
-        print("Response from Metabase API", result)
 
     # Record the Metabase user ID in the CoPED user record.
     metabase_id = result["id"]

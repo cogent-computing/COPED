@@ -8,6 +8,7 @@
   <h4>Register for a CoPED account</h5>
   <form method="post" action="." class="form">
     {% csrf_token %}
+    {% bootstrap_form_errors form %}
     {% bootstrap_form form %}
     {% buttons %}
     <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
