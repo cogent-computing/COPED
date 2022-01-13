@@ -16,7 +16,12 @@ jobs:
     runs-on: self-hosted
     steps:
       # Check out the repository under $GITHUB_WORKSPACE
-      - uses: actions/checkout@v2
+      - name: Checkout repo and download LFS dependencies
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Checkout LFS objects
+        run: git lfs checkout
       - name: Start services
         run: |
           docker-compose -p coped-ci --env-file .env.ci up -d --build
