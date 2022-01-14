@@ -1,31 +1,41 @@
 #!/usr/bin/env bash
 
-# NB: run this script from the top-level directory containing `docker-compose.yaml`
-# Re-populates the specified CoPED database and Metabase database on demand.
-# Ensure the database names below match what your environment uses.
+# USAGE:
+#       ./repopulate_db.sh -d <name_of_database> -f <name_of_data_file>
 
-coped_db=coped_development
-coped_backup=dbdata/coped.backup.sql
-metabase_db=metabase
-metabase_backup=dbdata/metabase.backup.sql
+# NB: run this script from the top-level directory containing `docker-compose.yaml`
+# Re-populates or creates the specified database from an existing psql data dump on demand.
+# Ensure the database name and file are given on the command line.
+
+while getopts :d:f: flag
+do
+    case "${flag}" in
+        d) database_name=${OPTARG};;
+        f) data_file=${OPTARG};;
+        \? ) echo "Unknown option: -$OPTARG" >&2; exit 1;;
+        :  ) echo "Missing option argument for -$OPTARG" >&2; exit 1;;
+        *  ) echo "Unimplemented option: -$OPTARG" >&2; exit 1;;
+    esac
+done
+
+echo "Repopulating (or creating) database '${database_name}' from backup file '${data_file}'."
+
+read -p "Are you sure you wish to continue? [yes|no]"
+if [ "$REPLY" != "yes" ]; then
+   exit
+fi
 
 echo "Stopping containers."
 docker-compose down
 docker-compose up -d db
 
-echo "Repopulating CoPED database '${coped_db}' from backup."
-docker-compose exec db psql -d postgres -c "SELECT pg_terminate_backend(psa.pid) FROM pg_stat_activity psa WHERE datname = '${coped_db}' AND pid <> pg_backend_pid();"
-docker-compose exec db psql -d postgres -c "DROP DATABASE ${coped_db};"
-docker-compose exec db psql -d postgres -c "CREATE DATABASE ${coped_db};"
-docker-compose exec db psql -d ${coped_db} < ${coped_backup}
+echo "Repopulating database '${database_name}' from file '${data_file}'."
+docker-compose exec db psql -d postgres -c "SELECT pg_terminate_backend(psa.pid) FROM pg_stat_activity psa WHERE datname = '${database_name}' AND pid <> pg_backend_pid();"
+docker-compose exec db psql -d postgres -c "DROP DATABASE ${database_name};"
+docker-compose exec db psql -d postgres -c "CREATE DATABASE ${database_name};"
+docker-compose exec db psql -d ${database_name} < ${data_file}
 
-echo "Repopulating Metabase database '${metabase_db}' from backup."
-docker-compose exec db psql -d postgres -c "SELECT pg_terminate_backend(psa.pid) FROM pg_stat_activity psa WHERE datname = '${metabase_db}' AND pid <> pg_backend_pid();"
-docker-compose exec db psql -d postgres -c "DROP DATABASE ${metabase_db};"
-docker-compose exec db psql -d postgres -c "CREATE DATABASE ${metabase_db};"
-docker-compose exec db psql -d ${metabase_db} < ${metabase_backup}
-
-echo "Data updated. Starting CoPED services."
+echo "Data updated. Restarting container services."
 docker-compose up -d
 
-echo "Complete. You can now use the CoPED application."
+echo "Complete."
