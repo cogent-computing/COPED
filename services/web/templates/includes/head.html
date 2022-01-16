@@ -96,3 +96,11 @@
     })
   });
 </script>
+
+<!-- Select 2 -->
+{% if form %}
+  {{ form.media.css }}
+  <style>
+    input, select {width: 100%}
+  </style>
+{% endif %}

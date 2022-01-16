@@ -10,6 +10,7 @@ django-registration==3.2
 django-recaptcha==2.0.6
 django-bootstrap4==21.1
 PyJWT==2.3.0
+django-select2==7.9.0
 
 # Geographic analysis and visualisation
 django-leaflet==0.28.2

@@ -1,2 +1,5 @@
 {% load static %}
 <script src="{% static 'js/scripts.js' %}"></script>
+{% if form %}
+    {{ form.media.js }}
+{% endif %}

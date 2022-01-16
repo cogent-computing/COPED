@@ -20,11 +20,13 @@
             <h4>Update Project Details</h4>
             <form method="post" class="form">
                 {% csrf_token %}
-                {% bootstrap_form_errors form %}
+                {% comment %} {% bootstrap_form_errors form %}
                 {% bootstrap_form form %}
                 {% buttons %}
                 <button type="submit" value="Update" class="btn btn-primary">{% trans 'Save' %}</button>
-                {% endbuttons %}
+                {% endbuttons %} {% endcomment %}
+                {{ form.as_p }}
+                <input type="submit">
             </form>
         </div>
         <div class="col-md-4">

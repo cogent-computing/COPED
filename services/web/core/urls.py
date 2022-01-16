@@ -27,6 +27,7 @@ urlpatterns = [
     path("__debug__/", include(debug_toolbar.urls)),
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
+    path("select2/", include("django_select2.urls")),
     path(
         "projects/<int:pk>/", views.ProjectDetailView.as_view(), name="project-detail"
     ),

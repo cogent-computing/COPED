@@ -18,6 +18,7 @@ from .models import (
     Subject,
     User,
 )
+from .forms import ProjectForm
 from .filters import ProjectFilter, OrganisationFilter, PersonFilter
 from .documents import ProjectDocument
 
@@ -117,16 +118,7 @@ class ProjectDetailView(generic.DetailView):
 class ProjectUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
 
     model = Project
-    fields = [
-        "title",
-        "description",
-        "status",
-        "funds",
-        "subjects",
-        "external_links",
-        "persons",
-        "organisations",
-    ]
+    form_class = ProjectForm
     template_name = "project_update_form.html"
     success_message = "Project saved."
 

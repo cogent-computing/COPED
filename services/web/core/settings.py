@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "django_elasticsearch_dsl",
     "django_filters",
     "rest_framework",
+    "django_select2",  # usable select and multi-select in forms
     "core.apps.CoreConfig",  # Main application.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
     "django_extensions",  # Development dependency
@@ -112,6 +113,15 @@ DATABASES = {
         "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "select2_cache_table",
+    },
+}
+
+SELECT2_CACHE_BACKEND = "default"
 
 
 # Password validation
