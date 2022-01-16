@@ -1,6 +1,8 @@
 from unittest import mock
 from django import forms
+from django.urls import reverse_lazy
 from django_select2 import forms as s2forms
+from django_addanother.widgets import AddAnotherWidgetWrapper
 
 from ..models import Project
 
@@ -25,5 +27,7 @@ class ProjectForm(forms.ModelForm):
             "organisations",
         ]
         widgets = {
-            "subjects": SubjectWidget,
+            "subjects": AddAnotherWidgetWrapper(
+                SubjectWidget, reverse_lazy("subject-create")
+            ),
         }

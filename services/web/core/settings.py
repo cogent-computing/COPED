@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "django_filters",
     "rest_framework",
     "django_select2",  # usable select and multi-select in forms
+    "django_addanother",  # allow adding new foreign key or many to many relations on forms
     "core.apps.CoreConfig",  # Main application.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
     "django_extensions",  # Development dependency

@@ -12,6 +12,7 @@
   <body>
 
   
+    {% if not view.is_popup %}
     <!-- Navigation-->
     <!-- Navigation-->
     <!-- Navigation-->
@@ -141,6 +142,7 @@
     <!-- Navigation-->
     <!-- Navigation-->
     <!-- Navigation-->
+    {% endif %}
 
 
 
@@ -154,7 +156,9 @@
     </article>
 
     {% block footer %}
-      {% include "includes/footer.html" %}
+      {% if not view.is_popup %}
+        {% include "includes/footer.html" %}
+      {% endif %}
       {% include "includes/footer_scripts.html" %}
     {% endblock footer %}
   </body>

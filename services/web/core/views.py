@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django_addanother.views import CreatePopupMixin
 from elasticsearch_dsl.query import MoreLikeThis
 from .models import (
     Address,
@@ -121,6 +122,17 @@ class ProjectUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateV
     form_class = ProjectForm
     template_name = "project_update_form.html"
     success_message = "Project saved."
+
+
+class SubjectCreateView(
+    LoginRequiredMixin, SuccessMessageMixin, CreatePopupMixin, generic.CreateView
+):
+    model = Subject
+    template_name = "subject_create_form.html"
+    fields = [
+        "label",
+    ]
+    success_message = "Subject created."
 
 
 class OrganisationDetailView(generic.DetailView):

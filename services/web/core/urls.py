@@ -51,6 +51,7 @@ urlpatterns = [
         "organisations/", views.OrganisationListView.as_view(), name="organisation-list"
     ),
     path("subjects/suggest/", views.subject_suggest, name="subject-suggest"),
+    path("subjects/create/", views.SubjectCreateView.as_view(), name="subject-create"),
     path("people/suggest/", views.person_suggest, name="person-suggest"),
     path(
         "people/<int:pk>/",
