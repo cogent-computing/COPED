@@ -16,4 +16,8 @@ echo "Building elasticsearch indexes..."
 python manage.py search_index --rebuild -f
 echo "Elasticsearch indexes complete"
 
+echo "Creating cache table..."
+python manage.py createcachetable
+echo "Cache table created"
+
 exec "$@"
