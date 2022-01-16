@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "django_select2",  # usable select and multi-select in forms
+    "django_addanother",  # allow adding new foreign key or many to many relations on forms
     "bootstrap4",  # Nice formatting for forms etc.
     "anymail",  # Mail sending with various providers
     "django_registration",  # Two stage activation
@@ -58,8 +60,6 @@ INSTALLED_APPS = [
     "django_elasticsearch_dsl",
     "django_filters",
     "rest_framework",
-    "django_select2",  # usable select and multi-select in forms
-    "django_addanother",  # allow adding new foreign key or many to many relations on forms
     "core.apps.CoreConfig",  # Main application.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
     "django_extensions",  # Development dependency
