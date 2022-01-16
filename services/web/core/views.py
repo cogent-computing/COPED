@@ -2,9 +2,12 @@ from django.db.models import Count
 from django.core.paginator import Paginator
 from django.views import generic
 from django.http import JsonResponse
+from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from elasticsearch_dsl.query import MoreLikeThis
 from .models import (
     Address,
@@ -109,6 +112,23 @@ class ProjectDetailView(generic.DetailView):
         print("LOCATIONS", location_list)
         context["location_list"] = location_list
         return context
+
+
+class ProjectUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
+
+    model = Project
+    fields = [
+        "title",
+        "description",
+        "status",
+        "funds",
+        "subjects",
+        "external_links",
+        "persons",
+        "organisations",
+    ]
+    template_name = "project_update_form.html"
+    success_message = "Project saved."
 
 
 class OrganisationDetailView(generic.DetailView):

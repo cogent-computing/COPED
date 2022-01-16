@@ -27,7 +27,14 @@ urlpatterns = [
     path("__debug__/", include(debug_toolbar.urls)),
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
-    path("projects/<int:pk>", views.ProjectDetailView.as_view(), name="project-detail"),
+    path(
+        "projects/<int:pk>/", views.ProjectDetailView.as_view(), name="project-detail"
+    ),
+    path(
+        "projects/<int:pk>/update/",
+        views.ProjectUpdateView.as_view(),
+        name="project-update",
+    ),
     path("projects/", views.project_list, name="project-list"),
     path(
         "organisations/suggest/",
@@ -35,7 +42,7 @@ urlpatterns = [
         name="organisation-suggest",
     ),
     path(
-        "organisations/<int:pk>",
+        "organisations/<int:pk>/",
         views.OrganisationDetailView.as_view(),
         name="organisation-detail",
     ),
@@ -45,12 +52,12 @@ urlpatterns = [
     path("subjects/suggest/", views.subject_suggest, name="subject-suggest"),
     path("people/suggest/", views.person_suggest, name="person-suggest"),
     path(
-        "people/<int:pk>",
+        "people/<int:pk>/",
         views.PersonDetailView.as_view(),
         name="person-detail",
     ),
     path("people/", views.PersonListView.as_view(), name="person-list"),
-    path("users/<int:pk>", views.UserDetailView.as_view(), name="user-detail"),
+    path("users/<int:pk>/", views.UserDetailView.as_view(), name="user-detail"),
     path(
         "accounts/register/",
         RegistrationView.as_view(form_class=CustomUserForm),
@@ -60,8 +67,8 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("subjects/suggest/", views.subject_suggest, name="subject-suggest"),
     path("subjects/", views.subject_list, name="subject-list"),
-    path("visuals/dashboard2", views.visuals_dashboard2, name="visuals-dashboard2"),
-    path("visuals/dashboard", views.visuals_dashboard, name="visuals-dashboard"),
+    path("visuals/dashboard2/", views.visuals_dashboard2, name="visuals-dashboard2"),
+    path("visuals/dashboard/", views.visuals_dashboard, name="visuals-dashboard"),
     path(
         "visuals/dashboard_experiment",
         views.visuals_dashboard_experiment,
