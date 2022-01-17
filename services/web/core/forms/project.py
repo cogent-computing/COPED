@@ -5,10 +5,18 @@ from django_addanother.widgets import (
     AddAnotherWidgetWrapper,
 )
 
-from ..models import Project
+from ..models import Project, Subject
 
 
 class ProjectForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["funds"].queryset = self.instance.funds
+        self.fields["subjects"].queryset = self.instance.subjects
+        self.fields["external_links"].queryset = self.instance.external_links
+        self.fields["persons"].queryset = self.instance.persons
+        self.fields["organisations"].queryset = self.instance.organisations
+
     class Meta:
         model = Project
         fields = [
