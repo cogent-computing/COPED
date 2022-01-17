@@ -1,16 +1,11 @@
-from unittest import mock
 from django import forms
 from django.urls import reverse_lazy
 from django_select2 import forms as s2forms
-from django_addanother.widgets import AddAnotherWidgetWrapper
+from django_addanother.widgets import (
+    AddAnotherWidgetWrapper,
+)
 
 from ..models import Project
-
-
-class SubjectWidget(s2forms.ModelSelect2MultipleWidget):
-    search_fields = [
-        "label__icontains",
-    ]
 
 
 class ProjectForm(forms.ModelForm):
@@ -28,6 +23,23 @@ class ProjectForm(forms.ModelForm):
         ]
         widgets = {
             "subjects": AddAnotherWidgetWrapper(
-                SubjectWidget, reverse_lazy("subject-create")
+                s2forms.Select2MultipleWidget,
+                reverse_lazy("subject-create"),
+            ),
+            "external_links": AddAnotherWidgetWrapper(
+                s2forms.Select2MultipleWidget,
+                reverse_lazy("link-create"),
+            ),
+            "persons": AddAnotherWidgetWrapper(
+                s2forms.Select2MultipleWidget,
+                reverse_lazy("link-create"),
+            ),
+            "organisations": AddAnotherWidgetWrapper(
+                s2forms.Select2MultipleWidget,
+                reverse_lazy("link-create"),
+            ),
+            "funds": AddAnotherWidgetWrapper(
+                s2forms.Select2MultipleWidget,
+                reverse_lazy("link-create"),
             ),
         }

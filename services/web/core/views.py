@@ -18,6 +18,7 @@ from .models import (
     ProjectSubject,
     Subject,
     User,
+    ExternalLink,
 )
 from .forms import ProjectForm
 from .filters import ProjectFilter, OrganisationFilter, PersonFilter
@@ -125,14 +126,39 @@ class ProjectUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateV
 
 
 class SubjectCreateView(
-    LoginRequiredMixin, SuccessMessageMixin, CreatePopupMixin, generic.CreateView
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    CreatePopupMixin,
+    generic.CreateView,
 ):
     model = Subject
-    template_name = "subject_create_form.html"
-    fields = [
-        "label",
-    ]
+    template_name = "subject_form.html"
+    fields = ["label"]
     success_message = "Subject created."
+
+
+class ExternalLinkCreateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    CreatePopupMixin,
+    generic.CreateView,
+):
+    model = ExternalLink
+    template_name = "external_link_form.html"
+    fields = ["description", "link"]
+    success_message = "External link created."
+
+
+class ExternalLinkUpdateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    CreatePopupMixin,
+    generic.UpdateView,
+):
+    model = ExternalLink
+    template_name = "external_link_form.html"
+    fields = ["description", "link"]
+    success_message = "External link updated."
 
 
 class OrganisationDetailView(generic.DetailView):
