@@ -5,7 +5,7 @@ from django_addanother.widgets import (
     AddAnotherWidgetWrapper,
 )
 
-from ..models import Project, Subject
+from ..models import Project, Subject, ProjectSubject
 
 
 class ProjectForm(forms.ModelForm):
@@ -51,3 +51,20 @@ class ProjectForm(forms.ModelForm):
                 reverse_lazy("link-create"),
             ),
         }
+
+
+class ProjectForm2(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ("title", "status")
+
+
+ProjectSubjectsFormSet2 = forms.models.inlineformset_factory(
+    Project,
+    ProjectSubject,
+    fields=["id", "project", "subject", "score"],
+    exclude=[],
+    can_delete=True,
+    max_num=21,
+    extra=1,
+)

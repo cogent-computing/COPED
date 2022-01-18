@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block nav_proj %}active{% endblock nav_proj %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/projects/">Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Project - {{ project.title }}</li>
+    </ol>
+</nav>
+
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md">
+            <h4>Update Project Details</h4>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {% bootstrap_form_errors form %}
+                {% bootstrap_form form %}
+                {{ project_subjects.management_form }}
+                {% bootstrap_formset project_subjects layout="horizontal" %}
+                {% buttons %}
+                <button type="submit" value="Update" class="btn btn-primary">{% trans 'Save' %}</button>
+                {% endbuttons %}
+            </form>
+        </div>
+        <div class="col-md-4">
+            {% include "./includes/project_detail_associations.html" %}
+            {% comment %} {% include "./includes/project_detail_actions.html" %}
+            {% include "./includes/project_detail_meta.html" %}
+            {% include "./includes/project_detail_metrics.html" %} {% endcomment %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.views import generic
 from django.http import JsonResponse
 from django.urls import reverse
+from django.contrib import messages
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
@@ -20,7 +21,7 @@ from .models import (
     User,
     ExternalLink,
 )
-from .forms import ProjectForm
+from .forms import ProjectForm, ProjectForm2, ProjectSubjectsFormSet2
 from .filters import ProjectFilter, OrganisationFilter, PersonFilter
 from .documents import ProjectDocument
 
@@ -123,6 +124,42 @@ class ProjectUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateV
     form_class = ProjectForm
     template_name = "project_update_form.html"
     success_message = "Project saved."
+
+
+class ProjectUpdateView2(generic.UpdateView):
+
+    model = Project
+    form_class = ProjectForm2
+    template_name = "project_update_form2.html"
+    success_messages = "Project2 saved."
+
+    def form_valid(self, form):
+        print("form:", dir(form))
+
+        self.object = form.save()
+        messages.success(self.request, "Changes to project saved")
+
+        context = self.get_context_data(form=form)
+        formset = context["project_subjects"]
+        if formset.is_valid():
+            response = super().form_valid(form)
+            formset.instance = self.object
+            formset.save()
+            return response
+        else:
+            return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.request.POST:
+            context["project_subjects"] = ProjectSubjectsFormSet2(
+                self.request.POST, instance=self.object
+            )
+            context["project_subjects"].full_clean()
+        else:
+            context["project_subjects"] = ProjectSubjectsFormSet2(instance=self.object)
+        return context
 
 
 class SubjectCreateView(

@@ -36,6 +36,11 @@ urlpatterns = [
         views.ProjectUpdateView.as_view(),
         name="project-update",
     ),
+    path(
+        "projects/<int:pk>/update2/",
+        views.ProjectUpdateView2.as_view(),
+        name="project-update",
+    ),
     path("projects/", views.project_list, name="project-list"),
     path(
         "organisations/suggest/",
