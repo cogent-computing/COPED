@@ -31,7 +31,7 @@ class OrganisationForm(forms.ModelForm):
         help_texts = {
             "name": "Official name of the organisation to appear in search results.",
             "about": "Please provide some information about the organisation and its use or production of energy project data.",
-            "addresses": "Addresses allow the organisation to show in maps.",
+            "addresses": "Addresses allow the organisation to show up in map and region searches.",
             "external_links": "External URLs can be used to link to additional web resources or data.",
         }
         labels = {
