@@ -28,6 +28,15 @@ class OrganisationForm(forms.ModelForm):
     class Meta:
         model = Organisation
         fields = ["name", "about", "addresses", "external_links"]
+        help_texts = {
+            "name": "Official name of the organisation to appear in search results.",
+            "about": "Please provide some information about the organisation and its use or production of energy project data.",
+            "addresses": "Addresses allow the organisation to show in maps.",
+            "external_links": "External URLs can be used to link to additional web resources or data.",
+        }
+        labels = {
+            "addresses": "Address(es)",
+        }
 
         widgets = {
             "addresses": AddAnotherWidgetWrapper(
