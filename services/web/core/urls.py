@@ -22,12 +22,77 @@ from django_registration.backends.activation.views import RegistrationView
 from .forms import CustomUserForm
 
 urlpatterns = [
-    # Login and Register
-    # TODO: remove modal based login and revert to default approach (needed for smooth redirections)
+    #
+    #
+    ###############
+    ## SUB-PATHS ##
+    ###############
+    #
     path("__debug__/", include(debug_toolbar.urls)),
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path("select2/", include("django_select2.urls")),
+    path(
+        "accounts/register/",
+        RegistrationView.as_view(form_class=CustomUserForm),
+        name="django_registration_register",
+    ),
+    path("accounts/", include("django_registration.backends.activation.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
+    #
+    #
+    ############
+    ## PEOPLE ##
+    ############
+    #
+    path("people/suggest/", views.person_suggest, name="person-suggest"),
+    path(
+        "people/<int:pk>/",
+        views.PersonDetailView.as_view(),
+        name="person-detail",
+    ),
+    path("people/", views.PersonListView.as_view(), name="person-list"),
+    path("people/create/", views.PersonCreateView.as_view(), name="person-create"),
+    path(
+        "people/<int:pk>/update2",
+        views.PersonUpdateView2.as_view(),
+        name="person-update2",
+    ),
+    path(
+        "people/<int:person_id>/manage_orgs/",
+        views.manage_person_orgs,
+        name="person-manage-orgs",
+    ),
+    #
+    #
+    ###################
+    ## ORGANISATIONS ##
+    ###################
+    #
+    path(
+        "organisations/suggest/",
+        views.organisation_suggest,
+        name="organisation-suggest",
+    ),
+    path(
+        "organisations/<int:pk>/",
+        views.OrganisationDetailView.as_view(),
+        name="organisation-detail",
+    ),
+    path(
+        "organisations/", views.OrganisationListView.as_view(), name="organisation-list"
+    ),
+    path(
+        "organisations/create/",
+        views.OrganisationCreateView.as_view(),
+        name="organisation-create",
+    ),
+    #
+    #
+    ##############
+    ## PROJECTS ##
+    ##############
+    #
     path(
         "projects/<int:pk>/", views.ProjectDetailView.as_view(), name="project-detail"
     ),
@@ -42,28 +107,23 @@ urlpatterns = [
         name="project-update",
     ),
     path("projects/", views.project_list, name="project-list"),
-    path(
-        "organisations/suggest/",
-        views.organisation_suggest,
-        name="organisation-suggest",
-    ),
-    path(
-        "organisations/<int:pk>/",
-        views.OrganisationDetailView.as_view(),
-        name="organisation-detail",
-    ),
-    path(
-        "organisations/", views.OrganisationListView.as_view(), name="organisation-list"
-    ),
+    #
+    #
+    ##############
+    ## SUBJECTS ##
+    ##############
+    #
     path("subjects/suggest/", views.subject_suggest, name="subject-suggest"),
     path("subjects/create/", views.SubjectCreateView.as_view(), name="subject-create"),
+    path("subjects/", views.subject_list, name="subject-list"),
+    #
+    #
+    ################
+    ## GEOGRAPHIC ##
+    ################
+    #
     path("geo/create/", views.GeoCreateView.as_view(), name="geo-create"),
     path("addresses/create/", views.AddressCreateView.as_view(), name="address-create"),
-    path(
-        "organisations/create/",
-        views.OrganisationCreateView.as_view(),
-        name="organisation-create",
-    ),
     path(
         "addresses/<int:pk>/", views.AddressDetailView.as_view(), name="address-detail"
     ),
@@ -72,36 +132,26 @@ urlpatterns = [
         views.AddressUpdateView.as_view(),
         name="address-update",
     ),
+    #
+    #
+    ###########
+    ## LINKS ##
+    ###########
+    #
     path("links/create/", views.LinkCreateView.as_view(), name="link-create"),
-    path("people/suggest/", views.person_suggest, name="person-suggest"),
-    path(
-        "people/<int:pk>/",
-        views.PersonDetailView.as_view(),
-        name="person-detail",
-    ),
-    path("people/", views.PersonListView.as_view(), name="person-list"),
-    # path("people/create/", views.PersonCreateView.as_view(), name="person-create"),
-    path("people/create2/", views.PersonCreateView2.as_view(), name="person-create2"),
-    path(
-        "people/<int:pk>/update2",
-        views.PersonUpdateView2.as_view(),
-        name="person-update2",
-    ),
-    path(
-        "people/<int:person_id>/manage_orgs/",
-        views.manage_person_orgs,
-        name="person-manage-orgs",
-    ),
+    #
+    #
+    ###########
+    ## USERS ##
+    ###########
+    #
     path("users/<int:pk>/", views.UserDetailView.as_view(), name="user-detail"),
-    path(
-        "accounts/register/",
-        RegistrationView.as_view(form_class=CustomUserForm),
-        name="django_registration_register",
-    ),
-    path("accounts/", include("django_registration.backends.activation.urls")),
-    path("accounts/", include("django.contrib.auth.urls")),
-    path("subjects/suggest/", views.subject_suggest, name="subject-suggest"),
-    path("subjects/", views.subject_list, name="subject-list"),
+    #
+    #
+    ###########################
+    ## VISUALS AND ANALYTICS ##
+    ###########################
+    #
     path("visuals/dashboard2/", views.visuals_dashboard2, name="visuals-dashboard2"),
     path("visuals/dashboard/", views.visuals_dashboard, name="visuals-dashboard"),
     path(
@@ -110,5 +160,11 @@ urlpatterns = [
         name="visuals-dashboard-experiment",
     ),
     path("visuals/", views.visuals, name="visuals-index"),
+    #
+    #
+    ##################
+    ## LANDING PAGE ##
+    ##################
+    #
     path("", views.index, name="index"),
 ]

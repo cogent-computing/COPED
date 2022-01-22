@@ -276,7 +276,7 @@ class AddressUpdateView(generic.UpdateView):
     template_name = "address_form.html"
 
 
-class PersonCreateView2(CreateWithInlinesView):
+class PersonCreateView(CreateWithInlinesView):
     model = Person
     form_class = PersonForm
     inlines = [PersonOrganisationInline]
