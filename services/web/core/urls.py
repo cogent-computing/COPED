@@ -80,7 +80,7 @@ urlpatterns = [
         name="person-detail",
     ),
     path("people/", views.PersonListView.as_view(), name="person-list"),
-    path("people/create/", views.PersonCreateView.as_view(), name="person-create"),
+    # path("people/create/", views.PersonCreateView.as_view(), name="person-create"),
     path("people/create2/", views.PersonCreateView2.as_view(), name="person-create2"),
     path(
         "people/<int:pk>/update2",

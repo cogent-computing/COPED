@@ -29,10 +29,10 @@ from .forms import (
     ProjectForm,
     ProjectForm2,
     ProjectSubjectsFormSet2,
-    PersonForm,
     AddressForm,
     OrganisationForm,
     PersonOrganisationForm,
+    PersonForm,
 )
 from .filters import ProjectFilter, OrganisationFilter, PersonFilter
 from .documents import ProjectDocument
@@ -198,16 +198,16 @@ class GeoCreateView(
     success_message = "Geo location created."
 
 
-class PersonCreateView(
-    LoginRequiredMixin,
-    SuccessMessageMixin,
-    CreatePopupMixin,
-    generic.CreateView,
-):
-    model = Person
-    form_class = PersonForm
-    template_name = "person_form.html"
-    success_message = "Person created."
+# class PersonCreateView(
+#     LoginRequiredMixin,
+#     SuccessMessageMixin,
+#     CreatePopupMixin,
+#     generic.CreateView,
+# ):
+#     model = Person
+#     form_class = PersonForm
+#     template_name = "person_form.html"
+#     success_message = "Person created."
 
 
 from extra_views import (
@@ -221,12 +221,6 @@ class PersonOrganisationInline(InlineFormSetFactory):
     model = PersonOrganisation
     form_class = PersonOrganisationForm
     factory_kwargs = {"extra": 1, "can_delete": False}
-
-
-# class PersonExternalLinkInline(InlineFormSetFactory):
-#     model = Person.external_links
-#     fields = ["description", "link"]
-#     factory_kwargs = {"extra": 1}
 
 
 class AddressGeoInline(InlineFormSetFactory):
@@ -284,15 +278,10 @@ class AddressUpdateView(generic.UpdateView):
 
 class PersonCreateView2(CreateWithInlinesView):
     model = Person
-    fields = [
-        "first_name",
-        "other_name",
-        "last_name",
-        "email",
-        "orcid_id",
-    ]
-    inlines = [PersonOrganisationInline]  # , PersonExternalLinkInline]
+    form_class = PersonForm
+    inlines = [PersonOrganisationInline]
     template_name = "person_and_organisations.html"
+    success_message = "Person added."
 
 
 class PersonUpdateView2(UpdateWithInlinesView):
