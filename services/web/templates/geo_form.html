@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block title %} Geographic Location Form {% endblock title %}
+
+{% block content %}
+
+<br><br>
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md">
+            <h4>Geographic Location</h4>
+            <p>The following link may help: <a target="_blank" href="https://www.latlong.net/convert-address-to-lat-long.html">https://www.latlong.net/convert-address-to-lat-long.html</a></p>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {% bootstrap_form_errors form %}
+                {% bootstrap_form form layout="horizontal" %}
+                {% buttons %}
+                <button type="submit" value="Update" class="btn btn-primary">{% trans 'Save' %}</button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

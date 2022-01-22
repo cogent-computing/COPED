@@ -1,27 +1,39 @@
 from django.db.models import Count
 from django.core.paginator import Paginator
 from django.views import generic
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 from django.shortcuts import render
+from django.forms import inlineformset_factory
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django_addanother.views import CreatePopupMixin
 from elasticsearch_dsl.query import MoreLikeThis
+
 from .models import (
     Address,
+    GeoData,
     Organisation,
     Person,
+    PersonOrganisation,
     Project,
     ProjectSubject,
     Subject,
     User,
     ExternalLink,
 )
-from .forms import ProjectForm, ProjectForm2, ProjectSubjectsFormSet2
+from .forms import (
+    ProjectForm,
+    ProjectForm2,
+    ProjectSubjectsFormSet2,
+    PersonForm,
+    AddressForm,
+    OrganisationForm,
+    PersonOrganisationForm,
+)
 from .filters import ProjectFilter, OrganisationFilter, PersonFilter
 from .documents import ProjectDocument
 
@@ -174,16 +186,143 @@ class SubjectCreateView(
     success_message = "Subject created."
 
 
-class ExternalLinkCreateView(
+class GeoCreateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    CreatePopupMixin,
+    generic.CreateView,
+):
+    model = GeoData
+    template_name = "geo_form.html"
+    fields = ["lat", "lon"]
+    success_message = "Geo location created."
+
+
+class PersonCreateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    CreatePopupMixin,
+    generic.CreateView,
+):
+    model = Person
+    form_class = PersonForm
+    template_name = "person_form.html"
+    success_message = "Person created."
+
+
+from extra_views import (
+    CreateWithInlinesView,
+    UpdateWithInlinesView,
+    InlineFormSetFactory,
+)
+
+
+class PersonOrganisationInline(InlineFormSetFactory):
+    model = PersonOrganisation
+    form_class = PersonOrganisationForm
+    factory_kwargs = {"extra": 1, "can_delete": False}
+
+
+# class PersonExternalLinkInline(InlineFormSetFactory):
+#     model = Person.external_links
+#     fields = ["description", "link"]
+#     factory_kwargs = {"extra": 1}
+
+
+class AddressGeoInline(InlineFormSetFactory):
+    model = GeoData
+    fields = ["lat", "lon"]
+    factory_kwargs = {"extra": 0}
+
+
+class AddressDetailView(generic.DetailView):
+    model = Address
+    template_name = "address_detail.html"
+
+
+class AddressCreateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    CreatePopupMixin,
+    generic.CreateView,
+):
+    model = Address
+    form_class = AddressForm
+    template_name = "address_form.html"
+    success_message = "Address created."
+
+
+class OrganisationCreateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    CreatePopupMixin,
+    generic.CreateView,
+):
+    model = Organisation
+    form_class = OrganisationForm
+    template_name = "organisation_form.html"
+    success_message = "Organisation created."
+
+
+class LinkCreateView(
     LoginRequiredMixin,
     SuccessMessageMixin,
     CreatePopupMixin,
     generic.CreateView,
 ):
     model = ExternalLink
-    template_name = "external_link_form.html"
+    template_name = "link_form.html"
     fields = ["description", "link"]
     success_message = "External link created."
+
+
+class AddressUpdateView(generic.UpdateView):
+    model = Address
+    form_class = AddressForm
+    template_name = "address_form.html"
+
+
+class PersonCreateView2(CreateWithInlinesView):
+    model = Person
+    fields = [
+        "first_name",
+        "other_name",
+        "last_name",
+        "email",
+        "orcid_id",
+    ]
+    inlines = [PersonOrganisationInline]  # , PersonExternalLinkInline]
+    template_name = "person_and_organisations.html"
+
+
+class PersonUpdateView2(UpdateWithInlinesView):
+    model = Person
+    inlines = [
+        PersonOrganisationInline,
+    ]
+    fields = ["first_name", "last_name", "orcid_id"]
+    template_name = "person_and_organisations.html"
+
+
+def manage_person_orgs(request, person_id):
+    person = Person.objects.get(pk=person_id)
+    OrganisationsInlineFormSet = inlineformset_factory(
+        Person,
+        PersonOrganisation,
+        fields=["organisation", "role"],
+        extra=1,
+    )
+    if request.method == "POST":
+        formset = OrganisationsInlineFormSet(
+            request.POST, request.FILES, instance=person
+        )
+        if formset.is_valid():
+            formset.save()
+            # Do something. Should generally end with a redirect. For example:
+            return HttpResponseRedirect(person.get_absolute_url())
+    else:
+        formset = OrganisationsInlineFormSet(instance=person)
+    return render(request, "manage_person_orgs.html", {"formset": formset})
 
 
 class ExternalLinkUpdateView(

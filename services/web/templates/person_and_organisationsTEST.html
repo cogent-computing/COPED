@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+<br><br>
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md">
+            <h4>Create New Person</h4>
+            <form method="post" id="form_container">
+                {% csrf_token %}
+                {% bootstrap_form form layout="horizontal" %}
+                <hr>
+                {{inlines.0.management_form}}
+                {% for org_form in inlines.0 %}
+                <div class="org_form">
+                    {% bootstrap_form org_form layout="horizontal" %}
+                    {{org_form.media}}
+                </div>
+                {% endfor %}
+                {% buttons %}
+                <button type="submit" value="Save" class="btn btn-primary">{% trans 'Save' %}</button>
+                <button type="button" class="btn btn-info" id="add_form" value="Add More">{% trans 'Add An Organisation / Role' %}</button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    (function(){
+        let org_form = document.querySelectorAll(".org_form");
+        let container = document.querySelector("#form_container");
+        let add_button = document.querySelector("#add_form");
+        let total_forms = document.querySelector("#id_personorganisation_set-TOTAL_FORMS");
+
+        let form_num = org_form.length - 1;
+        add_button.addEventListener("click", add_form);
+
+        function add_form(e){
+            e.preventDefault();
+
+            let new_form = document.createElement('div');
+            new_form.innerHTML = org_form[0].innerHTML;
+            let form_regex = RegExp(`set-(\\d){1}-`, "g");
+
+            form_num++;
+
+            new_form.innerHTML = new_form.innerHTML.replace(form_regex, `set-${form_num}-`);
+            console.log(new_form);
+            add_button.parentNode.insertBefore(new_form, add_button);
+
+            total_forms.setAttribute('value', `${form_num + 1}`);
+            $('#id_personorganisation_set-1-organisation').djangoSelect2()
+        };
+        //$('.django-select2').djangoSelect2();
+
+    })();
+</script>
+{% endblock content %}

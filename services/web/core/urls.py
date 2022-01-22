@@ -57,7 +57,22 @@ urlpatterns = [
     ),
     path("subjects/suggest/", views.subject_suggest, name="subject-suggest"),
     path("subjects/create/", views.SubjectCreateView.as_view(), name="subject-create"),
-    path("links/create/", views.ExternalLinkCreateView.as_view(), name="link-create"),
+    path("geo/create/", views.GeoCreateView.as_view(), name="geo-create"),
+    path("addresses/create/", views.AddressCreateView.as_view(), name="address-create"),
+    path(
+        "organisations/create/",
+        views.OrganisationCreateView.as_view(),
+        name="organisation-create",
+    ),
+    path(
+        "addresses/<int:pk>/", views.AddressDetailView.as_view(), name="address-detail"
+    ),
+    path(
+        "addresses/<int:pk>/update/",
+        views.AddressUpdateView.as_view(),
+        name="address-update",
+    ),
+    path("links/create/", views.LinkCreateView.as_view(), name="link-create"),
     path("people/suggest/", views.person_suggest, name="person-suggest"),
     path(
         "people/<int:pk>/",
@@ -65,6 +80,18 @@ urlpatterns = [
         name="person-detail",
     ),
     path("people/", views.PersonListView.as_view(), name="person-list"),
+    path("people/create/", views.PersonCreateView.as_view(), name="person-create"),
+    path("people/create2/", views.PersonCreateView2.as_view(), name="person-create2"),
+    path(
+        "people/<int:pk>/update2",
+        views.PersonUpdateView2.as_view(),
+        name="person-update2",
+    ),
+    path(
+        "people/<int:person_id>/manage_orgs/",
+        views.manage_person_orgs,
+        name="person-manage-orgs",
+    ),
     path("users/<int:pk>/", views.UserDetailView.as_view(), name="user-detail"),
     path(
         "accounts/register/",

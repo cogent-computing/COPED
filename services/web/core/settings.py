@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "django_select2",  # usable select and multi-select in forms
     "django_addanother",  # allow adding new foreign key or many to many relations on forms
     "bootstrap4",  # Nice formatting for forms etc.
+    "extra_views",  # Helpful class based views for using inline formsets
     "anymail",  # Mail sending with various providers
     "django_registration",  # Two stage activation
     "captcha",  # Secure registration

@@ -59,12 +59,37 @@ class ProjectForm2(forms.ModelForm):
         fields = ("title", "status")
 
 
+class ProjectSubjectsForm2(forms.ModelForm):
+    class Meta:
+        model = ProjectSubject
+        fields = (
+            "id",
+            "project",
+            "score",
+        )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if "fields" in dir(self):
+            self.base_fields["subject"] = forms.CharField()
+            self.fields["subject"] = forms.CharField()
+            self.fields["subject"].initial = "this is hard work"
+            print("fields:", self.fields["subject"].initial)
+            self.fields["subject"].initial = self.instance.subject
+            print("self.fields['subject']:", self.fields["subject"].initial)
+
+        print("kwargs yourself dir: ", dir(kwargs))
+        print("kwargs yourself dict: ", dict(kwargs))
+        # self.fields["subject"] = "hell, initial description"
+
+
 ProjectSubjectsFormSet2 = forms.models.inlineformset_factory(
     Project,
     ProjectSubject,
-    fields=["id", "project", "subject", "score"],
-    exclude=[],
+    form=ProjectSubjectsForm2,
+    # fields=["id", "project", "subject", "score"],
+    # exclude=[],
     can_delete=True,
     max_num=21,
-    extra=1,
+    extra=0,
 )

@@ -12,6 +12,7 @@ django-bootstrap4==21.1
 PyJWT==2.3.0
 django-select2==7.9.0
 django-addanother==2.0.2
+django-extra-views==0.14.0
 
 # Geographic analysis and visualisation
 django-leaflet==0.28.2

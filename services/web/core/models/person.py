@@ -83,4 +83,4 @@ class PersonOrganisation(models.Model):
         db_table = "coped_person_organisation"
 
     def __str__(self):
-        return self.role
+        return f"{self.organisation} ({self.role})"

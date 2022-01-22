@@ -8,5 +8,5 @@ from .external_link import ExternalLink
 from .keyword import Keyword
 from .user import User
 from .organisation import Organisation
-from .person import Person
+from .person import Person, PersonOrganisation
 from .metabase_session import MetabaseSession

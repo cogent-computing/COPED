@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block title %} Address Form {% endblock title %}
+
+{% block content %}
+
+<br><br>
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md">
+            <h4>CoPED Organisation or Project Address</h4>
+            <p>Please provide details of the main address, including the Postcode if known.</p>
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form layout='horizontal' %}
+                {% buttons %}
+                <button type="submit" value="Update" class="btn btn-primary">{% trans 'Save' %}</button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

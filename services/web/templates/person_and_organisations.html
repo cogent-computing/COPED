@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+<br><br>
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md">
+            <h4>Create New Person</h4>
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form layout="horizontal" %}
+                {% for formset in inlines %}
+                    <hr>
+                    <div id="form_set">
+                        {% bootstrap_formset formset layout="horizontal" %}
+                        <br>
+                    </div>   
+                    <div id="empty_form" style="display:none">
+                        {% bootstrap_form formset.empty_form layout="horizontal" %}
+                        <br>
+                        {{ formset.media }}
+                    </div>
+                {% endfor %}
+                {% buttons %}
+                <button type="submit" value="Save" class="btn btn-primary">{% trans 'Save' %}</button>
+                <button type="button" class="btn btn-info" id="add_more" value="Add More">{% trans 'Add An Organisation / Role' %}</button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    (function(){
+        $('.django-select2').djangoSelect2();
+        $('#add_more').click(function() {
+            var form_idx = $('#id_personorganisation_set-TOTAL_FORMS').val();
+            var $span_to_remove = $('#empty_form span.select2.select2-container');
+            $span_to_remove.remove(); 
+            var $empty_form = $('#empty_form').html().replace(/__prefix__/g, form_idx);
+            console.log($empty_form);
+            $('#form_set').append($empty_form);
+            $('#id_personorganisation_set-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+            $('.django-select2').djangoSelect2();
+            return;
+        });
+    })();
+</script>
+{% endblock content %}

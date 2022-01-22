@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.db import models
 from uuid import uuid4
 from . import GeoData
@@ -30,6 +31,9 @@ class Address(models.Model):
     class Meta:
         db_table = "coped_address"
         verbose_name_plural = "Addresses"
+
+    def get_absolute_url(self):
+        return reverse("address-detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         fields = ["line1", "line2", "line3", "line4", "line5", "city", "county"]

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block title %} Person Form {% endblock title %}
+
+{% block content %}
+
+<br><br>
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md">
+            <h4>Create New Person</h4>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {% bootstrap_form form layout="horizontal" %}
+                {% buttons %}
+                <button type="submit" value="Save" class="btn btn-primary">{% trans 'Save' %}</button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
