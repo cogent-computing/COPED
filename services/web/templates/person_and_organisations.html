@@ -8,12 +8,13 @@
 <div class="gutters-sm pl-5 pr-5">
     <div class="row">
         <div class="col-md">
-            <h4>Create New Person</h4>
+            <h4>Person</h4>
             <form method="post">
                 {% csrf_token %}
                 {% bootstrap_form form layout="horizontal" %}
                 {% for formset in inlines %}
                     <hr>
+                    <h5>Associations</h5>
                     <div id="form_set">
                         {% bootstrap_formset formset layout="horizontal" %}
                         <br>
@@ -26,7 +27,7 @@
                 {% endfor %}
                 {% buttons %}
                 <button type="submit" value="Save" class="btn btn-primary">{% trans 'Save' %}</button>
-                <button type="button" class="btn btn-info" id="add_more" value="Add More">{% trans 'Add An Organisation / Role' %}</button>
+                <button type="button" class="btn btn-info" id="add_more" value="Add More">{% trans 'Add Another Association' %}</button>
                 {% endbuttons %}
             </form>
         </div>
