@@ -7,8 +7,8 @@ class ExternalLink(models.Model):
     In general a link can be used on multiple resources, and each resource
     can have multiple external links."""
 
-    link = models.URLField(help_text="Link to more information about a resource.")
-    description = models.CharField(max_length=128, default="External Link")
+    link = models.URLField(help_text="Link URL including 'http://' or 'https://'.")
+    description = models.CharField(max_length=128)
 
     class Meta:
         db_table = "coped_external_link"
