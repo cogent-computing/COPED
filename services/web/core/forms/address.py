@@ -39,7 +39,7 @@ class AddressForm(forms.ModelForm):
             "geo": "Longitude & Latitude",
         }
         help_texts = {
-            "geo": "Please add a longitude and latitude if you wish the location to appear on map searches.<br>The following link can help: <a href='https://www.latlong.net/convert-address-to-lat-long.html'>https://www.latlong.net/convert-address-to-lat-long.html</a>"
+            "geo": "Please add a longitude and latitude if you wish the location to appear on map searches.<br>The following link can help: <a target='_blank' href='https://www.latlong.net/convert-address-to-lat-long.html'>https://www.latlong.net/convert-address-to-lat-long.html</a>"
         }
         widgets = {
             "geo": AddAnotherWidgetWrapper(GeoWidget, reverse_lazy("geo-create"))
