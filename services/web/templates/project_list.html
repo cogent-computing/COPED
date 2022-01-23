@@ -24,7 +24,10 @@
         </p>
     {% else %}
         <br>
-        <h4>Energy Project Search</h4>
+        <h4>
+            <div class="pull-left">Energy Project Search</div>
+            <div class="pull-right"><a href="{% url 'project-create' %}" class="badge badge-pill badge-success">Create New +</a></div>
+        </h4>
     {% endif %}
     </div>
     </div>

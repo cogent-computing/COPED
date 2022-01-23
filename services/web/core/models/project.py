@@ -229,7 +229,7 @@ class ProjectOrganisation(models.Model):
 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
-    role = models.CharField(max_length=16, default="Lead Organisation")
+    role = models.CharField(max_length=64, default="Lead Organisation")
 
     class Meta:
         db_table = "coped_project_organisation"
@@ -248,7 +248,7 @@ class LinkedProject(models.Model):
     link = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name="linked_project"
     )
-    relation = models.CharField(max_length=32, default="Linked Project")
+    relation = models.CharField(max_length=64, default="Linked Project")
 
     class Meta:
         db_table = "coped_linked_project"
@@ -262,7 +262,7 @@ class ProjectPerson(models.Model):
 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    role = models.CharField(max_length=16, default="Lead Person")
+    role = models.CharField(max_length=64, default="Lead Person")
 
     class Meta:
         db_table = "coped_project_person"
