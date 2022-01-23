@@ -13,17 +13,26 @@
                 {% csrf_token %}
                 {% bootstrap_form form layout="horizontal" %}
                 {% for formset in inlines %}
-                    <hr>
-                    <h5>Funds</h5>
-                    <div id="form_set">
-                        {% bootstrap_formset formset layout="horizontal" %}
-                        <br>
-                    </div>   
-                    <div id="empty_form" style="display:none">
-                        {% bootstrap_form formset.empty_form layout="horizontal" %}
-                        <br>
-                        {{ formset.media }}
-                    </div>
+                <hr>
+                <h5>
+                    {% if formset.prefix == "project-fund-form" %}
+                        Funds
+                    {% elif formset.prefix == "project-organisation-form" %}
+                        Organisations
+                    {% else %}
+                        Related Items
+                    {% endif %}
+                    <a type="button" class="badge badge-pill badge-success add-another" value="{{formset.prefix}}" id="add-another-{{formset.prefix}}">Add Another</a>
+                </h5>
+                <div id="form_set_{{formset.prefix}}">
+                    {% bootstrap_formset formset layout="horizontal" %}
+                    <br>
+                </div>   
+                <div id="empty_form_{{formset.prefix}}" style="display:none">
+                    {% bootstrap_form formset.empty_form layout="horizontal" %}
+                    <br>
+                    {{ formset.media }}
+                </div>
                 {% endfor %}
                 {% buttons %}
                 <button type="submit" value="Save" class="btn btn-primary">{% trans 'Save' %}</button>
@@ -32,11 +41,6 @@
                 {% else %}
                     <a href="{% url 'project-list' %}" class="btn btn-warning">{% trans 'Cancel' %}</a>
                 {% endif %}
-                <div class="pull-right">
-                    <button type="button" class="btn btn-info" id="add_more" value="Add More">
-                        {% trans 'Add Another Fund' %}
-                    </button>
-                </div>
                 {% endbuttons %}
             </form>
         </div>
@@ -45,14 +49,15 @@
 <script>
     (function(){
         $('.django-select2').djangoSelect2();
-        $('#add_more').click(function() {
-            var form_idx = $('#id_projectfund_set-TOTAL_FORMS').val();
-            var $span_to_remove = $('#empty_form span.select2.select2-container');
+        $('.add-another').click(function(el) {
+            el.preventDefault();
+            let prefix = el.target.getAttribute("value");
+            let form_idx = $(`#id_${prefix}-TOTAL_FORMS`).val();
+            let $span_to_remove = $(`#empty_form_${prefix} span.select2.select2-container`);
             $span_to_remove.remove(); 
-            var $empty_form = $('#empty_form').html().replace(/__prefix__/g, form_idx);
-            console.log($empty_form);
-            $('#form_set').append($empty_form);
-            $('#id_projectfund_set-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+            let $empty_form = $(`#empty_form_${prefix}`).html().replace(/__prefix__/g, form_idx);
+            $(`#form_set_${prefix}`).append($empty_form);
+            $(`#id_${prefix}-TOTAL_FORMS`).val(parseInt(form_idx) + 1);
             $('.django-select2').djangoSelect2();
             return;
         });

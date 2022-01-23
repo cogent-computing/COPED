@@ -3,13 +3,47 @@ from django.urls import reverse_lazy
 from django_select2 import forms as s2forms
 from django_addanother.widgets import AddAnotherWidgetWrapper
 
-from ..models import Project, ProjectFund, Subject, ProjectSubject, Organisation
+from ..models import (
+    Project,
+    ProjectFund,
+    Subject,
+    ProjectSubject,
+    Organisation,
+    ProjectOrganisation,
+)
+
+
+class ProjectOrganisationForm(forms.ModelForm):
+    def get_context(self):
+        context = super().get_context()
+        context["form_name"] = "project_organisation_form"
+        return context
+
+    class Meta:
+        model = ProjectOrganisation
+        fields = ["organisation", "role"]
+        help_texts = {
+            "role": "How is the project linked to this organisation?",
+        }
+        widgets = {
+            "organisation": AddAnotherWidgetWrapper(
+                s2forms.ModelSelect2Widget(
+                    model=Organisation,
+                    search_fields=["name__icontains"],
+                    attrs={
+                        "data-placeholder": "Search for an existing organisation here, or add one with the '+' below"
+                    },
+                ),
+                reverse_lazy("organisation-create"),
+            )
+        }
 
 
 class ProjectFundForm(forms.ModelForm):
     class Meta:
         model = ProjectFund
         fields = ["organisation", "amount", "start_date", "end_date"]
+        labels = {"organisation": "Funding organisation"}
         help_texts = {}
         widgets = {
             "organisation": AddAnotherWidgetWrapper(

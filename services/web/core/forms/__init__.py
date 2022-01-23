@@ -4,6 +4,7 @@ from .project import (
     ProjectForm2,
     ProjectSubjectsFormSet2,
     ProjectFundForm,
+    ProjectOrganisationForm,
     ProjectFormWithInlines,
 )
 from .person import PersonOrganisationForm, PersonForm
