@@ -15,7 +15,11 @@
 <div class="gutters-sm pl-5 pr-5">
     <div class="row">
         <div class="col-md">
-            <h4>{{ project.title }} <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success">Update +</a></h4>
+            <h4>
+                {{ project.title }}
+                <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success">Update +</a>
+                <a href="{% url 'project-list' %}?mlt={{project.id}}" class="badge badge-pill badge-secondary">Find Similar</a>
+            </h4>
         </div>
     </div>
     <div class="row">
