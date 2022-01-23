@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 {% load i18n %}
 
-{% block title %} Organisation Form {% endblock title %}
+{% block title %} Person Form {% endblock title %}
 
 {% block content %}
 
@@ -10,20 +10,12 @@
 <div class="container col-lg-8">
     <div class="row">
         <div class="col-md">
-            <h4>Organisation</h4>
-            {% if object.coped_id %}
-                <p>CoPED ID: {{object.coped_id}}</p>
-            {% endif %}
+            <h4>Create New Person</h4>
             <form method="post" class="form">
                 {% csrf_token %}
                 {% bootstrap_form form layout="horizontal" %}
                 {% buttons %}
                 <button type="submit" value="Save" class="btn btn-primary">{% trans 'Save' %}</button>
-                {% if object.id %}
-                    <a href="{% url 'organisation-detail' pk=object.id %}" class="btn btn-warning">{% trans 'Cancel' %}</a>
-                {% else %}
-                    <a href="{% url 'organisation-list' %}" class="btn btn-warning">{% trans 'Cancel' %}</a>
-                {% endif %}
                 {% endbuttons %}
             </form>
         </div>

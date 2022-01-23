@@ -12,6 +12,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django_addanother.views import CreatePopupMixin
 from elasticsearch_dsl.query import MoreLikeThis
+from extra_views import CreateWithInlinesView
+from extra_views import UpdateWithInlinesView
+from extra_views import InlineFormSetFactory
+
 
 from .models import (
     Address,
@@ -24,6 +28,7 @@ from .models import (
     Subject,
     User,
     ExternalLink,
+    ProjectFund,
 )
 from .forms import (
     ProjectForm,
@@ -33,6 +38,8 @@ from .forms import (
     OrganisationForm,
     PersonOrganisationForm,
     PersonForm,
+    ProjectFundForm,
+    ProjectFormWithInlines,
 )
 from .filters import ProjectFilter, OrganisationFilter, PersonFilter
 from .documents import ProjectDocument
@@ -138,6 +145,39 @@ class ProjectUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateV
     success_message = "Project saved."
 
 
+class ProjectFundInline(InlineFormSetFactory):
+    model = ProjectFund
+    form_class = ProjectFundForm
+
+
+class ProjectFundUpdateInline(ProjectFundInline):
+    factory_kwargs = {"extra": 0, "can_delete": True}
+
+
+class ProjectFundCreateInline(ProjectFundInline):
+    factory_kwargs = {"extra": 1, "can_delete": False}
+
+
+class ProjectUpdateView3(
+    LoginRequiredMixin, SuccessMessageMixin, UpdateWithInlinesView
+):
+
+    model = Project
+    inlines = [ProjectFundUpdateInline]
+    form_class = ProjectFormWithInlines
+    template_name = "project_form_with_inlines.html"
+    success_message = "Project updated."
+
+
+class ProjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateWithInlinesView):
+
+    model = Project
+    inlines = [ProjectFundCreateInline]
+    form_class = ProjectFormWithInlines
+    template_name = "project_form_with_inlines.html"
+    success_message = "Project created."
+
+
 class ProjectUpdateView2(generic.UpdateView):
 
     model = Project
@@ -210,17 +250,17 @@ class GeoCreateView(
 #     success_message = "Person created."
 
 
-from extra_views import (
-    CreateWithInlinesView,
-    UpdateWithInlinesView,
-    InlineFormSetFactory,
-)
-
-
 class PersonOrganisationInline(InlineFormSetFactory):
     model = PersonOrganisation
     form_class = PersonOrganisationForm
+
+
+class PersonOrganisationCreateInline(PersonOrganisationInline):
     factory_kwargs = {"extra": 1, "can_delete": False}
+
+
+class PersonOrganisationUpdateInline(PersonOrganisationInline):
+    factory_kwargs = {"extra": 0, "can_delete": True}
 
 
 class AddressGeoInline(InlineFormSetFactory):
@@ -258,6 +298,18 @@ class OrganisationCreateView(
     success_message = "Organisation created."
 
 
+class OrganisationUpdateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    CreatePopupMixin,
+    generic.UpdateView,
+):
+    model = Organisation
+    form_class = OrganisationForm
+    template_name = "organisation_form.html"
+    success_message = "Organisation updated."
+
+
 class LinkCreateView(
     LoginRequiredMixin,
     SuccessMessageMixin,
@@ -276,21 +328,20 @@ class AddressUpdateView(generic.UpdateView):
     template_name = "address_form.html"
 
 
-class PersonCreateView(CreateWithInlinesView):
+class PersonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateWithInlinesView):
     model = Person
     form_class = PersonForm
-    inlines = [PersonOrganisationInline]
-    template_name = "person_and_organisations.html"
+    inlines = [PersonOrganisationCreateInline]
+    template_name = "person_form.html"
     success_message = "Person added."
 
 
-class PersonUpdateView2(UpdateWithInlinesView):
+class PersonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateWithInlinesView):
     model = Person
-    inlines = [
-        PersonOrganisationInline,
-    ]
-    fields = ["first_name", "last_name", "orcid_id"]
-    template_name = "person_and_organisations.html"
+    form_class = PersonForm
+    inlines = [PersonOrganisationUpdateInline]
+    template_name = "person_form.html"
+    success_message = "Person updated."
 
 
 def manage_person_orgs(request, person_id):

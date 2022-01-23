@@ -12,7 +12,13 @@
     </ol>
 </nav>
 
+
 <div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md">
+            <h4>{{ person.full_name }} <a href="{% url 'person-update' pk=person.id %}" class="btn btn-sm btn-success">Update +</a></h4>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md">
             {% include "./includes/person_detail_card.html" %}

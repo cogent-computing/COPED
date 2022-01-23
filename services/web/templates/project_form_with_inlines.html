@@ -8,13 +8,13 @@
 <div class="container col-lg-8">
     <div class="row">
         <div class="col-md">
-            <h4>Person</h4>
+            <h4>Project</h4>
             <form method="post">
                 {% csrf_token %}
                 {% bootstrap_form form layout="horizontal" %}
                 {% for formset in inlines %}
                     <hr>
-                    <h5>Associations</h5>
+                    <h5>Funds</h5>
                     <div id="form_set">
                         {% bootstrap_formset formset layout="horizontal" %}
                         <br>
@@ -28,13 +28,13 @@
                 {% buttons %}
                 <button type="submit" value="Save" class="btn btn-primary">{% trans 'Save' %}</button>
                 {% if object.id %}
-                    <a href="{% url 'person-detail' pk=object.id %}" class="btn btn-warning">{% trans 'Cancel' %}</a>
+                    <a href="{% url 'project-detail' pk=object.id %}" class="btn btn-warning">{% trans 'Cancel' %}</a>
                 {% else %}
-                    <a href="{% url 'person-list' %}" class="btn btn-warning">{% trans 'Cancel' %}</a>
+                    <a href="{% url 'project-list' %}" class="btn btn-warning">{% trans 'Cancel' %}</a>
                 {% endif %}
                 <div class="pull-right">
                     <button type="button" class="btn btn-info" id="add_more" value="Add More">
-                        {% trans 'Add Another Association' %}
+                        {% trans 'Add Another Fund' %}
                     </button>
                 </div>
                 {% endbuttons %}
@@ -46,13 +46,13 @@
     (function(){
         $('.django-select2').djangoSelect2();
         $('#add_more').click(function() {
-            var form_idx = $('#id_personorganisation_set-TOTAL_FORMS').val();
+            var form_idx = $('#id_projectfund_set-TOTAL_FORMS').val();
             var $span_to_remove = $('#empty_form span.select2.select2-container');
             $span_to_remove.remove(); 
             var $empty_form = $('#empty_form').html().replace(/__prefix__/g, form_idx);
             console.log($empty_form);
             $('#form_set').append($empty_form);
-            $('#id_personorganisation_set-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+            $('#id_projectfund_set-TOTAL_FORMS').val(parseInt(form_idx) + 1);
             $('.django-select2').djangoSelect2();
             return;
         });

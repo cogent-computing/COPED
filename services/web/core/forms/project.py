@@ -1,11 +1,34 @@
 from django import forms
 from django.urls import reverse_lazy
 from django_select2 import forms as s2forms
-from django_addanother.widgets import (
-    AddAnotherWidgetWrapper,
-)
+from django_addanother.widgets import AddAnotherWidgetWrapper
 
-from ..models import Project, Subject, ProjectSubject
+from ..models import Project, ProjectFund, Subject, ProjectSubject, Organisation
+
+
+class ProjectFundForm(forms.ModelForm):
+    class Meta:
+        model = ProjectFund
+        fields = ["organisation", "amount", "start_date", "end_date"]
+        help_texts = {}
+        widgets = {
+            "organisation": AddAnotherWidgetWrapper(
+                s2forms.ModelSelect2Widget(
+                    model=Organisation,
+                    search_fields=["name__icontains"],
+                    attrs={
+                        "data-placeholder": "Search for an existing organisation here, or add one with the '+' below"
+                    },
+                ),
+                reverse_lazy("organisation-create"),
+            )
+        }
+
+
+class ProjectFormWithInlines(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ["title", "description", "status"]
 
 
 class ProjectForm(forms.ModelForm):

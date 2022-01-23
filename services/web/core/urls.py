@@ -54,9 +54,9 @@ urlpatterns = [
     path("people/", views.PersonListView.as_view(), name="person-list"),
     path("people/create/", views.PersonCreateView.as_view(), name="person-create"),
     path(
-        "people/<int:pk>/update2",
-        views.PersonUpdateView2.as_view(),
-        name="person-update2",
+        "people/<int:pk>/update/",
+        views.PersonUpdateView.as_view(),
+        name="person-update",
     ),
     path(
         "people/<int:person_id>/manage_orgs/",
@@ -80,6 +80,11 @@ urlpatterns = [
         name="organisation-detail",
     ),
     path(
+        "organisations/<int:pk>/update/",
+        views.OrganisationUpdateView.as_view(),
+        name="organisation-update",
+    ),
+    path(
         "organisations/", views.OrganisationListView.as_view(), name="organisation-list"
     ),
     path(
@@ -94,18 +99,19 @@ urlpatterns = [
     ##############
     #
     path(
+        "projects/<int:pk>/update/",
+        views.ProjectUpdateView3.as_view(),
+        name="project-update",
+    ),
+    path(
         "projects/<int:pk>/", views.ProjectDetailView.as_view(), name="project-detail"
     ),
-    path(
-        "projects/<int:pk>/update/",
-        views.ProjectUpdateView.as_view(),
-        name="project-update",
-    ),
-    path(
-        "projects/<int:pk>/update2/",
-        views.ProjectUpdateView2.as_view(),
-        name="project-update",
-    ),
+    # path(
+    #     "projects/<int:pk>/update2/",
+    #     views.ProjectUpdateView2.as_view(),
+    #     name="project-update",
+    # ),
+    path("projects/create/", views.ProjectCreateView.as_view(), name="project-create"),
     path("projects/", views.project_list, name="project-list"),
     #
     #
