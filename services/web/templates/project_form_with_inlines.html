@@ -2,6 +2,8 @@
 {% load bootstrap4 %}
 {% load i18n %}
 
+{% block nav_proj %}active{% endblock nav_proj %}
+
 {% block content %}
 
 <br><br>
@@ -25,7 +27,7 @@
                         Related Items
                     {% endif %}
                     &nbsp;
-                    <a type="button" class="badge badge-pill badge-secondary add-another" value="{{formset.prefix}}" id="add-another-{{formset.prefix}}">Add Another +</a>
+                    <a type="button" class="badge badge-pill badge-secondary add-another" value="{{formset.prefix}}" id="add-another-{{formset.prefix}}">Add +</a>
                 </h5>
                 <div id="form_set_{{formset.prefix}}">
                     {% bootstrap_formset formset layout="horizontal" %}
@@ -50,6 +52,12 @@
     </div>
 </div>
 <script>
+    // The following JS code handles clicks on inline formset "Add another" buttons.
+    //
+    // It copies the Django blank form for that formset, updates the attributes
+    // with the appropriate index value for the new form and adds it to the DOM.
+    // Once added, it re-runs the select2 initialisation to bind the select2
+    // handlers to the newly added DOM elements.
     (function(){
         $('.django-select2').djangoSelect2();
         $('.add-another').click(function(el) {

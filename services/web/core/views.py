@@ -31,6 +31,7 @@ from .models import (
     ProjectFund,
     ProjectOrganisation,
     ProjectPerson,
+    Keyword,
 )
 from .forms import (
     ProjectForm,
@@ -265,6 +266,18 @@ class SubjectCreateView(
     template_name = "subject_form.html"
     fields = ["label"]
     success_message = "Subject created."
+
+
+class KeywordCreateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    CreatePopupMixin,
+    generic.CreateView,
+):
+    model = Keyword
+    template_name = "keyword_form.html"
+    fields = ["text"]
+    success_message = "Keyword(s) created."
 
 
 class GeoCreateView(

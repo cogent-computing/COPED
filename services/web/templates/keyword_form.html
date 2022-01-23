@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+<br><br>
+<div class="gutters-sm pl-5 pr-5">
+    <div class="row">
+        <div class="col-md">
+            <h4>Keyword or Key Phrase</h4>
+            <p>Please provide a keyword or short phrase to help with search and filtering.</p>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {% bootstrap_form_errors form %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                <button type="submit" value="Update" class="btn btn-primary">{% trans 'Save' %}</button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

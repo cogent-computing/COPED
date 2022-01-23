@@ -147,6 +147,15 @@ urlpatterns = [
     path("links/create/", views.LinkCreateView.as_view(), name="link-create"),
     #
     #
+    #
+    #
+    ##############
+    ## KEYWORDS ##
+    ##############
+    #
+    path("keywords/create/", views.KeywordCreateView.as_view(), name="keyword-create"),
+    #
+    #
     ###########
     ## USERS ##
     ###########
