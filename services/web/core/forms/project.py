@@ -10,6 +10,8 @@ from ..models import (
     ProjectSubject,
     Organisation,
     ProjectOrganisation,
+    ProjectPerson,
+    Person,
 )
 
 
@@ -59,10 +61,34 @@ class ProjectFundForm(forms.ModelForm):
         }
 
 
+class ProjectPersonForm(forms.ModelForm):
+    class Meta:
+        model = ProjectPerson
+        fields = ["person", "role"]
+        labels = {}
+        help_texts = {}
+        widgets = {
+            "person": AddAnotherWidgetWrapper(
+                s2forms.ModelSelect2Widget(
+                    model=Person,
+                    search_fields=[
+                        "first_name__icontains",
+                        "other_name__icontains",
+                        "last_name__icontains",
+                    ],
+                    attrs={
+                        "data-placeholder": "Search for an existing person here, or add one with the '+' below"
+                    },
+                ),
+                reverse_lazy("person-create"),
+            )
+        }
+
+
 class ProjectFormWithInlines(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ["title", "description", "status"]
+        fields = ["title", "status", "start", "end", "description", "extra_text"]
 
 
 class ProjectForm(forms.ModelForm):

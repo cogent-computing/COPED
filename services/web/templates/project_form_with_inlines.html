@@ -19,10 +19,13 @@
                         Funds
                     {% elif formset.prefix == "project-organisation-form" %}
                         Organisations
+                    {% elif formset.prefix == "project-person-form" %}
+                        People
                     {% else %}
                         Related Items
                     {% endif %}
-                    <a type="button" class="badge badge-pill badge-success add-another" value="{{formset.prefix}}" id="add-another-{{formset.prefix}}">Add Another</a>
+                    &nbsp;
+                    <a type="button" class="badge badge-pill badge-secondary add-another" value="{{formset.prefix}}" id="add-another-{{formset.prefix}}">Add Another +</a>
                 </h5>
                 <div id="form_set_{{formset.prefix}}">
                     {% bootstrap_formset formset layout="horizontal" %}

@@ -5,6 +5,7 @@ from .project import ProjectSubject
 from .project import ProjectKeyword
 from .project import ProjectFund
 from .project import ProjectOrganisation
+from .project import ProjectPerson
 from .subject import Subject
 from .external_link import ExternalLink
 from .keyword import Keyword

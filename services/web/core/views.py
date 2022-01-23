@@ -30,6 +30,7 @@ from .models import (
     ExternalLink,
     ProjectFund,
     ProjectOrganisation,
+    ProjectPerson,
 )
 from .forms import (
     ProjectForm,
@@ -41,6 +42,7 @@ from .forms import (
     PersonForm,
     ProjectFundForm,
     ProjectOrganisationForm,
+    ProjectPersonForm,
     ProjectFormWithInlines,
 )
 from .filters import ProjectFilter, OrganisationFilter, PersonFilter
@@ -175,12 +177,30 @@ class ProjectOrganisationCreateInline(ProjectOrganisationInline):
     factory_kwargs = {"extra": 1, "can_delete": False}
 
 
+class ProjectPersonInline(InlineFormSetFactory):
+    model = ProjectPerson
+    form_class = ProjectPersonForm
+    prefix = "project-person-form"
+
+
+class ProjectPersonUpdateInline(ProjectPersonInline):
+    factory_kwargs = {"extra": 0, "can_delete": True}
+
+
+class ProjectPersonCreateInline(ProjectPersonInline):
+    factory_kwargs = {"extra": 1, "can_delete": False}
+
+
 class ProjectUpdateView3(
     LoginRequiredMixin, SuccessMessageMixin, UpdateWithInlinesView
 ):
 
     model = Project
-    inlines = [ProjectFundUpdateInline, ProjectOrganisationUpdateInline]
+    inlines = [
+        ProjectFundUpdateInline,
+        ProjectPersonUpdateInline,
+        ProjectOrganisationUpdateInline,
+    ]
     form_class = ProjectFormWithInlines
     template_name = "project_form_with_inlines.html"
     success_message = "Project updated."
@@ -189,7 +209,11 @@ class ProjectUpdateView3(
 class ProjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateWithInlinesView):
 
     model = Project
-    inlines = [ProjectFundCreateInline, ProjectOrganisationCreateInline]
+    inlines = [
+        ProjectFundCreateInline,
+        ProjectPersonCreateInline,
+        ProjectOrganisationCreateInline,
+    ]
     form_class = ProjectFormWithInlines
     template_name = "project_form_with_inlines.html"
     success_message = "Project created."
