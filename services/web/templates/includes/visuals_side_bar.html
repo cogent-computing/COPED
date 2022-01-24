@@ -13,10 +13,10 @@
                                 <div>Landing Page for Visualisations and Graphs.
                                 </div>
                             </a>
-                            <a href="/visuals/conn_graphs/" class="list-group-item list-group-item-action {{active_graph}} py-3 lh-tight"
+                            <a href="{% url 'visuals-dashboard' %}" class="list-group-item list-group-item-action {{active_graph}} py-3 lh-tight"
                                aria-current="true">
                                 <div class="d-flex w-100 align-items-center justify-content-between">
-                                    <strong class="mb-1">Graph Representation of Projects</strong>
+                                    <strong class="mb-1">Graph Representation of Projects (Demo Dashboard)</strong>
                                 </div>
                                 <img src="{% static 'assets/img/vis-conn_header.png' %}" width="100%"
                                      class="d-inline-block align-top" alt="Connections Page">
@@ -24,20 +24,20 @@
                                     their organisations and the people connected to the projects.
                                 </div>
                             </a>
-                            <a href="/visuals/maps_simple/" class="list-group-item list-group-item-action {{active_map_s}} py-3 lh-tight"
+                            <a href="{% url 'visuals-dashboard' %}" class="list-group-item list-group-item-action {{active_map_s}} py-3 lh-tight"
                                aria-current="true">
                                 <div class="d-flex w-100 align-items-center justify-content-between">
-                                    <strong class="mb-1">Maps View of Projects</strong>
+                                    <strong class="mb-1">Maps View of Projects (Demo Dashboard)</strong>
                                 </div>
                                 <img src="{% static 'assets/img/vis-map_simple_header.png' %}" width="100%"
                                      class="d-inline-block align-top" alt="Connections Page">
                                 <div>A simple maps view of projects and organisations based on their address.
                                 </div>
                             </a>
-                            <a href="/visuals/notebook_view/" class="list-group-item list-group-item-action {{active_comunity}} py-3 lh-tight"
+                            <a href="{% url 'visuals-dashboard' %}" class="list-group-item list-group-item-action {{active_comunity}} py-3 lh-tight"
                                aria-current="true">
                                 <div class="d-flex w-100 align-items-center justify-content-between">
-                                    <strong class="mb-1">Community Analysis notebooks</strong>
+                                    <strong class="mb-1">Community Analysis notebooks (Demo Dashboard)</strong>
                                 </div>
                                 <img src="{% static 'assets/img/vis-jupyter_header.png' %}" width="100%"
                                      class="d-inline-block align-top" alt="Connections Page">
