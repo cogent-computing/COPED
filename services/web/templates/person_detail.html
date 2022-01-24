@@ -15,22 +15,23 @@
 </nav>
 
 
-<div class="gutters-sm pl-5 pr-5">
+{% comment %} <div class="gutters-sm pl-5 pr-5"> {% endcomment %}
+<div class="container col-lg-8">
     <div class="row">
         <div class="col-md">
-            <h4>{{ person.full_name }} <a href="{% url 'person-update' pk=person.id %}" class="btn btn-sm btn-success">Update +</a></h4>
+            <h4>{{ person.full_name }} <a href="{% url 'person-update' pk=person.id %}" class="badge badge-pill badge-success">Update +</a></h4>
         </div>
     </div>
     <div class="row">
         <div class="col-md">
             {% include "./includes/person_detail_card.html" %}
         </div>
-        <div class="col-md-4">
+        {% comment %} <div class="col-md-4"> {% endcomment %}
             {% comment %} {% include "./includes/organisation_detail_associations.html" %} {% endcomment %}
             {% comment %} {% include "./includes/project_detail_actions.html" %}
             {% include "./includes/project_detail_meta.html" %}
             {% include "./includes/project_detail_metrics.html" %} {% endcomment %}
-        </div>
+        {% comment %} </div> {% endcomment %}
     </div>
 </div>
 
