@@ -128,7 +128,11 @@ def user_logout_handler(sender, request, user, **kwargs):
         )
         if settings.DEBUG:
             print("Response from Metabase API", r)
-    user.metabasesession.delete()
+    try:
+        user.metabasesession.delete()
+    except MetabaseSession.DoesNotExist:
+        if settings.DEBUG:
+            print("No metabase session stored for user", user)
 
 
 def user_login_handler(sender, request, user, **kwargs):
