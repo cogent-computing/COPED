@@ -16,7 +16,7 @@
 <iframe
     name="metabase_iframe"
     class="embed-responsive-item"
-    {% if request.GET.p == "analysis-home" %}
+    {% if request.GET.p == "dashboards-collections" %}
         src="/metabase"
     {% elif request.GET.p == "browse-data" %}
         src="/metabase/browse"
