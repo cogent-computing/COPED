@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Analysis {% endblock title %}
+
+{% block nav_vis %}active{% endblock nav_vis %}
+
+{% block content %}
+<!-- Masthead-->
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Analysis</li>
+    </ol>
+</nav>
+<div class="embed-responsive embed-responsive-4by3">
+<iframe
+    name="metabase_iframe"
+    class="embed-responsive-item"
+    {% if request.GET.p == "analysis-home" %}
+        src="/metabase"
+    {% elif request.GET.p == "browse-data" %}
+        src="/metabase/browse"
+    {% elif request.GET.p == "custom-analysis" %}
+        src="/metabase/question/new"
+    {% endif %}
+    allowtransparency
+></iframe>
+</div>
+
+{% endblock content %}

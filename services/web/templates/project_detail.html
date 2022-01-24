@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %} Project Detail {% endblock title %}
+
 {% block nav_proj %}active{% endblock nav_proj %}
 
 {% block content %}
@@ -17,8 +19,8 @@
         <div class="col-md">
             <h4>
                 {{ project.title }}
-                <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success">Update +</a>
                 <a href="{% url 'project-list' %}?mlt={{project.id}}" class="badge badge-pill badge-secondary">Find Similar</a>
+                <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success">Update +</a>
             </h4>
         </div>
     </div>

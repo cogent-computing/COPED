@@ -167,6 +167,7 @@ urlpatterns = [
     ## VISUALS AND ANALYTICS ##
     ###########################
     #
+    path("analysis/", views.analysis_view, name="analysis"),
     path("visuals/dashboard2/", views.visuals_dashboard2, name="visuals-dashboard2"),
     path("visuals/dashboard/", views.visuals_dashboard, name="visuals-dashboard"),
     path(

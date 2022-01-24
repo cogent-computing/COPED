@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load humanize %}
 
+{% block title %} Organisations List {% endblock title %}
+
 {% block nav_org %}active{% endblock nav_org %}
 
 {% block content %}
@@ -17,7 +19,7 @@
             <br>
             <h4>
                 <div class="pull-left">Organisations</div>
-                <div class="pull-right"><a href="{% url 'organisation-create' %}" class="btn btn-sm btn-success">Create New +</a></div>
+                <div class="pull-right"><a href="{% url 'organisation-create' %}" class="badge badge-pill badge-success">Create New +</a></div>
             </h4>
         </div>
     </div>

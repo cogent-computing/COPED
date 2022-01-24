@@ -27,5 +27,5 @@ urlpatterns = [
         ),
         name="openapi-schema",
     ),
-    path("", views.api_root),
+    path("", views.api_root, name="api-root"),
 ]

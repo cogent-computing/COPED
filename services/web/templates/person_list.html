@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load humanize %}
 
+{% block title %} People List {% endblock title %}
+
 {% block nav_ppl %}active{% endblock nav_ppl %}
 
 {% block content %}
@@ -18,7 +20,7 @@
             <br>
             <h4>
                 <div class="pull-left">People</div>
-                <div class="pull-right"><a href="{% url 'person-create' %}" class="btn btn-sm btn-success">Create New +</a></div>
+                <div class="pull-right"><a href="{% url 'person-create' %}" class="badge badge-pill badge-success">Create New +</a></div>
             </h4>
         </div>
     </div>

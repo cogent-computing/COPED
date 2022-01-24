@@ -116,6 +116,10 @@ def visuals_dashboard2(request):
     return render(request, "visuals_dashboard2.html")
 
 
+def analysis_view(request):
+    return render(request, "analysis_iframe_page.html")
+
+
 class UserDetailView(UserPassesTestMixin, generic.DetailView):
     model = User
     template_name = "users/user_detail.html"
