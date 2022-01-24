@@ -116,6 +116,7 @@ def visuals_dashboard2(request):
     return render(request, "visuals_dashboard2.html")
 
 
+@login_required
 def analysis_view(request):
     return render(request, "analysis_iframe_page.html")
 
