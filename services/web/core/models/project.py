@@ -81,16 +81,18 @@ class Project(models.Model):
         Subject,
         through="ProjectSubject",
         through_fields=("project", "subject"),
+        blank=True,
     )
     keywords = models.ManyToManyField(
         Keyword,
         through="ProjectKeyword",
         through_fields=("project", "keyword"),
+        blank=True,
     )
     projects = models.ManyToManyField(
         to="self", through="LinkedProject", symmetrical=False
     )
-    external_links = models.ManyToManyField(ExternalLink)
+    external_links = models.ManyToManyField(ExternalLink, blank=True)
     raw_data = models.ForeignKey(
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )

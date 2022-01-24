@@ -51,6 +51,8 @@ class ProjectFundForm(forms.ModelForm):
         labels = {"organisation": "Funding organisation"}
         help_texts = {"amount": "Value of the funding (GBP £)"}
         widgets = {
+            "start_date": forms.widgets.DateInput(attrs={"type": "date"}),
+            "end_date": forms.widgets.DateInput(attrs={"type": "date"}),
             "organisation": AddAnotherWidgetWrapper(
                 s2forms.ModelSelect2Widget(
                     model=Organisation,
@@ -60,7 +62,7 @@ class ProjectFundForm(forms.ModelForm):
                     },
                 ),
                 reverse_lazy("organisation-create"),
-            )
+            ),
         }
 
 
@@ -105,6 +107,8 @@ class ProjectFormWithInlines(forms.ModelForm):
             "external_links",
         ]
         widgets = {
+            "start": forms.widgets.DateInput(attrs={"type": "date"}),
+            "end": forms.widgets.DateInput(attrs={"type": "date"}),
             "subjects": AddAnotherWidgetWrapper(
                 s2forms.ModelSelect2MultipleWidget(
                     model=Subject, search_fields=["label__icontains"]
@@ -125,6 +129,16 @@ class ProjectFormWithInlines(forms.ModelForm):
                 ),
                 reverse_lazy("keyword-create"),
             ),
+        }
+        help_texts = {
+            "start": "Project start date (optional). Defaults to earliest funding start date.",
+            "end": "Project end date (optional). Defaults to latest funding end date.",
+            "description": "The project description will be used for searches and for evaluating similarity to other projects.",
+            "extra_text": "The project extra text can expand on the main description if you wish to add further details.",
+        }
+        labels = {
+            "start": "Start date",
+            "end": "End date",
         }
 
 

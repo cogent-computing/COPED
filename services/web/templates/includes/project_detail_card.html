@@ -26,17 +26,23 @@
             <div class="col-sm-9 text-secondary">
                 {% for fund in project.funds.all %}
                     <a href="{% url 'organisation-detail' pk=fund.id %}"> {{ fund.name }}</a></br>
+                {% empty %}
+                    No funds listed.
                 {% endfor %}
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-sm-3 text-nowrap">
-                <h6 class="mb-0">Funding Amount</h6></div>
+                <h6 class="mb-0">Value</h6></div>
             <div class="col-sm-9 text-secondary">
                 {% comment %} {% load humanize %}
                 £{{ project.total_funding|intcomma }} {% endcomment %}
-                £{{ project.total_funding|intcomma }}
+                {% if project.total_funding %}
+                    £{{ project.total_funding|intcomma }}
+                {% else %}
+                    No funds listed.
+                {% endif %}
             </div>
         </div>
         <hr>

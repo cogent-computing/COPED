@@ -11,6 +11,8 @@
   
       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#detailAccordion">
         <div class="card-body">
+          {% if project.projectorganisation_set.exists %}
+          <div class="table-responsive">
             <table>
             {% for org in project.projectorganisation_set.all %}
             <tr>
@@ -19,6 +21,10 @@
             </tr>
             {% endfor %}
             </table>
+          </div>
+          {% else %}
+            No organisations listed.
+          {% endif %}
         </div>
       </div>
     </div>
@@ -32,22 +38,20 @@
       </div>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#detailAccordion">
         <div class="card-body">
+          {% if project.projectperson_set.exists %}
             <div class="table-responsive">
                 <table>
-                    <thead>
-                        <th scope="col">Name</th>
-                        <th scope="col">Role</th>
-                    </thead>
-                    <tbody>
-                        {% for person in project.projectperson_set.all %}
-                        <tr>
-                            <td><a href="{{ person.person.get_absolute_url }}">{{ person.person.first_name }} {{ person.person.last_name }}</a></td>
-                            <td>{{ person.role }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
+                    {% for person in project.projectperson_set.all %}
+                    <tr>
+                        <td><a href="{{ person.person.get_absolute_url }}">{{ person.person.first_name }} {{ person.person.last_name }}</a></td>
+                        <td>{{ person.role }}</td>
+                    </tr>
+                    {% endfor %}
                 </table>
             </div>
+          {% else %}
+            No people listed.
+          {% endif %}
         </div>
       </div>
     </div>
@@ -61,12 +65,16 @@
       </div>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#detailAccordion">
         <div class="card-body">
+          {% if project.projectsubject_set.exists %}
             <h5>Subjects by relevance</h5>
             <ol>
             {% for ps in project.projectsubject_set.all %}
                 <li>{{ ps.subject.label|capfirst }}</li>
             {% endfor %}
             </ol>
+          {% else %}
+            No subjects listed.
+          {% endif %}
         </div>
       </div>
     </div>
@@ -80,12 +88,16 @@
       </div>
       <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#detailAccordion">
         <div class="card-body">
+          {% if project.projectkeyword_set.exists %}
             <h5>Extracted key phrases</h5>
             <ol>
             {% for pk in project.projectkeyword_set.all %}
                 <li>{{ pk.keyword.text|capfirst }}</li>
             {% endfor %}
             </ol>
+          {% else %}
+            No keywords or phrases listed.
+          {% endif %}
         </div>
       </div>
     </div>
@@ -99,10 +111,14 @@
       </div>
       <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#detailAccordion">
         <div class="card-body">
+          {% if project.external_links.exists%}
             <h5>Related Pages</h5>
             {% for el in project.external_links.all %}
                 <p><a href={{el.link}}>{{ el.description|capfirst }}</a></p>
             {% endfor %}
+          {% else %}
+            No external links listed.
+          {% endif %}
         </div>
       </div>
     </div>
@@ -114,10 +130,14 @@
           </button>
         </h2>
       </div>
-      <div id="collapseSix" class="collapse show" aria-labelledby="headingSix" data-parent="#detailAccordion">
+      <div id="collapseSix" class="collapse {% if location_list %}show{% endif %}" aria-labelledby="headingSix" data-parent="#detailAccordion">
         <div class="card-body">
+          {% if location_list %}
             <h5>UK Project Locations</h5>
             {% include "./location_map.html" %}
+          {% else %}
+            No UK locations linked to this project.
+          {% endif %}
         </div>
       </div>
     </div>
