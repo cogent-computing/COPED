@@ -21,6 +21,10 @@ from django_registration.backends.activation.views import RegistrationView
 
 from .forms import CustomUserForm
 
+## Settings for admin
+
+admin.site.site_header = "CoPED Adminstration"
+
 urlpatterns = [
     #
     #
