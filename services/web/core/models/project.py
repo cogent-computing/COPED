@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Max, Min, Func
 from django.db.models.functions import Greatest, Least
 from django.db.models.aggregates import Count, Sum
+from django.db.models.signals import m2m_changed
 from django.contrib.postgres.aggregates import StringAgg
 from django.urls import reverse
 from uuid import uuid4
@@ -145,6 +146,33 @@ class ProjectFund(models.Model):
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
 
+    def delete(self, *args, **kwargs):
+        print("_________________DELETING PROJECT FUND_________________")
+        m2m_changed.send(
+            sender=self,
+            instance=self.project,
+            reverse=False,
+            model=Organisation,
+            action="post_remove",
+            pk_set={self.id},
+            using="default",
+        )
+        return super().delete(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        print("_________________SAVING PROJECT FUND_________________")
+        obj = super().save(*args, **kwargs)
+        m2m_changed.send(
+            sender=self,
+            instance=self.project,
+            reverse=False,
+            model=Organisation,
+            action="post_add",
+            pk_set={self.id},
+            using="default",
+        )
+        return obj
+
     class Meta:
         db_table = "coped_project_fund"
 
@@ -186,7 +214,7 @@ class ProjectSubject(models.Model):
         ]
 
     def __str__(self):
-        return f"({self.score}) {self.subject}"
+        return f"{self.subject}"
 
 
 class ProjectKeyword(models.Model):

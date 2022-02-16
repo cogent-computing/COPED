@@ -13,6 +13,7 @@ PyJWT==2.3.0
 django-select2==7.9.0
 django-addanother==2.0.2
 django-extra-views==0.14.0
+django-easy-audit==1.3.2
 
 # Geographic analysis and visualisation
 django-leaflet==0.28.2
