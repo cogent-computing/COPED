@@ -134,7 +134,6 @@ class ProjectFund(models.Model):
         max_digits=12,
         help_text="Value of the funding award.",
     )
-    currency = models.CharField(max_length=3, default="GBP")
     start_date = models.DateField(
         null=True, blank=True, help_text="Scheduled funding start date."
     )

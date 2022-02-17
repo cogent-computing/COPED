@@ -88,7 +88,6 @@ def populate_resource_relations(ukri_record):
 
                 # Now we can populate the fund information into the through table.
                 amount = fund_json.get("valuePounds", {}).get("amount", 0)
-                currency = fund_json.get("valuePounds", {}).get("currencyCode", "GBP")
                 if fund_json.get("start"):
                     start = datetime.utcfromtimestamp(
                         fund_json.get("start") // 1000
@@ -100,7 +99,6 @@ def populate_resource_relations(ukri_record):
                     project=ukri_record,
                     organisation=funder,
                     amount=amount,
-                    currency=currency,
                     start_date=start,
                     end_date=end,
                     raw_data=fund_record,

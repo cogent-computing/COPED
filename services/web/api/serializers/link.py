@@ -37,4 +37,4 @@ class LinkedFundSerializer(serializers.ModelSerializer):
         # Use the through model of the many-to-many `funds`
         # relation to access the funding data .
         model = ProjectFund
-        fields = ["organisation", "amount", "currency", "start_date", "end_date"]
+        fields = ["organisation", "amount", "start_date", "end_date"]
