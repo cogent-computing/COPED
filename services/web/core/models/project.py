@@ -6,6 +6,8 @@ from django.db.models.signals import m2m_changed
 from django.contrib.postgres.aggregates import StringAgg
 from django.urls import reverse
 from uuid import uuid4
+
+from .crud_event import project_history
 from .organisation import Organisation
 from .person import Person
 from .raw_data import RawData
@@ -101,6 +103,9 @@ class Project(models.Model):
     objects = (
         ProjectManager()
     )  # Use a custom manager to enhance querysets with annotations
+
+    def history(self):
+        return project_history(self.id)
 
     def get_absolute_url(self):
         return reverse("project-detail", kwargs={"pk": self.pk})
