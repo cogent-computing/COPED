@@ -23,24 +23,30 @@ class CopedCRUDEvent(models.Model):
     easyaudit = models.OneToOneField(CRUDEvent, on_delete=models.CASCADE)
     object_json = models.JSONField()
 
-    def save(self, *args, **kwargs):
-        print("SOMETHING IS BEING SAVED")
-        return super().save(*args, **kwargs)
 
+def project_history(project_id):
+    """Given a project id return a queryset of audit log entries covering its history.
 
-def get_project_history(project_id):
+    Returns a queryset containing CRUDEvent() objects logging changes to the project."""
+
+    # 1. Match all logs for the project itself.
     ct = ContentType.objects.get(app_label="core", model="project")
     match_ct = Q(content_type_id=ct.id)
     match_project = Q(object_id=str(project_id))
-    has_changed = ~Q(changed_fields="null")  # Note this excludes the *string* 'null'!
+    has_changed = ~Q(changed_fields="null")
+    # -> Exclude the *string* 'null' but include genuine <is null> values.
     project_history = CRUDEvent.objects.filter(match_ct & match_project & has_changed)
 
+    # 2. Also find lofs of changes to many-to-many related objects:
+    # 2.1 Query JSON representations to find related objects.
     match_related = Q(object_json__fields__project=project_id)
     related_json = CopedCRUDEvent.objects.filter(match_related)
+    # 2.2 Lookup the required log entries for these objects
     related_history = CRUDEvent.objects.filter(
         id__in=related_json.values_list("easyaudit_id", flat=True)
     )
 
+    # 3. Combine the logs belonging to the project and its related items.
     full_history = project_history.union(related_history).all().order_by("-datetime")
 
     return full_history
