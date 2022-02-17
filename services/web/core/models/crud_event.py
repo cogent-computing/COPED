@@ -1,15 +1,8 @@
 import json
 from django.db import models
 from django.db.models import Q
-from django.urls import reverse
 from django.db.models.signals import post_save
-from django.db.models.functions import Cast
 from django.dispatch import receiver
-from django.utils.translation import gettext_lazy as _
-from uuid import uuid4
-from .raw_data import RawData
-from .external_link import ExternalLink
-from .address import Address
 from easyaudit.models import CRUDEvent
 from django.contrib.contenttypes.models import ContentType
 
