@@ -61,10 +61,10 @@ INSTALLED_APPS = [
     "django_elasticsearch_dsl",
     "django_filters",
     "rest_framework",
-    "core.apps.CoreConfig",  # Main application.
-    "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
     "django_extensions",  # Development dependency
     "easyaudit",  # Paper trail of model changes
+    "core.apps.CoreConfig",  # Main application.
+    "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
 ]
 
 DJANGO_EASY_AUDIT_REGISTERED_CLASSES = [
