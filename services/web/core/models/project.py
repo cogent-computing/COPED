@@ -66,7 +66,7 @@ class Project(models.Model):
         Organisation,
         through="ProjectFund",
         through_fields=("project", "organisation"),
-        related_name="project_fund",
+        related_name="funded",
     )
     persons = models.ManyToManyField(
         Person,
@@ -145,33 +145,6 @@ class ProjectFund(models.Model):
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
 
-    def delete(self, *args, **kwargs):
-        print("_________________DELETING PROJECT FUND_________________")
-        m2m_changed.send(
-            sender=self,
-            instance=self.project,
-            reverse=False,
-            model=Organisation,
-            action="post_remove",
-            pk_set={self.id},
-            using="default",
-        )
-        return super().delete(*args, **kwargs)
-
-    def save(self, *args, **kwargs):
-        print("_________________SAVING PROJECT FUND_________________")
-        obj = super().save(*args, **kwargs)
-        m2m_changed.send(
-            sender=self,
-            instance=self.project,
-            reverse=False,
-            model=Organisation,
-            action="post_add",
-            pk_set={self.id},
-            using="default",
-        )
-        return obj
-
     class Meta:
         db_table = "coped_project_fund"
 
@@ -245,7 +218,7 @@ class ProjectKeyword(models.Model):
         ]
 
     def __str__(self):
-        return f"({self.score}) {self.keyword}"
+        return f"{self.keyword}"
 
 
 class ProjectOrganisation(models.Model):

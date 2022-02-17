@@ -67,6 +67,14 @@ INSTALLED_APPS = [
     "easyaudit",  # Paper trail of model changes
 ]
 
+DJANGO_EASY_AUDIT_REGISTERED_CLASSES = [
+    # Note that m2m fields without custom through models are tracked automatically.
+    "core.project",
+    "core.projectfund",
+    "core.projectorganisation",
+    "core.projectperson",
+]
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
