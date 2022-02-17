@@ -108,6 +108,11 @@ urlpatterns = [
         name="project-update",
     ),
     path(
+        "projects/<int:pk>/history/",
+        views.ProjectHistoryView.as_view(),
+        name="project-history",
+    ),
+    path(
         "projects/<int:pk>/", views.ProjectDetailView.as_view(), name="project-detail"
     ),
     # path(

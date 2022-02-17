@@ -21,6 +21,7 @@
                 {{ project.title }}
                 <a href="{% url 'project-list' %}?mlt={{project.id}}" class="badge badge-pill badge-secondary">Find Similar</a>
                 <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success">Update +</a>
+                <a href="{% url 'project-history' pk=project.id %}" class="badge badge-pill badge-info">History</a>
             </h4>
         </div>
     </div>

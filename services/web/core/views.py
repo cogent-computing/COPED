@@ -2,7 +2,6 @@ from django.db.models import Count
 from django.core.paginator import Paginator
 from django.views import generic
 from django.http import JsonResponse, HttpResponseRedirect
-from django.urls import reverse
 from django.contrib import messages
 from django.shortcuts import render
 from django.forms import inlineformset_factory
@@ -130,6 +129,12 @@ class UserDetailView(UserPassesTestMixin, generic.DetailView):
         return self.request.user.id == self.get_object().id
 
 
+class ProjectHistoryView(generic.DetailView):
+
+    model = Project
+    template_name = "project_history.html"
+
+
 class ProjectDetailView(generic.DetailView):
     model = Project
     template_name = "project_detail.html"
@@ -210,6 +215,13 @@ class ProjectUpdateView3(
     form_class = ProjectFormWithInlines
     template_name = "project_form_with_inlines.html"
     success_message = "Project updated."
+
+    # def form_valid(self, form):
+    #     data = form.cleaned_data
+    #     save_message = data.get("save_message", "Changed record")
+    #     user = self.request.user.username if self.request.user.username else "Anonymous"
+    #     form.instance.auditlog_data = {"message": save_message, "user": user}
+    #     return super().form_valid(form)
 
 
 class ProjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateWithInlinesView):
