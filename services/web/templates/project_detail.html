@@ -19,12 +19,18 @@
         <div class="col-md">
             <h4>
                 {{ project.title }}
-                <a href="{% url 'project-list' %}?mlt={{project.id}}" class="badge badge-pill badge-secondary">Find Similar</a>
-                <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success">Update +</a>
-                <a href="{% url 'project-history' pk=project.id %}" class="badge badge-pill badge-info">History</a>
             </h4>
+            <a href="{% url 'project-list' %}?mlt={{project.id}}" class="badge badge-pill badge-secondary">Find Similar</a>
+            <a href="{% url 'project-history' pk=project.id %}" class="badge badge-pill badge-info">
+                History
+                {% if project.history.exists %}
+                <span class="badge badge-light">{{project.history.count}}</span>
+                {% endif %}
+            </a>
+            <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success">Update +</a>
         </div>
     </div>
+    <br>
     <div class="row">
         <div class="col-md">
             {% include "./includes/project_detail_card.html" %}
