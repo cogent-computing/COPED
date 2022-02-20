@@ -1,6 +1,6 @@
 {% load static %}
 {% load bootstrap4 %}
-
+{% load pinax_messages_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -122,7 +122,14 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                 <a class="dropdown-item" href="{% url 'user-detail' user.id %}"> Profile </a>
                 <a class="dropdown-item disabled" href=""> Projects </a>
-                <a class="dropdown-item disabled" href=""> Messages </a>
+                <a class="dropdown-item" href="{% url "pinax_messages:inbox" %}">
+                  Messages
+                  {% with user|unread_thread_count as unread_messages %}
+                    {% if unread_messages %}
+                      <span class="badge badge-info">{{ unread_messages }}</span>
+                    {% endif %}
+                  {% endwith %}
+                </a>
                 <a class="dropdown-item disabled" href=""> Requests </a>
                 <a class="dropdown-item disabled" href=""> Notifications </a>
                 {% if user.is_staff %}

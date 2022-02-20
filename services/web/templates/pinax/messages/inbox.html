@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% load pinax_messages_tags %}
+
+{% block head_title %}Messages{% endblock %}
+
+{% block body_class %}{{ block.super }} pinax-messages-inbox{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="container col-lg-9">
+    <h2>
+        Inbox
+    </h2>
+    <a class="btn btn-primary" role="button" href="{% url "pinax_messages:message_create" %}">
+        <i class="fas fa-envelope"></i>
+        New Message
+    </a>
+    {% if not user.is_superuser %}
+    <a class="btn btn-info" role="button" href="{% url "pinax_messages:message_user_create" user_id=1 %}">
+        <i class="fas fa-user-cog"></i>
+        Contact Administrator
+    </a>
+    {% endif %}
+    <br><br>
+
+    <section class="mailbox">
+        <h4>New Message Threads</h4>
+        {% for thread in threads_unread %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ thread.subject }}
+                    </h5>
+                    <small class="text-muted">
+                        <p class="card-subtitle text-muted">
+                            Between: {{ thread.users.all|join:", " }}
+                        </p>
+                        <p class="card-text">
+                            Latest update: {{ thread.latest_message.sent_at }}
+                        </p>
+                    </small>
+                    <p class="card-text">
+                        Latest message: {{ thread.latest_message.content }}
+                    </p>
+                    <a class="btn btn-primary" href="{{thread.get_absolute_url}}">
+                        View thread
+                    </a>
+                    <a class="btn btn-danger" href="{% url "pinax_messages:thread_delete" thread.pk %}">
+                        Delete
+                    </a>
+                </div>
+            </div>
+            <br>
+        {% empty %}
+            <p>You have no unread messages.</p>
+        {% endfor %}
+        <br>
+
+        <h4>Older Messages</h4>
+        {% for thread in threads %}
+            {% if not thread|unread:user %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ thread.subject }}
+                        </h5>
+                        <small class="text-muted">
+                            <p class="card-subtitle text-muted">
+                                Between: {{ thread.users.all|join:", " }}
+                            </p>
+                            <p class="card-text">
+                                Latest update: {{ thread.latest_message.sent_at }}
+                            </p>
+                        </small>
+                        <p class="card-text">
+                            Latest message: {{ thread.latest_message.content }}
+                        </p>
+                        <a class="btn btn-primary" href="{{thread.get_absolute_url}}">
+                            View thread
+                        </a>
+                        <a class="btn btn-danger" href="{% url "pinax_messages:thread_delete" thread.pk %}">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+                <br>
+            {% endif %}
+        {% empty %}
+            <p>You have no unread messages.</p>
+        {% endfor %}
+
+    </section>
+</div>
+<br><br>
+{% endblock %}

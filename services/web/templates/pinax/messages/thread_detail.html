@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block body_class %}{{ block.super }} pinax-messages-thread{% endblock %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+<br><br>
+<div class="container col-lg-9">
+    <h2>Message Thread</h2>
+    <p>Between: {{ thread.users.all|join:", " }}</p>
+    <h3>{{ thread.subject }}</h3>
+    <div class="row">
+        <div class="col-lg-6">
+        </div>
+        <div class="col-lg-3">
+        </div>
+    </div>
+    
+    <section class="thread-messages">
+        {% for message in thread.messages.all %}
+        <div class="thread-message">
+            <small class="message-byline text-muted">
+                <div class="message-from">{{ message.sender.username }}</div>
+                <div class="message-sent">{{ message.sent_at }}</div>
+            </small>
+            <div class="message-content">{{ message.content|urlize|linebreaks }}</div>
+        </div>
+        {% endfor %}
+    </section>
+    
+    <form class="comment-form" action="{% url "pinax_messages:thread_detail" thread.pk %}" method="post">
+        {% csrf_token %}
+        
+        {% bootstrap_form form %}
+        <div class="form-actions">
+            <button class="btn btn-success">Send</button>
+            <a href="{% url "pinax_messages:inbox" %}" class="btn btn-warning">Cancel</a>
+            <a class="btn btn-danger" href="{% url "pinax_messages:thread_delete" thread.pk %}">Delete thread</a>
+        </div>
+    </form>
+</div>
+<br><br>
+{% endblock %}

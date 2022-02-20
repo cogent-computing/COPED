@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_extensions",  # Development dependency
     "easyaudit",  # Paper trail of model changes
+    "pinax.messages",  # User-to-user messaging
     "core.apps.CoreConfig",  # Main application.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
 ]
@@ -104,6 +105,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "pinax.messages.context_processors.user_messages",
             ],
         },
     },
