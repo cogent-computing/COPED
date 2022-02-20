@@ -15,6 +15,7 @@
             <th>Date</th>
             <th>Action</th>
             <th>Change(s)</th>
+            <th>User</th>
             </tr>
         </thead>
         <tbody>
@@ -42,10 +43,14 @@
                 <td>
                     {{ log.changed_fields|default_if_none:log.object_json_repr }}
                 </td>
+                <td>
+                    {{ log.user.username }}
+                </td>
             </tr>
         {% empty %}
             <tr>
                 <td>No history for this item has been logged yet.</td>
+                <td></td>
                 <td></td>
                 <td></td>
             </tr>
