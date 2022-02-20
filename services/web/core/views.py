@@ -582,3 +582,23 @@ def project_list(request):
         "project_list.html",
         context,
     )
+
+
+from pinax.messages.views import MessageCreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+class RequestDataChangeView(MessageCreateView):
+    def get_initial(self):
+        user_id = 1
+        project_id = self.kwargs.get("pk")
+        project = Project.objects.get(pk=project_id)
+        subject = f"Data change request"
+        content = (
+            f"Project title: {project.title}\n"
+            f"Project CoPED ID: {project.coped_id}({project.id})\n\n"
+            "What needs to be changed?\n>>>\n\n"
+            "What is your involvement with the project?\n>>>\n\n"
+            "Your name and contact details (optional):\n>>>\n\n"
+        )
+        return {"to_user": user_id, "subject": subject, "content": content}

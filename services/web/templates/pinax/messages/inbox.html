@@ -43,7 +43,7 @@
                         </p>
                     </small>
                     <p class="card-text">
-                        Latest message: {{ thread.latest_message.content }}
+                        Latest message: {{ thread.latest_message.content|truncatechars_html:128 }}
                     </p>
                     <a class="btn btn-primary" href="{{thread.get_absolute_url}}">
                         View thread
@@ -76,7 +76,7 @@
                             </p>
                         </small>
                         <p class="card-text">
-                            Latest message: {{ thread.latest_message.content }}
+                            Latest message: {{ thread.latest_message.content|truncatechars_html:128 }}
                         </p>
                         <a class="btn btn-primary" href="{{thread.get_absolute_url}}">
                             View thread

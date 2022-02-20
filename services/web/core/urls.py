@@ -43,6 +43,11 @@ urlpatterns = [
     ),
     path("accounts/", include("django_registration.backends.activation.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
+    path(
+        "projects/<int:pk>/request-data-change/",
+        views.RequestDataChangeView.as_view(),
+        name="request-data-change",
+    ),
     path("messages/", include("pinax.messages.urls", namespace="pinax_messages")),
     #
     #
