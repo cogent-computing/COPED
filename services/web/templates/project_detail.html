@@ -20,15 +20,15 @@
             <h4>
                 {{ project.title }}
             </h4>
-            <a href="{% url 'project-list' %}?mlt={{project.id}}" class="badge badge-pill badge-secondary">Find Similar</a>
-            <a href="{% url 'project-history' pk=project.id %}" class="badge badge-pill badge-info">
+            <a href="{% url 'project-list' %}?mlt={{project.id}}" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Show projects with matching descriptions and subjects.">Find Similar</a>
+            <a href="{% url 'project-history' pk=project.id %}" class="badge badge-pill badge-info" data-toggle="tooltip" title="Show project updates.">
                 History
                 {% if project.history.exists %}
                 <span class="badge badge-light">{{project.history.count}}</span>
                 {% endif %}
             </a>
-            <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success">Update</a>
-            <a href="{% url 'request-data-change' pk=project.id %}" class="badge badge-pill badge-warning">Request Data Change</a>
+            <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Edit this project.">Update</a>
+            <a href="{% url 'request-data-change' pk=project.id %}" class="badge badge-pill badge-warning" data-toggle="tooltip" title="Let us know if something needs to be updated.">Request Data Change</a>
         </div>
     </div>
     <br>
