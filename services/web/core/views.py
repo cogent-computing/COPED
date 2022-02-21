@@ -590,7 +590,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class RequestDataChangeView(MessageCreateView):
     def get_initial(self):
-        user_id = 1
+        user_id = 1  # TODO: check for object ownership before defaulting to admin user.
         project_id = self.kwargs.get("pk")
         project = Project.objects.get(pk=project_id)
         subject = f"Data change request"
