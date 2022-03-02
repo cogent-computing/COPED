@@ -45,8 +45,13 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path(
         "projects/<int:pk>/request-data-change/",
-        views.RequestDataChangeView.as_view(),
-        name="request-data-change",
+        views.ProjectRequestDataChangeView.as_view(),
+        name="project-request-data-change",
+    ),
+    path(
+        "projects/<int:pk>/claim-ownership/",
+        views.ProjectClaimOwnershipView.as_view(),
+        name="project-claim-ownership",
     ),
     path("messages/", include("pinax.messages.urls", namespace="pinax_messages")),
     #

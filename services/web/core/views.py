@@ -2,7 +2,6 @@ from django.db.models import Count
 from django.core.paginator import Paginator
 from django.views import generic
 from django.http import JsonResponse, HttpResponseRedirect
-from django.contrib import messages
 from django.shortcuts import render
 from django.forms import inlineformset_factory
 from django.contrib.auth.decorators import login_required
@@ -34,8 +33,6 @@ from .models import (
 )
 from .forms import (
     ProjectForm,
-    ProjectForm2,
-    ProjectSubjectsFormSet2,
     AddressForm,
     OrganisationForm,
     PersonOrganisationForm,
@@ -216,13 +213,6 @@ class ProjectUpdateView3(
     template_name = "project_form_with_inlines.html"
     success_message = "Project updated."
 
-    # def form_valid(self, form):
-    #     data = form.cleaned_data
-    #     save_message = data.get("save_message", "Changed record")
-    #     user = self.request.user.username if self.request.user.username else "Anonymous"
-    #     form.instance.auditlog_data = {"message": save_message, "user": user}
-    #     return super().form_valid(form)
-
 
 class ProjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateWithInlinesView):
 
@@ -235,42 +225,6 @@ class ProjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateWithInlin
     form_class = ProjectFormWithInlines
     template_name = "project_form_with_inlines.html"
     success_message = "Project created."
-
-
-class ProjectUpdateView2(generic.UpdateView):
-
-    model = Project
-    form_class = ProjectForm2
-    template_name = "project_update_form2.html"
-    success_messages = "Project2 saved."
-
-    def form_valid(self, form):
-        print("form:", dir(form))
-
-        self.object = form.save()
-        messages.success(self.request, "Changes to project saved")
-
-        context = self.get_context_data(form=form)
-        formset = context["project_subjects"]
-        if formset.is_valid():
-            response = super().form_valid(form)
-            formset.instance = self.object
-            formset.save()
-            return response
-        else:
-            return super().form_invalid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        if self.request.POST:
-            context["project_subjects"] = ProjectSubjectsFormSet2(
-                self.request.POST, instance=self.object
-            )
-            context["project_subjects"].full_clean()
-        else:
-            context["project_subjects"] = ProjectSubjectsFormSet2(instance=self.object)
-        return context
 
 
 class SubjectCreateView(
@@ -307,18 +261,6 @@ class GeoCreateView(
     template_name = "geo_form.html"
     fields = ["lat", "lon"]
     success_message = "Geo location created."
-
-
-# class PersonCreateView(
-#     LoginRequiredMixin,
-#     SuccessMessageMixin,
-#     CreatePopupMixin,
-#     generic.CreateView,
-# ):
-#     model = Person
-#     form_class = PersonForm
-#     template_name = "person_form.html"
-#     success_message = "Person created."
 
 
 class PersonOrganisationInline(InlineFormSetFactory):
@@ -588,16 +530,31 @@ from pinax.messages.views import MessageCreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class RequestDataChangeView(MessageCreateView):
+class ProjectRequestDataChangeView(LoginRequiredMixin, MessageCreateView):
     def get_initial(self):
         user_id = 1  # TODO: check for object ownership before defaulting to admin user.
         project_id = self.kwargs.get("pk")
         project = Project.objects.get(pk=project_id)
-        subject = f"Data change request"
+        subject = f"Project data change request"
         content = (
             f"Project title: {project.title}\n"
             f"Project CoPED ID: {project.coped_id}({project.id})\n\n"
             "What needs to be changed?\n>>>\n\n"
+            "What is your involvement with the project?\n>>>\n\n"
+            "Your name and contact details (optional):\n>>>\n\n"
+        )
+        return {"to_user": user_id, "subject": subject, "content": content}
+
+
+class ProjectClaimOwnershipView(LoginRequiredMixin, MessageCreateView):
+    def get_initial(self):
+        user_id = 1  # TODO: check for object ownership before defaulting to admin user.
+        project_id = self.kwargs.get("pk")
+        project = Project.objects.get(pk=project_id)
+        subject = f"Project ownership request"
+        content = (
+            f"Project title: {project.title}\n"
+            f"Project CoPED ID: {project.coped_id}({project.id})\n\n"
             "What is your involvement with the project?\n>>>\n\n"
             "Your name and contact details (optional):\n>>>\n\n"
         )

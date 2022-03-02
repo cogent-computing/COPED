@@ -27,8 +27,18 @@
                 <span class="badge badge-light">{{project.history.count}}</span>
                 {% endif %}
             </a>
-            <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Edit this project.">Update</a>
-            <a href="{% url 'request-data-change' pk=project.id %}" class="badge badge-pill badge-warning" data-toggle="tooltip" title="Let us know if something needs to be updated.">Request Data Change</a>
+            {% if user.is_authenticated and project in user.project_set.all or user.is_superuser %}
+            <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Edit this project.">
+                Update
+            </a>
+            {% else %}
+            <a href="{% url 'project-claim-ownership' pk=project.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Claim this project so you can manage it.">
+                Claim Ownership
+            </a>
+            <a href="{% url 'project-request-data-change' pk=project.id %}" class="badge badge-pill badge-warning" data-toggle="tooltip" title="Let us know if something needs to be updated.">
+                Request Data Change
+            </a>
+            {% endif %}
         </div>
     </div>
     <br>

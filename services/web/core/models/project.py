@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.db.models import Max, Min, Func
 from django.db.models.functions import Greatest, Least
@@ -53,6 +54,9 @@ class Project(models.Model):
     have links to a range of Fund, Person, and Organisation records based on
     who funded the project, who worked on it, and so on."""
 
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
+    )
     coped_id = models.UUIDField(default=uuid4, editable=False, verbose_name="CoPED ID")
     title = models.CharField(max_length=256)
     description = models.TextField(blank=True)
