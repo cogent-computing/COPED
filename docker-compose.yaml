@@ -37,8 +37,6 @@ services:
         condition: service_healthy
       elasticsearch:
         condition: service_healthy
-      metabase:
-        condition: service_healthy
 
   ##########################
   ## HTTP(S) PROXY SERVER ##
@@ -90,8 +88,7 @@ services:
     expose:
       - ${METABASE_PORT:-3000}
     healthcheck:
-      test: wget --no-verbose --tries=1 --spider
-        http://localhost:${METABASE_PORT:-3000}/api/health || exit 1
+      test: wget --no-verbose --tries=1 --spider http://localhost:${METABASE_PORT:-3000}/api/health || exit 1
       interval: 10s
       timeout: 5s
       retries: 5
@@ -121,8 +118,7 @@ services:
       - 9200
       - 9300
     healthcheck:
-      test: curl -s localhost:9200 > /dev/null; if [[ $$? == 52 ]]; then echo 0; else
-        echo 1; fi
+      test: curl -s localhost:9200 > /dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
       interval: 10s
       timeout: 5s
       retries: 5
