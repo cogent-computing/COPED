@@ -54,6 +54,11 @@ urlpatterns = [
         name="project-claim-ownership",
     ),
     path("messages/", include("pinax.messages.urls", namespace="pinax_messages")),
+    path(
+        "messages/inbox/started/",
+        views.InboxStartedThreadsView.as_view(),
+        name="inbox-started-threads",
+    ),
     #
     #
     ############

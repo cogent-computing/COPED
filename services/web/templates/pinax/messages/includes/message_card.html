@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">
+            {{ thread.subject }}
+        </h5>
+        <small class="text-muted">
+            <p class="card-subtitle text-muted">
+                Between: {{ thread.users.all|join:", " }}
+            </p>
+            <p class="card-text">
+                Latest update: {{ thread.latest_message.sent_at }} by @{{ thread.latest_message.sender }}
+                <br>
+                Messages: {{ thread.messages.count }}
+        </p>
+        </small>
+        <p class="card-text">
+            Latest message: {{ thread.latest_message.content|truncatechars_html:128 }}
+        </p>
+        <a class="btn btn-primary" href="{{thread.get_absolute_url}}">
+            View
+        </a>
+        <a class="btn btn-danger" href="{% url "pinax_messages:thread_delete" thread.pk %}">
+            Delete
+        </a>
+    </div>
+</div>
+<br>

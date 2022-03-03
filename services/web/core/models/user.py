@@ -25,6 +25,7 @@ from django.contrib.auth.models import UserManager
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from uuid import uuid4
+from pinax.messages.models import Thread
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -49,6 +50,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         # Set the custom user model to have the standard Django database table name
         db_table = "auth_user"
+
+    @property
+    def started_message_threads(self):
+        # Return a queryset of Pinax message threads started by this user
+        try:
+            import pinax.messages
+        except:
+            return None
+        sent_messages = self.sent_messages.all()
+        started_threads = [
+            sent_message.thread
+            for sent_message in sent_messages
+            if sent_message.thread.first_message == sent_message
+        ]
+        started_thread_ids = [thread.id for thread in started_threads]
+        return Thread.objects.filter(id__in=started_thread_ids)
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         if from_email is None:
