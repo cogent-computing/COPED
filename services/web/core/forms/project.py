@@ -93,9 +93,16 @@ class ProjectPersonForm(forms.ModelForm):
 
 
 class ProjectFormWithInlines(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+        if user is None or not user.is_superuser:
+            self.fields["owner"].disabled = True
+
     class Meta:
         model = Project
         fields = [
+            "owner",
             "title",
             "status",
             "start",
@@ -154,6 +161,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = [
+            "owner",
             "title",
             "description",
             "status",
