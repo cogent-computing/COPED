@@ -42,7 +42,7 @@
                 {% include "./includes/message_card.html" %}
             {% endif %}
         {% empty %}
-            <p>You have no unread messages.</p>
+            <p>You have no read messages.</p>
         {% endfor %}
     {% elif folder == "started" %}
         <h4>Started</h4>
@@ -51,7 +51,7 @@
                 {% include "./includes/message_card.html" %}
             {% endif %}
         {% empty %}
-            <p>You have no unread messages.</p>
+            <p>You have no read messages.</p>
         {% endfor %}
     {% endif %}
     </section>

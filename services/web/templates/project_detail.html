@@ -32,12 +32,20 @@
                 Update
             </a>
             {% else %}
-            <a href="{% url 'project-claim-ownership' pk=project.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Claim this project so you can manage it.">
-                Claim Ownership
-            </a>
-            <a href="{% url 'project-request-data-change' pk=project.id %}" class="badge badge-pill badge-warning" data-toggle="tooltip" title="Let us know if something needs to be updated.">
-                Request Data Change
-            </a>
+
+                {% if user.is_authenticated and project.owner %}
+                <a href="{% url 'project-contact-owner' pk=project.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Send a message to the owner of this project.">
+                    Contact Owner
+                </a>
+                {% else %}
+                <a href="{% url 'project-claim-ownership' pk=project.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Claim this project so you can manage it.">
+                    Claim Ownership
+                </a>
+                {% endif %}
+                <a href="{% url 'project-request-data-change' pk=project.id %}" class="badge badge-pill badge-warning" data-toggle="tooltip" title="Let us know if something needs to be updated.">
+                    Request Data Change
+                </a>
+            
             {% endif %}
         </div>
     </div>

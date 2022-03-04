@@ -532,27 +532,52 @@ def project_list(request):
     )
 
 
-from pinax.messages.views import MessageCreateView, ThreadView, InboxView
+from pinax.messages.views import MessageCreateView
+from pinax.messages.views import InboxView as PinaxInboxView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # TODO: check if the following need the LoginRequiredMixin
 
 
-class InboxStartedThreadsView(LoginRequiredMixin, InboxView):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(
-            {"folder": "started", "threads": self.request.user.started_message_threads}
+class InboxView(PinaxInboxView):
+    pass
+
+
+class ProjectContactOwnerView(LoginRequiredMixin, MessageCreateView):
+    def get_initial(self):
+        project_id = self.kwargs.get("pk")
+        project = Project.objects.get(pk=project_id)
+        user_id = project.owner.id
+
+        title = project.title
+        coped_id = project.coped_id
+        id_ = project.id
+        proto = "https://" if self.request.is_secure() else "http://"
+        host = self.request.get_host()
+        path = project.get_absolute_url()
+        url = proto + host + path
+
+        subject = f"Message regarding project: '{title}'"
+        content = (
+            f"Project title: {title}\n"
+            f"Project CoPED ID: {coped_id}\n"
+            f"Project ID: {id_}\n"
+            f"Project URL: {url}\n\n"
+            "Your messaage:\n>>>\n\n"
+            "Your name and contact details (optional):\n>>>\n\n"
         )
-        return context
+        return {"to_user": user_id, "subject": subject, "content": content}
 
 
 class ProjectRequestDataChangeView(LoginRequiredMixin, MessageCreateView):
     def get_initial(self):
-        user_id = 1  # TODO: check for object ownership before defaulting to admin user.
         project_id = self.kwargs.get("pk")
         project = Project.objects.get(pk=project_id)
         subject = f"Project data change request"
+        if project.owner:
+            user_id = project.owner.id
+        else:
+            user_id = 1  # admin
 
         title = project.title
         coped_id = project.coped_id
@@ -576,7 +601,7 @@ class ProjectRequestDataChangeView(LoginRequiredMixin, MessageCreateView):
 
 class ProjectClaimOwnershipView(LoginRequiredMixin, MessageCreateView):
     def get_initial(self):
-        user_id = 1  # TODO: check for object ownership before defaulting to admin user.
+        user_id = 1
         project_id = self.kwargs.get("pk")
         project = Project.objects.get(pk=project_id)
         subject = f"Project ownership request"

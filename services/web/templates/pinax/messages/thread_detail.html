@@ -36,7 +36,7 @@
         <div class="form-actions">
             <button class="btn btn-success">Send</button>
             <a href="{% url "pinax_messages:inbox" %}" class="btn btn-warning">Cancel</a>
-            <a class="btn btn-danger" href="{% url "pinax_messages:thread_delete" thread.pk %}">Delete thread</a>
+            <a class="btn btn-danger" href="{% url "pinax_messages:thread_delete" thread.pk %}">Archive thread</a>
         </div>
     </form>
 </div>

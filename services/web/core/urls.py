@@ -53,12 +53,13 @@ urlpatterns = [
         views.ProjectClaimOwnershipView.as_view(),
         name="project-claim-ownership",
     ),
-    path("messages/", include("pinax.messages.urls", namespace="pinax_messages")),
     path(
-        "messages/inbox/started/",
-        views.InboxStartedThreadsView.as_view(),
-        name="inbox-started-threads",
+        "projects/<int:pk>/contact-owner/",
+        views.ProjectContactOwnerView.as_view(),
+        name="project-contact-owner",
     ),
+    path("messages/inbox/", views.InboxView.as_view(), name="pinax_messages:inbox"),
+    path("messages/", include("pinax.messages.urls", namespace="pinax_messages")),
     #
     #
     ############
