@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
+    "django.contrib.sites",  # Dependency of Django-invitations app
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
@@ -64,9 +65,11 @@ INSTALLED_APPS = [
     "django_extensions",  # Development dependency
     "easyaudit",  # Paper trail of model changes
     "pinax.messages",  # User-to-user messaging
+    "invitations",  # Django-invitations allows sending invites to external users
     "core.apps.CoreConfig",  # Main application.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
 ]
+
 
 DJANGO_EASY_AUDIT_REGISTERED_CLASSES = [
     # Note that m2m fields without custom through models are tracked automatically.
@@ -242,7 +245,6 @@ SUPPORT_EMAIL = "coped.testing@c0l.in"
 # MAILJET_API_URL = "https://api.mailjet.com/v3.1/"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = True
-
 
 # Maps
 LEAFLET_CONFIG = {

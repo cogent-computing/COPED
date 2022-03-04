@@ -36,6 +36,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path("select2/", include("django_select2.urls")),
+    path("invitations/", include("invitations.urls", namespace="invitations")),
     path(
         "accounts/register/",
         RegistrationView.as_view(form_class=CustomUserForm),
