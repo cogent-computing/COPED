@@ -1,0 +1,26 @@
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}
+
+Hello,
+
+You ({{ email }}) have been invited to join the Catalogue of Projects on Energy Data (CoPED)
+at {{site_name}} by an existing user "{{ inviter }}".
+
+CoPED, or the Catalogue of Projects on Energy Data, aims to unify various
+information stores and existing portals for UK energy projects
+under a single extendable umbrella.
+
+If you'd like to sign up, please accept the invitation by clicking this link:
+  {{ invite_url }}
+
+If you'd like to explore the CoPED platform first, please go to:
+  {{ site_name }}
+
+Otherwise, please simply delete this message.
+
+Yours sincerely,
+The CoPED Team.
+
+{% endblocktrans %}
+{% endautoescape %}

@@ -132,10 +132,15 @@
                 </a>
                 <a class="dropdown-item disabled" href=""> Requests </a>
                 <a class="dropdown-item disabled" href=""> Notifications </a>
-                {% if user.is_staff %}
+                <hr class="dropdown-divider" />
+                <p class="dropdown-header">
+                  <i class="fas fa-user-plus"></i> <b>Network</b>
+                </p>
+                <a class="dropdown-item" href="{% url 'invitations:send-invite' %}"> Invite a Contact </a>
+              {% if user.is_staff %}
                   <hr class="dropdown-divider" />
                   <p class="dropdown-header">
-                    <i class="fas fa-toolbox"></i> <b>Admin</b>
+                    <i class="fas fa-cogs"></i> <b>Admin</b>
                   </p>
                   <a class="dropdown-item" href="{% url 'admin:index' %}"> Management </a>
                 {% endif %}

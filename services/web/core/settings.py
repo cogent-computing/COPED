@@ -267,3 +267,11 @@ LEAFLET_CONFIG = {
         }
     },
 }
+
+
+# Invitations
+
+INVITATIONS_GONE_ON_ACCEPT_ERROR = False
+INVITATIONS_SIGNUP_REDIRECT = "django_registration_register"
+INVITATIONS_LOGIN_REDIRECT = "login"
+INVITATIONS_EMAIL_SUBJECT_PREFIX = "[CoPED]"
