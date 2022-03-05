@@ -61,6 +61,20 @@ urlpatterns = [
     ),
     path("messages/inbox/", views.InboxView.as_view(), name="pinax_messages:inbox"),
     path("messages/", include("pinax.messages.urls", namespace="pinax_messages")),
+    path(
+        "announcements/",
+        views.AnnouncementListView.as_view(),
+        name="pinax_announcements:announcement_list",
+    ),
+    path(
+        "announcements/propose/",
+        views.ProposeAnnouncementView.as_view(),
+        name="propose-announcement",
+    ),
+    path(
+        "announcements/",
+        include("pinax.announcements.urls", namespace="pinax_announcements"),
+    ),
     #
     #
     ############

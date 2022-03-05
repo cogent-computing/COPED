@@ -1,6 +1,8 @@
 {% load static %}
 {% load bootstrap4 %}
 {% load pinax_messages_tags %}
+{% load pinax_announcements_tags %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +41,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <div class="navbar-nav" href="/">
             <div class="d-none d-xl-block">
-              <a class="navbar-brand"> Catalogue of Projects on Energy Data</a>
+              <a class="navbar-brand"> Energy Projects Catalogue</a>
             </div>
           </div>
           <div class="navbar-nav ml-auto">
@@ -82,7 +84,7 @@
             &nbsp;
             <div class="dropdown mr-1">
               <button
-                class="btn btn-warning dropdown-toggle {% block nav_vis %}{% endblock %}"
+                class="btn btn-outline-success dropdown-toggle {% block nav_vis %}{% endblock %}"
                 type="button"
                 id="dropdownMenuButton3"
                 data-toggle="dropdown"
@@ -105,11 +107,20 @@
                 <a class="dropdown-item" href="{% url 'api-root' %}" target="_blank"><i class="fas fa-laptop-code"></i> RESTful API (JSON) </a>
               </div>
             </div>
+            <a class="btn nav-item btn-outline-info ml-1 {% block nav_announce %}{% endblock %}" href="{% url 'pinax_announcements:announcement_list' %}">
+              <i class="fas fa-bullhorn"></i> Announcements
+              {% if not user.is_superuser %}
+              {% announcements as announcement_list %}
+              <span class="badge badge-pill badge-info">
+                {{ announcement_list.count }}
+              </span>              
+              {% endif %}
+            </a>
             &nbsp;
             {% if user.is_authenticated %}
             <div class="dropdown mr-1">
               <button
-                class="btn btn-secondary dropdown-toggle"
+                class="btn btn-outline-secondary dropdown-toggle"
                 type="button"
                 id="dropdownMenuButton2"
                 data-toggle="dropdown"
@@ -117,7 +128,12 @@
                 aria-expanded="false"
                 style="max-width: 180px; overflow: hidden; text-overflow: ellipsis"
               >
-                <i class="fas fa-user"></i> {{ user.username }}
+              <i class="fas fa-user"></i> {{ user.username|truncatechars:14 }}
+              {% with user|unread_thread_count as unread_messages %}
+                {% if unread_messages %}
+                <span class="badge badge-pill badge-danger">{{ unread_messages }}</span>
+                {% endif %}
+              {% endwith %}            
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                 <a class="dropdown-item" href="{% url 'user-detail' user.id %}"> Profile </a>
@@ -126,7 +142,7 @@
                   Messages
                   {% with user|unread_thread_count as unread_messages %}
                     {% if unread_messages %}
-                      <span class="badge badge-info">{{ unread_messages }}</span>
+                      <span class="badge badge-pill badge-danger">{{ unread_messages }}</span>
                     {% endif %}
                   {% endwith %}
                 </a>
@@ -137,7 +153,7 @@
                   <i class="fas fa-user-plus"></i> <b>Network</b>
                 </p>
                 <a class="dropdown-item" href="{% url 'invitations:send-invite' %}"> Invite a Contact </a>
-              {% if user.is_staff %}
+                {% if user.is_staff %}
                   <hr class="dropdown-divider" />
                   <p class="dropdown-header">
                     <i class="fas fa-cogs"></i> <b>Admin</b>

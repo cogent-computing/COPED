@@ -8,7 +8,7 @@
                 Between: {{ thread.users.all|join:", " }}
             </p>
             <p class="card-text">
-                Latest update: {{ thread.latest_message.sent_at }} by @{{ thread.latest_message.sender }}
+                Latest update: {{ thread.latest_message.sent_at|date:"F j, Y (H:m)" }} by @{{ thread.latest_message.sender }}
                 <br>
                 Messages: {{ thread.messages.count }}
         </p>

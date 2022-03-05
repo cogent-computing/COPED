@@ -569,6 +569,21 @@ class ProjectContactOwnerView(LoginRequiredMixin, MessageCreateView):
         return {"to_user": user_id, "subject": subject, "content": content}
 
 
+class ProposeAnnouncementView(LoginRequiredMixin, MessageCreateView):
+    def get_initial(self):
+        to_user_id = 1  # admin
+        subject = "Announcement proposal"
+        content = (
+            "Title:\n\n"
+            "Description (with web links if available):\n\n"
+            "Start Date:\n\n"
+            "End Date:\n\n"
+            "What is your connection to this announcement?\n\n"
+            "Your name and contact details (optional):\n\n"
+        )
+        return {"to_user": to_user_id, "subject": subject, "content": content}
+
+
 class ProjectRequestDataChangeView(LoginRequiredMixin, MessageCreateView):
     def get_initial(self):
         project_id = self.kwargs.get("pk")
@@ -623,3 +638,14 @@ class ProjectClaimOwnershipView(LoginRequiredMixin, MessageCreateView):
             "Your name and contact details (optional):\n>>>\n\n"
         )
         return {"to_user": user_id, "subject": subject, "content": content}
+
+
+from pinax.announcements.models import Announcement
+from django.views.generic import ListView
+
+
+class AnnouncementListView(ListView):
+    template_name = "pinax/announcements/announcement_list.html"
+    model = Announcement
+    queryset = Announcement.objects.all().order_by("publish_end")
+    paginate_by = 20

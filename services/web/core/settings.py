@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "django_extensions",  # Development dependency
     "easyaudit",  # Paper trail of model changes
     "pinax.messages",  # User-to-user messaging
+    "pinax.announcements",  # Site-wide announcements
     "invitations",  # Django-invitations allows sending invites to external users
     "core.apps.CoreConfig",  # Main application.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.

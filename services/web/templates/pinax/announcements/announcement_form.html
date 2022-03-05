@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+<br><br>
+<div class="container col-lg-7">
+    {% if announcement %}
+        {% url "pinax_announcements:announcement_update" pk=announcement.pk as post_url %}
+    {% else %}
+        {% url "pinax_announcements:announcement_create" as post_url %}
+    {% endif %}
+
+    <form action="{{ post_url }}" method="POST">
+        {% csrf_token %}
+        <h2>{% if announcement %}Edit Announcement{% else %}Create Announcement{% endif %}</h2>
+        {% bootstrap_form form layout="horizontal" %}
+        <div class="form-actions">
+            <button class="btn btn-primary">Save</button>
+            <a href="{% url "pinax_announcements:announcement_list" %}" class="btn btn-warning">Cancel</a>
+            {% if announcement %}
+                <a href="{% url "pinax_announcements:announcement_delete" pk=announcement.pk %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+<br><br>
+{% endblock %}
