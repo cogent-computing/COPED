@@ -17,32 +17,45 @@
         {% trans "Add New Announcement" %}
     </a>
     {% else %}
-    <a href="{% url "propose-announcement" %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Propose an announcement to the site administrator.">
-        {% trans "Propose Announcement" %}
+    <a href="{% url "propose-announcement" %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Submit an announcement to the site administrator.">
+        {% trans "Submit Announcement" %}
     </a>
     {% endif %}
 
+    <br>
+
     {% for announcement in announcement_list %}
-        <div class="announcement">
-            <div class="announcement-body">
-                <div class="announcement-title">{{ announcement.title }}</div>
-                {{ announcement.content }}
+
+    <br>
+        <div class="card">
+            <div class="card-header">
+                <h3>{{ announcement.title }}</h3>
             </div>
-            <div class="announcement-meta">
-                <div class="announcment-date">
-                    {% if announcement.publish_start or announcement.publish_end %}
-                        <small>Published from <em>{{ announcement.publish_start|date:"F j, Y" }}</em> to
-                        <em>{{ announcement.publish_end|date:"F j, Y" }}</em></small>
-                    {% endif %}
-                </div>
-                <div class="announcement-actions">
-                    <a href="{% url "pinax_announcements:announcement_update" pk=announcement.pk %}" class="announcement-edit-link">
-                        <i class="fas fa-pencil-alt"></i>
-                        {% trans "Edit" %}
-                    </a>
+            <div class="card-body">
+                <p class="card-text">{{ announcement.content|truncatewords_html:32|linebreaks }}</p>
+                {% if user.is_superuser %}
+                <a href="{% url "pinax_announcements:announcement_update" pk=announcement.pk %}" class="btn btn-outline-info">
+                    <i class="fas fa-pencil-alt"></i>
+                    {% trans "Edit" %}
+                </a>
+                {% endif %}
+                <a href="{% url "pinax_announcements:announcement_detail" pk=announcement.pk %}" class="btn btn-outline-primary">
+                    {% trans "View" %}
+                </a>
+            </div>
+            <div class="card-footer">
+                <div class="announcement-meta">
+                    <div class="announcment-date">
+                        {% if announcement.publish_start or announcement.publish_end %}
+                            <small>Published from <em>{{ announcement.publish_start|date:"F j, Y" }}</em> to
+                            <em>{{ announcement.publish_end|date:"F j, Y" }}</em></small>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
+    
+        
     {% endfor %}
 </div>
 <br><br>

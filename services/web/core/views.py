@@ -575,7 +575,8 @@ class ProposeAnnouncementView(LoginRequiredMixin, MessageCreateView):
         subject = "Announcement proposal"
         content = (
             "Title:\n\n"
-            "Description (with web links if available):\n\n"
+            "Working web link to further information:\n\n"
+            "Short description:\n\n"
             "Start Date:\n\n"
             "End Date:\n\n"
             "What is your connection to this announcement?\n\n"
