@@ -17,6 +17,7 @@ django-easy-audit==1.3.2
 pinax-messages==3.0.0
 django-invitations==1.9.3
 pinax-announcements==4.0.0
+stream-framework[redis]==1.4.0
 
 # Geographic analysis and visualisation
 django-leaflet==0.28.2

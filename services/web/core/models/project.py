@@ -280,3 +280,18 @@ class ProjectPerson(models.Model):
 
     def __str__(self):
         return self.role
+
+
+class ProjectSubscription(models.Model):
+    """Through model connecting to users who subscribe to updates."""
+
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    added = models.DateTimeField(auto_now_add=True, blank=True)
+
+    class Meta:
+        db_table = "coped_project_subscription"
+        unique_together = (
+            "project",
+            "user",
+        )

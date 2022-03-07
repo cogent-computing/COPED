@@ -59,6 +59,16 @@ urlpatterns = [
         views.ProjectContactOwnerView.as_view(),
         name="project-contact-owner",
     ),
+    path(
+        "projects/<int:pk>/subscribe/",
+        views.subscribe_to_project,
+        name="project-subscribe",
+    ),
+    path(
+        "projects/<int:pk>/unsubscribe/",
+        views.unsubscribe_from_project,
+        name="project-unsubscribe",
+    ),
     path("messages/inbox/", views.InboxView.as_view(), name="pinax_messages:inbox"),
     path("messages/", include("pinax.messages.urls", namespace="pinax_messages")),
     path(

@@ -2,8 +2,10 @@ from django.db.models import Count
 from django.core.paginator import Paginator
 from django.views import generic
 from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.forms import inlineformset_factory
+from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -23,6 +25,7 @@ from .models import (
     PersonOrganisation,
     Project,
     ProjectSubject,
+    ProjectSubscription,
     Subject,
     User,
     ExternalLink,
@@ -108,6 +111,44 @@ def visuals_dashboard_experiment(request):
 
 
 @login_required
+def subscribe_to_project(request, pk):
+    if request.method == "GET":
+        sub, created = ProjectSubscription.objects.get_or_create(
+            user=request.user, project=Project.objects.get(pk=pk)
+        )
+        if created:
+            messages.success(request, "Subscription added")
+        elif sub.id:
+            messages.warning(request, "Subscription already exists")
+        else:
+            messages.error(request, "Error adding subscription")
+        return redirect("project-detail", pk=pk)
+
+
+@login_required
+def unsubscribe_from_project(request, pk):
+    if request.method == "GET":
+
+        try:
+            project = Project.objects.get(pk=pk)
+            sub = ProjectSubscription.objects.get(user=request.user, project=project)
+        except ProjectSubscription.DoesNotExist:
+            messages.warning(request, "Not subscribed")
+            return redirect("project-detail", pk=pk)
+
+        deleted, _ = ProjectSubscription.objects.filter(
+            user=request.user, project=Project.objects.get(pk=pk)
+        ).delete()
+
+        if deleted:
+            messages.success(request, "Subscription removed")
+        else:
+            messages.error(request, "Error removing subscription")
+
+        return redirect("project-detail", pk=pk)
+
+
+@login_required
 def visuals_dashboard2(request):
     return render(request, "visuals_dashboard2.html")
 
@@ -144,8 +185,14 @@ class ProjectDetailView(generic.DetailView):
         location_list = [[a.geo.lat, a.geo.lon] for a in addresses]
         has_latlon = lambda loc: loc[0] != 0 or loc[1] != 0
         location_list = list(filter(has_latlon, location_list))
-        print("LOCATIONS", location_list)
         context["location_list"] = location_list
+
+        subscriber_ids = ProjectSubscription.objects.filter(
+            project=self.get_object()
+        ).values_list("user_id", flat=True)
+        subscribers = get_user_model().objects.filter(id__in=subscriber_ids)
+        context["subscribers"] = subscribers
+
         return context
 
 

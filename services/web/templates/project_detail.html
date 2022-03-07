@@ -20,8 +20,12 @@
             <h4>
                 {{ project.title }}
             </h4>
-            <a href="{% url 'project-list' %}?mlt={{project.id}}" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Show projects with matching descriptions and subjects.">Find Similar</a>
+            <a href="{% url 'project-list' %}?mlt={{project.id}}" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Show projects with matching descriptions and subjects.">
+                <i class="fas fa-search"></i>
+                Find Similar
+            </a>
             <a href="{% url 'project-history' pk=project.id %}" class="badge badge-pill badge-info" data-toggle="tooltip" title="Show project updates.">
+                <i class="fas fa-history"></i>
                 History
                 {% if project.history.exists %}
                 <span class="badge badge-light">{{project.history.count}}</span>
@@ -29,23 +33,36 @@
             </a>
             {% if user.is_authenticated and project in user.project_set.all or user.is_superuser %}
             <a href="{% url 'project-update' pk=project.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Edit this project.">
+                <i class="fas fa-edit"></i>
                 Update
             </a>
             {% else %}
 
                 {% if user.is_authenticated and project.owner %}
                 <a href="{% url 'project-contact-owner' pk=project.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Send a message to the owner of this project.">
+                    <i class="fas fa-envelope"></i>
                     Contact Owner
                 </a>
                 {% else %}
                 <a href="{% url 'project-claim-ownership' pk=project.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Claim this project so you can manage it.">
+                    <i class="fas fa-user-edit"></i>
                     Claim Ownership
                 </a>
                 {% endif %}
                 <a href="{% url 'project-request-data-change' pk=project.id %}" class="badge badge-pill badge-warning" data-toggle="tooltip" title="Let us know if something needs to be updated.">
+                    <i class="fas fa-edit"></i>
                     Request Data Change
                 </a>
             
+            {% endif %}
+            {% if user not in subscribers %}
+            <a href="{% url 'project-subscribe' pk=project.id %}" class="badge badge-pill badge-light" data-toggle="tooltip" title="Add this project to your list of subscriptions.">
+                <i class="fas fa-star"></i> Add Subscription
+            </a>
+            {% else %}
+            <a href="{% url 'project-unsubscribe' pk=project.id %}" class="badge badge-pill badge-info" data-toggle="tooltip" title="Remove this project from your list of subscriptions.">
+                <i class="fas fa-star"></i> Remove Subscription
+            </a>
             {% endif %}
         </div>
     </div>

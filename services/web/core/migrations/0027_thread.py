@@ -6,20 +6,19 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pinax_messages', '0002_auto_20220303_0822'),
-        ('core', '0026_project_owner'),
+        # ('pinax_messages', '0002_auto_20220303_0822'),
+        ("core", "0026_project_owner"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Thread',
-            fields=[
-            ],
+            name="Thread",
+            fields=[],
             options={
-                'proxy': True,
-                'indexes': [],
-                'constraints': [],
+                "proxy": True,
+                "indexes": [],
+                "constraints": [],
             },
-            bases=('pinax_messages.thread',),
+            bases=("pinax_messages.thread",),
         ),
     ]

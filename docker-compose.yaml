@@ -31,11 +31,15 @@ services:
       MAILJET_SECRET_KEY: ${MAILJET_SECRET_KEY:-""}
       METABASE_SUPERUSER_EMAIL: ${METABASE_SUPERUSER_EMAIL:?}
       METABASE_SUPERUSER_PASSWORD: ${METABASE_SUPERUSER_PASSWORD:?}
+      REDIS_PORT: ${REDIS_PORT:-6379}
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?}
 
     depends_on:
       db:
         condition: service_healthy
       elasticsearch:
+        condition: service_healthy
+      redis:
         condition: service_healthy
 
   ##########################
@@ -123,10 +127,27 @@ services:
       timeout: 5s
       retries: 5
 
+  ##########################
+  ## REDIS MESSAGE SERVER ##
+  ##########################
+  redis:
+    image: redis:6.2-bullseye
+    restart: always
+    container_name: ${DOCKER_CONTAINER_NAME_PREFIX:-coped}_redis
+    volumes:
+      - redis_volume:/data
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+    command: >
+      --requirepass ${REDIS_PASSWORD:?}
+
 volumes:
   static_volume: null
   postgresql_volume: null
   elasticsearch_volume: null
+  redis_volume: null
 
 configs:
   NGINX_CONFIG:
