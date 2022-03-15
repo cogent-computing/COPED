@@ -25,7 +25,6 @@ from django.contrib.auth.models import UserManager
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from uuid import uuid4
-from pinax.messages.models import Thread
 
 
 class User(AbstractBaseUser, PermissionsMixin):

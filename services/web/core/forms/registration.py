@@ -9,3 +9,4 @@ class CustomUserForm(RegistrationForm):
 
     class Meta(RegistrationForm.Meta):
         model = User
+        fields = ["username", "email", "first_name", "last_name"]

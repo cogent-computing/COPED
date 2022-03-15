@@ -5,13 +5,15 @@
     <div class="container col-lg-6">
         <div class="row">
             <div class="col">
-                <p><strong>Username:</strong> {{user_record.username}}</p>
-                <p><strong>Email:</strong> {{user_record.email}}</p>
-                <p><strong>First Name:</strong> {{user_record.first_name}}</p>
-                <p><strong>Last Name:</strong> {{user_record.last_name}}</p>
-                <p><strong>Joined:</strong> {{user_record.date_joined}}</p>
-                <p><strong>Last Login:</strong> {{user_record.last_login}}</p>
+                <p><strong>Username:</strong> {{object.username}}</p>
+                <p><strong>Email:</strong> {{object.email}}</p>
+                <p><strong>Password:</strong> * * * * * </p>
+                <p><strong>First Name:</strong> {{object.first_name}}</p>
+                <p><strong>Last Name:</strong> {{object.last_name}}</p>
+                <p><strong>Joined:</strong> {{object.date_joined}}</p>
+                <p><strong>Last Login:</strong> {{object.last_login}}</p>
                 <p><a href="{% url 'password_change' %}" class="btn btn-primary">Change Password</a></p>
+                <p><a href="{% url 'user-update' %}" class="btn btn-warning">Update</a></p>
             </div>
         </div>
     </div>

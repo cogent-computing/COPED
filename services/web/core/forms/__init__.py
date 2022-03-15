@@ -11,3 +11,4 @@ from .project import (
 from .person import PersonOrganisationForm, PersonForm
 from .address import AddressForm
 from .organisation import OrganisationForm
+from .user import UpdateUserForm

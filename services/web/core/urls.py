@@ -211,7 +211,8 @@ urlpatterns = [
     ## USERS ##
     ###########
     #
-    path("users/<int:pk>/", views.UserDetailView.as_view(), name="user-detail"),
+    path("profile/", views.UserDetailView.as_view(), name="user-detail"),
+    path("profile/update/", views.UserUpdateView.as_view(), name="user-update"),
     #
     #
     ###########################

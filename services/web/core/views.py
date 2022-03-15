@@ -1,13 +1,13 @@
 from django.db.models import Count
 from django.core.paginator import Paginator
 from django.views import generic
+from django.urls import reverse
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.forms import inlineformset_factory
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django_addanother.views import CreatePopupMixin
@@ -44,6 +44,7 @@ from .forms import (
     ProjectOrganisationForm,
     ProjectPersonForm,
     ProjectFormWithInlines,
+    UpdateUserForm,
 )
 from .filters import ProjectFilter, OrganisationFilter, PersonFilter
 from .documents import ProjectDocument
@@ -158,13 +159,27 @@ def analysis_view(request):
     return render(request, "analysis_iframe_page.html")
 
 
-class UserDetailView(UserPassesTestMixin, generic.DetailView):
+class UserDetailView(LoginRequiredMixin, generic.DetailView):
     model = User
     template_name = "users/user_detail.html"
     context_object_name = "user_record"
 
-    def test_func(self):
-        return self.request.user.id == self.get_object().id
+    def get_object(self, queryset=None):
+        return User.objects.get(pk=self.request.user.id)
+
+
+class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
+
+    model = User
+    form_class = UpdateUserForm
+    template_name = "users/user_update_form.html"
+    success_message = "Changes saved."
+
+    def get_success_url(self):
+        return reverse("user-detail")
+
+    def get_object(self, queryset=None):
+        return User.objects.get(pk=self.request.user.id)
 
 
 class ProjectHistoryView(generic.DetailView):
