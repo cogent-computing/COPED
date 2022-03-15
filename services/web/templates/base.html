@@ -2,6 +2,7 @@
 {% load bootstrap4 %}
 {% load pinax_messages_tags %}
 {% load pinax_announcements_tags %}
+{% load coped_extras %}
 
 
 <!DOCTYPE html>
@@ -136,9 +137,18 @@
               {% endwith %}            
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <hr class="dropdown-divider" />
+                <p class="dropdown-header">
+                <i class="fas fa-user-cog"></i> <b>Account</b>
+                </p>
                 <a class="dropdown-item" href="{% url 'user-detail' %}"> Profile </a>
-                <a class="dropdown-item disabled" href=""> Projects </a>
-                {% comment %} <a class="dropdown-item disabled" href="{% url %}"> Projects </a> {% endcomment %}
+                <a class="dropdown-item" href="{% url 'user-favourites' %}">
+                  Favourites
+                  {% favourite_count user as favourite_count %}
+                  {% if favourite_count %}
+                    <span class="badge badge-pill badge-secondary">{{ favourite_count }}</span>
+                  {% endif %}
+                </a>
                 <a class="dropdown-item" href="{% url "pinax_messages:inbox" %}">
                   Messages
                   {% with user|unread_thread_count as unread_messages %}
@@ -147,8 +157,6 @@
                     {% endif %}
                   {% endwith %}
                 </a>
-                <a class="dropdown-item disabled" href=""> Requests </a>
-                <a class="dropdown-item disabled" href=""> Notifications </a>
                 <hr class="dropdown-divider" />
                 <p class="dropdown-header">
                   <i class="fas fa-user-plus"></i> <b>Network</b>

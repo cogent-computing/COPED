@@ -111,6 +111,14 @@ class Project(models.Model):
     def history(self):
         return project_history(self.id)
 
+    @property
+    def last_change(self):
+        if not self.history():
+            return None
+        else:
+            last = self.history().latest("datetime").datetime
+            return last
+
     def get_absolute_url(self):
         return reverse("project-detail", kwargs={"pk": self.pk})
 

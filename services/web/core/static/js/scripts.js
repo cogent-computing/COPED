@@ -57,3 +57,10 @@
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
+
+
+$(document).ready(function () {
+    $('#sortTable').DataTable({
+        "order": [[1, "desc"]]
+    });
+});
