@@ -168,7 +168,7 @@ class UserDetailView(LoginRequiredMixin, generic.DetailView):
         return User.objects.get(pk=self.request.user.id)
 
 
-class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
+class UserUpdateView(SuccessMessageMixin, LoginRequiredMixin, generic.UpdateView):
 
     model = User
     form_class = UpdateUserForm

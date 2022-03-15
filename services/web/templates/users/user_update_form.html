@@ -17,6 +17,7 @@
                 {% bootstrap_form form layout='horizontal' %}
                 {% buttons %}
                 <button type="submit" value="Update" class="btn btn-primary">{% trans 'Save' %}</button>
+                <a class="btn btn-warning" href="{% url 'user-detail' %}">{% trans 'Cancel' %}</a>
                 {% endbuttons %}
             </form>
         </div>
