@@ -56,12 +56,12 @@
             
             {% endif %}
             {% if user not in subscribers %}
-            <a href="{% url 'project-subscribe' pk=project.id %}" class="badge badge-pill badge-light" data-toggle="tooltip" title="Add this project to your list of subscriptions.">
-                <i class="fas fa-star"></i> Add Subscription
+            <a href="{% url 'project-favourite' pk=project.id %}" class="badge badge-pill badge-light" data-toggle="tooltip" title="Add this project to your list of favourites.">
+                <i class="fas fa-star"></i> Add Favourite
             </a>
             {% else %}
-            <a href="{% url 'project-unsubscribe' pk=project.id %}" class="badge badge-pill badge-info" data-toggle="tooltip" title="Remove this project from your list of subscriptions.">
-                <i class="fas fa-star"></i> Remove Subscription
+            <a href="{% url 'project-unfavourite' pk=project.id %}" class="badge badge-pill badge-info" data-toggle="tooltip" title="Remove this project from your list of favourites.">
+                <i class="fas fa-star"></i> Remove Favourite
             </a>
             {% endif %}
         </div>

@@ -111,29 +111,29 @@ def visuals_dashboard_experiment(request):
 
 
 @login_required
-def subscribe_to_project(request, pk):
+def favourite_project(request, pk):
     if request.method == "GET":
         sub, created = ProjectSubscription.objects.get_or_create(
             user=request.user, project=Project.objects.get(pk=pk)
         )
         if created:
-            messages.success(request, "Subscription added")
+            messages.success(request, "Favourite added")
         elif sub.id:
-            messages.warning(request, "Subscription already exists")
+            messages.warning(request, "Already a favourite")
         else:
-            messages.error(request, "Error adding subscription")
+            messages.error(request, "Error adding favourite")
         return redirect("project-detail", pk=pk)
 
 
 @login_required
-def unsubscribe_from_project(request, pk):
+def unfavourite_project(request, pk):
     if request.method == "GET":
 
         try:
             project = Project.objects.get(pk=pk)
             sub = ProjectSubscription.objects.get(user=request.user, project=project)
         except ProjectSubscription.DoesNotExist:
-            messages.warning(request, "Not subscribed")
+            messages.warning(request, "Not a favourite")
             return redirect("project-detail", pk=pk)
 
         deleted, _ = ProjectSubscription.objects.filter(
@@ -141,9 +141,9 @@ def unsubscribe_from_project(request, pk):
         ).delete()
 
         if deleted:
-            messages.success(request, "Subscription removed")
+            messages.success(request, "Favourite removed")
         else:
-            messages.error(request, "Error removing subscription")
+            messages.error(request, "Error removing favourite")
 
         return redirect("project-detail", pk=pk)
 
