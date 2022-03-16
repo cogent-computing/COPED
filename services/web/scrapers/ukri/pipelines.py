@@ -7,6 +7,7 @@ See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 """
 
 import logging
+from urllib.parse import urlparse, urljoin
 from scrapy.exceptions import DropItem
 from core.models.raw_data import RawData
 from deepdiff import DeepDiff
@@ -18,7 +19,13 @@ class SaveToDjangoPipeline:
     def process_item(self, item, spider):
         """Upsert the item."""
 
-        url = item.get("href")
+        href = item.get("href")
+        path = urlparse(href).path
+
+        # Set base URL for API queries
+        base_url = "https://gtr.ukri.org"
+        url = urljoin(base_url, path)
+
         record, created = RawData.objects.get_or_create(url=url)
         if created:
             logging.debug(f"Created new record for {url}")

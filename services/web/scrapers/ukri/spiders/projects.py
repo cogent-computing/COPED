@@ -6,8 +6,11 @@ Yields all matched projects, plus associated resources.
 
 
 import re
+from urllib.parse import urlparse, urljoin
 from scrapy import Request
 from scrapy import Spider
+
+from core.models import EnergySearchTerm
 
 
 class ProjectsSpider(Spider):
@@ -16,23 +19,16 @@ class ProjectsSpider(Spider):
     # Name to use when launching spider crawl from command line.
     name = "ukri-projects-spider"
 
+    # Set base URL for API queries
+    base_url = "https://gtr.ukri.org"
+
     # Set API entry point.
     projects_api = "https://gtr.ukri.org/gtr/api/projects"
 
     def start_requests(self):
 
-        # TODO: get list of query terms from the CoPED DB
-        queries = [
-            "photovoltaic",
-            "wind turbine",
-            "renewable energy",
-            "battery",
-            "smart grid",
-            "microgrid",
-            "heat pump",
-            "anaerobic digestion",
-            "electric vehicle",
-        ]
+        # Get the required project search terms from the DB
+        queries = EnergySearchTerm.objects.values_list("term", flat=True)
 
         # Ensure query phrases containing spaces are double quoted.
         queries = [f'"{q}"' if " " in q else q for q in queries]
@@ -67,7 +63,8 @@ class ProjectsSpider(Spider):
             for project in projects:
                 href = project.get("href", "")
                 if href:
-                    hrefs.append(href)
+                    path = urlparse(href).path
+                    hrefs.append(urljoin(self.base_url, path))
             yield from response.follow_all(hrefs)
 
             # Follow with the next page of results if possible.
@@ -102,7 +99,8 @@ class ProjectsSpider(Spider):
                             or (item_type == "persons" and link_type == "organisations")
                             or (item_type == "funds" and link_type == "organisations")
                         ):
-                            hrefs.append(href)
+                            path = urlparse(href).path
+                            hrefs.append(urljoin(self.base_url, path))
                 yield from response.follow_all(hrefs)
 
     @staticmethod
