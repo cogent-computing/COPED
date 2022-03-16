@@ -18,6 +18,10 @@ pinax-messages==3.0.0
 django-invitations==1.9.3
 pinax-announcements==4.0.0
 stream-framework[redis]==1.4.0
+celery[redis]==5.2.3
+django-celery-beat==2.2.1
+django-celery-results==2.3.0
+gevent==21.12.0
 
 # Geographic analysis and visualisation
 django-leaflet==0.28.2

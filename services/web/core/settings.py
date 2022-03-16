@@ -71,6 +71,9 @@ INSTALLED_APPS = [
     "invitations",  # Django-invitations allows sending invites to external users
     "core.apps.CoreConfig",  # Main application.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
+    "celery",  # Run long tasks asynchronously
+    "django_celery_results",  # Store celery results using Django ORM
+    "django_celery_beat",  # Store periodic task schedules using Django ORM
 ]
 
 
@@ -282,3 +285,17 @@ INVITATIONS_EMAIL_SUBJECT_PREFIX = "[CoPED]"
 
 REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
 REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", "secret")
+
+# Celery
+
+REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
+REDIS_AUTH = (":" + REDIS_PASSWORD + "@") if REDIS_PASSWORD else ""
+REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
+BROKER_URL = f"redis://{REDIS_AUTH}redis:{REDIS_PORT}"
+CELERY_RESULT_BACKEND = f"django-db"
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_IMPORTS = [
+    "tasks.tasks",
+]
