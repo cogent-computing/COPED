@@ -7,6 +7,9 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+# Uncomment pagecount limit for testing purposes
+# CLOSESPIDER_PAGECOUNT = 50
+
 BOT_NAME = "ukri"
 
 SPIDER_MODULES = ["ukri.spiders"]
@@ -44,7 +47,7 @@ DOWNLOAD_DELAY = 1
 #   'Accept-Language': 'en',
 # }
 DEFAULT_REQUEST_HEADERS = {
-    "Accept": "application/json",
+    "Accept": "application/vnd.rcuk.gtr.json-v7",
     "Accept-Language": "en",
 }
 
