@@ -16,3 +16,4 @@ from .person import Person, PersonOrganisation
 from .metabase_session import MetabaseSession
 from .crud_event import CopedCRUDEvent
 from .thread import Thread
+from .energy_search_terms import EnergySearchTerm

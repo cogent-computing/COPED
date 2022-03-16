@@ -16,6 +16,7 @@ from .models.external_link import ExternalLink
 from .models.address import Address
 from .models import Subject
 from .models import User
+from .models import EnergySearchTerm
 
 
 # Define inlines for many-to-many relations
@@ -109,6 +110,15 @@ class ProjectTotalFundingFilter(admin.SimpleListFilter):
 
 class SubjectAdmin(admin.ModelAdmin):
     readonly_fields = ("external_link",)
+
+
+class EnergySearchTermAdmin(admin.ModelAdmin):
+    ordering = [
+        "term",
+    ]
+    search_fields = [
+        "term",
+    ]
 
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -250,6 +260,7 @@ admin.site.register(User, UserAdminConfig)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Organisation, OrganisationAdmin)
+admin.site.register(EnergySearchTerm, EnergySearchTermAdmin)
 admin.site.register(Permission)
 # admin.site.register(User)
 admin.site.register(RawData, RawDataAdmin)
