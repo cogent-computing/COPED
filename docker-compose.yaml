@@ -10,6 +10,7 @@ services:
     command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:${DJANGO_STATIC_ROOT:?}
+      - web_service_log_files:/var/log/coped
     expose:
       - 8000
     environment:
@@ -148,6 +149,7 @@ volumes:
   postgresql_volume: null
   elasticsearch_volume: null
   redis_volume: null
+  web_service_log_files: null
 
 configs:
   NGINX_CONFIG:
