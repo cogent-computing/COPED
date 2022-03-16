@@ -20,4 +20,12 @@ echo "Creating cache table..."
 python manage.py createcachetable
 echo "Cache table created"
 
+echo "Starting celery worker daemon..."
+celery --app core worker --task-events --loglevel info --pool=gevent --concurrency=100 --logfile /var/log/coped/celery_worker.log --detach
+echo "Celery worker daemon started. Logs will go to /var/log/coped/celery_worker.log"
+
+echo "Starting celery beat/scheduler daemon..."
+celery --app core beat --loglevel info --scheduler django_celery_beat.schedulers:DatabaseScheduler --logfile /var/log/coped/celery_beat.log --detach
+echo "Celery beat/scheduler daemon started. Logs will go to /var/log/coped/celery_beat.log"
+
 exec "$@"
