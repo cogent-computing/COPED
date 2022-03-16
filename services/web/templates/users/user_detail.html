@@ -5,13 +5,39 @@
     <div class="container col-lg-6">
         <div class="row">
             <div class="col">
-                <p><strong>Username:</strong> {{object.username}}</p>
-                <p><strong>Email:</strong> {{object.email}}</p>
-                <p><strong>Password:</strong> * * * * * </p>
-                <p><strong>First Name:</strong> {{object.first_name}}</p>
-                <p><strong>Last Name:</strong> {{object.last_name}}</p>
-                <p><strong>Joined:</strong> {{object.date_joined}}</p>
-                <p><strong>Last Login:</strong> {{object.last_login}}</p>
+                <h4>Profile</h4>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Username</th>
+                            <td>{{object.username}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td>{{object.email}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Password</th>
+                            <td>* * * * *</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">First Name</th>
+                            <td>{{object.first_name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Last Name</th>
+                            <td>{{object.last_name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Joined</th>
+                            <td>{{object.date_joined}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Last Login</th>
+                            <td>{{object.last_login}}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <p><a href="{% url 'password_change' %}" class="btn btn-primary">Change Password</a></p>
                 <p><a href="{% url 'user-update' %}" class="btn btn-info">Update</a></p>
             </div>
