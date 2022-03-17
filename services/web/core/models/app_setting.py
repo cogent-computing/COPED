@@ -5,6 +5,7 @@ class AppSetting(models.Model):
     """Miscellaneous application settings used by CoPED."""
 
     name = models.CharField(max_length=128)
+    slug = models.SlugField(max_length=128)
     value = models.CharField(max_length=256)
 
     class Meta:
