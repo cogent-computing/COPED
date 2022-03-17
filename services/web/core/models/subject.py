@@ -22,6 +22,9 @@ class Subject(models.Model):
         null=True,
         help_text="Link to an ontology.",
     )
+    energy_related = models.BooleanField(
+        default=True, help_text="Is the subject related to energy projects?"
+    )
 
     class Meta:
         db_table = "coped_subject"

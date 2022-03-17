@@ -108,8 +108,27 @@ class ProjectTotalFundingFilter(admin.SimpleListFilter):
             return queryset
 
 
+@admin.action(description="Mark selected subject(s) as energy-related")
+def mark_subject_energy_related(modeladmin, request, queryset):
+    queryset.update(energy_related=True)
+
+
+@admin.action(description="Mark selected subject(s) as NOT energy-related")
+def mark_subject_not_energy_related(modeladmin, request, queryset):
+    queryset.update(energy_related=False)
+
+
 class SubjectAdmin(admin.ModelAdmin):
+    list_display = ["label", "energy_related"]
+    ordering = [
+        "label",
+    ]
+    search_fields = ["label"]
     readonly_fields = ("external_link",)
+    actions = [
+        mark_subject_energy_related,
+        mark_subject_not_energy_related,
+    ]
 
 
 @admin.action(description="Mark selected search terms as active")
