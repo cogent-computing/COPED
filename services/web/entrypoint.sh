@@ -21,7 +21,7 @@ python manage.py createcachetable
 echo "Cache table created"
 
 echo "Starting celery worker daemon..."
-celery --app core worker --task-events --loglevel info --pool=gevent --concurrency=100 --logfile /var/log/coped/celery_worker.log --detach
+celery --app core worker --task-events --loglevel info --pool=solo --logfile /var/log/coped/celery_worker.log --detach
 echo "Celery worker daemon started. Logs will go to /var/log/coped/celery_worker.log"
 
 echo "Starting celery beat/scheduler daemon..."
