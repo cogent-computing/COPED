@@ -1,5 +1,8 @@
-import os
+# Configure Celery to use Redis and to discover tasks in tasks.py files in app directories.
+# Note: settings.CELERY_IMPORTS can also be used to specify a list of modules that contain tasks.
+# The second approach is useful when a module with tasks is not in the settings.INSTALLED_APPS list.
 
+import os
 from celery import Celery
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
@@ -12,8 +15,3 @@ app = Celery("core", backend="redis", broker=f"redis://{REDIS_AUTH}redis:{REDIS_
 app.config_from_object("django.conf:settings", namespace="CELERY")
 
 app.autodiscover_tasks()
-
-
-@app.task(bind=True)
-def debug_task(self):
-    print(f"Request: {self.request}")
