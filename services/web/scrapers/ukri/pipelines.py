@@ -28,7 +28,7 @@ class SaveToDjangoPipeline:
 
         record, created = RawData.objects.get_or_create(url=url)
         if created:
-            logging.debug(f"Created new record for {url}")
+            logging.info(f"Created new record for {url}")
             record.bot = spider.name
             record.json = item
             record.save()
@@ -36,8 +36,8 @@ class SaveToDjangoPipeline:
             # Check record for differences and update if there are any.
             diff = DeepDiff(dict(item), dict(record.json), ignore_order=True)
             if diff:
-                logging.debug(f"Updating existing record for {url}")
+                logging.info(f"Updating existing record for {url}")
                 record.json = item
                 record.save()
             else:
-                raise DropItem(url)
+                raise DropItem(f"Data at the following resource has not changed: {url}")

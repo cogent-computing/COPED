@@ -3,6 +3,7 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import logging
 from scrapy import signals
 
 # useful for handling different item types with a single interface
@@ -53,7 +54,7 @@ class SpidersSpiderMiddleware:
             yield r
 
     def spider_opened(self, spider):
-        spider.logger.info('Spider opened: %s' % spider.name)
+        logging.info(f"Spider opened: {spider.name}")
 
 
 class SpidersDownloaderMiddleware:
@@ -100,4 +101,4 @@ class SpidersDownloaderMiddleware:
         pass
 
     def spider_opened(self, spider):
-        spider.logger.info('Spider opened: %s' % spider.name)
+        logging.info(f"Spider opened: {spider.name}")

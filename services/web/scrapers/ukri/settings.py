@@ -7,13 +7,18 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import logging
+
 # Uncomment pagecount limit for testing purposes
-# CLOSESPIDER_PAGECOUNT = 50
+# CLOSESPIDER_PAGECOUNT = 5
 
 BOT_NAME = "ukri"
 
 SPIDER_MODULES = ["ukri.spiders"]
 NEWSPIDER_MODULE = "ukri.spiders"
+
+LOG_ENABLED = True
+LOG_LEVEL = "INFO"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
