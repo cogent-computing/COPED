@@ -17,6 +17,7 @@ from .models.address import Address
 from .models import Subject
 from .models import User
 from .models import EnergySearchTerm
+from .models import AppSetting
 
 
 # Define inlines for many-to-many relations
@@ -129,6 +130,11 @@ class SubjectAdmin(admin.ModelAdmin):
         mark_subject_energy_related,
         mark_subject_not_energy_related,
     ]
+
+
+class AppSettingAdmin(admin.ModelAdmin):
+    list_display = ["name", "value"]
+    ordering = ["name"]
 
 
 @admin.action(description="Mark selected search terms as active")
@@ -304,3 +310,4 @@ admin.site.register(RawData, RawDataAdmin)
 admin.site.register(ExternalLink, ExternalLinkAdmin)
 admin.site.register(Address, AddressAdmin)
 admin.site.register(Subject, SubjectAdmin)
+admin.site.register(AppSetting, AppSettingAdmin)

@@ -11,6 +11,7 @@ class EnergySearchTerm(models.Model):
 
     class Meta:
         db_table = "coped_energy_search_term"
+        verbose_name_plural = "Energy Search Terms"
 
     def __str__(self):
         return self.term
