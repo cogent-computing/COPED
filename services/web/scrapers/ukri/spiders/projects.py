@@ -6,9 +6,11 @@ Yields all matched projects, plus associated resources.
 
 
 import re
-from urllib.parse import urlparse, urljoin
+import logging
+from urllib.parse import urlparse, urljoin, parse_qs
 from scrapy import Request
 from scrapy import Spider
+from uuid import uuid4
 
 from core.models import EnergySearchTerm
 
@@ -28,10 +30,22 @@ class ProjectsSpider(Spider):
     def start_requests(self):
 
         # Get the required project search terms from the DB
-        queries = EnergySearchTerm.objects.values_list("term", flat=True)
+        # TODO: add boolean field "active" to model and filter to include only active search terms
+        queries = (
+            EnergySearchTerm.objects.filter(active=True)
+            .all()
+            .values_list("term", flat=True)
+        )
+        logging.info(f"Queries to search UKRI projects: {queries}")
 
         # Ensure query phrases containing spaces are double quoted.
         queries = [f'"{q}"' if " " in q else q for q in queries]
+
+        # Deal with UKRI request headers bug by priming with a request to a URL with random content
+        random_string = uuid4()
+        queries = [
+            f"coped_fake_query_due_to_ukri_api_bug_ignoring_accept_header_on_previously_seen_requests_{random_string}"
+        ] + queries
 
         # Set up search URLs to start from.
         urls = [f"{self.projects_api}?q={query}&p=1&s=100" for query in queries]
@@ -46,6 +60,26 @@ class ProjectsSpider(Spider):
         Follows search results to get the matching items.
         Also follows links from projects and funds to related items.
         """
+
+        accept = str(response.request.headers["accept"])
+        logging.debug(f"ACCEPT: {accept}")
+
+        parsed_request_url = urlparse(response.request.url)
+        parsed_request_qs = parse_qs(parsed_request_url.query)
+        query = parsed_request_qs.get("q")
+
+        if query and (
+            "coped_fake_query_due_to_ukri_api_bug_ignoring_accept_header_on_previously_seen_requests"
+            in query
+        ):
+            # There is a weird bug in the UKRI API.
+            # We need to "prime" the request "Accept" headers with a throwaway random querystring.
+            return None
+
+        content_type = str(response.headers.get("content-type"))
+        logging.debug(f"CONTENT TYPE: {content_type}")
+        if "json" not in content_type:
+            return None
 
         data = response.json()
 

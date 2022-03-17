@@ -112,12 +112,30 @@ class SubjectAdmin(admin.ModelAdmin):
     readonly_fields = ("external_link",)
 
 
+@admin.action(description="Mark selected search terms as active")
+def make_search_term_active(modeladmin, request, queryset):
+    queryset.update(active=True)
+
+
+@admin.action(description="Mark selected search terms as inactive")
+def make_search_term_inactive(modeladmin, request, queryset):
+    queryset.update(active=False)
+
+
 class EnergySearchTermAdmin(admin.ModelAdmin):
+    list_display = [
+        "term",
+        "active",
+    ]
     ordering = [
         "term",
     ]
     search_fields = [
         "term",
+    ]
+    actions = [
+        make_search_term_active,
+        make_search_term_inactive,
     ]
 
 

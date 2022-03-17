@@ -17,6 +17,8 @@ import json
 import os
 import sys
 import django
+import requests
+from celery import shared_task
 from django.db import transaction
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
@@ -27,9 +29,9 @@ from core.models import Project
 from core.models import Subject
 from core.models import ProjectSubject
 from core.models import ExternalLink
-import requests
 
 
+@shared_task(name="Automatic project subject tagger")
 def tag_projects_with_subjects(exclude_already_tagged=True, limit=None):
     """Send project descriptions to the subject suggestion model at Finto.
 

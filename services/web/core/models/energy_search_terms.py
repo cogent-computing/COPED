@@ -7,6 +7,7 @@ class EnergySearchTerm(models.Model):
     These words are used when crawling resources to identify energy-related projects."""
 
     term = models.CharField(max_length=128)
+    active = models.BooleanField(default=True)
 
     class Meta:
         db_table = "coped_energy_search_term"

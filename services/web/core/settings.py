@@ -297,5 +297,11 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_IMPORTS = [
-    "tasks.tasks",
+    "taggers.subject_tagger",
+    "taggers.keyword_tagger",
+    "taggers.address_geotagger",
+    "scrapers.celery_tasks",
 ]
+
+# recycle the pool worker process for every task
+# CELERYD_MAX_TASKS_PER_CHILD = 1

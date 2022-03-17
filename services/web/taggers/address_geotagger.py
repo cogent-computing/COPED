@@ -23,6 +23,7 @@ import os
 import sys
 import django
 from django.db import transaction
+from celery import shared_task
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 sys.path.append(os.path.abspath(".."))
@@ -101,6 +102,7 @@ def lat_lon_from_address_string(address_string):
     return latlon
 
 
+@shared_task(name="Automatic address geocoder")
 def tag_addresses_with_geo_data(exclude_already_tagged=True, limit=None):
     """Send addresses to the geo-search API at Nominatim.
 

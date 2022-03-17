@@ -20,6 +20,7 @@ from textacy.extract import keyterms as kt
 from textacy.extract import acronyms, acronyms_and_definitions
 from textacy.extract import entities
 from django.db import transaction
+from celery import shared_task
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 sys.path.append(os.path.abspath(".."))
@@ -30,6 +31,7 @@ from core.models import Keyword
 from core.models import ProjectKeyword
 
 
+@shared_task(name="Automatic project keyword and key phrase tagger")
 def tag_projects_with_keywords(exclude_already_tagged=True, limit=None):
     """Send project text to a trained keyword extraction model.
 

@@ -22,6 +22,8 @@ class RawData(models.Model):
         verbose_name="JSON",
         help_text="Raw JSON from the source",
     )
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = "coped_raw_data"
