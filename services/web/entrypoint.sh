@@ -4,12 +4,16 @@ echo "Setting environment"
 ENV="${ENVIRONMENT:-PRODUCTION}"
 echo "Environment set to ${ENVIRONMENT}"
 
+echo "Creating database migrations..."
+python manage.py makemigrations --noinput
+echo "Migrations created"
+
 echo "Applying database migrations..."
-python manage.py migrate
+python manage.py migrate --noinput
 echo "Migrations complete"
 
 echo "Collecting static files for Nginx..."
-python manage.py collectstatic --no-input --clear
+python manage.py collectstatic --noinput --clear
 echo "Static file collection complete"
 
 echo "Building elasticsearch indexes..."
