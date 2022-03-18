@@ -29,6 +29,7 @@ from core.models import Project
 from core.models import Subject
 from core.models import ProjectSubject
 from core.models import ExternalLink
+from core.models import AppSetting
 
 
 @shared_task(name="Automatic project subject tagger")
@@ -40,10 +41,11 @@ def tag_projects_with_subjects(exclude_already_tagged=True, limit=None):
     an external link to an ontology DB for each subject term stored."""
 
     api_url = "https://ai.finto.fi/v1/projects/yso-en/suggest"
-    # TODO: centralise the user agent setting for use in other external-service-facing tasks.
-    headers = {
-        "User-Agent": "coped/0.2 (Copedbot/0.2; Catalogue of Projects on Energy Data; https://coped.coventry.ac.uk)"
-    }
+    try:
+        USER_AGENT = AppSetting.objects.get(slug="COPED_USER_AGENT").value
+    except AppSetting.DoesNotExist:
+        USER_AGENT = "CoPEDbot/0.1 (Catalogue of Projects on Energy Data) Crawler"
+    headers = {"User-Agent": USER_AGENT}
 
     # TODO: prefilter projects based on existing subjects - similar to geo tagger script.
     total_projects = Project.objects.count()

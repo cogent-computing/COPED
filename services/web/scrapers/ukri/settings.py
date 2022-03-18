@@ -21,10 +21,11 @@ LOG_ENABLED = True
 LOG_LEVEL = "INFO"
 
 
-# Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = 'ukri (+http://www.yourdomain.com)'
-# TODO: get the user agent's URL from an envrionment variable.
-USER_AGENT = "COPEDtestbot/0.1 (+http://coped.coventry.ac.uk)"
+# Crawl responsibly by identifying the app via the user-agent
+try:
+    USER_AGENT = AppSetting.objects.get(slug="COPED_USER_AGENT").value
+except AppSetting.DoesNotExist:
+    USER_AGENT = "CoPEDbot/0.1 (Catalogue of Projects on Energy Data) Crawler"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True

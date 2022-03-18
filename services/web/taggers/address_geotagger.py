@@ -34,10 +34,11 @@ from core.models import GeoData
 import requests
 
 
-# TODO: centralise the user agent setting for use in other external-service-facing tasks.
-common_headers = {
-    "User-Agent": "coped/0.1 (CopedBot/0.1; Catalogue of Projects on Energy Data; https://coped.coventry.ac.uk)"
-}
+try:
+    USER_AGENT = AppSetting.objects.get(slug="COPED_USER_AGENT").value
+except AppSetting.DoesNotExist:
+    USER_AGENT = "CoPEDbot/0.1 (Catalogue of Projects on Energy Data) Crawler"
+common_headers = {"User-Agent": USER_AGENT}
 nominatim_url = "https://nominatim.openstreetmap.org/search"
 current_postcode_checker_url = "https://api.postcodes.io/postcodes"
 terminated_postcode_checker_url = "https://api.postcodes.io/terminated_postcodes"
