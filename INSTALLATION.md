@@ -50,4 +50,10 @@ The CoPED platform consists of the services defined in `docker-compose.yaml` and
 ### Development
 
 1. Clone the CoPED repository from [https://github.com/cogent-computing/COPED](https://github.com/cogent-computing/COPED).
-2. 
+2. Copy `.env.example` to `.env`.
+3. From the main directory, launch the Docker Compose application with `docker compose up -d` and wait for the build...
+4. Load some test users and test data by populating the two application databases:
+   1. `./dbdata/repopulate_db.sh -d coped_development -f coped.backup.sql`
+   2. `./dbdata/repopulate_db.sh -d metabase -f metabase.backup.sql`
+
+You can now launch the application in a local browser through the Nginx proxy at `http://localhost`. Use `http://localhost:8000` to access the server directly. The port 8000 address includes the Django debug toolbar (top right) and will show tracebacks in the browser on errors.
