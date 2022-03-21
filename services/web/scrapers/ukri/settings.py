@@ -7,6 +7,27 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+
+#########################################################
+## Configure use of Django models:                     ##
+## https://github.com/scrapy-plugins/scrapy-djangoitem ##
+#########################################################
+
+import os
+import sys
+import django
+from pathlib import Path
+
+project_dir = Path(__file__).parent.parent.parent.absolute()
+sys.path.append(str(project_dir))
+os.environ["DJANGO_SETTINGS_MODULE"] = "core.settings"
+django.setup()
+
+#################################
+## End of Django config setup. ##
+#################################
+
+
 import logging
 
 # Uncomment pagecount limit for testing purposes
@@ -23,6 +44,8 @@ LOG_LEVEL = "INFO"
 
 # Crawl responsibly by identifying the app via the user-agent
 try:
+    from core.models import AppSetting
+
     USER_AGENT = AppSetting.objects.get(slug="COPED_USER_AGENT").value
 except AppSetting.DoesNotExist:
     USER_AGENT = "CoPEDbot/0.1 (Catalogue of Projects on Energy Data) Crawler"
@@ -101,19 +124,3 @@ AUTOTHROTTLE_DEBUG = False
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-
-
-#########################################################
-## Configure use of Django models:                     ##
-## https://github.com/scrapy-plugins/scrapy-djangoitem ##
-#########################################################
-
-import os
-import sys
-import django
-from pathlib import Path
-
-project_dir = Path(__file__).parent.parent.parent.absolute()
-sys.path.append(str(project_dir))
-os.environ["DJANGO_SETTINGS_MODULE"] = "core.settings"
-django.setup()

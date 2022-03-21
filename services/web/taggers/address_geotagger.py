@@ -31,6 +31,7 @@ django.setup()
 
 from core.models import Address
 from core.models import GeoData
+from core.models import AppSetting
 import requests
 
 
