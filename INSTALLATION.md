@@ -40,7 +40,8 @@ The CoPED platform consists of the services defined in `docker-compose.yaml` and
    * Any OS with Docker available should work, such as MacOS for local development.
 2. Docker and Docker Compose must be available.
    * Docker 20.10.13 and Docker Compose 2.2.3 were used for this guide.
-3. Sufficient server resources for the CoPED Docker services to run.
+3. [Git Large File Storage](https://git-lfs.github.com/) (LFS) extension installed, for example by using the [Debian/Ubuntu installation instructions](https://github.com/git-lfs/git-lfs/wiki/Installation#ubuntu).
+4. Sufficient server resources for the CoPED Docker services to run.
    * Test VPS system used 16GB RAM, 8 vCPUs, and 160GB SSD
    * There were no resource issues with this configuration. However, over time the DB and logs will grow, and CPU requirements for the DB and ElasticSearch indexing will increase, so adjust accordingly.
 
@@ -49,11 +50,25 @@ The CoPED platform consists of the services defined in `docker-compose.yaml` and
 
 ### Development
 
+#### Empty database
+
 1. Clone the CoPED repository from [https://github.com/cogent-computing/COPED](https://github.com/cogent-computing/COPED).
 2. Copy `.env.example` to `.env`.
-3. From the main directory, launch the Docker Compose application with `docker compose up -d` and wait for the build...
-4. Load some test users and test data by populating the two application databases:
-   1. `./dbdata/repopulate_db.sh -d coped_development -f coped.backup.sql`
-   2. `./dbdata/repopulate_db.sh -d metabase -f metabase.backup.sql`
+3. From the main directory run `docker compose up -d` and wait for the build if it is the first run.
 
-You can now launch the application in a local browser through the Nginx proxy at `http://localhost`. Use `http://localhost:8000` to access the server directly. The port 8000 address includes the Django debug toolbar (top right) and will show tracebacks in the browser on errors.
+You can now launch the application in a local browser, either through the Nginx proxy using `http://localhost`, or using `http://localhost:8000` to access the server directly.
+The address with port 8000 provides a Django debug toolbar (top right) and will show tracebacks in the browser on errors.
+
+At this point there are no users or data in the application database.
+You will probably want to create at least one user account that is a superuser, as follows. Run the following command from inside the `COPED/` main directory.
+
+4. `docker compose exec web python /app/manage.py createsuperuser`
+
+#### Add some data
+
+The steps above 
+
+1. Load some test users and test data by populating the two application databases:
+   1. `./dbdata/repopulate_db.sh -d coped_development -f dbdata/coped.backup.sql`
+   2. `./dbdata/repopulate_db.sh -d metabase -f dbdata/metabase.backup.sql`
+
