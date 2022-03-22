@@ -1,7 +1,7 @@
-from pinax.messages.models import Thread as PinaxThread
+from pinax.messages import models
 
 
-class Thread(PinaxThread):
+class Thread(models.Thread):
     """Proxy model that lets us add new methods to threads."""
 
     class Meta:

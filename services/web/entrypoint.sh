@@ -9,7 +9,7 @@ python manage.py makemigrations --noinput
 echo "Migrations created"
 
 echo "Applying database migrations..."
-python manage.py migrate --noinput
+python manage.py migrate --run-syncdb --noinput
 echo "Migrations complete"
 
 echo "Collecting static files for Nginx..."

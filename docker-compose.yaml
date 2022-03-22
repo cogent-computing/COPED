@@ -42,6 +42,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+      metabase:
+        condition: service_healthy
 
   ##########################
   ## HTTP(S) PROXY SERVER ##
@@ -64,7 +66,11 @@ services:
   ## POSTGRESQL BACKEND FOR DJANGO ##
   ###################################
   db:
-    build: ./services/db
+    build:
+      context: ./services/db
+      args:
+        METABASE_DB_NAME: ${METABASE_DB_NAME:-metabase}
+        COPED_DB_NAME: ${POSTGRES_DB:-coped_development}
     restart: always
     container_name: ${DOCKER_CONTAINER_NAME_PREFIX:-coped}_postgres
     expose:
@@ -106,6 +112,9 @@ services:
       MB_DB_HOST: ${DOCKER_CONTAINER_NAME_PREFIX:-coped}_postgres
       MB_JETTY_PORT: ${METABASE_PORT:-3000}
       MB_JETTY_HOST: ${METABASE_HOST:-0.0.0.0}
+    depends_on:
+      db:
+        condition: service_healthy
 
   ###############################
   ## SEARCH BACKEND FOR DJANGO ##

@@ -69,11 +69,13 @@ INSTALLED_APPS = [
     "pinax.messages",  # User-to-user messaging
     "pinax.announcements",  # Site-wide announcements
     "invitations",  # Django-invitations allows sending invites to external users
-    "core.apps.CoreConfig",  # Main application.
-    "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
     "celery",  # Run long tasks asynchronously
     "django_celery_results",  # Store celery results using Django ORM
     "django_celery_beat",  # Store periodic task schedules using Django ORM
+    "core.apps.CoreConfig",  # Main application.
+    "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
+    "crudevents.apps.CrudeventsConfig",  # Extend the easyaudit model to give related object histories.
+    "messagethreads.apps.MessagethreadsConfig",  # Proxy the Pinax thread model to add a method
 ]
 
 
@@ -142,6 +144,11 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
         "LOCATION": "select2_cache_table",
     },
+}
+
+MIGRATION_MODULES = {
+    "pinax_messages": "messagethreads.migrate__pinax_messages",
+    "easyaudit": "crudevents.migrate__easyaudit",
 }
 
 SELECT2_CACHE_BACKEND = "default"

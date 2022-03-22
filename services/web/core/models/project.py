@@ -8,7 +8,7 @@ from django.contrib.postgres.aggregates import StringAgg
 from django.urls import reverse
 from uuid import uuid4
 
-from .crud_event import project_history
+from crudevents.models import project_history
 from .organisation import Organisation
 from .person import Person
 from .raw_data import RawData
