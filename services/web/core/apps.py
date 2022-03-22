@@ -14,7 +14,7 @@ class CoreConfig(AppConfig):
         from . import signals
 
         user_registered.connect(
-            signals.user_registration_handler,
+            signals.add_user_to_metabase,
             dispatch_uid="user_registration_handler",
         )
         pre_save.connect(

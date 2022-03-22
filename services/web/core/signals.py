@@ -33,7 +33,7 @@ def get_metabase_superuser_access_token():
     return token
 
 
-def user_registration_handler(sender, **kwargs):
+def add_user_to_metabase(sender, **kwargs):
     """
     Add a user profile into Metabase when a user registers a CoPED account.
 
@@ -49,7 +49,9 @@ def user_registration_handler(sender, **kwargs):
 
     request = kwargs["request"]
     body = request.POST
-    password = body.get("password1")
+    password = body.get("password") or body.get(
+        "password1"
+    )  # field name differs for registration vs login
 
     user_to_save_in_metabase = {
         "first_name": first_name,
@@ -74,6 +76,18 @@ def user_registration_handler(sender, **kwargs):
     metabase_id = result["id"]
     coped_user.metabase_id = metabase_id
     coped_user.save(update_fields=["metabase_id"])
+
+    if coped_user.is_superuser:
+        # Make the user a superuser in Metabase too.
+        # TODO: check response code is OK
+        r = requests.put(
+            f"{METABASE_API_URL}/user/{metabase_id}",
+            json={"is_superuser": True},
+            headers=auth,
+        )
+        if settings.DEBUG:
+            result = r.json()
+            print(result)
 
 
 def detect_password_change(sender, instance, **kwargs):
@@ -128,11 +142,9 @@ def user_logout_handler(sender, request, user, **kwargs):
         )
         if settings.DEBUG:
             print("Response from Metabase API", r)
-    try:
-        user.metabasesession.delete()
-    except MetabaseSession.DoesNotExist:
-        if settings.DEBUG:
-            print("No metabase session stored for user", user)
+    session = user.metabasesession_set.filter(token=token)
+    if session.exists():
+        session.delete()
 
 
 def user_login_handler(sender, request, user, **kwargs):
@@ -146,8 +158,9 @@ def user_login_handler(sender, request, user, **kwargs):
     if not user.metabase_id:
         if settings.DEBUG:
             print(f"WARNING: the user {user} does not have a Metabase ID.")
-            print(f"They will need to log in to Metabase analytics manually.")
-        return
+            print(f"Adding them now")
+
+        add_user_to_metabase(None, user=user, request=request)
 
     def get_user_token():
         metabase_token_url = f"{METABASE_API_URL}/session"
@@ -161,20 +174,18 @@ def user_login_handler(sender, request, user, **kwargs):
             print(metabase_token_url)
             print(request_data)
 
+        # TODO: check response status code is OK
         r = requests.post(metabase_token_url, json=request_data)
         token = r.json().get("id")
 
         if settings.DEBUG:
             print("Response from Metabase")
-            print(r)
+            print(r.text)
             print(token)
 
         return token
 
-    session_info, created = MetabaseSession.objects.get_or_create(
-        user=user, expires__gte=timezone.now(), defaults={"token": get_user_token}
-    )
+    session_info = MetabaseSession.objects.create(user=user, token=get_user_token())
     if settings.DEBUG:
         print(f"User {user} logged in.")
-        print(f"Created new session record: {created}.")
         print(f"Now using MetabaseSession instance {session_info}")

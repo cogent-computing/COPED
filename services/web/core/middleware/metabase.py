@@ -32,7 +32,7 @@ def metabase_cookie_middleware(get_response):
         if request.user.is_authenticated and not request.COOKIES.get(
             "metabase.SESSION"
         ):
-            token = request.user.metabasesession.token
+            token = request.user.metabasesession_set.last().token
             if settings.DEBUG:
                 print("Metabase cookie middleware. Token", token)
             response.set_cookie("metabase.SESSION", token, httponly=True)

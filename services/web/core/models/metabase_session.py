@@ -12,7 +12,7 @@ def expiry_date_time():
 class MetabaseSession(models.Model):
     """User session credentials for Metabase access."""
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     token = models.CharField(max_length=40)
     expires = models.DateTimeField(default=expiry_date_time)
 
