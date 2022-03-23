@@ -72,6 +72,7 @@ class Command(BaseCommand):
         except requests.exceptions.HTTPError as e:
             self.stderr.write("Error creating Metabase superuser")
             self.stderr.write(e)
+            self.stderr.write(r.text)
             return None
 
         metabase_id = r.json.get("id")
