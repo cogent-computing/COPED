@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     "extra_views",  # Helpful class based views for using inline formsets
     "anymail",  # Mail sending with various providers
     "django_registration",  # Two stage activation
-    "captcha",  # Secure registration
+    "hcaptcha",  # Secure registration
     "debug_toolbar",  # Development dependency
     "django_elasticsearch_dsl",
     "django_filters",
@@ -232,15 +232,10 @@ LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "index"
 
 
-# Recaptcha
-if DEBUG:
-    # Avoid error due to not setting Recaptcha keys
-    RECAPTCHA_PUBLIC_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-    RECAPTCHA_PRIVATE_KEY = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
-    SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
-else:
-    RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY")
-    RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")
+# hCaptcha
+if not DEBUG:
+    HCAPTCHA_SITEKEY = os.environ.get("HCAPTCHA_SITEKEY")
+    HCAPTCHA_SECRET = os.environ.get("HCAPTCHA_SECRET")
 
 
 # Mail sending

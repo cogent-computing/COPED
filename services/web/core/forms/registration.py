@@ -1,11 +1,11 @@
 from django_registration.forms import RegistrationForm
-from captcha.fields import ReCaptchaField
+from hcaptcha.fields import hCaptchaField
 
 from ..models import User
 
 
 class CustomUserForm(RegistrationForm):
-    captcha = ReCaptchaField()
+    captcha = hCaptchaField()
 
     class Meta(RegistrationForm.Meta):
         model = User
