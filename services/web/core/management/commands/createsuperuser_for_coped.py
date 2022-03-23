@@ -61,10 +61,6 @@ class Command(BaseCommand):
             email=email,
         )
 
-        User.objects.create_superuser(**new_user)
-        self.stdout.write(f"Superuser '{username}' created in CoPED database")
-
-        # auth = {"X-Metabase-Session": setup_token}
         json_body = {
             "user": new_user,
             "prefs": {"site_name": "CoPED"},
@@ -78,4 +74,9 @@ class Command(BaseCommand):
             self.stderr.write(e)
             return None
 
+        metabase_id = r.json.get("id")
+        new_user = new_user.update({"metabase_id": metabase_id})
+        User.objects.create_superuser(**new_user)
+
+        self.stdout.write(f"Superuser '{username}' created in CoPED database")
         self.stdout.write(f"Superuser '{username}' created in Metabase database")
