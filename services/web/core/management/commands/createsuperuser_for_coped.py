@@ -64,10 +64,14 @@ class Command(BaseCommand):
         User.objects.create_superuser(**new_user)
         self.stdout.write(f"Superuser '{username}' created in CoPED database")
 
-        auth = {"X-Metabase-Session": setup_token}
-        json_body = {"user": new_user, "prefs": {"site_name": "CoPED"}}
+        # auth = {"X-Metabase-Session": setup_token}
+        json_body = {
+            "user": new_user,
+            "prefs": {"site_name": "CoPED"},
+            "token": setup_token,
+        }
         try:
-            r = requests.post(f"{METABASE_API_URL}/setup", json=json_body, headers=auth)
+            r = requests.post(f"{METABASE_API_URL}/setup", json=json_body)
             r.raise_for_status()
         except requests.exceptions.HTTPError as e:
             self.stderr.write("Error creating Metabase superuser")
