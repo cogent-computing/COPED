@@ -71,7 +71,6 @@ class Command(BaseCommand):
             r.raise_for_status()
         except requests.exceptions.HTTPError as e:
             self.stderr.write("Error creating Metabase superuser")
-            self.stderr.write(e)
             self.stderr.write(r.text)
             return None
 
