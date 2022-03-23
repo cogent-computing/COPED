@@ -28,7 +28,16 @@ def get_metabase_superuser_access_token():
         "username": metabase_superuser_email,
         "password": metabase_superuser_password,
     }
-    r = requests.post(metabase_token_url, json=request_data)
+    try:
+        r = requests.post(metabase_token_url, json=request_data)
+        r.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        logging.error("Could not get a superuser access token from Metabase")
+        return
+    except Exception as e:
+        logging.error("Unknown error when making request to Metabase.")
+        return
+
     token = r.json().get("id")
     logging.debug("Superuser session token for Metabase: %s", token)
     return token
@@ -37,6 +46,7 @@ def get_metabase_superuser_access_token():
 def add_user_to_metabase(sender, **kwargs):
     """
     Add a user profile into Metabase when a user registers a CoPED account.
+    Can also be called from elsewhere when a Metabase account for a user can't be found.
 
     This allows user access to the functionality of Metabase in a more seamless way.
     Stores the Metabase user ID in the field User.metabase_id for reference later.
@@ -64,6 +74,10 @@ def add_user_to_metabase(sender, **kwargs):
     logging.debug("User to save in Metabase: %s", user_to_save_in_metabase)
 
     token = get_metabase_superuser_access_token()
+    if not token:
+        logging.error("No token received so could not add user to Metabase.")
+        return
+
     auth = {"X-Metabase-Session": token}
 
     # Add the user to Metabase.
