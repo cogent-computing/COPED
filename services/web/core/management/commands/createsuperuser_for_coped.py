@@ -66,7 +66,9 @@ class Command(BaseCommand):
 
         auth = {"X-Metabase-Session": setup_token}
         try:
-            r = requests.post(f"{METABASE_API_URL}/setup", json=new_user, headers=auth)
+            r = requests.post(
+                f"{METABASE_API_URL}/setup", json={"user": new_user}, headers=auth
+            )
             r.raise_for_status()
         except requests.exceptions.HTTPError as e:
             self.stderr.write("Error creating Metabase superuser")
