@@ -65,7 +65,7 @@ class Command(BaseCommand):
         self.stdout.write(f"Superuser '{username}' created in CoPED database")
 
         auth = {"X-Metabase-Session": setup_token}
-        json_body = {"user": new_user, "site_name": "CoPED"}
+        json_body = {"user": new_user, "prefs": {"site_name": "CoPED"}}
         try:
             r = requests.post(f"{METABASE_API_URL}/setup", json=json_body, headers=auth)
             r.raise_for_status()
