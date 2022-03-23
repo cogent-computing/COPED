@@ -13,22 +13,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug/testing turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
+TESTING = int(os.environ.get("TESTING", default=0))
 
-# LOGGING = {
-#     "version": 1,
-#     "disable_existing_loggers": False,
-#     "handlers": {
-#         "console": {
-#             "class": "logging.StreamHandler",
-#         },
-#     },
-#     "root": {
-#         "handlers": ["console"],
-#         "level": "DEBUG" if DEBUG else "WARNING",
-#     },
-# }
 
 SITE_ID = 1
 
@@ -226,9 +214,15 @@ REST_FRAMEWORK = {
 
 
 # Config for django-elasticsearch-dsl
-# TODO: get connection info from environment
+ELASTIC_HOSTNAME = os.environ.get("ELASTIC_HOSTNAME", "elasticsearch")
+ELASTIC_PORT = os.environ.get("ELASTIC_PORT", 9200)
+ELASTIC_USER = os.environ.get("ELASTIC_USER", "elastic")
+ELASTIC_PASSWORD = os.environ.get("ELASTIC_PASSWORD", "password")
 ELASTICSEARCH_DSL = {
-    "default": {"hosts": "elasticsearch:9200", "http_auth": ("elastic", "password")},
+    "default": {
+        "hosts": f"{ELASTIC_HOSTNAME}:{ELASTIC_PORT}",
+        "http_auth": (ELASTIC_USER, ELASTIC_PASSWORD),
+    },
 }
 
 
@@ -247,24 +241,25 @@ LOGOUT_REDIRECT_URL = "index"
 
 
 # hCaptcha
-if not DEBUG:
+if not TESTING:
     HCAPTCHA_SITEKEY = os.environ.get("HCAPTCHA_SITEKEY")
     HCAPTCHA_SECRET = os.environ.get("HCAPTCHA_SECRET")
 
 
 # Mail sending
-# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+if TESTING:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
+
 ANYMAIL = {
     "MAILJET_API_KEY": os.environ.get("MAILJET_API_KEY"),
     "MAILJET_SECRET_KEY": os.environ.get("MAILJET_SECRET_KEY"),
-    # "MAILJET_API_URL": "https://api.mailjet.com/v3.1/",
     "DEBUG_API_REQUESTS": DEBUG,
 }
-EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
-DEFAULT_FROM_EMAIL = "coped.testing@c0l.in"
-SERVER_EMAIL = "coped.testing@c0l.in"
-SUPPORT_EMAIL = "coped.testing@c0l.in"
-# MAILJET_API_URL = "https://api.mailjet.com/v3.1/"
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+SERVER_EMAIL = os.environ.get("SERVER_EMAIL")
+SUPPORT_EMAIL = os.environ.get("SUPPORT_EMAIL")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = True
 
