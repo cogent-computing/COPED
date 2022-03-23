@@ -1,11 +1,5 @@
 # COPED: Catalogue of Projects on Energy Data
 
-> __Development Status:__ Alpha
-
-![screenshot_coped](docs/images/coped-landing.png "Figure 1 - Screenshot of Coped")
-
-**Fig 1 - COPED Front Page Screenshot**
-
 COPED, or the Catalogue of Projects on Energy Data aims to unify various information stores and existing portals for energy projects under a single extendable umbrella that has two key roles:
 
 1. Update, curate and correct information pertaining to the existing energy project landscape through manual and automated processes.
@@ -13,50 +7,18 @@ COPED, or the Catalogue of Projects on Energy Data aims to unify various informa
 
 COPED aims to provide diverse insights for various user groups, while being able to continuously expand its data capture sources and the analytics and visualisations it can perform.
 
-As a platform, COPED aims to be extensible. As COPED reaches maturity and wide adoption, the product aims to allow individuals and institutions to contribute extensions and features to the product, as well as uploading, curating, and analysing existing data.
+![screenshot_coped](docs/images/coped-landing.png "Figure 1 - Screenshot of Coped")
+
+**Fig 1 - COPED Front Page Screenshot**
+
+As a platform, CoPED aims to be extensible. It is configured as a standard "Django" web application, and its analytics and visualisation component runs independently from the data management component.
+
+As CoPED reaches maturity and wide adoption, the product aims to allow individuals and institutions to contribute extensions and features to the product, as well as uploading, curating, and analysing existing data.
   
+## Application services overview
 
-----
+See [OVERVIEW.md](./OVERVIEW.md) for a breakdown of the "microservice" components of the application. 
 
-  
-# COPED Development
+##  Installation
 
-This repository contains the COPED application code which is based around a microservices architecture, implemented as a fully containerised Docker application.
-
-The codebase aims to allow easy setup and teardown of development and testing environments, and easy deployment of the production environment after updates.
-
-The following guidance provides an overview of the development process for contributors.
-
-
-## Development
-
-[Docker compose](https://docs.docker.com/compose/) is used to orchestrate COPED services.
-
-[GitHub Large File Storage](https://git-lfs.github.com/) installation is required to access test/demo data.
-
-### Setup
-
-1. Clone the repository (Git LFS must be installed).
-2. Run `docker-compose build`.
-3. Copy `.env.example` to `.env` and update any environment configuration you wish to use.
-4. Ensure database name in `dbdata/repopulate_db.sh` matches your environment.
-5. Run `./dbdata/repopulate_db.sh` to populate the database and launch the application.
-
-You should now be able to access the web UI at `<hostname>:<port>` where `<port>` is the port configured in the `docker-compose.override.yaml` file and `<hostname>` is where you are serving from (e.g. localhost if you are developing locally or through a port-mapped tunnel).
-
-### Launch after setup
-
-* Run `docker-compose up -d web` to launch the development web server.
-
-### Repopulate database after setup
-
-* Run `./dbdata/repopulate_db.sh` to populate the database and launch the application.
-
-## Testing
-
-### Steps
-
-1. Launch the application as above.
-2. On the Docker host run `docker-compose exec web python manage.py test`.
-
-The Selenium test UI can be viewed (e.g. to see screen interaction) at `localhost:4444`.
+See [INSTALLATION.md](./INSTALLATION.md) if you wish to develop or deploy the platform.

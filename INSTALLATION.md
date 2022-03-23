@@ -8,17 +8,13 @@ See the [overview](./OVERVIEW.md) for a description of the services that make up
 
 1. A recent Debian based OS [preferred]
 2. Docker and Docker Compose
+   * Use command `docker-compose` or `docker compose` depending on your version.
 3. [Git Large File Storage](https://git-lfs.github.com/) (LFS) extension
    * [Debian/Ubuntu installation instructions](https://github.com/git-lfs/git-lfs/wiki/Installation#ubuntu).
 4. Sufficient server resources
-   * Test VPS system used 16GB RAM, 8 vCPUs, and 160GB SSD without any issues.
-
-
-> Depending on the installed Docker Compose version the command(s) below will be either `docker compose` or `docker-compose`. These instructions assume version 2.x.x. 
+   * As a guide: a laptop with 8GB RAM and 256GB SSD is more than sufficient for development.
 
 ## Install for Development
-
-> TODO: information about setting up CAPTCHA and transactional email settings.
 
 ### Spin up the Docker Compose application
 
@@ -26,9 +22,11 @@ See the [overview](./OVERVIEW.md) for a description of the services that make up
 2. Copy `.env.example` to `.env`.
 3. From the main directory run `docker compose up -d` (and wait for the build if it is the first run...)
 
-> You can now launch the application in a browser. However, you must set up a superuser as described below to access the Metabase analytics components.  
-> Port mappings are provided in `docker-compose.override.yaml` in case you need to access services directly.  
-> If the host is not `localhost` then update `DJANGO_ALLOWED_HOSTS` in `.env` accordingly, before Step 3.
+You can now launch the application in a browser. However, you must set up a superuser as described below to access the Metabase analytics components.
+
+Port mappings are provided in `docker-compose.override.yaml` in case you need to access services directly.  
+
+> If your host is not `localhost` then update `DJANGO_ALLOWED_HOSTS` in `.env` accordingly, before Step 3.
 
 ### Set up a superuser
 
@@ -67,3 +65,7 @@ As above, with the following changes.
 ```
 $ docker compose up -d -f docker-compose.yaml
 ```
+
+## Set up external dependencies
+
+> TODO: information about setting up CAPTCHA and transactional email settings.
