@@ -36,19 +36,19 @@ class ProjectsSpider(Spider):
             .all()
             .values_list("term", flat=True)
         )
-        logging.info(f"Queries to search UKRI projects: {queries}")
+        logging.info("Queries to search UKRI projects: %s", queries)
 
         # Ensure query phrases containing spaces are double quoted.
         queries = [f'"{q}"' if " " in q else q for q in queries]
 
         # Deal with UKRI request headers bug by priming with a request to a URL with random content
-        random_string = uuid4()
-        queries = [
-            f"coped_fake_query_due_to_ukri_api_bug_ignoring_accept_header_on_previously_seen_requests_{random_string}"
-        ] + queries
+        # random_string = uuid4()
+        # queries = [
+        #     f"coped_fake_query_due_to_ukri_api_bug_ignoring_accept_header_on_previously_seen_requests_{random_string}"
+        # ] + queries
 
         # Set up search URLs to start from.
-        urls = [f"{self.projects_api}?q={query}&p=1&s=100" for query in queries]
+        urls = [f"{self.projects_api}.json?q={query}&p=1&s=100" for query in queries]
 
         # Send each query request to the API server.
         for url in urls:
@@ -61,24 +61,27 @@ class ProjectsSpider(Spider):
         Also follows links from projects and funds to related items.
         """
 
-        accept = str(response.request.headers["accept"])
-        logging.debug(f"ACCEPT: {accept}")
+        # accept = str(response.request.headers["accept"])
+        # logging.debug(f"ACCEPT: {accept}")
 
-        parsed_request_url = urlparse(response.request.url)
-        parsed_request_qs = parse_qs(parsed_request_url.query)
-        query = parsed_request_qs.get("q")
+        # parsed_request_url = urlparse(response.request.url)
+        # parsed_request_qs = parse_qs(parsed_request_url.query)
+        # query = parsed_request_qs.get("q")
 
-        if query and (
-            "coped_fake_query_due_to_ukri_api_bug_ignoring_accept_header_on_previously_seen_requests"
-            in query
-        ):
-            # There is a weird bug in the UKRI API.
-            # We need to "prime" the request "Accept" headers with a throwaway random querystring.
-            return None
+        # if query and (
+        #     "coped_fake_query_due_to_ukri_api_bug_ignoring_accept_header_on_previously_seen_requests"
+        #     in query
+        # ):
+        #     # There is a weird bug in the UKRI API.
+        #     # We need to "prime" the request "Accept" headers with a throwaway random querystring.
+        #     return None
 
         content_type = str(response.headers.get("content-type"))
-        logging.debug(f"CONTENT TYPE: {content_type}")
         if "json" not in content_type:
+            logging.error(
+                "Received content-type = %s instead of JSON. Aborting parse.",
+                content_type,
+            )
             return None
 
         data = response.json()
@@ -89,16 +92,19 @@ class ProjectsSpider(Spider):
 
             # If there were no returned projects, then we're done.
             if data.get("totalSize", 0) == 0:
+                logging.info(
+                    "No results in the current response, so parsing can finish."
+                )
                 return None
 
             # Parse all hrefs to the project records and follow them.
             projects = data.get("project", [])
             hrefs = []
             for project in projects:
-                href = project.get("href", "")
+                href = project.get("href")
                 if href:
                     path = urlparse(href).path
-                    hrefs.append(urljoin(self.base_url, path))
+                    hrefs.append(urljoin(self.base_url, path + ".json"))
             yield from response.follow_all(hrefs)
 
             # Follow with the next page of results if possible.
@@ -117,7 +123,7 @@ class ProjectsSpider(Spider):
                 links = data.get("links", {}).get("link", [])
                 hrefs = []
                 for link in links:
-                    href = link.get("href", "")
+                    href = link.get("href")
                     if href:
                         link_type = href.split("/")[-2]
                         # Depending on the item type, we only follow certain link types.
@@ -134,7 +140,7 @@ class ProjectsSpider(Spider):
                             or (item_type == "funds" and link_type == "organisations")
                         ):
                             path = urlparse(href).path
-                            hrefs.append(urljoin(self.base_url, path))
+                            hrefs.append(urljoin(self.base_url, path + ".json"))
                 yield from response.follow_all(hrefs)
 
     @staticmethod

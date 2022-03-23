@@ -31,15 +31,15 @@ django.setup()
 import logging
 
 # Uncomment pagecount limit for testing purposes
-# CLOSESPIDER_PAGECOUNT = 5
+CLOSESPIDER_PAGECOUNT = 50
 
 BOT_NAME = "ukri"
 
 SPIDER_MODULES = ["ukri.spiders"]
 NEWSPIDER_MODULE = "ukri.spiders"
 
-LOG_ENABLED = True
-LOG_LEVEL = "INFO"
+# LOG_ENABLED = True
+# LOG_LEVEL = "INFO"
 
 
 # Crawl responsibly by identifying the app via the user-agent

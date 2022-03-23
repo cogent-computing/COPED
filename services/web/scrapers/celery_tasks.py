@@ -24,7 +24,7 @@ def run_crawler(*args, **kwargs):
     settings = get_project_settings()
     settings.update(kwargs)
     settings["loglevel"] = "WARNING"
-    logging.debug(f"CRAWLER SETTINGS:\n{settings.copy_to_dict()}")
+    logging.debug("CRAWLER SETTINGS: %s", settings.copy_to_dict())
     process = CrawlerProcess(settings)
     process.crawl(ProjectsSpider)
     process.start()

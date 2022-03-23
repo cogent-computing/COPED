@@ -1,3 +1,5 @@
+import logging
+from urllib.parse import urlparse, urljoin
 from datetime import datetime
 from django.db import transaction
 from core.models.project import (
@@ -29,6 +31,15 @@ def populate(bot_name="ukri-projects-spider"):
             populate_resource_relations(person)
 
 
+def build_ukri_url(href):
+    # Ensure we have a consistent UKRI URL, even when the base in "href" changes.
+    base_url = "https://gtr.ukri.org/gtr/api"
+    path = urlparse(href).path
+    url = urljoin(base_url, path)
+    logging.debug("Constructed UKRI URL %s from href", url)
+    return url
+
+
 def populate_resource_relations(ukri_record):
     """Parse linked raw data for relations to other records in the DB."""
 
@@ -36,6 +47,7 @@ def populate_resource_relations(ukri_record):
     record_type = raw_data.url.split("/")[-2]
 
     if record_type not in ["organisations", "projects", "persons"]:
+        logging.debug("Skipping record type '%s' from relation creation")
         return
 
     links = raw_data.json.get("links", {}).get("link", [])
@@ -44,35 +56,40 @@ def populate_resource_relations(ukri_record):
 
         href, rel = link.get("href"), link.get("rel")
         if href is None or rel is None:
+            logging.debug("Couldn't find an href or rel for link %s. Continuing.", link)
             continue
 
         link_type = href.split("/")[-2]
 
         try:
             if record_type == "persons" and link_type == "organisations":
-                organisation = Organisation.objects.get(raw_data__url=href)
+                organisation = Organisation.objects.get(
+                    raw_data__url=build_ukri_url(href)
+                )
                 PersonOrganisation.objects.get_or_create(
                     person=ukri_record, organisation=organisation, role=rel
                 )
             if record_type == "projects" and link_type == "organisations":
-                organisation = Organisation.objects.get(raw_data__url=href)
+                organisation = Organisation.objects.get(
+                    raw_data__url=build_ukri_url(href)
+                )
                 ProjectOrganisation.objects.get_or_create(
                     project=ukri_record, organisation=organisation, role=rel
                 )
             elif record_type == "projects" and link_type == "persons":
-                person = Person.objects.get(raw_data__url=href)
+                person = Person.objects.get(raw_data__url=build_ukri_url(href))
                 ProjectPerson.objects.get_or_create(
                     project=ukri_record, person=person, role=rel
                 )
             elif record_type == "projects" and link_type == "projects":
-                linked_project = Project.objects.get(raw_data__url=href)
+                linked_project = Project.objects.get(raw_data__url=build_ukri_url(href))
                 LinkedProject.objects.get_or_create(
                     project=ukri_record, link=linked_project, relation=rel
                 )
             elif record_type == "projects" and link_type == "funds":
                 # More work to do.
                 # First get the funding organisation from the fund's raw data.
-                fund_record = RawData.objects.get(url=href)
+                fund_record = RawData.objects.get(url=build_ukri_url(href))
                 fund_json = fund_record.json
                 fund_links = fund_json.get("links", {}).get("link", [])
 
@@ -80,10 +97,15 @@ def populate_resource_relations(ukri_record):
                 for fund_link in fund_links:
                     fund_href, fund_rel = fund_link.get("href"), fund_link.get("rel")
                     if fund_rel == "FUNDER":
-                        funder = Organisation.objects.get(raw_data__url=fund_href)
+                        funder = Organisation.objects.get(
+                            raw_data__url=build_ukri_url(fund_href)
+                        )
                         break
 
                 if funder is None:
+                    logging.debug(
+                        "Could not find a funder in the JSON %s. Continuing", fund_json
+                    )
                     continue
 
                 # Now we can populate the fund information into the through table.
@@ -110,4 +132,8 @@ def populate_resource_relations(ukri_record):
             Project.DoesNotExist,
             RawData.DoesNotExist,
         ):
+            logging.info(
+                "Searching DB for a related item for link %s but could not find one. Continuing.",
+                link,
+            )
             continue

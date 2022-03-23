@@ -235,7 +235,7 @@ class AddressAdmin(admin.ModelAdmin):
 
 
 class RawDataAdmin(admin.ModelAdmin):
-    readonly_fields = ("bot", "url", "data_prettified")
+    readonly_fields = ("bot", "created", "modified", "url", "data_prettified")
     exclude = ("json",)
 
     def data_prettified(self, instance):
