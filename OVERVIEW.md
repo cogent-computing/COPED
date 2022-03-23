@@ -26,3 +26,8 @@ The CoPED platform consists of the services defined in `docker-compose.yaml` and
 ## Development services
 
 * `selenium` - Available for running automated tests in a virtual browser.
+
+## External dependencies
+
+* [hCaptcha](https://www.hcaptcha.com/) for bot protection
+* [MailJet](https://www.mailjet.com/) for transactional email (configurable)

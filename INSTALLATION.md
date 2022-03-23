@@ -18,15 +18,17 @@ See the [overview](./OVERVIEW.md) for a description of the services that make up
 
 ## Install for Development
 
+> TODO: information about setting up CAPTCHA and transactional email settings.
+
 ### Spin up the Docker Compose application
 
 1. Clone the CoPED repository from [https://github.com/cogent-computing/COPED](https://github.com/cogent-computing/COPED).
 2. Copy `.env.example` to `.env`.
 3. From the main directory run `docker compose up -d` (and wait for the build if it is the first run...)
 
-> You can now launch the application in a browser.  
+> You can now launch the application in a browser. However, you must set up a superuser as described below to access the Metabase analytics components.  
 > Port mappings are provided in `docker-compose.override.yaml` in case you need to access services directly.  
-> If the host is not `localhost` then update `DJANGO_ALLOWED_HOSTS` in `.env` accordingly.
+> If the host is not `localhost` then update `DJANGO_ALLOWED_HOSTS` in `.env` accordingly, before Step 3.
 
 ### Set up a superuser
 
@@ -37,9 +39,9 @@ It will create a superuser account in the CoPED and Metabase databases for manag
 $ docker compose exec web python /app/manage.py createsuperuser_for_coped --username <username> --email <email@example.com> --first-name <firstname> --last-name <lastname>
 ```
 
-> Now update the `.env` file so that `METABASE_SUPERUSER_*` settings match the credentials you just set.
+> Now update the `.env` file so that `METABASE_SUPERUSER_*` settings match the credentials you just set, and restart the `web` service.
 
-You can now sign in as the superuser and administer the app.
+You can now sign in as the superuser, administer the app, and access the Metabase analytics pages.
 
 ### Alternatively: use example data
 
@@ -60,7 +62,7 @@ Now log in with the administrator account provided (username: "copedadmin", emai
 As above, with the following changes.
 
 * At Step 2. The settings in `.env` should be updated to include any production values and credentials, and file permissions should be restricted.
-* At Step 3. When spinning up the app, prevent use of the Docker Compose override file by using the explicit `-f` file option, as follows.
+* At Step 3. When spinning up the app use the explicit `-f` file option, as follows, to prevent use of the Docker Compose overrides.
 
 ```
 $ docker compose up -d -f docker-compose.yaml
