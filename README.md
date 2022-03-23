@@ -1,3 +1,5 @@
+contact: colin.stephen@coventry.ac.uk
+
 # COPED: Catalogue of Projects on Energy Data
 
 COPED, or the Catalogue of Projects on Energy Data aims to unify various information stores and existing portals for energy projects under a single extendable umbrella that has two key roles:
