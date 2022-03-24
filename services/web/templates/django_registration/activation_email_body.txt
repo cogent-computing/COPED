@@ -1,5 +1,5 @@
 {% load i18n %}
-{% trans "Please activate your CoPED account at" %} {{ site.name }}:
+{% trans "Please activate your CoPED account" %}:
 
 {{ scheme }}://{{ site.domain }}{% url 'django_registration_activate' activation_key %}
 
