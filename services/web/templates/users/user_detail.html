@@ -36,10 +36,20 @@
                             <th scope="row">Last Login</th>
                             <td>{{object.last_login}}</td>
                         </tr>
+                        <tr>
+                            <th scope="row">Contributor</th>
+                            <td>{{object.is_contributor}}</td>
+                        </tr>
                     </tbody>
                 </table>
-                <p><a href="{% url 'password_change' %}" class="btn btn-primary">Change Password</a></p>
                 <p><a href="{% url 'user-update' %}" class="btn btn-info">Update</a></p>
+                <p><a href="{% url 'password_change' %}" class="btn btn-primary">Change Password</a></p>
+                {% if not object.is_contributor %}
+                <p><a href="{% url 'request-contributor-permissions' %}" class="btn btn-warning" data-toggle="tooltip" title="Message us here if you'd like to add to the CoPED catalogue.">
+                    <i class="fas fa-edit"></i>
+                    Request contributor permissions 
+                </a></p>
+                {% endif %}            
             </div>
         </div>
     </div>

@@ -264,16 +264,46 @@ class RawDataAdmin(admin.ModelAdmin):
 
 class UserAdminConfig(UserAdmin):
     model = User
+
+    def get_readonly_fields(self, request, obj=None):
+        readonly_fields = super().get_readonly_fields(request, obj)
+        if obj:  # editing an existing object
+            return readonly_fields + ("email",)
+        return readonly_fields
+
     search_fields = (
+        "username",
         "email",
         "first_name",
+        "last_name",
     )
-    list_filter = ("email", "first_name", "is_active", "is_staff")
-    ordering = ("-date_joined",)
-    list_display = ("email", "first_name", "is_active", "is_staff")
+    list_filter = (
+        "is_active",
+        "is_staff",
+        "is_contributor",
+        "date_joined",
+        "last_login",
+    )
+    ordering = ("username",)
+    list_display = (
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "date_joined",
+        "last_login",
+        "is_active",
+        "is_staff",
+        "is_contributor",
+    )
     fieldsets = (
-        (None, {"fields": ("email", "first_name")}),
-        ("Permissions", {"fields": ("is_staff", "is_active")}),
+        (
+            None,
+            {
+                "fields": ("email", "first_name", "last_name"),
+            },
+        ),
+        ("Permissions", {"fields": ("is_staff", "is_active", "is_contributor")}),
     )
     add_fieldsets = (
         (
@@ -281,14 +311,15 @@ class UserAdminConfig(UserAdmin):
             {
                 "classes": ("wide",),
                 "fields": (
+                    "username",
                     "email",
                     "first_name",
                     "last_name",
                     "password1",
-                    "u_id",
                     "password2",
                     "is_active",
                     "is_staff",
+                    "is_contributor",
                 ),
             },
         ),

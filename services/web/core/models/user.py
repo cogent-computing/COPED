@@ -29,12 +29,20 @@ from uuid import uuid4
 
 class User(AbstractBaseUser, PermissionsMixin):
     coped_id = models.UUIDField(default=uuid4, editable=False, verbose_name="CoPED ID")
-    username = models.CharField(_("username"), max_length=256, unique=True)
-    email = models.EmailField(_("email address"), unique=True)
+    username = models.CharField(
+        _("username"),
+        max_length=256,
+        unique=True,
+    )
+    email = models.EmailField(
+        _("email address"),
+        unique=True,
+    )
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    is_contributor = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
 
     # A cross-db "foreign key" field is used to associate this user with a Metabase profile:

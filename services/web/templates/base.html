@@ -145,7 +145,7 @@
                 <a class="dropdown-item" href="{% url 'user-managed-projects' %}">
                   My Projects
                     {% if user.project_set.exists %}
-                    <span class="badge badge-pill badge-secondary">{{ user.project_set.count }}</span>
+                    <span class="badge badge-pill badge-success">{{ user.project_set.count }}</span>
                     {% endif %}
                 </a>
                 <a class="dropdown-item" href="{% url 'user-favourites' %}">
