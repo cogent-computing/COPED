@@ -209,6 +209,16 @@ class FavouriteListView(LoginRequiredMixin, generic.ListView):
         return context
 
 
+class ManagedProjectsListView(LoginRequiredMixin, generic.ListView):
+
+    template_name = "users/managed_project_list.html"
+
+    def get_queryset(self):
+        user = self.request.user
+        projects = Project.objects.filter(owner=user).all()
+        return projects
+
+
 class ProjectHistoryView(generic.DetailView):
 
     model = Project

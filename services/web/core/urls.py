@@ -212,6 +212,11 @@ urlpatterns = [
     ###########
     #
     path("favourites/", views.FavouriteListView.as_view(), name="user-favourites"),
+    path(
+        "managed/",
+        views.ManagedProjectsListView.as_view(),
+        name="user-managed-projects",
+    ),
     path("profile/", views.UserDetailView.as_view(), name="user-detail"),
     path("profile/update/", views.UserUpdateView.as_view(), name="user-update"),
     #
