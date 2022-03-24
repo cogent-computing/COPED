@@ -13,10 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from audioop import add
 import debug_toolbar
 from django.contrib import admin
 from django.urls import include, path
 from core import views
+from core.models import project
+from core.views import (
+    action_view,
+    address,
+    announcement,
+    favourite,
+    keyword,
+    link,
+    message,
+    organisation,
+    page_view,
+    person,
+    project,
+    subject,
+    suggestion_view,
+    user,
+)
 from django_registration.backends.activation.views import RegistrationView
 
 from .forms import CustomUserForm
@@ -46,39 +64,39 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path(
         "projects/<int:pk>/request-data-change/",
-        views.ProjectRequestDataChangeView.as_view(),
+        message.ProjectRequestDataChangeView.as_view(),
         name="project-request-data-change",
     ),
     path(
         "projects/<int:pk>/claim-ownership/",
-        views.ProjectClaimOwnershipView.as_view(),
+        message.ProjectClaimOwnershipView.as_view(),
         name="project-claim-ownership",
     ),
     path(
         "projects/<int:pk>/contact-owner/",
-        views.ProjectContactOwnerView.as_view(),
+        message.ProjectContactOwnerView.as_view(),
         name="project-contact-owner",
     ),
     path(
         "projects/<int:pk>/favourite/",
-        views.favourite_project,
+        action_view.favourite_project,
         name="project-favourite",
     ),
     path(
         "projects/<int:pk>/unsubscribe/",
-        views.unfavourite_project,
+        action_view.unfavourite_project,
         name="project-unfavourite",
     ),
-    path("messages/inbox/", views.InboxView.as_view(), name="pinax_messages:inbox"),
+    path("messages/inbox/", message.InboxView.as_view(), name="pinax_messages:inbox"),
     path("messages/", include("pinax.messages.urls", namespace="pinax_messages")),
     path(
         "announcements/",
-        views.AnnouncementListView.as_view(),
+        announcement.AnnouncementListView.as_view(),
         name="pinax_announcements:announcement_list",
     ),
     path(
         "announcements/propose/",
-        views.ProposeAnnouncementView.as_view(),
+        message.ProposeAnnouncementView.as_view(),
         name="propose-announcement",
     ),
     path(
@@ -91,22 +109,22 @@ urlpatterns = [
     ## PEOPLE ##
     ############
     #
-    path("people/suggest/", views.person_suggest, name="person-suggest"),
+    path("people/suggest/", suggestion_view.person_suggest, name="person-suggest"),
     path(
         "people/<int:pk>/",
-        views.PersonDetailView.as_view(),
+        person.PersonDetailView.as_view(),
         name="person-detail",
     ),
-    path("people/", views.PersonListView.as_view(), name="person-list"),
-    path("people/create/", views.PersonCreateView.as_view(), name="person-create"),
+    path("people/", person.PersonListView.as_view(), name="person-list"),
+    path("people/create/", person.PersonCreateView.as_view(), name="person-create"),
     path(
         "people/<int:pk>/update/",
-        views.PersonUpdateView.as_view(),
+        person.PersonUpdateView.as_view(),
         name="person-update",
     ),
     path(
         "people/<int:person_id>/manage_orgs/",
-        views.manage_person_orgs,
+        person.manage_person_orgs,
         name="person-manage-orgs",
     ),
     #
@@ -117,25 +135,27 @@ urlpatterns = [
     #
     path(
         "organisations/suggest/",
-        views.organisation_suggest,
+        suggestion_view.organisation_suggest,
         name="organisation-suggest",
     ),
     path(
         "organisations/<int:pk>/",
-        views.OrganisationDetailView.as_view(),
+        organisation.OrganisationDetailView.as_view(),
         name="organisation-detail",
     ),
     path(
         "organisations/<int:pk>/update/",
-        views.OrganisationUpdateView.as_view(),
+        organisation.OrganisationUpdateView.as_view(),
         name="organisation-update",
     ),
     path(
-        "organisations/", views.OrganisationListView.as_view(), name="organisation-list"
+        "organisations/",
+        organisation.OrganisationListView.as_view(),
+        name="organisation-list",
     ),
     path(
         "organisations/create/",
-        views.OrganisationCreateView.as_view(),
+        organisation.OrganisationCreateView.as_view(),
         name="organisation-create",
     ),
     #
@@ -146,47 +166,55 @@ urlpatterns = [
     #
     path(
         "projects/<int:pk>/update/",
-        views.ProjectUpdateView3.as_view(),
+        project.ProjectUpdateView3.as_view(),
         name="project-update",
     ),
     path(
         "projects/<int:pk>/history/",
-        views.ProjectHistoryView.as_view(),
+        project.ProjectHistoryView.as_view(),
         name="project-history",
     ),
     path(
-        "projects/<int:pk>/", views.ProjectDetailView.as_view(), name="project-detail"
+        "projects/<int:pk>/", project.ProjectDetailView.as_view(), name="project-detail"
     ),
     # path(
     #     "projects/<int:pk>/update2/",
     #     views.ProjectUpdateView2.as_view(),
     #     name="project-update",
     # ),
-    path("projects/create/", views.ProjectCreateView.as_view(), name="project-create"),
-    path("projects/", views.project_list, name="project-list"),
+    path(
+        "projects/create/", project.ProjectCreateView.as_view(), name="project-create"
+    ),
+    path("projects/", project.project_list, name="project-list"),
     #
     #
     ##############
     ## SUBJECTS ##
     ##############
     #
-    path("subjects/suggest/", views.subject_suggest, name="subject-suggest"),
-    path("subjects/create/", views.SubjectCreateView.as_view(), name="subject-create"),
-    path("subjects/", views.subject_list, name="subject-list"),
+    path("subjects/suggest/", suggestion_view.subject_suggest, name="subject-suggest"),
+    path(
+        "subjects/create/", subject.SubjectCreateView.as_view(), name="subject-create"
+    ),
+    path("subjects/", subject.subject_list, name="subject-list"),
     #
     #
     ################
     ## GEOGRAPHIC ##
     ################
     #
-    path("geo/create/", views.GeoCreateView.as_view(), name="geo-create"),
-    path("addresses/create/", views.AddressCreateView.as_view(), name="address-create"),
+    path("geo/create/", address.GeoCreateView.as_view(), name="geo-create"),
     path(
-        "addresses/<int:pk>/", views.AddressDetailView.as_view(), name="address-detail"
+        "addresses/create/", address.AddressCreateView.as_view(), name="address-create"
+    ),
+    path(
+        "addresses/<int:pk>/",
+        address.AddressDetailView.as_view(),
+        name="address-detail",
     ),
     path(
         "addresses/<int:pk>/update/",
-        views.AddressUpdateView.as_view(),
+        address.AddressUpdateView.as_view(),
         name="address-update",
     ),
     #
@@ -195,7 +223,7 @@ urlpatterns = [
     ## LINKS ##
     ###########
     #
-    path("links/create/", views.LinkCreateView.as_view(), name="link-create"),
+    path("links/create/", link.LinkCreateView.as_view(), name="link-create"),
     #
     #
     #
@@ -204,41 +232,50 @@ urlpatterns = [
     ## KEYWORDS ##
     ##############
     #
-    path("keywords/create/", views.KeywordCreateView.as_view(), name="keyword-create"),
+    path(
+        "keywords/create/", keyword.KeywordCreateView.as_view(), name="keyword-create"
+    ),
     #
     #
     ###########
     ## USERS ##
     ###########
     #
-    path("favourites/", views.FavouriteListView.as_view(), name="user-favourites"),
+    path("favourites/", favourite.FavouriteListView.as_view(), name="user-favourites"),
     path(
         "managed/",
-        views.ManagedProjectsListView.as_view(),
+        user.ManagedProjectsListView.as_view(),
         name="user-managed-projects",
     ),
-    path("profile/", views.UserDetailView.as_view(), name="user-detail"),
-    path("profile/update/", views.UserUpdateView.as_view(), name="user-update"),
+    path(
+        "request-contributor-permissions/",
+        message.RequestContributorPermissionsView.as_view(),
+        name="request-contributor-permissions",
+    ),
+    path("profile/", user.UserDetailView.as_view(), name="user-detail"),
+    path("profile/update/", user.UserUpdateView.as_view(), name="user-update"),
     #
     #
     ###########################
     ## VISUALS AND ANALYTICS ##
     ###########################
     #
-    path("analysis/", views.analysis_view, name="analysis"),
-    path("visuals/dashboard2/", views.visuals_dashboard2, name="visuals-dashboard2"),
-    path("visuals/dashboard/", views.visuals_dashboard, name="visuals-dashboard"),
+    path("analysis/", page_view.analysis_view, name="analysis"),
+    path(
+        "visuals/dashboard2/", page_view.visuals_dashboard2, name="visuals-dashboard2"
+    ),
+    path("visuals/dashboard/", page_view.visuals_dashboard, name="visuals-dashboard"),
     path(
         "visuals/dashboard_experiment",
-        views.visuals_dashboard_experiment,
+        page_view.visuals_dashboard_experiment,
         name="visuals-dashboard-experiment",
     ),
-    path("visuals/", views.visuals, name="visuals-index"),
+    path("visuals/", page_view.visuals, name="visuals-index"),
     #
     #
     ##################
     ## LANDING PAGE ##
     ##################
     #
-    path("", views.index, name="index"),
+    path("", page_view.index, name="index"),
 ]
