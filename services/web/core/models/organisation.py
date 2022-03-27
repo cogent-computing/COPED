@@ -17,6 +17,10 @@ class Organisation(models.Model):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
     )
+    is_locked = models.BooleanField(
+        default=False,
+        help_text="Lock this project to prevent automatic updates from overwriting your changes. (You can still make changes.)",
+    )
     coped_id = models.UUIDField(
         default=uuid4,
         editable=False,

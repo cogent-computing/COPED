@@ -38,6 +38,10 @@ class Person(models.Model):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
     )
+    is_locked = models.BooleanField(
+        default=False,
+        help_text="Lock this project to prevent automatic updates from overwriting your changes. (You can still make changes.)",
+    )
     coped_id = models.UUIDField(default=uuid4, editable=False, verbose_name="CoPED ID")
     email = models.EmailField(blank=True, null=True)
     first_name = models.CharField(max_length=128)

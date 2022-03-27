@@ -2,8 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Max, Min, Func
 from django.db.models.functions import Greatest, Least
-from django.db.models.aggregates import Count, Sum
-from django.db.models.signals import m2m_changed
+from django.db.models.aggregates import Sum
 from django.contrib.postgres.aggregates import StringAgg
 from django.urls import reverse
 from uuid import uuid4
@@ -56,6 +55,10 @@ class Project(models.Model):
 
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    is_locked = models.BooleanField(
+        default=False,
+        help_text="Lock this project to prevent automatic updates from overwriting your changes. (You can still make changes.)",
     )
     coped_id = models.UUIDField(default=uuid4, editable=False, verbose_name="CoPED ID")
     title = models.CharField(max_length=256)

@@ -173,15 +173,16 @@ class ProjectAdmin(admin.ModelAdmin):
         "persons",
         "organisations",
     )
-    list_display = ("coped_id", "title", "status", "start", "end")
+    list_display = ("title", "status", "start", "end", "is_locked")
     # inlines = (ProjectOrganisationInline, ProjectPersonInline, ProjectFundInline)
-    list_filter = ("status", "start", ProjectTotalFundingFilter)
+    list_filter = ("status", "start", "is_locked", ProjectTotalFundingFilter)
     fieldsets = (
         (
             None,
             {
                 "fields": (
                     "owner",
+                    "is_locked",
                     "coped_id",
                     "title",
                     "description",
@@ -208,12 +209,14 @@ class ProjectAdmin(admin.ModelAdmin):
 
 class OrganisationAdmin(admin.ModelAdmin):
     readonly_fields = ("coped_id", "raw_data")
+    list_display = ("name", "is_locked")
     exclude = ("addresses", "external_links")
     inlines = (OrganisationAddressesInline, OrganisationExternalLinksInline)
 
 
 class PersonAdmin(admin.ModelAdmin):
     readonly_fields = ("coped_id", "raw_data", "external_links")
+    list_display = ("first_name", "last_name", "is_locked")
     inlines = (PersonOrganisationInline,)
 
 
