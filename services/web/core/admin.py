@@ -181,6 +181,7 @@ class ProjectAdmin(admin.ModelAdmin):
             None,
             {
                 "fields": (
+                    "owner",
                     "coped_id",
                     "title",
                     "description",

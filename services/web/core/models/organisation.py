@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -13,18 +14,21 @@ class Organisation(models.Model):
     Organisations may be funders, project leaders or partners, employers
     of project participants, and so on."""
 
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
+    )
     coped_id = models.UUIDField(
         default=uuid4,
         editable=False,
         verbose_name="CoPED ID",
     )
     name = models.CharField(max_length=128)
-    addresses = models.ManyToManyField(Address)
+    addresses = models.ManyToManyField(Address, blank=True)
     about = models.TextField(
         blank=True,
         help_text="Organisation overview with its role in the energy projects community.",
     )
-    external_links = models.ManyToManyField(ExternalLink)
+    external_links = models.ManyToManyField(ExternalLink, blank=True)
     raw_data = models.ForeignKey(
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )

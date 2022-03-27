@@ -42,6 +42,9 @@ if DEBUG:
     INTERNAL_IPS = [ip[:-1] + "1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
 
 
+# Ignore warnings over url names containing a colon
+SILENCED_SYSTEM_CHECKS = ["urls.W003"]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -74,12 +77,18 @@ INSTALLED_APPS = [
     "celery",  # Run long tasks asynchronously
     "django_celery_results",  # Store celery results using Django ORM
     "django_celery_beat",  # Store periodic task schedules using Django ORM
+    "rules.apps.AutodiscoverRulesConfig",  # Per-object permissions
     "core.apps.CoreConfig",  # Main application.
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
     "crudevents.apps.CrudeventsConfig",  # Extend the easyaudit model to give related object histories.
     "messagethreads.apps.MessagethreadsConfig",  # Proxy the Pinax thread model to add a method
 ]
 
+AUTHENTICATION_BACKENDS = (
+    # Uses by the 'rules' package
+    "rules.permissions.ObjectPermissionBackend",
+    "django.contrib.auth.backends.ModelBackend",
+)
 
 DJANGO_EASY_AUDIT_REGISTERED_CLASSES = [
     # Note that m2m fields without custom through models are tracked automatically.

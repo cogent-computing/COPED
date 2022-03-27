@@ -1,3 +1,4 @@
+from rules.contrib.views import PermissionRequiredMixin
 from django.db.models import Count
 from django.views import generic
 from django.shortcuts import render
@@ -9,12 +10,14 @@ from ..models import ProjectSubject, Subject
 
 
 class SubjectCreateView(
+    PermissionRequiredMixin,
     LoginRequiredMixin,
     SuccessMessageMixin,
     CreatePopupMixin,
     generic.CreateView,
 ):
     model = Subject
+    permission_required = "core.add_subject"
     template_name = "subject_form.html"
     fields = ["label"]
     success_message = "Subject created."

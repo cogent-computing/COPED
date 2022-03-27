@@ -42,14 +42,3 @@ class Address(models.Model):
         fields.extend(["postcode", "country"])
 
         return ", ".join([getattr(self, f) for f in fields if getattr(self, f) != ""])
-
-
-class GeoTag(models.Model):
-    """Geo data for addresses, found using forward-geocode lookups."""
-
-    pass
-    # lat =
-    # lon =
-    # display_name =
-    # source_id =
-    # source_name =

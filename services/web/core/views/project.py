@@ -1,3 +1,4 @@
+from rules.contrib.views import PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.views import generic
 from django.shortcuts import render
@@ -18,7 +19,6 @@ from ..models import (
     ProjectPerson,
 )
 from ..forms import (
-    ProjectForm,
     ProjectFundForm,
     ProjectOrganisationForm,
     ProjectPersonForm,
@@ -55,14 +55,6 @@ class ProjectDetailView(generic.DetailView):
         context["subscribers"] = subscribers
 
         return context
-
-
-class ProjectUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
-
-    model = Project
-    form_class = ProjectForm
-    template_name = "project_update_form.html"
-    success_message = "Project saved."
 
 
 class ProjectFundInline(InlineFormSetFactory):
@@ -108,9 +100,13 @@ class ProjectPersonCreateInline(ProjectPersonInline):
 
 
 class ProjectUpdateView3(
-    LoginRequiredMixin, SuccessMessageMixin, UpdateWithInlinesView
+    PermissionRequiredMixin,
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    UpdateWithInlinesView,
 ):
     model = Project
+    permission_required = "core.change_project"
     inlines = [
         ProjectFundUpdateInline,
         ProjectPersonUpdateInline,
@@ -120,16 +116,22 @@ class ProjectUpdateView3(
     template_name = "project_form_with_inlines.html"
     success_message = "Project updated."
 
-    def get_form_kwargs(self):
-        # Add the user to the form kwargs so we can conditionally disable fields
-        kwargs = super().get_form_kwargs()
-        kwargs["user"] = self.request.user
-        return kwargs
 
-
-class ProjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateWithInlinesView):
+class ProjectCreateView(
+    PermissionRequiredMixin,
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    CreateWithInlinesView,
+):
 
     model = Project
+    permission_required = "core.add_project"
+
+    def get_permission_object(self):
+        # Need to return None here as the inlines imply
+        # get_object() is not None, but it also has no pk.
+        return None
+
     inlines = [
         ProjectFundCreateInline,
         ProjectPersonCreateInline,
@@ -138,6 +140,10 @@ class ProjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateWithInlin
     form_class = ProjectFormWithInlines
     template_name = "project_form_with_inlines.html"
     success_message = "Project created."
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
 
 def project_list(request):

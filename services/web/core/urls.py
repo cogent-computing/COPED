@@ -122,11 +122,6 @@ urlpatterns = [
         person.PersonUpdateView.as_view(),
         name="person-update",
     ),
-    path(
-        "people/<int:person_id>/manage_orgs/",
-        person.manage_person_orgs,
-        name="person-manage-orgs",
-    ),
     #
     #
     ###################
@@ -177,11 +172,6 @@ urlpatterns = [
     path(
         "projects/<int:pk>/", project.ProjectDetailView.as_view(), name="project-detail"
     ),
-    # path(
-    #     "projects/<int:pk>/update2/",
-    #     views.ProjectUpdateView2.as_view(),
-    #     name="project-update",
-    # ),
     path(
         "projects/create/", project.ProjectCreateView.as_view(), name="project-create"
     ),
@@ -212,11 +202,6 @@ urlpatterns = [
         address.AddressDetailView.as_view(),
         name="address-detail",
     ),
-    path(
-        "addresses/<int:pk>/update/",
-        address.AddressUpdateView.as_view(),
-        name="address-update",
-    ),
     #
     #
     ###########
@@ -224,8 +209,6 @@ urlpatterns = [
     ###########
     #
     path("links/create/", link.LinkCreateView.as_view(), name="link-create"),
-    #
-    #
     #
     #
     ##############

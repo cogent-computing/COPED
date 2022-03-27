@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.db.models import F, Value
 from django.db.models.functions import Concat
@@ -34,6 +35,9 @@ class Person(models.Model):
     Users are those people who use the platform, while Person records are
     individuals identified in the project meta data itself."""
 
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
+    )
     coped_id = models.UUIDField(default=uuid4, editable=False, verbose_name="CoPED ID")
     email = models.EmailField(blank=True, null=True)
     first_name = models.CharField(max_length=128)
@@ -43,7 +47,7 @@ class Person(models.Model):
     raw_data = models.ForeignKey(
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
-    external_links = models.ManyToManyField(ExternalLink)
+    external_links = models.ManyToManyField(ExternalLink, blank=True)
     organisations = models.ManyToManyField(
         Organisation,
         through="PersonOrganisation",

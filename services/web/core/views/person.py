@@ -1,9 +1,11 @@
+from rules.contrib.views import PermissionRequiredMixin
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django_addanother.views import CreatePopupMixin
 from extra_views import CreateWithInlinesView
 from extra_views import UpdateWithInlinesView
 from extra_views import InlineFormSetFactory
@@ -27,16 +29,39 @@ class PersonOrganisationUpdateInline(PersonOrganisationInline):
     factory_kwargs = {"extra": 0, "can_delete": True}
 
 
-class PersonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateWithInlinesView):
+class PersonCreateView(
+    PermissionRequiredMixin,
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    CreatePopupMixin,
+    CreateWithInlinesView,
+):
     model = Person
+    permission_required = "core.add_person"
+
+    def get_permission_object(self):
+        # Need to return None here as the inlines imply
+        # get_object() is not None, but it also has no pk.
+        return None
+
     form_class = PersonForm
     inlines = [PersonOrganisationCreateInline]
     template_name = "person_form.html"
     success_message = "Person added."
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
-class PersonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateWithInlinesView):
+
+class PersonUpdateView(
+    PermissionRequiredMixin,
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    UpdateWithInlinesView,
+):
     model = Person
+    permission_required = "core.change_person"
     form_class = PersonForm
     inlines = [PersonOrganisationUpdateInline]
     template_name = "person_form.html"
@@ -54,24 +79,3 @@ class PersonListView(FilteredListView):
     template_name = "person_list.html"
     paginate_by = 10
     order_by = "first_name"
-
-
-def manage_person_orgs(request, person_id):
-    person = Person.objects.get(pk=person_id)
-    OrganisationsInlineFormSet = inlineformset_factory(
-        Person,
-        PersonOrganisation,
-        fields=["organisation", "role"],
-        extra=1,
-    )
-    if request.method == "POST":
-        formset = OrganisationsInlineFormSet(
-            request.POST, request.FILES, instance=person
-        )
-        if formset.is_valid():
-            formset.save()
-            # Do something. Should generally end with a redirect. For example:
-            return HttpResponseRedirect(person.get_absolute_url())
-    else:
-        formset = OrganisationsInlineFormSet(instance=person)
-    return render(request, "manage_person_orgs.html", {"formset": formset})

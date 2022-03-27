@@ -20,8 +20,20 @@
             <br>
             <h4>
                 <div class="pull-left">People</div>
-                <div class="pull-right"><a href="{% url 'person-create' %}" class="badge badge-pill badge-success">Create New +</a></div>
             </h4>
+            <br>
+            {% if user.is_contributor or user.is_superuser %}
+            <div>
+                <a href="{% url 'person-create' %}" class="badge badge-pill badge-success">Create New +</a>
+            </div>
+            {% else %}
+            <div>
+                <a href="{% url 'request-contributor-permissions' %}" class="badge badge-pill badge-warning" data-toggle="tooltip" title="Request permission to add projects, people or organisations to CoPED.">
+                    <i class="fas fa-edit"></i>
+                    Request Permission to Contribute
+                </a>
+            </div>
+            {% endif %}
         </div>
     </div>
     <div class="row">
