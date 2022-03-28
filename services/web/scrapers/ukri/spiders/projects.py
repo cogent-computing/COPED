@@ -39,7 +39,7 @@ class ProjectsSpider(Spider):
         logging.info("Queries to search UKRI projects: %s", queries)
 
         # Ensure query phrases containing spaces are double quoted.
-        queries = [f'"{q}"' if " " in q else q for q in queries]
+        queries = [f'"{q}"' for q in queries]
 
         # Deal with UKRI request headers bug by priming with a request to a URL with random content
         # random_string = uuid4()

@@ -20,9 +20,8 @@ def populate(bot_name="ukri-projects-spider"):
     Extract links from the associated raw data, and use these to link to other CoPED resources.
     NB: this function assumes that resources have already been populated from the raw data."""
 
-    projects = Project.objects.filter(raw_data__bot=bot_name)
-    persons = Person.objects.filter(raw_data__bot=bot_name)
-    # organisations = Organisation.objects.filter(raw_data__bot=bot_name)
+    projects = Project.objects.filter(raw_data__bot=bot_name, is_locked=False)
+    persons = Person.objects.filter(raw_data__bot=bot_name, is_locked=False)
 
     with transaction.atomic():
         for project in projects:
@@ -47,7 +46,7 @@ def populate_resource_relations(ukri_record):
     record_type = raw_data.url.split("/")[-2]
 
     if record_type not in ["organisations", "projects", "persons"]:
-        logging.debug("Skipping record type '%s' from relation creation")
+        logging.debug("Skipping record type '%s' from relation creation", record_type)
         return
 
     links = raw_data.json.get("links", {}).get("link", [])

@@ -8,6 +8,7 @@ TODO: compare RawData content with existing record to determine whether/what to 
 
 
 from datetime import datetime
+import logging
 from django.db import transaction
 from django.template.loader import render_to_string
 from core.models.raw_data import RawData
@@ -85,6 +86,11 @@ def populate_projects(raw_data_record):
 
     # Set the project information.
     project, _ = Project.objects.get_or_create(raw_data=raw_data_record)
+
+    if project.is_locked:
+        logging.warn("Project %s is locked. Skipping update.", project.id)
+        return None
+
     json = raw_data_record.json
     project.title = json.get("title", NO_VALUE)
     project.status = json.get("status", NO_VALUE)
@@ -109,22 +115,6 @@ def populate_projects(raw_data_record):
         },
     )
 
-    # text = []
-    # text.append("## Lead Funder")
-    # text.append(json.get("leadFunder") or NO_VALUE)
-    # text.append("## Lead Department")
-    # text.append(json.get("leadOrganisationDepartment") or NO_VALUE)
-    # text.append("## Abstract")
-    # text.append(json.get("abstractText") or NO_VALUE)
-    # text.append("## Technical Abstract")
-    # text.append(json.get("techAbstractText") or NO_VALUE)
-    # text.append("## Grant Category")
-    # text.append(json.get("grantCategory") or NO_VALUE)
-    # text.append("## Potential Impact")
-    # text.append(json.get("potentialImpact") or NO_VALUE)
-    # Use the combined text to populate the project information
-    # print(text)
-    # project.description = "\n\n".join(text)
     project.description = description
     project.extra_text = extra_text
 
@@ -138,6 +128,10 @@ def populate_projects(raw_data_record):
 
 def populate_organisations(raw_data):
     organisation, _ = Organisation.objects.get_or_create(raw_data=raw_data)
+
+    if organisation.is_locked:
+        logging.warn("Organisation %s is locked. Skipping update.", organisation.id)
+        return None
 
     # Set the organisation information.
     json = raw_data.json
@@ -166,6 +160,10 @@ def populate_organisations(raw_data):
 
 def populate_persons(raw_data):
     person, _ = Person.objects.get_or_create(raw_data=raw_data)
+
+    if person.is_locked:
+        logging.warn("Person %s is locked. Skipping update.", person.id)
+        return None
 
     # Assign the person information.
     json = raw_data.json
