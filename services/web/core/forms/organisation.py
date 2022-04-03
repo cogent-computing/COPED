@@ -27,7 +27,7 @@ class LinksWidget(s2forms.ModelSelect2MultipleWidget):
 class OrganisationForm(forms.ModelForm):
     class Meta:
         model = Organisation
-        fields = ["name", "about", "addresses", "external_links"]
+        fields = ["is_locked", "name", "about", "addresses", "external_links"]
         help_texts = {
             "name": "Official name of the organisation to appear in search results.",
             "about": "Please provide some information about the organisation and its use or production of energy project data.",

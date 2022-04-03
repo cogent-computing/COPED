@@ -30,6 +30,7 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = [
+            "is_locked",
             "first_name",
             "other_name",
             "last_name",
