@@ -12,6 +12,7 @@ See the following links for details:
     - https://ai.finto.fi/v1/ui/
 """
 
+import logging
 import time
 import json
 import os
@@ -31,9 +32,8 @@ from core.models import ProjectSubject
 from core.models import ExternalLink
 from core.models import AppSetting
 
-
 @shared_task(name="Automatic project subject tagger")
-def tag_projects_with_subjects(exclude_already_tagged=True, limit=None):
+def tag_projects_with_subjects(exclude_already_tagged=True, limit=-1):
     """Send project descriptions to the subject suggestion model at Finto.
 
     Update project records by adding the suggested subjects and scores.
@@ -46,48 +46,43 @@ def tag_projects_with_subjects(exclude_already_tagged=True, limit=None):
     except AppSetting.DoesNotExist:
         USER_AGENT = "CoPEDbot/0.1 (Catalogue of Projects on Energy Data) Crawler"
     headers = {"User-Agent": USER_AGENT}
+    try:
+        SUBJECT_SCORE_THRESHOLD = float(AppSetting.objects.get(slug="SUBJECT_SCORE_THRESHOLD").value)
+    except (AppSetting.DoesNotExist, ValueError):
+        SUBJECT_SCORE_THRESHOLD = 0.1
 
-    # TODO: prefilter projects based on existing subjects - similar to geo tagger script.
-    total_projects = Project.objects.count()
-    if limit is None:
-        limit = total_projects  # number of projects to tag
+    projects = Project.objects.filter(is_locked=False)
+    if exclude_already_tagged:
+        projects = projects.filter(subjects__isnull=True)
 
     with requests.session() as connection:
         connection.headers.update(headers)
 
-        count = 0
-        for project in Project.objects.all()[:limit]:
+        for project in projects[:limit]:
 
-            count += 1
-
-            if exclude_already_tagged and project.subjects.exists():
-                print(
-                    f"Project {count} of {total_projects} (id={project.id}) already tagged. Skipping."
-                )
-                continue
-
-            print(
-                f"Project {count} of {total_projects} (id={project.id}) not tagged. Tagging: {project.title[:30]}..."
-            )
+            logging.info("Tagging project %s", project.id)
 
             results = []
             try:
                 payload = {
                     "project_id": "yso-en",  # Finto English language subject classifier
-                    "text": project.description,
-                    "limit": 20,
+                    "text": project.description + project.extra_text,
+                    "limit": 15,
                 }
                 r = connection.post(api_url, data=payload, headers=headers, timeout=20)
                 results = json.loads(r.content)["results"]
             except requests.exceptions.RequestException as e:
-                print(
-                    f"Request to tag project {project.id} failed with exception:\n{e}\n"
-                )
+                logging.error("Requst to tag project %s failed", project.id)
                 continue
 
             with transaction.atomic():
                 for r in results:
                     label, score, uri = r["label"], r["score"], r["uri"]
+                    if score < SUBJECT_SCORE_THRESHOLD:
+                        logging.debug(
+                            "Subject %s with score %s for project %s was below threshold %s",
+                            label, score, project.id, SUBJECT_SCORE_THRESHOLD)
+                        continue
                     link, _ = ExternalLink.objects.get_or_create(
                         link=uri,
                         defaults={"description": "Finto term ontology"},
@@ -101,7 +96,7 @@ def tag_projects_with_subjects(exclude_already_tagged=True, limit=None):
                     )
 
             # ease off between API hits to avoid saturating the remote server
-            time.sleep(2)
+            time.sleep(1)
 
 
 if __name__ == "__main__":

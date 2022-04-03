@@ -10,15 +10,12 @@ See the following links for details:
     - https://github.com/boudinfl/pke
 """
 
-import time
-import json
+import logging
 import os
 import sys
 import django
 import textacy
 from textacy.extract import keyterms as kt
-from textacy.extract import acronyms, acronyms_and_definitions
-from textacy.extract import entities
 from django.db import transaction
 from celery import shared_task
 
@@ -32,31 +29,19 @@ from core.models import ProjectKeyword
 
 
 @shared_task(name="Automatic project keyword and key phrase tagger")
-def tag_projects_with_keywords(exclude_already_tagged=True, limit=None):
+def tag_projects_with_keywords(exclude_already_tagged=True, limit=-1):
     """Send project text to a trained keyword extraction model.
 
     Update project records by adding the suggested keywords and scores.
     Add each keyword to the DB if it does not already exist."""
 
-    # TODO: prefilter projects based on existing subjects - similar to geo tagger script.
-    total_projects = Project.objects.count()
-    if limit is None:
-        limit = total_projects  # number of projects to tag
+    projects = Project.objects.filter(is_locked=False)
+    if exclude_already_tagged:
+        projects = projects.filter(keywords__isnull=True)
 
-    count = 0
-    for project in Project.objects.all()[:limit]:
+    for project in projects[:limit]:
 
-        count += 1
-
-        if exclude_already_tagged and project.keywords.exists():
-            print(
-                f"Project {count} of {total_projects} (id={project.id}) already tagged. Skipping."
-            )
-            continue
-
-        print(
-            f"Tagging project {count} of {total_projects} (id={project.id}): {project.title[:30]}..."
-        )
+        logging.log("Keyword tagging project %s", project.id)
 
         results = []
         try:
@@ -65,26 +50,17 @@ def tag_projects_with_keywords(exclude_already_tagged=True, limit=None):
             results = kt.textrank(
                 doc,
                 normalize="lemma",
-                topn=min(int(len(text) ** 0.5) // 2, 20),
+                topn=min(int(len(text) ** 0.5) // 2, 15),
                 window_size=10,
                 edge_weighting="count",
                 position_bias=True,
             )
-            # results = kt.yake(
-            #     doc,
-            #     normalize="lemma",
-            #     topn=min(int(len(text) ** 0.5) // 3, 20),
-            #     ngrams=(1, 2, 3),
-            # )
-            # results = acronyms_and_definitions(doc)
-            # results = entities(doc)
         except Exception as e:
-            print(f"Request to tag project {project.id} failed with exception:\n{e}\n")
+            logging.error("Request to tag project %s failed.", project.id)
             continue
 
         with transaction.atomic():
             for label, score in results:
-                # print(label, score)
                 keyword, _ = Keyword.objects.get_or_create(
                     text=label,
                 )

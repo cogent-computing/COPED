@@ -17,6 +17,7 @@ See the following links for details:
     - https://postcodes.io/docs
 """
 
+import logging
 import time
 import json
 import os
@@ -105,7 +106,7 @@ def lat_lon_from_address_string(address_string):
 
 
 @shared_task(name="Automatic address geocoder")
-def tag_addresses_with_geo_data(exclude_already_tagged=True, limit=None):
+def tag_addresses_with_geo_data(exclude_already_tagged=True, limit=-1):
     """Send addresses to the geo-search API at Nominatim.
 
     Add the geotag to the DB if it does not already exist and point the input
@@ -115,23 +116,14 @@ def tag_addresses_with_geo_data(exclude_already_tagged=True, limit=None):
     values (0,0) for (lat,lon) coordinates. This allows skipping previously
     geocoded addresses, even if they failed."""
 
+    addresses_to_process = Address.objects.all()
     if exclude_already_tagged:
-        addresses_to_process = Address.objects.filter(geo__isnull=True)
-    else:
-        addresses_to_process = Address.objects.all()
-
-    total_addresses = addresses_to_process.count()
-    if limit is None:
-        limit = total_addresses  # Number of projects to tag.
-
-    count = 0
+        addresses_to_process = addresses_to_process.filter(geo__isnull=True)
 
     for address in addresses_to_process[:limit]:
         time.sleep(1)  # Go easy on the geocoding servers.
-        count += 1
-        print(
-            f"Geotagging address {count} of {limit} from {total_addresses} (id={address.id})."
-        )
+
+        logging.info("Geotagging address %s", address.id)
 
         latlon = None
         if address.postcode is not None and address.postcode.strip() != "":
@@ -141,10 +133,10 @@ def tag_addresses_with_geo_data(exclude_already_tagged=True, limit=None):
             latlon = lat_lon_from_address_string(f"{address}")
 
         if latlon is None:
-            latlon = 0.0, 0.0
+            latlon = 0.0, 0.0  # Set a default to show it's been processed
 
         lat, lon = latlon
-        print("Location:", lat, lon, sep="\t")
+        logging.debug("Location: %s, %s", lat, lon)
 
         with transaction.atomic():
             geo_data_record, _ = GeoData.objects.get_or_create(lat=lat, lon=lon)
