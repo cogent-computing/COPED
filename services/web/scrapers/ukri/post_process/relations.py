@@ -118,11 +118,13 @@ def populate_resource_relations(ukri_record):
 
                 ProjectFund.objects.get_or_create(
                     project=ukri_record,
-                    organisation=funder,
-                    amount=amount,
-                    start_date=start,
-                    end_date=end,
                     raw_data=fund_record,
+                    defaults={
+                        "amount":amount,
+                        "organisation":funder,
+                        "start_date":start,
+                        "end_date":end,
+                    },
                 )
 
         except (
