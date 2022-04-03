@@ -133,7 +133,7 @@ class SubjectAdmin(admin.ModelAdmin):
 
 
 class AppSettingAdmin(admin.ModelAdmin):
-    list_display = ["name", "slug", "value"]
+    list_display = ["name", "slug", "value", "description"]
     ordering = ["name"]
 
 
