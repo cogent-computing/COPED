@@ -133,6 +133,6 @@ def populate_resource_relations(ukri_record):
         ):
             logging.info(
                 "Searching DB for a related item for link %s but could not find one. Continuing.",
-                link,
+                link
             )
             continue
