@@ -19,11 +19,11 @@ from core.models.external_link import ExternalLink
 from core.models.address import Address
 
 
-def populate(bot_name="ukri-projects-spider"):
+def populate(bot_name="ukri-projects-spider", limit=-1):
     """Parse all UKRI raw data records and populate CoPED resource tables from them."""
 
     # Only populate resources corresponding to a specific bot/scraper name.
-    raw_data_records = RawData.objects.filter(bot=bot_name)
+    raw_data_records = RawData.objects.filter(bot=bot_name)[:limit]
 
     # Context manage the database transaction to ensure rollback if anything fails.
     with transaction.atomic():
