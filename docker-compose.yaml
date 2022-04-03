@@ -16,6 +16,7 @@ services:
     environment:
       DEBUG: 0
       TESTING: 0
+      LOG_LEVEL: INFO
       SECRET_KEY: ${DJANGO_SECRET_KEY:?}
       STATIC_ROOT: ${DJANGO_STATIC_ROOT:?}
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-"localhost 127.0.0.1 [::1]"}
