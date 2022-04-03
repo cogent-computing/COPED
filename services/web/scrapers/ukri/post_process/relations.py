@@ -14,14 +14,14 @@ from core.models.person import Person, PersonOrganisation
 from core.models.raw_data import RawData
 
 
-def populate(bot_name="ukri-projects-spider"):
-    """Parse all resources with a UKRI raw data source to get their relations.
+def populate(bot_name="ukri-projects-spider", limit=-1):
+    """Parse resources with a UKRI raw data source to get their relations.
 
     Extract links from the associated raw data, and use these to link to other CoPED resources.
     NB: this function assumes that resources have already been populated from the raw data."""
 
-    projects = Project.objects.filter(raw_data__bot=bot_name, is_locked=False)
-    persons = Person.objects.filter(raw_data__bot=bot_name, is_locked=False)
+    projects = Project.objects.filter(raw_data__bot=bot_name, is_locked=False)[:limit]
+    persons = Person.objects.filter(raw_data__bot=bot_name, is_locked=False)[:limit]
 
     with transaction.atomic():
         for project in projects:
