@@ -9,6 +9,7 @@ class GeoData(models.Model):
     # TODO: enable GIS extension and use Points for location management.
     lat = models.FloatField(verbose_name="latitude")
     lon = models.FloatField(verbose_name="longitude")
+    dno_id = models.SmallIntegerField(null=True, help_text="Distribution Network Operator (DNO) ID in `DNO_License_Areas_20200506.shp`")
 
     class Meta:
         db_table = "coped_geo_data"
