@@ -27,6 +27,9 @@ django-model-utils==4.2.0
 
 # Geographic analysis and visualisation
 django-leaflet==0.28.2
+Fiona==1.8.21
+Shapely==1.8.1.post1
+pyproj==3.3.0
 
 # Django REST Framework dependencies for OpenAPI schema generation
 PyYAML==6.0
