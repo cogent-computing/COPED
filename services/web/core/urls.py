@@ -254,6 +254,7 @@ urlpatterns = [
         name="visuals-dashboard-experiment",
     ),
     path("visuals/", page_view.visuals, name="visuals-index"),
+    path("dashboards/", include("dashboards.urls", namespace="dashboards")),
     #
     #
     ##################

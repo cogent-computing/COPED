@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<ul>
+{% for dashboard in dashboard_list %}
+    <li>{{dashboard.name}}</li>
+{% endfor %}
+</ul>
+
+{% endblock content %}

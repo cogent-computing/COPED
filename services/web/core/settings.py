@@ -107,6 +107,7 @@ INSTALLED_APPS = [
     "api.apps.ApiConfig",  # Django REST Framework API serializers and views.
     "crudevents.apps.CrudeventsConfig",  # Extend the easyaudit model to give related object histories.
     "messagethreads.apps.MessagethreadsConfig",  # Proxy the Pinax thread model to add a method
+    "dashboards.apps.DashboardsConfig",  # Contains models to access the dashboards table in Metabase DB
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -172,8 +173,17 @@ DATABASES = {
         "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
         "HOST": os.environ.get("SQL_HOST", "localhost"),
         "PORT": os.environ.get("SQL_PORT", "5432"),
+    },
+    "metabase": {
+        "ENGINE": os.environ.get("METABASE_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("METABASE_DATABASE", BASE_DIR / "metabase.db.sqlite3"),
+        "USER": os.environ.get("METABASE_USER", "user"),
+        "PASSWORD": os.environ.get("METABASE_PASSWORD", "password"),
+        "HOST": os.environ.get("METABASE_HOST", "localhost"),
+        "PORT": os.environ.get("METABASE_PORT", "5432"),
     }
 }
+DATABASE_ROUTERS = ["dashboards.db_routers.DashboardRouter"]
 
 CACHES = {
     "default": {
