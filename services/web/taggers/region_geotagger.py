@@ -6,6 +6,7 @@ import fiona
 import shapely.geometry
 from pyproj import CRS, Transformer
 from operator import itemgetter
+from celery import shared_task
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 sys.path.append(os.path.abspath(".."))
@@ -13,42 +14,41 @@ django.setup()
 
 from core.models import GeoData
 
-# Data appear in different coordinate systems so we need to translate them.
+@shared_task(name="Automatic DNO region tagger")
+def tag_geo_points_with_dno_regions(exclude_already_tagged=True, limit=None):
 
-# EPSG code for DNO shapefile data is 27700
-# See: https://epsg.io/27700
-crs_27700 = CRS.from_epsg(27700)
+    geo_points = GeoData.objects.all()
+    if exclude_already_tagged:
+        geo_points = geo_points.exclude(dno_id__isnull=False)
+    limit = limit or geo_points.count()
 
-# EPSG code for address longitude and latitude is 4326
-# See: https://epsg.io/4326
-crs_4326 = CRS.from_epsg(4326)
+    logging.info("Tagging points with DNO region ids")
+    with fiona.open("./geojson/dno_license_areas_20200506.polar.geojson") as fiona_collection:
 
-# Define the translation
-eastnorth_from_latlong = Transformer.from_crs(crs_4326, crs_27700).transform
+        for geo_point in geo_points[:limit]:
+            logging.debug("point %s", geo_point)
 
-exclude_already_tagged = True
-geo_points = GeoData.objects.all()
-if exclude_already_tagged:
-    geo_points = geo_points.exclude(dno_id__isnull=False)
+            lat, lon = geo_point.lat, geo_point.lon
+            query_point = shapely.geometry.Point(lon,lat)
+            logging.debug("query point is %s", query_point)
 
-with fiona.open("/tmp/dno_license_areas_20200506/DNO_License_Areas_20200506.shp") as fiona_collection:
-    print(fiona_collection)
+            for shapefile_record in iter(fiona_collection):
+                record_type, record_id, record_properties, record_geometry = itemgetter("type", "id", "properties", "geometry")(shapefile_record)
 
-    for geo_point in geo_points:
+                shape = shapely.geometry.shape( record_geometry )
 
-        lat, lon = geo_point.lat, geo_point.lon
-        query_point = eastnorth_from_latlong(lat, lon)
-        query_point = shapely.geometry.Point(query_point)
+                if shape.contains(query_point):
+                    dno_id = record_properties.get("ID")
+                    dno_name = record_properties.get("Name")
+                    dno_long_name = record_properties.get("LongName")
 
-        for shapefile_record in iter(fiona_collection):
-            record_type, record_id, record_properties, record_geometry = itemgetter("type", "id", "properties", "geometry")(shapefile_record)
+                    logging.info("DNO %s contains test point %s (%s, %s)", dno_id, geo_point.id, lat, lon)
 
-            shape = shapely.geometry.shape( record_geometry )
+                    geo_point.dno_id = dno_id
+                    geo_point.dno_name = dno_name
+                    geo_point.dno_long_name = dno_long_name
+                    geo_point.save()
+                    break
 
-            if shape.contains(query_point):
-                dno_id = record_properties.get("ID")
-                logging.info("DNO %s contains test point %s (%s, %s)", dno_id, geo_point.id, lat, lon)
-                geo_point.dno_id = dno_id
-                geo_point.save()
-                break
-
+if __name__ == "__main__":
+    tag_geo_points_with_dno_regions(exclude_already_tagged=False, limit=10)
