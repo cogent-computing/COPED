@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.min.js"></script>
+<iframe src="/metabase/public/dashboard/{{dashboard.public_uuid}}#bordered=false&titled=true" width="100%"  style="overflow:hidden;" onload="iFrameResize({}, this)" frameBorder="0"></iframe>
+
+{% endblock content %}
