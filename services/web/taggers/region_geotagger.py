@@ -23,7 +23,9 @@ def tag_geo_points_with_dno_regions(exclude_already_tagged=True, limit=None):
     limit = limit or geo_points.count()
 
     logging.info("Tagging points with DNO region ids")
-    with fiona.open("./geojson/dno_license_areas_20200506.polar.geojson") as fiona_collection:
+    dirname = os.path.dirname(__file__)
+    geojson_filename = os.path.join(dirname, "geojson/dno_license_areas_20200506.polar.geojson")
+    with fiona.open(geojson_filename) as fiona_collection:
 
         for geo_point in geo_points[:limit]:
             logging.debug("point %s", geo_point)
