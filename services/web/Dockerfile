@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y gcc
 RUN pip install --upgrade pip
 RUN pip install textacy==0.11.0
 RUN python -m spacy download en_core_web_lg
-RUN apt-get udpate && apt-get install -y libgdal-dev
+RUN apt-get update && apt-get install -y libgdal-dev
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
