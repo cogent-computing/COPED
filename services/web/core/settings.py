@@ -345,6 +345,7 @@ CELERY_IMPORTS = [
     "taggers.subject_tagger",
     "taggers.keyword_tagger",
     "taggers.address_geotagger",
+    "taggers.region_geotagger",
     "scrapers.celery_tasks",
 ]
 
