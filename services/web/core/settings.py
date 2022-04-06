@@ -17,6 +17,7 @@ from pathlib import Path
 # SECURITY WARNING: don't run with debug/testing turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
 TESTING = int(os.environ.get("TESTING", default=0))
+LOGLEVEL = os.environ.get("LOGLEVEL", default="INFO")
 
 LOGGING = {
     "version": 1,
@@ -28,7 +29,7 @@ LOGGING = {
     },
     "handlers": {
         "console": {
-            "level": "INFO",
+            "level": LOGLEVEL,
             "class": "logging.StreamHandler",
             "stream": sys.stdout,
             "formatter": "verbose",
@@ -37,7 +38,7 @@ LOGGING = {
     "loggers": {
         "": {
             "handlers": ["console"],
-            "level": "INFO",
+            "level": LOGLEVEL,
             "propagate": True,
         },
     },
