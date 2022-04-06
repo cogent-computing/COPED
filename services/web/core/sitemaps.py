@@ -2,18 +2,18 @@ from django.contrib.sitemaps import Sitemap
 from .models import Project, AppSetting
 
 try:
-    site_http_protocol = AppSetting.objects.get(slug="site_http_protocol").value
+    SITE_HTTP_PROTOCOL = AppSetting.objects.get(slug="SITE_HTTP_PROTOCOL").value
 except AppSetting.DoesNotExist:
-    site_http_protocol = "https"
-site_http_protocol = (
-    site_http_protocol if site_http_protocol in ["http", "https"] else "https"
+    SITE_HTTP_PROTOCOL = "https"
+SITE_HTTP_PROTOCOL = (
+    SITE_HTTP_PROTOCOL if SITE_HTTP_PROTOCOL in ["http", "https"] else "https"
 )
 
 
 class ProjectSitemap(Sitemap):
     changefreq = "monthly"
     priority = 0.8
-    protocol = site_http_protocol
+    protocol = SITE_HTTP_PROTOCOL
 
     def items(self):
         return Project.objects.all()

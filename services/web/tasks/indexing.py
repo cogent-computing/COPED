@@ -19,10 +19,10 @@ from core.models import AppSetting
 @shared_task(name="Ping Google and Bing with updated sitemap")
 def ping_google_and_bing():
     try:
-        site_http_protocol = AppSetting.objects.get(slug="site_http_protocol").value
+        SITE_HTTP_PROTOCOL = AppSetting.objects.get(slug="SITE_HTTP_PROTOCOL").value
     except AppSetting.DoesNotExist:
-        site_http_protocol = "https"
-    uses_https = site_http_protocol == "https"
+        SITE_HTTP_PROTOCOL = "https"
+    uses_https = SITE_HTTP_PROTOCOL == "https"
 
     try:
         ping_search_index(sitemap_uses_https=uses_https)

@@ -1,9 +1,22 @@
+import logging
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from core.models import AppSetting
+from dashboards.utils import dashboard_embed_url
 
 
 def index(request):
-    return render(request, "index.html")
+    try:
+        HOMEPAGE_DASHBOARD_ID = int(
+            AppSetting.objects.get(slug="HOMEPAGE_DASHBOARD_ID").value
+        )
+    except AppSetting.DoesNotExist:
+        logging.error("Could not find homepage dashboard ID")
+        HOMEPAGE_DASHBOARD_ID = -1
+    dashboard_url = dashboard_embed_url(
+        HOMEPAGE_DASHBOARD_ID, titled=False, theme="night"
+    )
+    return render(request, "index.html", context={"dashboard_url": dashboard_url})
 
 
 def visuals(request):
