@@ -15,6 +15,7 @@ class Dashboard(models.Model):
     name = models.CharField(max_length=254)
     description = models.TextField(null=True)
     creator_id = models.IntegerField()
+    parameters = models.TextField(null=True)
     public_uuid = models.CharField(max_length=36, null=True)
     made_public_by_id = models.IntegerField(null=True)
     enable_embedding = models.BooleanField(default=False)
@@ -32,3 +33,12 @@ class Dashboard(models.Model):
     def get_absolute_url(self):
         return reverse("dashboards:embed", kwargs={"public_uuid": self.public_uuid})
     
+
+class Setting(models.Model):
+    # An unmanaged model to access the `setting` table in Metabase DB
+    key = models.CharField(primary_key=True, max_length=254)
+    value = models.TextField(blank=True)
+
+    class Meta:
+        managed = False  # Don't create or delete this table
+        db_table = "setting"
