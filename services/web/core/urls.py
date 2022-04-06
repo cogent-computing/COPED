@@ -17,8 +17,9 @@ from audioop import add
 import debug_toolbar
 from django.contrib import admin
 from django.urls import include, path
-from core import views
-from core.models import project
+
+# from core import views
+# from core.models import project
 from core.views import (
     action_view,
     address,
@@ -35,9 +36,14 @@ from core.views import (
     suggestion_view,
     user,
 )
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import ProjectSitemap
 from django_registration.backends.activation.views import RegistrationView
 
 from .forms import CustomUserForm
+
+app_name = "core"
+sitemaps = {"project": ProjectSitemap}
 
 ## Settings for admin
 
@@ -257,9 +263,15 @@ urlpatterns = [
     path("dashboards/", include("dashboards.urls", namespace="dashboards")),
     #
     #
-    ##################
-    ## LANDING PAGE ##
-    ##################
+    ##############################
+    ## LANDING PAGE AND SITEMAP ##
+    ##############################
     #
     path("", page_view.index, name="index"),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
 ]

@@ -106,6 +106,9 @@ class Project(models.Model):
     raw_data = models.ForeignKey(
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
 
     objects = (
         ProjectManager()

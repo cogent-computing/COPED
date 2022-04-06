@@ -80,7 +80,7 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
-    "django.contrib.sites",  # Dependency of Django-invitations app
+    "django.contrib.sites",  # Dependency of Django-invitations app and for making sitemaps
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
@@ -109,6 +109,7 @@ INSTALLED_APPS = [
     "crudevents.apps.CrudeventsConfig",  # Extend the easyaudit model to give related object histories.
     "messagethreads.apps.MessagethreadsConfig",  # Proxy the Pinax thread model to add a method
     "dashboards.apps.DashboardsConfig",  # Contains models to access the dashboards table in Metabase DB
+    "django.contrib.sitemaps",  # auto site map generation
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -183,7 +184,7 @@ DATABASES = {
         "PASSWORD": os.environ.get("METABASE_PASSWORD", "password"),
         "HOST": os.environ.get("METABASE_HOST", "localhost"),
         "PORT": os.environ.get("METABASE_PORT", "5432"),
-    }
+    },
 }
 DATABASE_ROUTERS = ["dashboards.db_routers.DashboardRouter"]
 
