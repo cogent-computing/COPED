@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "django.contrib.sitemaps",  # auto site map generation
     "django_select2",  # usable select and multi-select in forms
     "django_addanother",  # allow adding new foreign key or many to many relations on forms
     "bootstrap4",  # Nice formatting for forms etc.
@@ -109,7 +110,6 @@ INSTALLED_APPS = [
     "crudevents.apps.CrudeventsConfig",  # Extend the easyaudit model to give related object histories.
     "messagethreads.apps.MessagethreadsConfig",  # Proxy the Pinax thread model to add a method
     "dashboards.apps.DashboardsConfig",  # Contains models to access the dashboards table in Metabase DB
-    "django.contrib.sitemaps",  # auto site map generation
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -360,6 +360,7 @@ CELERY_IMPORTS = [
     "taggers.address_geotagger",
     "taggers.region_geotagger",
     "scrapers.celery_tasks",
+    "tasks.indexing",
 ]
 
 # recycle the pool worker process for every task

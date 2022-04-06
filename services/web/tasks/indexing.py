@@ -30,10 +30,14 @@ def ping_google_and_bing():
             sitemap_uses_https=uses_https,
             ping_url="http://www.bing.com/ping",
         )
-    except SitemapNotFound:
+    except SitemapNotFound as err:
         logging.error("Could not find sitemap to ping Google/Bing with")
-    except HTTPError:
+        raise err
+    except HTTPError as err:
         logging.error("HTTP error when pinging an index service")
+        raise err
+    celery_message = "Ping to Google and Bing succeeded"
+    return celery_message
 
 
 if __name__ == "__main__":
