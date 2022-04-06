@@ -29,7 +29,7 @@ from core.models import ProjectKeyword
 
 
 @shared_task(name="Automatic project keyword and key phrase tagger")
-def tag_projects_with_keywords(exclude_already_tagged=True, limit=-1):
+def tag_projects_with_keywords(exclude_already_tagged=True, limit=None):
     """Send project text to a trained keyword extraction model.
 
     Update project records by adding the suggested keywords and scores.
@@ -38,15 +38,16 @@ def tag_projects_with_keywords(exclude_already_tagged=True, limit=-1):
     projects = Project.objects.filter(is_locked=False)
     if exclude_already_tagged:
         projects = projects.filter(keywords__isnull=True)
+    limit = limit or projects.count()
 
     for project in projects[:limit]:
 
-        logging.log("Keyword tagging project %s", project.id)
+        logging.info("Keyword tagging project %s", project.id)
 
         results = []
         try:
             text = "\n\n".join([project.title, project.description, project.extra_text])
-            doc = textacy.make_spacy_doc(text, lang="en_core_web_md")
+            doc = textacy.make_spacy_doc(text, lang="en_core_web_lg")
             results = kt.textrank(
                 doc,
                 normalize="lemma",
@@ -56,10 +57,14 @@ def tag_projects_with_keywords(exclude_already_tagged=True, limit=-1):
                 position_bias=True,
             )
         except Exception as e:
-            logging.error("Request to tag project %s failed.", project.id)
+            logging.error("Request to keyword tag project %s failed.", project.id)
+            logging.debug(e)
             continue
 
         with transaction.atomic():
+            if exclude_already_tagged == False:
+                logging.info("Removing keywords for project %s", project.id)
+                ProjectKeyword.objects.filter(project=project).delete()
             for label, score in results:
                 keyword, _ = Keyword.objects.get_or_create(
                     text=label,
@@ -70,4 +75,4 @@ def tag_projects_with_keywords(exclude_already_tagged=True, limit=-1):
 
 
 if __name__ == "__main__":
-    tag_projects_with_keywords(exclude_already_tagged=True)
+    tag_projects_with_keywords(exclude_already_tagged=True, limit=10)

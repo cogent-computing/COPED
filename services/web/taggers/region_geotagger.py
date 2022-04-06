@@ -49,8 +49,8 @@ def tag_geo_points_with_dno_regions(exclude_already_tagged=True, limit=None):
                     geo_point.dno_id = dno_id
                     geo_point.dno_name = dno_name
                     geo_point.dno_long_name = dno_long_name
-                    geo_point.save()
+                    geo_point.save(update_fields=["dno_id", "dno_name", "dno_long_name"])
                     break
 
 if __name__ == "__main__":
-    tag_geo_points_with_dno_regions(exclude_already_tagged=False, limit=10)
+    tag_geo_points_with_dno_regions(exclude_already_tagged=True, limit=10)

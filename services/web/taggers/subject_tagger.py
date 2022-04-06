@@ -33,7 +33,7 @@ from core.models import ExternalLink
 from core.models import AppSetting
 
 @shared_task(name="Automatic project subject tagger")
-def tag_projects_with_subjects(exclude_already_tagged=True, limit=-1):
+def tag_projects_with_subjects(exclude_already_tagged=True, limit=None):
     """Send project descriptions to the subject suggestion model at Finto.
 
     Update project records by adding the suggested subjects and scores.
@@ -54,33 +54,37 @@ def tag_projects_with_subjects(exclude_already_tagged=True, limit=-1):
     projects = Project.objects.filter(is_locked=False)
     if exclude_already_tagged:
         projects = projects.filter(subjects__isnull=True)
+    limit = limit or projects.count()
 
     with requests.session() as connection:
         connection.headers.update(headers)
 
         for project in projects[:limit]:
 
-            logging.info("Tagging project %s", project.id)
+            logging.info("Subject tagging project %s", project.id)
 
             results = []
             try:
                 payload = {
                     "project_id": "yso-en",  # Finto English language subject classifier
                     "text": project.description + project.extra_text,
-                    "limit": 15,
+                    "limit": 20,
                 }
                 r = connection.post(api_url, data=payload, headers=headers, timeout=20)
                 results = json.loads(r.content)["results"]
             except requests.exceptions.RequestException as e:
-                logging.error("Requst to tag project %s failed", project.id)
+                logging.error("Requst to subject tag project %s failed", project.id)
                 continue
 
             with transaction.atomic():
+                if exclude_already_tagged == False:
+                    logging.info("Removing subjects for project %s", project.id)
+                    ProjectSubject.objects.filter(project=project).delete()
                 for r in results:
                     label, score, uri = r["label"], r["score"], r["uri"]
                     if score < SUBJECT_SCORE_THRESHOLD:
                         logging.debug(
-                            "Subject %s with score %s for project %s was below threshold %s",
+                            "Subject %s with score %s for project %s was below threshold %s. Skipping.",
                             label, score, project.id, SUBJECT_SCORE_THRESHOLD)
                         continue
                     link, _ = ExternalLink.objects.get_or_create(
@@ -100,4 +104,4 @@ def tag_projects_with_subjects(exclude_already_tagged=True, limit=-1):
 
 
 if __name__ == "__main__":
-    tag_projects_with_subjects(exclude_already_tagged=True)
+    tag_projects_with_subjects(exclude_already_tagged=False, limit=10)

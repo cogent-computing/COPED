@@ -106,7 +106,7 @@ def lat_lon_from_address_string(address_string):
 
 
 @shared_task(name="Automatic address geocoder")
-def tag_addresses_with_geo_data(exclude_already_tagged=True, limit=-1):
+def tag_addresses_with_geo_data(exclude_already_tagged=True, limit=None):
     """Send addresses to the geo-search API at Nominatim.
 
     Add the geotag to the DB if it does not already exist and point the input
@@ -119,6 +119,7 @@ def tag_addresses_with_geo_data(exclude_already_tagged=True, limit=-1):
     addresses_to_process = Address.objects.all()
     if exclude_already_tagged:
         addresses_to_process = addresses_to_process.filter(geo__isnull=True)
+    limit = limit or addresses_to_process.count()
 
     for address in addresses_to_process[:limit]:
         time.sleep(1)  # Go easy on the geocoding servers.
@@ -139,10 +140,15 @@ def tag_addresses_with_geo_data(exclude_already_tagged=True, limit=-1):
         logging.debug("Location: %s, %s", lat, lon)
 
         with transaction.atomic():
+            if exclude_already_tagged == False:
+                logging.info("Removing geo coding for address %s", address.id)
+                address.geo = None
+                address.save(update_fields=["geo"])
             geo_data_record, _ = GeoData.objects.get_or_create(lat=lat, lon=lon)
             address.geo = geo_data_record
             address.save(update_fields=["geo"])
+            logging.info("Saved new geo data for address %s", address.id)
 
 
 if __name__ == "__main__":
-    tag_addresses_with_geo_data(exclude_already_tagged=True, limit=200)
+    tag_addresses_with_geo_data(exclude_already_tagged=True, limit=10)
