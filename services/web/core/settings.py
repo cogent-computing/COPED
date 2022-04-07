@@ -157,6 +157,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "pinax.messages.context_processors.user_messages",
                 "core.context_processors.analytics_processor",
+                "core.context_processors.metabase_path_processor",
             ],
         },
     },

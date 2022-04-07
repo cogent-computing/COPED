@@ -1,3 +1,4 @@
+from django.apps import apps
 from .models import AppSetting
 
 
@@ -8,3 +9,12 @@ def analytics_processor(request):
     except AppSetting.DoesNotExist:
         GOOGLE_ANALYTICS_ID = ""
     return {"analytics_id": GOOGLE_ANALYTICS_ID}
+
+
+def metabase_path_processor(request):
+    # Add the correct Metabase path into the navigation menu (in 'base.html') to access the analytics
+    try:
+        METABASE_PATH = AppSetting.objects.get(slug="METABASE_PATH").value
+    except AppSetting.DoesNotExist:
+        METABASE_PATH = "/metabase"
+    return {"metabase_path": METABASE_PATH}
