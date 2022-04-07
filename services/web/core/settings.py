@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "django.contrib.sitemaps",  # auto site map generation
+    "maintenance_mode",  # https://github.com/fabiocaccamo/django-maintenance-mode
     "django_select2",  # usable select and multi-select in forms
     "django_addanother",  # allow adding new foreign key or many to many relations on forms
     "bootstrap4",  # Nice formatting for forms etc.
@@ -137,6 +138,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "core.middleware.metabase.metabase_cookie_middleware",
     "easyaudit.middleware.easyaudit.EasyAuditMiddleware",
+    "maintenance_mode.middleware.MaintenanceModeMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -366,3 +368,12 @@ CELERY_IMPORTS = [
 
 # recycle the pool worker process for every task
 # CELERYD_MAX_TASKS_PER_CHILD = 1
+
+
+# Maintenance mode
+# https://github.com/fabiocaccamo/django-maintenance-mode
+MAINTENANCE_MODE_IGNORE_ADMIN_SITE = True
+MAINTENANCE_MODE_IGNORE_SUPERUSER = True
+MAINTENANCE_MODE_REDIRECT_URL = None  # set a redirect URL if desired
+MAINTENANCE_MODE_RETRY_AFTER = 60 * 60 * 24  # 1 day
+MAINTENANCE_MODE_GET_TEMPLATE_CONTEXT = "core.maintenance_mode.get_context"

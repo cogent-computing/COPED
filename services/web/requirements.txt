@@ -24,6 +24,7 @@ django-celery-results==2.3.0
 gevent==21.12.0
 rules==3.3
 django-model-utils==4.2.0
+django-maintenance-mode==0.16.2
 
 # Geographic analysis and visualisation
 django-leaflet==0.28.2
