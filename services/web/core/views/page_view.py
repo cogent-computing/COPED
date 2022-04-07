@@ -10,12 +10,14 @@ def index(request):
         HOMEPAGE_DASHBOARD_ID = int(
             AppSetting.objects.get(slug="HOMEPAGE_DASHBOARD_ID").value
         )
+        logging.info("Dashboard for homepage is %s", HOMEPAGE_DASHBOARD_ID)
     except AppSetting.DoesNotExist:
         logging.error("Could not find homepage dashboard ID")
-        HOMEPAGE_DASHBOARD_ID = -1
+        return render(request, "index.html")
     dashboard_url = dashboard_embed_url(
         HOMEPAGE_DASHBOARD_ID, titled=False, theme="night"
     )
+    logging.debug(dashboard_url)
     return render(request, "index.html", context={"dashboard_url": dashboard_url})
 
 

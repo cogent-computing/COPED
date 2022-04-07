@@ -10,9 +10,11 @@ def dashboard_embed_url(dashboard_id, bordered=False, titled=True, theme=None):
     titled = "true" if titled else "false"
 
     logging.debug("dashboard_id", dashboard_id)
-    embedding_secret_key = get_object_or_404(Setting, key="embedding-secret-key").value
+    embedding_secret_key = (
+        get_object_or_404(Setting, key="embedding-secret-key").value or ""
+    )
     logging.debug("embedding_secret_key", embedding_secret_key)
-    metabase_site_url = get_object_or_404(Setting, key="site-url").value
+    metabase_site_url = get_object_or_404(Setting, key="site-url").value or ""
     logging.debug("metabase_site_url", metabase_site_url)
     payload = {
         "resource": {"dashboard": dashboard_id},
