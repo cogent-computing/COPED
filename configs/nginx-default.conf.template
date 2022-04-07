@@ -7,6 +7,18 @@ upstream meta {
 }
 
 server {
+    listen 81;
+
+    location / {
+        proxy_pass http://meta/;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_redirect off;
+
+    }
+}
+
+server {
 
     listen 80;
 
@@ -22,10 +34,17 @@ server {
     }
 
     location /metabase/ {
+
         proxy_pass http://meta/;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;
+        proxy_set_header Accept-Encoding "";
         proxy_redirect off;
+
+        sub_filter '<body>' '<body><div style="text-align:center;">Welcome to the CoPED Metabase analytics interface. <a href="/">Click here to return to the main site</a>.</div>';
+        sub_filter_once on;
+
+        
     }
 
     location /static/ {
