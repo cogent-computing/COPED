@@ -6,19 +6,15 @@ from dashboards.utils import dashboard_embed_url
 
 
 def index(request):
-    try:
-        HOMEPAGE_DASHBOARD_ID = int(
-            AppSetting.objects.get(slug="HOMEPAGE_DASHBOARD_ID").value
+    context = {}
+    setting = AppSetting.objects.filter(slug="HOMEPAGE_DASHBOARD_ID").first()
+    HOMEPAGE_DASHBOARD_ID = int(getattr(setting, "value", 0))
+    if HOMEPAGE_DASHBOARD_ID:
+        dashboard_url = dashboard_embed_url(
+            HOMEPAGE_DASHBOARD_ID, titled=False, theme="night"
         )
-        logging.info("Dashboard for homepage is %s", HOMEPAGE_DASHBOARD_ID)
-    except AppSetting.DoesNotExist:
-        logging.error("Could not find homepage dashboard ID")
-        return render(request, "index.html")
-    dashboard_url = dashboard_embed_url(
-        HOMEPAGE_DASHBOARD_ID, titled=False, theme="night"
-    )
-    logging.debug(dashboard_url)
-    return render(request, "index.html", context={"dashboard_url": dashboard_url})
+        context.update(dashboard_url=dashboard_url)
+    return render(request, "index.html", context=context)
 
 
 def visuals(request):
