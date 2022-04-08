@@ -24,3 +24,7 @@ See [OVERVIEW.md](./OVERVIEW.md) for a breakdown of the "microservice" component
 ##  Installation
 
 See [INSTALLATION.md](./INSTALLATION.md) if you wish to develop or deploy the platform.
+
+## License
+
+See [LICENSE.md](./LICENSE.md) for details of the CoPED license and those of its core components.
