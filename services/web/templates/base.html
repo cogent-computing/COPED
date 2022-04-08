@@ -101,10 +101,10 @@
                 <p class="dropdown-header">
                   <i class="fas fa-toolbox"></i> <b>Login Required</b>
                 </p>
-                <a class="dropdown-item {% if not user.is_authenticated %}disabled{% endif %}" href="{{metabase_path}}" target="analytics"><i class="fas fa-house-user"></i> Home </a>
-                <a class="dropdown-item {% if not user.is_authenticated %}disabled{% endif %}" href="{{metabase_path}}/collection/root" target="analytics"><i class="fas fa-table"></i> Personal Dashboards </a>
-                <a class="dropdown-item {% if not user.is_authenticated %}disabled{% endif %}" href="{{metabase_path}}/browse" target="analytics"><i class="fas fa-database"></i> Data Browser </a>
-                <a class="dropdown-item {% if not user.is_authenticated %}disabled{% endif %}" href="{{metabase_path}}/question/new" target="analytics"><i class="fas fa-chart-line"></i> Custom Analysis </a>
+                <a class="dropdown-item {% if not user.is_authenticated %}disabled{% endif %}" href="{{metabase_path}}"><i class="fas fa-house-user"></i> Home </a>
+                <a class="dropdown-item {% if not user.is_authenticated %}disabled{% endif %}" href="{{metabase_path}}/collection/root"><i class="fas fa-table"></i> Personal Dashboards </a>
+                <a class="dropdown-item {% if not user.is_authenticated %}disabled{% endif %}" href="{{metabase_path}}/browse"><i class="fas fa-database"></i> Data Browser </a>
+                <a class="dropdown-item {% if not user.is_authenticated %}disabled{% endif %}" href="{{metabase_path}}/question/new"><i class="fas fa-chart-line"></i> Custom Analysis </a>
                 <hr class="dropdown-divider" />
                 <a class="dropdown-item" href="{% url 'api-root' %}" target="_blank"><i class="fas fa-laptop-code"></i> RESTful API (JSON) </a>
               </div>
