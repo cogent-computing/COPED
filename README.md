@@ -16,14 +16,22 @@ COPED aims to provide diverse insights for various user groups, while being able
 As a platform, CoPED aims to be extensible. It is configured as a standard "Django" web application, and its analytics and visualisation component runs independently from the data management component.
 
 As CoPED reaches maturity and wide adoption, the product aims to allow individuals and institutions to contribute extensions and features to the product, as well as uploading, curating, and analysing existing data.
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for details of how you can help the project.
+
+## Code of Conduct
+
+See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) for our community engagement guidelines.
   
-## Application services overview
-
-See [OVERVIEW.md](./OVERVIEW.md) for a breakdown of the "microservice" components of the application. 
-
 ##  Installation
 
 See [INSTALLATION.md](./INSTALLATION.md) if you wish to develop or deploy the platform.
+
+## Application services overview
+
+See [SERVICES_OVERVIEW.md](./SERVICES_OVERVIEW.md) for a breakdown of the "microservice" components of the application. 
 
 ## License
 
