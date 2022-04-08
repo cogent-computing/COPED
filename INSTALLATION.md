@@ -66,6 +66,28 @@ As above, with the following changes.
 $ docker compose up -d -f docker-compose.yaml
 ```
 
-## Set up external dependencies
+## Maintenance mode
 
-> TODO: information about setting up CAPTCHA and transactional email settings.
+During updates/management that require downtime, the CoPED application can be put into maintenance mode by setting the flag in `maintenance_mode_state.txt` to 1. This file is in the `core` app of the Django project.
+
+Maintenance mode allows administrators to authenticate against the admin login at path `/admin`, which then allows access to the rest of the site while under maintenance.
+
+## External dependencies
+
+### Email
+
+#### Providers
+
+The application uses Django's `anymail` app so it can be hooked to any of the compatible email providers [listed here](https://anymail.dev/en/stable/esps/), with a few lines of code changes. Currently it uses [Mailjet](https://www.mailjet.com/) and sets the API keys in the `.env` file.
+
+#### SMTP
+
+Alternatively, Django's default email backend can be used with appropriate SMTP settings in `settings.py`.
+
+### Captcha
+
+To prevent bot registrations the application embeds an [hCaptcha](https://www.hcaptcha.com/) challenge in the registration form. A free hCaptcha account is needed to supply the API key, in the `.env` file, to make this work. 
+
+### Traffic Analysis
+
+The application embeds a Google Analytics script to record usage and engagement. A Google Analytics ID is needed to do this, which can be [created here](https://analytics.google.com/analytics) and must be set in the CoPED administration under `Core > Application Settings > Google Analytics ID`.
