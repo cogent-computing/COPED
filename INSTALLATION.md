@@ -41,6 +41,16 @@ $ docker compose exec web python /app/manage.py createsuperuser_for_coped --user
 
 You can now sign in as the superuser, administer the app, and access the Metabase analytics pages.
 
+### Populate the application settings
+
+A data fixture is provided to pre-populate the application settings for CoPED. Run the following command to use it.
+
+```
+$ python manage.py loaddata --app core --ignorenonexistent --format json fixtures/app_setting.json
+```
+
+After the data is loaded, adjust the values of the application settings using the admin interface.
+
 ### Alternatively: use example data
 
 To begin with some basic example data, including a superuser and projects, run the following commands.
