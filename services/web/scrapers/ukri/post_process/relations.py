@@ -14,14 +14,17 @@ from core.models.person import Person, PersonOrganisation
 from core.models.raw_data import RawData
 
 
-def populate(bot_name="ukri-projects-spider", limit=-1):
+def populate(bot_name="ukri-projects-spider", limit=None):
     """Parse resources with a UKRI raw data source to get their relations.
 
     Extract links from the associated raw data, and use these to link to other CoPED resources.
     NB: this function assumes that resources have already been populated from the raw data."""
 
-    projects = Project.objects.filter(raw_data__bot=bot_name, is_locked=False)[:limit]
-    persons = Person.objects.filter(raw_data__bot=bot_name, is_locked=False)[:limit]
+    projects = Project.objects.filter(raw_data__bot=bot_name, is_locked=False).all()
+    persons = Person.objects.filter(raw_data__bot=bot_name, is_locked=False).all()
+    if limit:
+        projects = projects[:limit]
+        persons = persons[:limit]
 
     with transaction.atomic():
         for project in projects:
@@ -120,10 +123,10 @@ def populate_resource_relations(ukri_record):
                     project=ukri_record,
                     raw_data=fund_record,
                     defaults={
-                        "amount":amount,
-                        "organisation":funder,
-                        "start_date":start,
-                        "end_date":end,
+                        "amount": amount,
+                        "organisation": funder,
+                        "start_date": start,
+                        "end_date": end,
                     },
                 )
 
@@ -135,6 +138,6 @@ def populate_resource_relations(ukri_record):
         ):
             logging.info(
                 "Searching DB for a related item for link %s but could not find one. Continuing.",
-                link
+                link,
             )
             continue
