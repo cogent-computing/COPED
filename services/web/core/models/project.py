@@ -109,7 +109,6 @@ class Project(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-
     objects = (
         ProjectManager()
     )  # Use a custom manager to enhance querysets with annotations
@@ -127,6 +126,17 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse("project-detail", kwargs={"pk": self.pk})
+
+    def delete(self):
+        # Override the delete by checking the raw data record and marking as do_not_populate
+        # so the record does not reappear later during automatic project creation.
+        # Note this method only gets called when doing one-by-one deletions, not bulk deletions.
+        # To handle bulk deletions, create a signal handler for the post_delete signal.
+        if self.raw_data:
+            raw_data = RawData.objects.get(id=self.raw_data.id)
+            raw_data.do_not_populate = True
+            raw_data.save()
+        return super().delete()
 
     class Meta:
         db_table = "coped_project"

@@ -1,3 +1,4 @@
+from django.urls import reverse
 from rules.contrib.views import PermissionRequiredMixin
 from django.core.paginator import Paginator
 from django.views import generic
@@ -55,6 +56,21 @@ class ProjectDetailView(generic.DetailView):
         context["subscribers"] = subscribers
 
         return context
+
+
+class ProjectDeleteView(
+    PermissionRequiredMixin,
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    generic.DeleteView,
+):
+    model = Project
+    template_name = "project_delete.html"
+    permission_required = "core.delete_project"
+    success_message = "Project deleted"
+
+    def get_success_url(self):
+        return reverse("project-list")
 
 
 class ProjectFundInline(InlineFormSetFactory):

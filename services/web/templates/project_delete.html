@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block nav_proj %}active{% endblock nav_proj %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/projects/">Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Project - {{ project.title }}</li>
+    </ol>
+</nav>
+
+<div class="container col-lg-6">
+    <div class="row">
+        <div class="col-md">
+            <h4>Delete Project</h4>
+            <p>Please confirm you wish to delete the following project.</p>
+            <p><strong>Title:</strong> <em>{{project.title}}</em></p>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {% comment %} {% bootstrap_form_errors form %} {% endcomment %}
+                {% comment %} {% bootstrap_form form %} {% endcomment %}
+                {% buttons %}
+                <button type="submit" value="Delete" class="btn btn-danger">{% trans 'Confirm' %}</button>
+                <a href="{{ project.get_absolute_url }}" class="btn btn-warning">{% trans 'Cancel' %}</a>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -171,6 +171,11 @@ urlpatterns = [
         name="project-update",
     ),
     path(
+        "projects/<int:pk>/delete/",
+        project.ProjectDeleteView.as_view(),
+        name="project-delete",
+    ),
+    path(
         "projects/<int:pk>/history/",
         project.ProjectHistoryView.as_view(),
         name="project-history",

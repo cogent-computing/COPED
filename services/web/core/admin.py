@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Permission
 from django.db.models.aggregates import Sum
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from pygments import highlight
 from pygments.lexers import JsonLexer
@@ -173,9 +174,19 @@ class ProjectAdmin(admin.ModelAdmin):
         "persons",
         "organisations",
     )
+
+    def raw_data(self, obj):
+        return mark_safe(
+            "<a href='{}'>{}</a>".format(
+                reverse("admin:auth_raw_data_change", args=(obj.raw_data.pk,)),
+                obj.raw_data.pk,
+            )
+        )
+
+    search_fields = ("title",)
+    search_help_text = "Search for project by title"
     list_display = ("title", "status", "start", "end", "is_locked")
-    # inlines = (ProjectOrganisationInline, ProjectPersonInline, ProjectFundInline)
-    list_filter = ("status", "start", "is_locked", ProjectTotalFundingFilter)
+    list_filter = ("status", "start", "end", "is_locked")
     fieldsets = (
         (
             None,
@@ -183,6 +194,7 @@ class ProjectAdmin(admin.ModelAdmin):
                 "fields": (
                     "owner",
                     "is_locked",
+                    "raw_data",
                     "coped_id",
                     "title",
                     "description",
@@ -204,7 +216,6 @@ class ProjectAdmin(admin.ModelAdmin):
             },
         ),
     )
-    inlines = (ProjectSubjectInline,)
 
 
 class OrganisationAdmin(admin.ModelAdmin):
