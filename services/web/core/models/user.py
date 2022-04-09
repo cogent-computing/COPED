@@ -25,6 +25,7 @@ from django.contrib.auth.models import UserManager
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from uuid import uuid4
+from metabase_user.models import MetabaseUser
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -72,6 +73,13 @@ class User(AbstractBaseUser, PermissionsMixin):
             from_email=from_email,
             recipient_list=[self.email],
         )
+
+    def delete(self):
+        # When a user deletes their account, the corresponding Metabase account must also be deleted.
+        metabase_id = self.metabase_id
+        metabase_user = MetabaseUser.objects.filter(id=metabase_id)
+        metabase_user.delete()
+        return super().delete()
 
     def __str__(self):
         return self.username

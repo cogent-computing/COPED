@@ -111,6 +111,7 @@ INSTALLED_APPS = [
     "crudevents.apps.CrudeventsConfig",  # Extend the easyaudit model to give related object histories.
     "messagethreads.apps.MessagethreadsConfig",  # Proxy the Pinax thread model to add a method
     "dashboards.apps.DashboardsConfig",  # Contains models to access the dashboards table in Metabase DB
+    "metabase_user.apps.MetabaseUserConfig",  # Models to access Metabase user records in its DB
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -189,7 +190,10 @@ DATABASES = {
         "PORT": os.environ.get("METABASE_PORT", "5432"),
     },
 }
-DATABASE_ROUTERS = ["dashboards.db_routers.DashboardRouter"]
+DATABASE_ROUTERS = [
+    "dashboards.db_routers.DashboardRouter",
+    "metabase_user.db_routers.MetabaseUserRouter",
+]
 
 CACHES = {
     "default": {

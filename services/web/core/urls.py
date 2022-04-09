@@ -249,6 +249,7 @@ urlpatterns = [
     ),
     path("profile/", user.UserDetailView.as_view(), name="user-detail"),
     path("profile/update/", user.UserUpdateView.as_view(), name="user-update"),
+    path("profile/delete/", user.UserDeleteView.as_view(), name="user-delete"),
     #
     #
     ###########################

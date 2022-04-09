@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block title %} Confirm Account Deletion {% endblock title %}
+
+
+{% block content %}
+
+<br><br>
+<div class="container col-lg-6">
+    <div class="row">
+        <div class="col">
+            <h4>Delete user account</h4>
+            <div class="alert alert-danger" role="alert">
+                Please confirm you wish to delete your user account.
+            </div>
+            <p><small>Note that this will remove any associations you have to projects, organisations, and persons. However it will not remove these records. You must delete any records you wish to remove directly, first.</small></p>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {% buttons %}
+                <button type="submit" value="Delete" class="btn btn-danger">{% trans 'Confirm account deletion' %}</button>
+                <a class="btn btn-warning" href="{% url 'user-detail' %}">{% trans 'Cancel' %}</a>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

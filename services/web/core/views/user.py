@@ -16,6 +16,19 @@ class UserDetailView(LoginRequiredMixin, generic.DetailView):
         return User.objects.get(pk=self.request.user.id)
 
 
+class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, generic.DeleteView):
+    model = User
+    template_name = "users/user_delete.html"
+    success_message = "Your account has been deleted"
+    context_object_name = "user_record"
+
+    def get_success_url(self):
+        return reverse("index")
+
+    def get_object(self, queryset=None):
+        return User.objects.get(pk=self.request.user.id)
+
+
 class UserUpdateView(SuccessMessageMixin, LoginRequiredMixin, generic.UpdateView):
 
     model = User
