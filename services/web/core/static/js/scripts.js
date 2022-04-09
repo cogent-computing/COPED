@@ -23,6 +23,24 @@
             }
         }
     });
+    $('.advancedAutoCompleteTitle').autoComplete({
+        resolver: 'custom',
+        minLength: 4,
+        events: {
+            search: function (qry, callback) {
+                // let's do a custom ajax call
+                $.ajax(
+                    `/projects/suggest/?q=${qry}`
+                ).done(function (res) {
+                    console.log(res)
+                    callback(res.results)
+                });
+            },
+            searchPost: function (resultsFromServer, origJQElement) {
+                return resultsFromServer.map(r => `"${r}"`).slice(0, 24);
+            }
+        }
+    });
     $('.advancedAutoCompleteOrganisation').autoComplete({
         resolver: 'custom',
         events: {

@@ -165,6 +165,7 @@ urlpatterns = [
     ## PROJECTS ##
     ##############
     #
+    path("projects/suggest/", suggestion_view.title_suggest, name="title-suggest"),
     path(
         "projects/<int:pk>/update/",
         project.ProjectUpdateView3.as_view(),

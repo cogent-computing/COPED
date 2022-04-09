@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 
-from ..models import Organisation, Person, Subject
+from ..models import Organisation, Person, Subject, Project
 
 
 def subject_suggest(request):
@@ -11,6 +11,20 @@ def subject_suggest(request):
     if len(term) > 2:
         subjects = Subject.objects.filter(label__icontains=term).values_list("label")
         results = list(set([s[0] for s in subjects]))
+
+    return JsonResponse({"results": results})
+
+
+def title_suggest(request):
+    """Provide a list of possible titles to search for. Useful for auto-complete."""
+
+    results = []
+    term = request.GET.get("q", "")
+    if len(term) > 2:
+        keywords = Project.objects.filter(title__icontains=term).values_list(
+            "title", flat=True
+        )
+        results = list(set(keywords))
 
     return JsonResponse({"results": results})
 
