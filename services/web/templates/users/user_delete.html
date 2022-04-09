@@ -15,7 +15,11 @@
             <div class="alert alert-danger" role="alert">
                 Please confirm you wish to delete your user account.
             </div>
-            <p><small>Note that this will remove any associations you have to projects, organisations, and persons. However it will not remove these records. You must delete any records you wish to remove directly, first.</small></p>
+            <p>
+                Note that this will remove any <em>associations</em> you have to projects, organisations, and persons.
+                However it will NOT remove the underlying records.
+                Please delete any other records you wish to be removed, before deleting your account.
+            </p>
             <form method="post" class="form">
                 {% csrf_token %}
                 {% buttons %}
