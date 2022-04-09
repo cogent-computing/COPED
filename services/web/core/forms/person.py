@@ -36,6 +36,7 @@ class PersonForm(forms.ModelForm):
             "last_name",
             "email",
             "orcid_id",
+            "linkedin_url",
             "external_links",
         ]
         labels = {
@@ -46,7 +47,8 @@ class PersonForm(forms.ModelForm):
         }
         help_texts = {
             "email": "Please only use public (e.g. work) email addresses.",
-            "orcid_id": "Find out more about the Open Researcher and Contributor ID (ORCiD) at <a target='_blank' href='https://info.orcid.org/what-is-orcid/'>http://info.orcid.org</a>.",
+            "orcid_id": "Find out more about the Open Researcher and Contributor ID (ORCiD) at <a target='_blank' href='https://info.orcid.org/what-is-orcid/'>https://info.orcid.org</a>.",
+            "linkedin_url": "Your LinkedIn public profile is usually at a URL beginning <a class='link'>https://www.linkedin.com/in/</a>.",
         }
         widgets = {
             "external_links": AddAnotherWidgetWrapper(

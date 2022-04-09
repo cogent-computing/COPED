@@ -47,7 +47,10 @@ class Person(models.Model):
     first_name = models.CharField(max_length=128)
     other_name = models.CharField(max_length=128, blank=True, null=True)
     last_name = models.CharField(max_length=128)
-    orcid_id = models.CharField(max_length=20, blank=True, null=True)
+    orcid_id = models.CharField(
+        max_length=20, blank=True, null=True, verbose_name="ORCID iD"
+    )
+    linkedin_url = models.URLField(verbose_name="LinkedIn URL", blank=True)
     raw_data = models.ForeignKey(
         RawData, null=True, blank=True, on_delete=models.SET_NULL
     )
@@ -57,6 +60,8 @@ class Person(models.Model):
         through="PersonOrganisation",
         through_fields=("person", "organisation"),
     )
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     @property
     def full_name(self):

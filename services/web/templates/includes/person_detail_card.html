@@ -11,8 +11,35 @@
         </div>
         <hr>
         <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Email</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ person.email }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">OrcidID</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ person.orcid_id }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">LinkedIn URL</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ person.linkedin_url }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
             <div class="col-sm-3">
-                <h6 class="mb-0">Projects</h6><br>
+                <h6 class="mb-0">Projects in CoPED</h6><br>
             </div>
             <div class="col-sm-9 text-secondary">
                 {% for project in person.project_set.all|dictsort:"status" %}
@@ -72,6 +99,24 @@
                     <li class="list-group-item"><a href="{{ link.link }}">{{ link.description }}  <i class="fas fa-external-link-alt"></i></a></li>
                 {% endfor %}
                 </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Added to CoPED</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ person.created }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">Last update</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ person.modified }}
             </div>
         </div>
     </div>
