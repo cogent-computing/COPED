@@ -1,0 +1,82 @@
+[
+{
+    "model": "core.appsetting",
+    "pk": 1,
+    "fields": {
+        "name": "Web crawler user agent",
+        "description": "The user agent header used when CoPED sends HTTP requests to external APIs. You may wish to add a contact email to this user agent string as a courtesy to external API providers.",
+        "slug": "COPED_USER_AGENT",
+        "value": "CoPEDbot/0.1 (Catalogue of Projects on Energy Data)"
+    }
+},
+{
+    "model": "core.appsetting",
+    "pk": 2,
+    "fields": {
+        "name": "Subject score threshold",
+        "description": "A threshold value for determining when a subject label can be applied to the project text \"with confidence\". This is subjective and liable to differ depending on how much project text is available. Adjust if there are too many false positives and/or too many false negatives.",
+        "slug": "SUBJECT_SCORE_THRESHOLD",
+        "value": "0.1"
+    }
+},
+{
+    "model": "core.appsetting",
+    "pk": 3,
+    "fields": {
+        "name": "Google Analytics ID",
+        "description": "ID code used by Google Analytics for website engagement tracking. Set one up at: https://analytics.google.com/analytics/",
+        "slug": "GOOGLE_ANALYTICS_ID",
+        "value": "G-CHANGE-ME"
+    }
+},
+{
+    "model": "core.appsetting",
+    "pk": 4,
+    "fields": {
+        "name": "Site HTTP protocol",
+        "description": "Is the site being served over HTTPS (production) or HTTP (development)? Change this setting accordingly to \"https\" or \"http\".",
+        "slug": "SITE_HTTP_PROTOCOL",
+        "value": "http"
+    }
+},
+{
+    "model": "core.appsetting",
+    "pk": 5,
+    "fields": {
+        "name": "Homepage dashboard ID",
+        "description": "Provide the ID of the Metabase dashboard to show on the main landing page. This is the numerical part of the URL when editing the dashboard in the Metabase UI.",
+        "slug": "HOMEPAGE_DASHBOARD_ID",
+        "value": "10"
+    }
+},
+{
+    "model": "core.appsetting",
+    "pk": 6,
+    "fields": {
+        "name": "Metabase subsite path",
+        "description": "The path under which the Metabase UI will be accessible to users. This should be set based on the Nginx HTTP server configuration.",
+        "slug": "METABASE_PATH",
+        "value": "/metabase"
+    }
+},
+{
+    "model": "core.appsetting",
+    "pk": 7,
+    "fields": {
+        "name": "Maintenance mode message",
+        "description": "A text or html string that will be shown on the maintenance screen when site maintenance mode is turned on.",
+        "slug": "MAINTENANCE_MODE_MESSAGE",
+        "value": "CoPED is currently under construction.<br>Please check back soon."
+    }
+},
+{
+    "model": "core.appsetting",
+    "pk": 8,
+    "fields": {
+        "name": "Metabase embedding host",
+        "description": "The hostname:port combination that can be used to embed dashboards from the Metabase server. This should be set based on the domain hosting the site, and the port set up for Metabase in the Nginx HTTP server configuration.",
+        "slug": "METABASE_EMBEDDING_HOST",
+        "value": "http://localhost:81"
+    }
+}
+]
