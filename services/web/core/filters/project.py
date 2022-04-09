@@ -1,9 +1,28 @@
 import django_filters
 from django import forms
+from django.db.models import Max, Min
 from elasticsearch_dsl import Q
 from core.models import Project
 from core.documents import ProjectDocument
 from elasticsearch_dsl.query import MoreLikeThis
+
+
+def get_start_year_choices():
+    years = Project.objects.values_list("filter_start_date", flat=True).distinct()
+    years = {year.year for year in years if year is not None}
+    return list(zip(years, years))
+
+
+def get_end_year_choices():
+    years = Project.objects.values_list("filter_end_date", flat=True).distinct()
+    years = {year.year for year in years if year is not None}
+    return list(zip(years, years))
+
+
+def get_status_choices():
+    statuses = Project.objects.values_list("status", flat=True).distinct()
+    statuses = {status for status in statuses if status}
+    return list(zip(statuses, statuses))
 
 
 class ProjectFilter(django_filters.FilterSet):
@@ -11,19 +30,22 @@ class ProjectFilter(django_filters.FilterSet):
     YEAR_RANGE = range(2000, 2030)
     YEAR_CHOICES = list(zip(YEAR_RANGE, YEAR_RANGE))
 
+    START_YEAR_CHOICES = get_start_year_choices()
+    END_YEAR_CHOICES = get_end_year_choices()
+
     status = django_filters.ChoiceFilter(
-        choices=(("Active", "Active"), ("Closed", "Closed")),
+        choices=get_status_choices(),
         widget=forms.Select(attrs={"class": "form-control"}),
     )
     start_year = django_filters.MultipleChoiceFilter(
-        choices=YEAR_CHOICES,
+        choices=START_YEAR_CHOICES,
         field_name="filter_start_date",
         lookup_expr="year",
         label="Start Year(s)",
         widget=forms.SelectMultiple(attrs={"class": "form-control"}),
     )
     end_year = django_filters.MultipleChoiceFilter(
-        choices=YEAR_CHOICES,
+        choices=END_YEAR_CHOICES,
         field_name="filter_end_date",
         lookup_expr="year",
         label="End Year(s)",
