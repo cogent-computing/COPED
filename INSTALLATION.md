@@ -46,7 +46,7 @@ You can now sign in as the superuser, administer the app, and access the Metabas
 A data fixture is provided to pre-populate the application settings for CoPED. Run the following command to use it.
 
 ```
-$ python manage.py loaddata --app core --ignorenonexistent --format json fixtures/app_setting.json
+$ python manage.py loaddata --app core --ignorenonexistent --format json core/fixtures/app_setting.json
 ```
 
 After the data is loaded, adjust the values of the application settings using the admin interface.
