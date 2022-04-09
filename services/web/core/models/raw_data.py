@@ -24,6 +24,10 @@ class RawData(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    do_not_populate = models.BooleanField(
+        default=False,
+        help_text="Set this field if raw data should not appear in CoPED catalogue (e.g. non-energy project).",
+    )
 
     class Meta:
         db_table = "coped_raw_data"
