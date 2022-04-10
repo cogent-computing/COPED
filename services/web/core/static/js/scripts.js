@@ -78,7 +78,7 @@ $(function () {
 
 
 $(document).ready(function () {
-    $('#sortTable').DataTable({
+    $('.sortTable').DataTable({
         "order": [[1, "desc"]]
     });
 });

@@ -8,11 +8,14 @@
 <div class="container col-lg-6">
     <div class="row">
         <div class="col">
-            <h4>Favourites</h4>
+            <h2>Favourites</h2>
+
             <p><small>
                 <em>Your previous login was on: {{previous_login|default:"(this is your first login)"}}</em>
             </small></p>
-            <table class="table" id="sortTable">
+            <br><br>
+            <h4>Projects</h4>
+            <table class="table sortTable">
                 <thead>
                     <tr>
                         <th scope="col">Title</th>
@@ -20,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for object in object_list %}
+                {% for object in project_favs %}
                     <tr>
                         <td>
                             <a href="{{object.get_absolute_url}}">{{object.title}}</a>
@@ -36,6 +39,34 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <br><br>
+            <h4>People</h4>
+            <table class="table sortTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Last Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for object in person_favs %}
+                    <tr>
+                        <td>
+                            <a href="{{object.get_absolute_url}}">{{object.full_name}}</a>
+                        </td>
+                        <td>
+                            {{object.modified|date:'Y-m-d H:i'|default:"(None)"}}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>No favourites.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+
         </div>
     </div>
 </div>

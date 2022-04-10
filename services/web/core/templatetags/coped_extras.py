@@ -9,4 +9,5 @@ def favourite_count(user):
         return None
     else:
         count = user.projectsubscription_set.count()
+        count += user.personsubscription_set.count()
         return count
