@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block title %} Resend activation {% endblock title %}
+
+{% block content %}
+<div class="container col-lg-6">
+  <br>
+  <h4>Resend account activation email</h5>
+  <p>Please provide your email address to activate. If it is recognised you will recieve a new activation email.</p>
+  <form method="post" action="." class="form">
+    {% csrf_token %}
+    {% bootstrap_form_errors form %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+    {% endbuttons %}
+  </form>
+</div>
+{% endblock %}

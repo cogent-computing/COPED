@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from audioop import add
 import debug_toolbar
 from django.contrib import admin
 from django.urls import include, path
@@ -65,6 +64,11 @@ urlpatterns = [
         "accounts/register/",
         RegistrationView.as_view(form_class=CustomUserForm),
         name="django_registration_register",
+    ),
+    path(
+        "accounts/activate/resend/",
+        user.UserResendActivationEmailView.as_view(),
+        name="resend-activation-email",
     ),
     path("accounts/", include("django_registration.backends.activation.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
