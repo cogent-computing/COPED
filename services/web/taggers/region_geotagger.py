@@ -15,55 +15,75 @@ from core.models import GeoData
 
 
 @shared_task(name="Automatic DNO region tagger")
-def tag_geo_points_with_dno_regions(exclude_already_tagged=True, limit=None):
+def tag_geo_points_with_regions(limit=None):
+
+    logging.info("Tagging points with region ids")
 
     geo_points = GeoData.objects.all()
-    if exclude_already_tagged:
-        geo_points = geo_points.exclude(dno_id__isnull=False)
     limit = limit or geo_points.count()
 
-    logging.info("Tagging points with DNO region ids")
+    # Set up mappings from model field names to GEOJSON properties.
+    # Top-level keys are the file names of the corresponding data.
+    geojson_mappings = {
+        "Local_Authority_Districts_(December_2021)_UK_BUC.geojson": {
+            "lad_id": "OBJECTID",
+            "lad_code": "LAD21CD",
+            "lad_name": "LAD21NM",
+        },
+        "dno_license_areas_20200506.polar.geojson": {
+            "dno_id": "ID",
+            "dno_name": "Name",
+            "dno_long_name": "LongName",
+        },
+        "Countries_(December_2021)_UK_BUC.geojson": {
+            "ctry_id": "OBJECTID",
+            "ctry_code": "CTRY21CD",
+            "ctry_name": "CTRY21NM",
+        },
+        "Counties_and_Unitary_Authorities_(December_2021)_UK_BUC.geojson": {
+            "ctyua_id": "OBJECTID",
+            "ctyua_code": "CTYUA21CD",
+            "ctyua_name": "CTYUA21NM",
+        },
+    }
+
     dirname = os.path.dirname(__file__)
-    geojson_filename = os.path.join(
-        dirname, "geojson/dno_license_areas_20200506.polar.geojson"
-    )
-    with fiona.open(geojson_filename) as fiona_collection:
 
-        for geo_point in geo_points[:limit]:
-            logging.debug("point %s", geo_point)
+    for geojson_filename, geojson_field_mapping in geojson_mappings.items():
 
-            lat, lon = geo_point.lat, geo_point.lon
-            query_point = shapely.geometry.Point(lon, lat)
-            logging.debug("query point is %s", query_point)
+        geojson_file_path = os.path.join(dirname, "geojson", geojson_filename)
 
-            for shapefile_record in iter(fiona_collection):
-                record_type, record_id, record_properties, record_geometry = itemgetter(
-                    "type", "id", "properties", "geometry"
-                )(shapefile_record)
+        with fiona.open(geojson_file_path) as fiona_collection:
 
-                shape = shapely.geometry.shape(record_geometry)
+            for geo_point in geo_points[:limit]:
+                logging.debug("point %s, filename %s", geo_point, geojson_filename)
 
-                if shape.contains(query_point):
-                    dno_id = record_properties.get("ID")
-                    dno_name = record_properties.get("Name")
-                    dno_long_name = record_properties.get("LongName")
+                lat, lon = geo_point.lat, geo_point.lon
+                query_point = shapely.geometry.Point(lon, lat)
 
-                    logging.info(
-                        "DNO %s contains test point %s (%s, %s)",
-                        dno_id,
-                        geo_point.id,
-                        lat,
-                        lon,
-                    )
+                for shapefile_record in iter(fiona_collection):
 
-                    geo_point.dno_id = dno_id
-                    geo_point.dno_name = dno_name
-                    geo_point.dno_long_name = dno_long_name
-                    geo_point.save(
-                        update_fields=["dno_id", "dno_name", "dno_long_name"]
-                    )
-                    break
+                    record_properties, record_geometry = itemgetter(
+                        "properties", "geometry"
+                    )(shapefile_record)
+
+                    shape = shapely.geometry.shape(record_geometry)
+
+                    if shape.contains(query_point):
+
+                        for (
+                            field_name,
+                            json_property_name,
+                        ) in geojson_field_mapping.items():
+                            setattr(
+                                geo_point,
+                                field_name,
+                                record_properties.get(json_property_name),
+                            )
+
+                        geo_point.save(update_fields=list(geojson_field_mapping.keys()))
+                        break
 
 
 if __name__ == "__main__":
-    tag_geo_points_with_dno_regions(exclude_already_tagged=True, limit=10)
+    tag_geo_points_with_regions(limit=10)
