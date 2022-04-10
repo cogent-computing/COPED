@@ -21,11 +21,11 @@ python manage.py createcachetable
 echo "Cache table created"
 
 echo "Starting celery worker daemon..."
-celery --app core worker --task-events --loglevel ${LOG_LEVEL:-INFO} --pool=threads --logfile /var/log/coped/celery_worker.log --detach
+celery --app core worker --task-events --loglevel ${LOGLEVEL:-INFO} --pool=threads --logfile /var/log/coped/celery_worker.log --detach
 echo "Celery worker daemon started. Logs will go to /var/log/coped/celery_worker.log"
 
 echo "Starting celery beat/scheduler daemon..."
-celery --app core beat --loglevel ${LOG_LEVEL:-INFO} --scheduler django_celery_beat.schedulers:DatabaseScheduler --logfile /var/log/coped/celery_beat.log --detach
+celery --app core beat --loglevel ${LOGLEVEL:-INFO} --scheduler django_celery_beat.schedulers:DatabaseScheduler --logfile /var/log/coped/celery_beat.log --detach
 echo "Celery beat/scheduler daemon started. Logs will go to /var/log/coped/celery_beat.log"
 
 exec "$@"

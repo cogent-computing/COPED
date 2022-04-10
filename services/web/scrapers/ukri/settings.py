@@ -39,7 +39,7 @@ SPIDER_MODULES = ["ukri.spiders"]
 NEWSPIDER_MODULE = "ukri.spiders"
 
 # LOG_ENABLED = True
-# LOG_LEVEL = "INFO"
+# LOGLEVEL = "INFO"
 
 
 # Crawl responsibly by identifying the app via the user-agent

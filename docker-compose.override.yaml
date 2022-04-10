@@ -8,7 +8,7 @@ services:
     environment:
       DEBUG: 1
       TESTING: 1
-      LOG_LEVEL: DEBUG
+      LOGLEVEL: DEBUG
       SELENIUM_HOST: ${DOCKER_CONTAINER_NAME_PREFIX:-coped}_selenium
       SELENIUM_PORT: 4444
     command: python manage.py runserver_plus 0.0.0.0:8000

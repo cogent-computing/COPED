@@ -23,7 +23,7 @@ def run_crawler(*args, **kwargs):
     os.environ["SCRAPY_SETTINGS_MODULE"] = "ukri.settings"
     settings = get_project_settings()
     settings.update(kwargs)
-    settings["loglevel"] = os.environ.get("LOG_LEVEL", "WARNING")
+    settings["loglevel"] = os.environ.get("LOGLEVEL", "WARNING")
     logging.debug("CRAWLER SETTINGS: %s", settings.copy_to_dict())
     process = CrawlerProcess(settings)
     process.crawl(ProjectsSpider)
