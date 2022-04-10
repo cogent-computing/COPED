@@ -12,7 +12,7 @@ from .external_link import ExternalLink
 from .keyword import Keyword
 from .user import User
 from .organisation import Organisation
-from .person import Person, PersonOrganisation
+from .person import Person, PersonOrganisation, PersonSubscription
 from .metabase_session import MetabaseSession
 
 # from .crud_event import CopedCRUDEvent

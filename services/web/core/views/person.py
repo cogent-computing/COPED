@@ -1,5 +1,7 @@
+from django.urls import reverse
 from rules.contrib.views import PermissionRequiredMixin
 from django.views import generic
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import inlineformset_factory
@@ -11,7 +13,7 @@ from extra_views import UpdateWithInlinesView
 from extra_views import InlineFormSetFactory
 
 from .filter_view import FilteredListView
-from ..models import Person, PersonOrganisation
+from ..models import Person, PersonOrganisation, PersonSubscription
 from ..forms import PersonOrganisationForm, PersonForm
 from ..filters import PersonFilter
 
@@ -68,9 +70,34 @@ class PersonUpdateView(
     success_message = "Person updated."
 
 
+class PersonDeleteView(
+    PermissionRequiredMixin,
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    generic.DeleteView,
+):
+    model = Person
+    template_name = "person_delete.html"
+    permission_required = "core.delete_person"
+    success_message = "Person deleted"
+
+    def get_success_url(self):
+        return reverse("person-list")
+
+
 class PersonDetailView(generic.DetailView):
     model = Person
     template_name = "person_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        subscriber_ids = PersonSubscription.objects.filter(
+            person=self.get_object()
+        ).values_list("user_id", flat=True)
+        subscribers = get_user_model().objects.filter(id__in=subscriber_ids)
+        context["subscribers"] = subscribers
+
+        return context
 
 
 class PersonListView(FilteredListView):

@@ -19,7 +19,46 @@
 <div class="container col-lg-8">
     <div class="row">
         <div class="col-md">
-            <h4>{{ person.full_name }} <a href="{% url 'person-update' pk=person.id %}" class="badge badge-pill badge-success">Update +</a></h4>
+            <h4>
+                {{ person.full_name }}
+            </h4>
+            {% if user.is_authenticated and person in user.person_set.all or user.is_superuser %}
+            <a href="{% url 'person-update' pk=person.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Edit this person.">
+                <i class="fas fa-edit"></i>
+                Update
+            </a>
+            <a href="{% url 'person-delete' pk=person.id %}" class="badge badge-pill badge-danger" data-toggle="tooltip" title="Delete this person.">
+                <i class="fas fa-trash"></i>
+                Delete
+            </a>
+            {% else %}
+
+                {% if user.is_authenticated and person.owner %}
+                <a href="{% url 'person-contact-owner' pk=person.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Send a message to the owner of this record.">
+                    <i class="fas fa-envelope"></i>
+                    Contact Owner
+                </a>
+                {% else %}
+                <a href="{% url 'person-claim-ownership' pk=person.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Claim this record so you can manage it.">
+                    <i class="fas fa-user-edit"></i>
+                    Claim Ownership
+                </a>
+                {% endif %}
+                <a href="{% url 'person-request-data-change' pk=person.id %}" class="badge badge-pill badge-warning" data-toggle="tooltip" title="Let us know if something needs to be updated.">
+                    <i class="fas fa-edit"></i>
+                    Request Data Change
+                </a>
+            
+            {% endif %}
+            {% if user not in subscribers %}
+            <a href="{% url 'person-favourite' pk=person.id %}" class="badge badge-pill badge-light" data-toggle="tooltip" title="Add this person to your list of favourites.">
+                <i class="fas fa-star"></i> Add Favourite
+            </a>
+            {% else %}
+            <a href="{% url 'person-unfavourite' pk=person.id %}" class="badge badge-pill badge-info" data-toggle="tooltip" title="Remove this person from your list of favourites.">
+                <i class="fas fa-star"></i> Remove Favourite
+            </a>
+            {% endif %}
         </div>
     </div>
     <div class="row">

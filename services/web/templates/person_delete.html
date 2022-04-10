@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block nav_ppl%}active{% endblock %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'person-list' %}">People</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ person.full_name }}</li>
+    </ol>
+</nav>
+
+<div class="container col-lg-6">
+    <div class="row">
+        <div class="col-md">
+            <h4>Delete Person</h4>
+            <p>Please confirm you wish to delete the following person.</p>
+            <p><strong>Name:</strong> <em>{{person.full_name}}</em></p>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {% buttons %}
+                <button type="submit" value="Delete" class="btn btn-danger">{% trans 'Confirm' %}</button>
+                <a href="{{ person.get_absolute_url }}" class="btn btn-warning">{% trans 'Cancel' %}</a>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

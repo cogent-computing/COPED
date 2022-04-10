@@ -8,8 +8,8 @@
 
 <nav aria-label="breadcrumb" class="main-breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="/projects/">Projects</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'project-list' %}">Projects</a></li>
         <li class="breadcrumb-item active" aria-current="page">Project - {{ project.title }}</li>
     </ol>
 </nav>

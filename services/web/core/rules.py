@@ -63,3 +63,5 @@ rules.add_perm("core.change_organisation", is_owner)
 rules.add_perm("core.change_person", is_owner)
 
 rules.add_perm("core.delete_project", is_owner)
+rules.add_perm("core.delete_organisation", is_owner)
+rules.add_perm("core.delete_person", is_owner)

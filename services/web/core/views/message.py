@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from ..models import Project
+from ..models import Project, Person, Organisation
 
 
 from pinax.messages.views import MessageCreateView
@@ -31,6 +31,32 @@ class ProjectContactOwnerView(LoginRequiredMixin, MessageCreateView):
             f"Project CoPED ID: {coped_id}\n"
             f"Project ID: {id_}\n"
             f"Project URL: {url}\n\n"
+            "Your messaage:\n>>>\n\n"
+            "Your name and contact details (optional):\n>>>\n\n"
+        )
+        return {"to_user": user_id, "subject": subject, "content": content}
+
+
+class PersonContactOwnerView(LoginRequiredMixin, MessageCreateView):
+    def get_initial(self):
+        person_id = self.kwargs.get("pk")
+        person = Person.objects.get(pk=person_id)
+        user_id = person.owner.id
+
+        full_name = person.full_name
+        coped_id = person.coped_id
+        id_ = person.id
+        proto = "https://" if self.request.is_secure() else "http://"
+        host = self.request.get_host()
+        path = person.get_absolute_url()
+        url = proto + host + path
+
+        subject = f"Message regarding person: '{full_name}'"
+        content = (
+            f"Person: {full_name}\n"
+            f"Person CoPED ID: {coped_id}\n"
+            f"Person ID: {id_}\n"
+            f"Person URL: {url}\n\n"
             "Your messaage:\n>>>\n\n"
             "Your name and contact details (optional):\n>>>\n\n"
         )
@@ -93,6 +119,36 @@ class ProjectRequestDataChangeView(LoginRequiredMixin, MessageCreateView):
         return {"to_user": user_id, "subject": subject, "content": content}
 
 
+class PersonRequestDataChangeView(LoginRequiredMixin, MessageCreateView):
+    def get_initial(self):
+        person_id = self.kwargs.get("pk")
+        person = Person.objects.get(pk=person_id)
+        subject = f"Person data change request"
+        if person.owner:
+            user_id = person.owner.id
+        else:
+            user_id = 1  # admin
+
+        full_name = person.full_name
+        coped_id = person.coped_id
+        id_ = person.id
+        proto = "https://" if self.request.is_secure() else "http://"
+        host = self.request.get_host()
+        path = person.get_absolute_url()
+        url = proto + host + path
+
+        content = (
+            f"Person: {full_name}\n"
+            f"Person CoPED ID: {coped_id}\n"
+            f"Person ID: {id_}\n"
+            f"Person URL: {url}\n\n"
+            "What needs to be changed?\n>>>\n\n"
+            "What is your involvement with the person?\n>>>\n\n"
+            "Your name and contact details (optional):\n>>>\n\n"
+        )
+        return {"to_user": user_id, "subject": subject, "content": content}
+
+
 class ProjectClaimOwnershipView(LoginRequiredMixin, MessageCreateView):
     def get_initial(self):
         user_id = 1
@@ -114,6 +170,32 @@ class ProjectClaimOwnershipView(LoginRequiredMixin, MessageCreateView):
             f"Project ID: {id_}\n"
             f"Project URL: {url}\n\n"
             "What is your involvement with the project?\n>>>\n\n"
+            "Your name and contact details (optional):\n>>>\n\n"
+        )
+        return {"to_user": user_id, "subject": subject, "content": content}
+
+
+class PersonClaimOwnershipView(LoginRequiredMixin, MessageCreateView):
+    def get_initial(self):
+        user_id = 1
+        person_id = self.kwargs.get("pk")
+        person = Person.objects.get(pk=person_id)
+        subject = f"Person record ownership request"
+
+        full_name = person.full_name
+        coped_id = person.coped_id
+        id_ = person.id
+        proto = "https://" if self.request.is_secure() else "http://"
+        host = self.request.get_host()
+        path = person.get_absolute_url()
+        url = proto + host + path
+
+        content = (
+            f"Person: {full_name}\n"
+            f"Person CoPED ID: {coped_id}\n"
+            f"Person ID: {id_}\n"
+            f"Person URL: {url}\n\n"
+            "What is your involvement with the person?\n>>>\n\n"
             "Your name and contact details (optional):\n>>>\n\n"
         )
         return {"to_user": user_id, "subject": subject, "content": content}

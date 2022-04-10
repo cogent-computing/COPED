@@ -132,6 +132,36 @@ urlpatterns = [
         person.PersonUpdateView.as_view(),
         name="person-update",
     ),
+    path(
+        "people/<int:pk>/delete/",
+        person.PersonDeleteView.as_view(),
+        name="person-delete",
+    ),
+    path(
+        "people/<int:pk>/request-data-change/",
+        message.PersonRequestDataChangeView.as_view(),
+        name="person-request-data-change",
+    ),
+    path(
+        "people/<int:pk>/claim-ownership/",
+        message.PersonClaimOwnershipView.as_view(),
+        name="person-claim-ownership",
+    ),
+    path(
+        "people/<int:pk>/contact-owner/",
+        message.PersonContactOwnerView.as_view(),
+        name="person-contact-owner",
+    ),
+    path(
+        "people/<int:pk>/favourite/",
+        action_view.favourite_person,
+        name="person-favourite",
+    ),
+    path(
+        "people/<int:pk>/unsubscribe/",
+        action_view.unfavourite_person,
+        name="person-unfavourite",
+    ),
     #
     #
     ###################
