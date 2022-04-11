@@ -133,17 +133,13 @@ def tag_addresses_with_geo_data(exclude_already_tagged=True, limit=None):
         if latlon is None:
             latlon = lat_lon_from_address_string(f"{address}")
 
-        if latlon is None:
+        if latlon is None or latlon[0] is None or latlon[1] is None:
             latlon = 0.0, 0.0  # Set a default to show it's been processed
 
         lat, lon = latlon
         logging.debug("Location: %s, %s", lat, lon)
 
         with transaction.atomic():
-            if exclude_already_tagged == False:
-                logging.info("Removing geo coding for address %s", address.id)
-                address.geo = None
-                address.save(update_fields=["geo"])
             geo_data_record, _ = GeoData.objects.get_or_create(lat=lat, lon=lon)
             address.geo = geo_data_record
             address.save(update_fields=["geo"])
