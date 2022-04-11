@@ -14,7 +14,7 @@ class Subject(models.Model):
 
     coped_id = models.UUIDField(default=uuid4, editable=False, verbose_name="CoPED ID")
     label = models.CharField(
-        max_length=64, help_text="Short description of the subject."
+        max_length=128, help_text="Short description of the subject."
     )
     external_link = models.ForeignKey(
         ExternalLink,
