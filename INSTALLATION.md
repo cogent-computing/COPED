@@ -70,6 +70,7 @@ Now log in with the administrator account provided (username: "copedadmin", emai
 As above, with the following changes.
 
 * At Step 2. The settings in `.env` should be updated to include any production values and credentials, and file permissions should be restricted.
+  * IMPORTANT: when configuring Metabase through its Admin UI, the database password for CoPED must correspond to the password set in `.env`
 * At Step 3. When spinning up the app use the explicit `-f` file option, as follows, to prevent use of the Docker Compose overrides.
 
 ```
