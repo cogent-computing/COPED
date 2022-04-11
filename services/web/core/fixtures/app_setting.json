@@ -36,7 +36,7 @@
             "name": "Site HTTP protocol",
             "description": "Is the site being served over HTTPS (production) or HTTP (development)? Change this setting accordingly to \"https\" or \"http\".",
             "slug": "SITE_HTTP_PROTOCOL",
-            "value": "http"
+            "value": "https"
         }
     },
     {
