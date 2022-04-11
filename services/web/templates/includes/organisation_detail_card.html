@@ -9,7 +9,15 @@
                 {{ organisation.name }}
             </div>
         </div>
-        {% if organisation.about.strip %}
+        <hr>
+        <div class="row">
+            <div class="col-sm-3 text-nowrap">
+                <h6 class="mb-0">CoPED ID</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ organisation.coped_id }}
+            </div>
+        </div>
         <hr>
         <div class="row">
             <div class="col-sm-3 text-nowrap">
@@ -19,11 +27,10 @@
                 {{ organisation.about|linebreaks }}
             </div>
         </div>
-        {% endif %}
         <hr>
         <div class="row">
             <div class="col-sm-3">
-                <h6 class="mb-0">Projects</h6><br>
+                <h6 class="mb-0">Projects in CoPED</h6><br>
             </div>
             <div class="col-sm-9 text-secondary">
                 {% for project in organisation.project_set.all|dictsort:"status" %}
@@ -62,7 +69,7 @@
         <hr>
         <div class="row">
             <div class="col-sm-3 text-nowrap">
-                <h6 class="mb-0">People</h6>
+                <h6 class="mb-0">People in CoPED</h6>
             </div>
             <div class="col-sm-9">
                 <ul class="list-group">
@@ -97,9 +104,6 @@
                             {% if address.postcode and address.postcode != "Unknown" %}{{ address.postcode }}<br>{% endif %}
                             {% if address.country and address.country != "Unknown" %}{{ address.country }}<br>{% endif %}
                         </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="" class="card-link">Map View</a>
                     </div>
                 </div>
                 <br>
