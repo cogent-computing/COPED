@@ -17,10 +17,6 @@ def dashboard_embed_url(dashboard_id, bordered=False, titled=True, theme=None):
     embedding_secret_key = getattr(setting, "value", "")
     logging.info("embedding_secret_key %s", embedding_secret_key)
 
-    setting = AppSetting.objects.filter(slug="METABASE_EMBEDDING_HOST").first()
-    metabase_embedding_host = getattr(setting, "value", "coped.coventry.ac.uk:81")
-    logging.info("metabase_site_url %s", metabase_embedding_host)
-
     payload = {
         "resource": {"dashboard": dashboard_id},
         "params": {},
@@ -28,7 +24,7 @@ def dashboard_embed_url(dashboard_id, bordered=False, titled=True, theme=None):
     }
     token = jwt.encode(payload, embedding_secret_key, algorithm="HS256")
 
-    embed_url = f"{metabase_embedding_host}/embed/dashboard/{token}#bordered={bordered}&titled={titled}&theme={theme}"
+    embed_url = f"/metabase/embed/dashboard/{token}#bordered={bordered}&titled={titled}&theme={theme}"
 
     logging.info("embed_url %s", embed_url)
 
