@@ -1,4 +1,4 @@
-contact: colin.stephen@coventry.ac.uk
+> [How to contact the CoPED team.](https://github.com/cogent-computing/COPED/discussions/23)
 
 # COPED: Catalogue of Projects on Energy Data
 
