@@ -116,8 +116,12 @@ def populate_resource_relations(ukri_record):
                     start = datetime.utcfromtimestamp(
                         fund_json.get("start") // 1000
                     ).date()
+                else:
+                    start = None
                 if fund_json.get("end"):
                     end = datetime.utcfromtimestamp(fund_json.get("end") // 1000).date()
+                else:
+                    end = None
 
                 ProjectFund.objects.get_or_create(
                     project=ukri_record,
