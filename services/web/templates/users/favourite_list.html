@@ -8,18 +8,27 @@
 <div class="container col-lg-6">
     <div class="row">
         <div class="col">
-            <h2>Favourites</h2>
+            <h2>
+                <i class="fas fa-star"></i>
+                Favourites
+            </h2>
 
             <p><small>
                 <em>Your previous login was on: {{previous_login|default:"(this is your first login)"}}</em>
             </small></p>
             <br><br>
-            <h4>Projects</h4>
+            <h4>
+                Energy Projects
+                <i class="fas fa-plug"></i>
+                <i class="fas fa-solar-panel"></i>
+                <i class="fas fa-charging-station"></i>
+            </h4>
             <table class="table sortTable">
                 <thead>
                     <tr>
                         <th scope="col">Title</th>
                         <th scope="col">Last Change</th>
+                        <th scope="col">Yours?</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +40,13 @@
                         <td>
                             {{object.last_change|date:'Y-m-d H:i'|default:"(None)"}}
                         </td>
+                        <td>
+                            {% if object.owner == user %}
+                            <i class="fas fa-check"></i>
+                            {% else %}
+                            <i class="fas fa-times"></i>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% empty %}
                     <tr>
@@ -40,12 +56,16 @@
                 </tbody>
             </table>
             <br><br>
-            <h4>People</h4>
+            <h4>
+                People
+                <i class="fas fa-user-friends"></i>
+            </h4>
             <table class="table sortTable">
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Last Change</th>
+                        <th scope="col">Yours?</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,6 +76,51 @@
                         </td>
                         <td>
                             {{object.modified|date:'Y-m-d H:i'|default:"(None)"}}
+                        </td>
+                        <td>
+                            {% if object.owner == user %}
+                            <i class="fas fa-check"></i>
+                            {% else %}
+                            <i class="fas fa-times"></i>
+                            {% endif %}
+                        </td>
+                    </tr>
+            {% empty %}
+                    <tr>
+                        <td>No favourites.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <br><br>
+            <h4>
+                Organisations
+                <i class="fas fa-industry"></i>
+                <i class="fas fa-university"></i>
+            </h4>
+            <table class="table sortTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Last Change</th>
+                        <th scope="col">Yours?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for object in organisation_favs %}
+                    <tr>
+                        <td>
+                            <a href="{{object.get_absolute_url}}">{{object.name}}</a>
+                        </td>
+                        <td>
+                            {{object.modified|date:'Y-m-d H:i'|default:"(None)"}}
+                        </td>
+                        <td>
+                            {% if object.owner == user %}
+                            <i class="fas fa-check"></i>
+                            {% else %}
+                            <i class="fas fa-times"></i>
+                            {% endif %}
                         </td>
                     </tr>
                 {% empty %}

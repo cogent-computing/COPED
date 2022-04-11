@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block nav_org%}active{% endblock %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'organisation-list' %}">Organisations</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ organisation.name }}</li>
+    </ol>
+</nav>
+
+<div class="container col-lg-6">
+    <div class="row">
+        <div class="col-md">
+            <h4>Delete Organisation</h4>
+            <p>Please confirm you wish to delete the following organisation.</p>
+            <p><strong>Name:</strong> <em>{{organisation.name}}</em></p>
+            <form method="post" class="form">
+                {% csrf_token %}
+                {% buttons %}
+                <button type="submit" value="Delete" class="btn btn-danger">{% trans 'Confirm' %}</button>
+                <a href="{{ organisation.get_absolute_url }}" class="btn btn-warning">{% trans 'Cancel' %}</a>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

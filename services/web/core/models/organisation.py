@@ -45,3 +45,18 @@ class Organisation(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class OrganisationSubscription(models.Model):
+    """Through model connecting to users who subscribe to updates."""
+
+    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    added = models.DateTimeField(auto_now_add=True, blank=True)
+
+    class Meta:
+        db_table = "coped_organisation_subscription"
+        unique_together = (
+            "organisation",
+            "user",
+        )

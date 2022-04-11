@@ -18,19 +18,53 @@
 <div class="container col-lg-8">
     <div class="row">
         <div class="col-md">
-            <h4>{{ organisation.name }} <a href="{% url 'organisation-update' pk=organisation.id %}" class="badge badge-pill badge-success">Update +</a></h4>
+            <h4>
+                {{ organisation.name }}
+            </h4>
+            {% if user.is_authenticated and organisation in user.organisation_set.all or user.is_superuser %}
+            <a href="{% url 'organisation-update' pk=organisation.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Edit this organisation.">
+                <i class="fas fa-edit"></i>
+                Update
+            </a>
+            <a href="{% url 'organisation-delete' pk=organisation.id %}" class="badge badge-pill badge-danger" data-toggle="tooltip" title="Delete this organisation.">
+                <i class="fas fa-trash"></i>
+                Delete
+            </a>
+            {% else %}
+
+                {% if user.is_authenticated and organisation.owner %}
+                <a href="{% url 'organisation-contact-owner' pk=organisation.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Send a message to the owner of this record.">
+                    <i class="fas fa-envelope"></i>
+                    Contact Owner
+                </a>
+                {% else %}
+                <a href="{% url 'organisation-claim-ownership' pk=organisation.id %}" class="badge badge-pill badge-success" data-toggle="tooltip" title="Claim this record so you can manage it.">
+                    <i class="fas fa-user-edit"></i>
+                    Claim Ownership
+                </a>
+                {% endif %}
+                <a href="{% url 'organisation-request-data-change' pk=organisation.id %}" class="badge badge-pill badge-warning" data-toggle="tooltip" title="Let us know if something needs to be updated.">
+                    <i class="fas fa-edit"></i>
+                    Request Data Change
+                </a>
+            
+            {% endif %}
+            {% if user not in subscribers %}
+            <a href="{% url 'organisation-favourite' pk=organisation.id %}" class="badge badge-pill badge-light" data-toggle="tooltip" title="Add this organisation to your list of favourites.">
+                <i class="fas fa-star"></i> Add Favourite
+            </a>
+            {% else %}
+            <a href="{% url 'organisation-unfavourite' pk=organisation.id %}" class="badge badge-pill badge-info" data-toggle="tooltip" title="Remove this organisation from your list of favourites.">
+                <i class="fas fa-star"></i> Remove Favourite
+            </a>
+            {% endif %}
+
         </div>
     </div>
     <div class="row">
         <div class="col-md">
             {% include "./includes/organisation_detail_card.html" %}
         </div>
-        {% comment %} <div class="col-md-4"> {% endcomment %}
-            {% comment %} {% include "./includes/organisation_detail_associations.html" %} {% endcomment %}
-            {% comment %} {% include "./includes/project_detail_actions.html" %}
-            {% include "./includes/project_detail_meta.html" %}
-            {% include "./includes/project_detail_metrics.html" %} {% endcomment %}
-        {% comment %} </div> {% endcomment %}
     </div>
 </div>
 

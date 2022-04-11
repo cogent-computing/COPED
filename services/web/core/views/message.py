@@ -31,7 +31,7 @@ class ProjectContactOwnerView(LoginRequiredMixin, MessageCreateView):
             f"Project CoPED ID: {coped_id}\n"
             f"Project ID: {id_}\n"
             f"Project URL: {url}\n\n"
-            "Your messaage:\n>>>\n\n"
+            "Your message:\n>>>\n\n"
             "Your name and contact details (optional):\n>>>\n\n"
         )
         return {"to_user": user_id, "subject": subject, "content": content}
@@ -57,7 +57,33 @@ class PersonContactOwnerView(LoginRequiredMixin, MessageCreateView):
             f"Person CoPED ID: {coped_id}\n"
             f"Person ID: {id_}\n"
             f"Person URL: {url}\n\n"
-            "Your messaage:\n>>>\n\n"
+            "Your message:\n>>>\n\n"
+            "Your name and contact details (optional):\n>>>\n\n"
+        )
+        return {"to_user": user_id, "subject": subject, "content": content}
+
+
+class OrganisationContactOwnerView(LoginRequiredMixin, MessageCreateView):
+    def get_initial(self):
+        organisation_id = self.kwargs.get("pk")
+        organisation = Organisation.objects.get(pk=organisation_id)
+        user_id = organisation.owner.id
+
+        name = organisation.name
+        coped_id = organisation.coped_id
+        id_ = organisation.id
+        proto = "https://" if self.request.is_secure() else "http://"
+        host = self.request.get_host()
+        path = organisation.get_absolute_url()
+        url = proto + host + path
+
+        subject = f"Message regarding organisation: '{name}'"
+        content = (
+            f"Organisation: {name}\n"
+            f"Organisation CoPED ID: {coped_id}\n"
+            f"Organisation ID: {id_}\n"
+            f"Organisation URL: {url}\n\n"
+            "Your message:\n>>>\n\n"
             "Your name and contact details (optional):\n>>>\n\n"
         )
         return {"to_user": user_id, "subject": subject, "content": content}
@@ -149,6 +175,36 @@ class PersonRequestDataChangeView(LoginRequiredMixin, MessageCreateView):
         return {"to_user": user_id, "subject": subject, "content": content}
 
 
+class OrganisationRequestDataChangeView(LoginRequiredMixin, MessageCreateView):
+    def get_initial(self):
+        organisation_id = self.kwargs.get("pk")
+        organisation = Organisation.objects.get(pk=organisation_id)
+        subject = f"Organisation data change request"
+        if organisation.owner:
+            user_id = organisation.owner.id
+        else:
+            user_id = 1  # admin
+
+        name = organisation.name
+        coped_id = organisation.coped_id
+        id_ = organisation.id
+        proto = "https://" if self.request.is_secure() else "http://"
+        host = self.request.get_host()
+        path = organisation.get_absolute_url()
+        url = proto + host + path
+
+        content = (
+            f"Organisation: {name}\n"
+            f"Organisation CoPED ID: {coped_id}\n"
+            f"Organisation ID: {id_}\n"
+            f"Organisation URL: {url}\n\n"
+            "What needs to be changed?\n>>>\n\n"
+            "What is your involvement with the organisation?\n>>>\n\n"
+            "Your name and contact details (optional):\n>>>\n\n"
+        )
+        return {"to_user": user_id, "subject": subject, "content": content}
+
+
 class ProjectClaimOwnershipView(LoginRequiredMixin, MessageCreateView):
     def get_initial(self):
         user_id = 1
@@ -196,6 +252,32 @@ class PersonClaimOwnershipView(LoginRequiredMixin, MessageCreateView):
             f"Person ID: {id_}\n"
             f"Person URL: {url}\n\n"
             "What is your involvement with the person?\n>>>\n\n"
+            "Your name and contact details (optional):\n>>>\n\n"
+        )
+        return {"to_user": user_id, "subject": subject, "content": content}
+
+
+class OrganisationClaimOwnershipView(LoginRequiredMixin, MessageCreateView):
+    def get_initial(self):
+        user_id = 1
+        organisation_id = self.kwargs.get("pk")
+        organisation = Organisation.objects.get(pk=organisation_id)
+        subject = f"Organisation record ownership request"
+
+        name = organisation.name
+        coped_id = organisation.coped_id
+        id_ = organisation.id
+        proto = "https://" if self.request.is_secure() else "http://"
+        host = self.request.get_host()
+        path = organisation.get_absolute_url()
+        url = proto + host + path
+
+        content = (
+            f"Organisation: {name}\n"
+            f"Organisation CoPED ID: {coped_id}\n"
+            f"Organisation ID: {id_}\n"
+            f"Organisation URL: {url}\n\n"
+            "What is your involvement with the organisation?\n>>>\n\n"
             "Your name and contact details (optional):\n>>>\n\n"
         )
         return {"to_user": user_id, "subject": subject, "content": content}

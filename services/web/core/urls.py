@@ -193,6 +193,36 @@ urlpatterns = [
         organisation.OrganisationCreateView.as_view(),
         name="organisation-create",
     ),
+    path(
+        "organisation/<int:pk>/delete/",
+        organisation.OrganisationDeleteView.as_view(),
+        name="organisation-delete",
+    ),
+    path(
+        "organisation/<int:pk>/request-data-change/",
+        message.OrganisationRequestDataChangeView.as_view(),
+        name="organisation-request-data-change",
+    ),
+    path(
+        "organisation/<int:pk>/claim-ownership/",
+        message.OrganisationClaimOwnershipView.as_view(),
+        name="organisation-claim-ownership",
+    ),
+    path(
+        "organisation/<int:pk>/contact-owner/",
+        message.OrganisationContactOwnerView.as_view(),
+        name="organisation-contact-owner",
+    ),
+    path(
+        "organisation/<int:pk>/favourite/",
+        action_view.favourite_organisation,
+        name="organisation-favourite",
+    ),
+    path(
+        "organisation/<int:pk>/unsubscribe/",
+        action_view.unfavourite_organisation,
+        name="organisation-unfavourite",
+    ),
     #
     #
     ##############

@@ -4,9 +4,6 @@ from django.views import generic
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.forms import inlineformset_factory
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django_addanother.views import CreatePopupMixin
 from extra_views import CreateWithInlinesView
 from extra_views import UpdateWithInlinesView

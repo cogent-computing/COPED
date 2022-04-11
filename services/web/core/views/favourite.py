@@ -2,7 +2,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from easyaudit.models import LoginEvent
 
-from ..models import Project, Person
+from ..models import Project, Person, Organisation
 
 
 class FavouriteListView(LoginRequiredMixin, generic.TemplateView):
@@ -28,5 +28,12 @@ class FavouriteListView(LoginRequiredMixin, generic.TemplateView):
 
         pers_fav_ids = user.personsubscription_set.values_list("person_id", flat=True)
         context["person_favs"] = Person.objects.filter(id__in=pers_fav_ids).all()
+
+        org_fav_ids = user.organisationsubscription_set.values_list(
+            "organisation_id", flat=True
+        )
+        context["organisation_favs"] = Organisation.objects.filter(
+            id__in=org_fav_ids
+        ).all()
 
         return context
