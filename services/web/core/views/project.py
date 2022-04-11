@@ -44,7 +44,7 @@ class ProjectDetailView(generic.DetailView):
         addresses = Address.objects.filter(
             organisation__in=self.get_object().organisations.all()
         )
-        location_list = [[a.geo.lat, a.geo.lon] for a in addresses]
+        location_list = [[a.geo.lat, a.geo.lon] for a in addresses if a.geo]
         has_latlon = lambda loc: loc[0] != 0 or loc[1] != 0
         location_list = list(filter(has_latlon, location_list))
         context["location_list"] = location_list
