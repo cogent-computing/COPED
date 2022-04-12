@@ -19,6 +19,8 @@ DEBUG = int(os.environ.get("DEBUG", default=0))
 TESTING = int(os.environ.get("TESTING", default=0))
 LOGLEVEL = os.environ.get("LOGLEVEL", default="INFO")
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
