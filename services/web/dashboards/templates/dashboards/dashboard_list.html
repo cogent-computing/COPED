@@ -2,10 +2,35 @@
 
 {% block content %}
 
-<ul>
-{% for dashboard in dashboard_list %}
-    <li>{{dashboard.name}} - <a href="{{dashboard.get_absolute_url}}">Visit</a></li>
-{% endfor %}
-</ul>
+<br><br>
+<div class="container col-lg-6">
+    <div class="row">
+        <div class="col">
+            <h4>Dashboards</h4>
+            <p>
+                Choose a dashboard below to view.
+                <br>
+                For <em>data-drilldown and custom analysis</em> you can visit our
+                {% if user.is_authenticated %}
+                    <a href="/metabase/">Data &amp; Analysis Home</a>.
+                {% else %}
+                    <a href="{% url 'login' %}?next=/metabase/">Data &amp; Analysis Home</a>.
+                {% endif %}
+            </p>
+
+            <table class="table">
+                <tbody>
+                {% for dashboard in dashboard_list %}
+                    <tr>
+                        <th scope="row">{{dashboard.name}}</th>
+                        <td><a href="{{dashboard.get_absolute_url}}">View</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

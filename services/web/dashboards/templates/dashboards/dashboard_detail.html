@@ -2,6 +2,14 @@
 
 {% block content %}
 
+<div class="container col-lg-12">
+    <div class="row">
+        <div class="col text-right">
+            Return to <a href="{% url 'dashboards:index' %}">list of dashboards</a>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.min.js"></script>
 <iframe src="{{embed_url|safe}}" width="100%"  style="overflow:hidden;" onload="iFrameResize({}, this)" frameBorder="0"></iframe>
 

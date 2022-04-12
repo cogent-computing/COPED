@@ -82,7 +82,7 @@
       <div
         class="col-lg-6 order-lg-2 text-white showcase-img"
         style="
-          background-image: url('{% static 'assets/img/vis-conn_big.png' %}');
+          background-image: url('{% static 'assets/img/graph_of_funding.png' %}');
         "
       ></div>
       <div class="col-lg-6 order-lg-1 my-auto showcase-text">
@@ -91,7 +91,7 @@
           A queryable visualisation that shows the available projects, their
           organisations and the people connected to the projects.
         </p>
-        <a href="/visuals/conn_graphs/" class="btn btn-outline-info">
+        <a href="{% url 'dashboards:index' %}" class="btn btn-outline-info">
           View Visuals
         </a>
       </div>
@@ -108,7 +108,7 @@
         <p class="lead mb-0">
           A maps view of projects and organisations based on their address.
         </p>
-        <a href="/visuals/maps_simple/" class="btn btn-outline-info">
+        <a href="{% url 'dashboards:index' %}" class="btn btn-outline-info">
           View Visuals
         </a>
       </div>
