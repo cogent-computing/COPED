@@ -22,9 +22,9 @@ If you are interested in making a code contribution and would like to learn more
 - [Django framework tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django)
 - [Scrapy documentation](https://docs.scrapy.org/en/latest/)
 
-## Any contributions you make will be under the BSD Software License
+## Any contributions you make will be under the GPLv3 Software License
 
-In short, when you submit code changes, your submissions are understood to be under the same [BSD license that covers the project](./LICENSE.md). Feel free to contact the maintainers if that's a concern.
+In short, when you submit code changes, your submissions are understood to be under the same [GPLv3 license that covers the project](./LICENSE.md). Feel free to contact the maintainers if that's a concern.
 
 ## Report bugs using Github's issues
 

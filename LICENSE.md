@@ -1,57 +1,41 @@
 # License Information
 
-## Components
-
-All components used in CoPED are used according to open source or proprietary source-available permitted-use licenses.
-
-In particular, the following components and their licenses are used in CoPED. No code in any component has been modified.
-
-- Django : [BSD 3-Clause License](https://tldrlegal.com/license/bsd-3-clause-license-(revised))
-- Elasticsearch : [Elastic License 2.0 and Server Side Public License 2.0](https://github.com/elastic/elasticsearch/tree/master/licenses)
-- Metabase : [GNU Affero General Public License (AGPL)](https://www.metabase.com/license/agpl/)
-- Nginx : [BSD 2-Clause License](https://tldrlegal.com/license/bsd-2-clause-license-(freebsd))
-- PostgreSQL : [PostgreSQL License](https://tldrlegal.com/license/postgresql-license-(postgresql))
-- Redis : [BSD 3-Clause License](https://tldrlegal.com/license/bsd-3-clause-license-(revised))
-
-For exact details of the Django plugin applications used, please see [settings.py](./services/web/core/settings.py) and [requirements.txt](./services/web/requirements.txt).
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 
 ## CoPED Application
 
-CoPED is released under the following *BSD 3-Clause Clear License*.  
-For a comparison of license conditions please see [this table on choosealicense.com](https://choosealicense.com/appendix/).
-  
->  The Clear BSD License  
->  Copyright (c) 2022 Coventry University  
->  All rights reserved.
->  
->  Redistribution and use in source and binary forms, with or without
->  modification, are permitted (subject to the limitations in the disclaimer
->  below) provided that the following conditions are met:
->  
->  * Redistributions of source code must retain the above copyright notice,
->       this list of conditions and the following disclaimer.
->  
->  * Redistributions in binary form must reproduce the above copyright
->       notice, this list of conditions and the following disclaimer in the
->       documentation and/or other materials provided with the distribution.
->  
->  * Neither the name of the copyright holder nor the names of its
->       contributors may be used to endorse or promote products derived from this
->       software without specific prior written permission.
->  
->  NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY
->  THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
->  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
->  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
->  PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
->  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
->  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
->  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
->  BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
->  IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
->  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
->  POSSIBILITY OF SUCH DAMAGE.
+Catalogue of Projects on Energy Data (CoPED)
+
+Copyright (C) 2022 Coventry University
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+### Attribution
+
+The following notice should be preserved in any derivative works.
+
+The Catalogue of Projects on Energy Data (CoPED) was originally
+produced by Coventry University.  They would like to acknowledge the
+financial and technical support of EPSRC EnergyREV
+(EP/S031863/1). EnergyREV is funded by UK Research and Innovation
+through the Industrial Strategy Challenge Fund. CoPED would like to
+thank project delivery partner Energy Systems Catapult (ESC) for their
+significant role in developing the software specification and advising
+on community engagement. We also like to recognise the Department of
+Business, Energy and Industry strategy (BEIS) in providing the
+stimulus to develop the platform.
 
 ## CoPED Data and Visualisations
 
@@ -75,3 +59,17 @@ All of CoPED's data is gathered from publicly available online sources. If you w
 > * ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original. 
 > * No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 
+## Components
+
+All components used in CoPED are used according to open source or proprietary source-available permitted-use licenses.
+
+In particular, the following components and their licenses are used in CoPED. No code in any component has been modified.
+
+- Django : [BSD 3-Clause License](https://tldrlegal.com/license/bsd-3-clause-license-(revised))
+- Elasticsearch : [Elastic License 2.0 and Server Side Public License 2.0](https://github.com/elastic/elasticsearch/tree/master/licenses)
+- Metabase : [GNU Affero General Public License (AGPL)](https://www.metabase.com/license/agpl/)
+- Nginx : [BSD 2-Clause License](https://tldrlegal.com/license/bsd-2-clause-license-(freebsd))
+- PostgreSQL : [PostgreSQL License](https://tldrlegal.com/license/postgresql-license-(postgresql))
+- Redis : [BSD 3-Clause License](https://tldrlegal.com/license/bsd-3-clause-license-(revised))
+
+For exact details of the Django plugin applications used, please see [settings.py](./services/web/core/settings.py) and [requirements.txt](./services/web/requirements.txt).
