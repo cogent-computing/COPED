@@ -11,6 +11,7 @@ See the [overview](./OVERVIEW.md) for a description of the services that make up
    * Use command `docker-compose` or `docker compose` depending on your version.
 3. [Git Large File Storage](https://git-lfs.github.com/) (LFS) extension
    * [Debian/Ubuntu installation instructions](https://github.com/git-lfs/git-lfs/wiki/Installation#ubuntu).
+   * Use command `git lfs pull origin` to force the download of LFS files if needed.
 4. Sufficient server resources
    * As a guide: a laptop with 8GB RAM and 256GB SSD is more than sufficient for development.
 
