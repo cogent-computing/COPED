@@ -125,6 +125,7 @@ services:
       MB_DB_HOST: ${DOCKER_CONTAINER_NAME_PREFIX:-coped}_postgres
       MB_JETTY_PORT: ${METABASE_PORT:-3000}
       MB_JETTY_HOST: ${METABASE_HOST:-0.0.0.0}
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     depends_on:
       db:
         condition: service_healthy
