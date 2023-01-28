@@ -11,3 +11,4 @@ __pycache__/
 !.env.ci
 private/
 mypy.ini
+*.pem
