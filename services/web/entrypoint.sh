@@ -28,4 +28,8 @@ echo "Starting celery beat/scheduler daemon..."
 celery --app core beat --loglevel ${LOGLEVEL:-INFO} --scheduler django_celery_beat.schedulers:DatabaseScheduler --logfile /var/log/coped/celery_beat.log --detach
 echo "Celery beat/scheduler daemon started. Logs will go to /var/log/coped/celery_beat.log"
 
+echo "Starting celery flower web-based task monitor..."
+celery --app core flower --port=5555
+echo "Celery flower web-based task monitor started. Access at localhost:5555 on the docker host (ensure docker-compose.yaml forwards this port to the host)."
+
 exec "$@"

@@ -16,6 +16,7 @@ services:
       - selenium
     ports:
       - "${DJANGO_DEVELOPMENT_PORT:-8000}:8000"
+      - 5555
 
   db:
     ports:

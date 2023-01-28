@@ -13,6 +13,8 @@ services:
       - web_service_log_files:/var/log/coped
     expose:
       - 8000
+    ports:
+      - 5555
     environment:
       DEBUG: 0
       TESTING: 0
