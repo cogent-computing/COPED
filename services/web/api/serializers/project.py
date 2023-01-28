@@ -6,13 +6,16 @@ from .link import ExternalLinkSerializer
 from .link import LinkedPersonSerializer
 from .link import LinkedOrganisationSerializer
 from .link import LinkedFundSerializer
+from .link import LinkedSubjectSerializer
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 
     external_links = ExternalLinkSerializer(many=True)
     organisations = LinkedOrganisationSerializer(many=True)
     persons = LinkedPersonSerializer(many=True)
+    url = serializers.HyperlinkedIdentityField(view_name='api-project-detail', format='json')
+    subjects = LinkedSubjectSerializer(many=True)
 
     # Specify a through model record set using the `source` argument.
     funds = LinkedFundSerializer(source="projectfund_set", many=True)
@@ -29,4 +32,5 @@ class ProjectSerializer(serializers.ModelSerializer):
             "persons",
             "organisations",
             "external_links",
+            "subjects"
         ]

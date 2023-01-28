@@ -5,11 +5,12 @@ from .link import LinkedPersonSerializer
 from .link import LinkedProjectSerializer
 
 
-class OrganisationSerializer(serializers.ModelSerializer):
+class OrganisationSerializer(serializers.HyperlinkedModelSerializer):
 
     external_links = ExternalLinkSerializer(many=True)
     projects = LinkedProjectSerializer(source="project_set", many=True)
     persons = LinkedPersonSerializer(source="person_set", many=True)
+    url = serializers.HyperlinkedIdentityField(view_name='api-organisation-detail', format='json')
 
     class Meta:
         model = Organisation
@@ -17,7 +18,6 @@ class OrganisationSerializer(serializers.ModelSerializer):
             "url",
             "coped_id",
             "name",
-            "address",
             "about",
             "external_links",
             "projects",

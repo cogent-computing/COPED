@@ -260,8 +260,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://www.django-rest-framework.org/api-guide/settings/
 
 REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 10,
+    "DEFAULT_PERMISSION_CLASSES": [
+        "api.permissions.ReadOnlyPermission",
+    ],
+    "DEFAULT_PAGINATION_CLASS": "api.pagination.LargeResultsSetPagination",
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
         "rest_framework.renderers.BrowsableAPIRenderer",
