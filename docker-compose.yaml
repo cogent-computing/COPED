@@ -128,6 +128,7 @@ services:
       MB_JETTY_PORT: ${METABASE_PORT:-3000}
       MB_JETTY_HOST: ${METABASE_HOST:-0.0.0.0}
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      MB_SEND_EMAIL_ON_FIRST_LOGIN_FROM_NEW_DEVICE: FALSE
     depends_on:
       db:
         condition: service_healthy
