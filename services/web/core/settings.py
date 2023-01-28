@@ -18,6 +18,7 @@ from pathlib import Path
 DEBUG = int(os.environ.get("DEBUG", default=0))
 TESTING = int(os.environ.get("TESTING", default=0))
 LOGLEVEL = os.environ.get("LOGLEVEL", default="INFO")
+LOG_LEVEL = os.environ.get("LOG_LEVEL", default="INFO")
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
