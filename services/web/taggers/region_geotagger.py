@@ -25,22 +25,22 @@ def tag_geo_points_with_regions(limit=None):
     # Set up mappings from model field names to GEOJSON properties.
     # Top-level keys are the file names of the corresponding data.
     geojson_mappings = {
-        "Local_Authority_Districts_(December_2021)_UK_BUC.geojson": {
+        "Local_Authority_Districts_(December_2021)_UK_BUC.reduced.geojson": {
             "lad_id": "OBJECTID",
             "lad_code": "LAD21CD",
             "lad_name": "LAD21NM",
         },
-        "dno_license_areas_20200506.polar.geojson": {
+        "dno_license_areas_20200506.polar.reduced.geojson": {
             "dno_id": "ID",
             "dno_name": "Name",
             "dno_long_name": "LongName",
         },
-        "Countries_(December_2021)_UK_BUC.geojson": {
+        "Countries_(December_2021)_UK_BUC.reduced.geojson": {
             "ctry_id": "OBJECTID",
             "ctry_code": "CTRY21CD",
             "ctry_name": "CTRY21NM",
         },
-        "Counties_and_Unitary_Authorities_(December_2021)_UK_BUC.geojson": {
+        "Counties_and_Unitary_Authorities_(December_2021)_UK_BUC.reduced.geojson": {
             "ctyua_id": "OBJECTID",
             "ctyua_code": "CTYUA21CD",
             "ctyua_name": "CTYUA21NM",
