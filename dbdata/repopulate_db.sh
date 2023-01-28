@@ -27,13 +27,13 @@ if [ "$REPLY" != "yes" ]; then
 fi
 
 echo "Stopping containers."
-docker compose down
-docker compose up -d --no-deps db
+docker-compose down
+docker-compose up -d --no-deps db
 
 echo "Repopulating database '${database_name}' from file '${data_file}'."
-docker compose exec -d db psql postgres -c "SELECT pg_terminate_backend(psa.pid) FROM pg_stat_activity psa WHERE datname = '${database_name}' AND pid <> pg_backend_pid();"
-docker compose exec -d db psql postgres -c "DROP DATABASE IF EXISTS ${database_name};"
-docker compose exec -d db psql postgres -c "CREATE DATABASE ${database_name};"
-docker compose exec -d db psql ${database_name} < ${data_file}
+docker-compose exec -d db psql postgres -c "SELECT pg_terminate_backend(psa.pid) FROM pg_stat_activity psa WHERE datname = '${database_name}' AND pid <> pg_backend_pid();"
+docker-compose exec -d db psql postgres -c "DROP DATABASE IF EXISTS ${database_name};"
+docker-compose exec -d db psql postgres -c "CREATE DATABASE ${database_name};"
+docker-compose exec -d db psql ${database_name} < ${data_file}
 
 echo "Complete. You can restart the application."

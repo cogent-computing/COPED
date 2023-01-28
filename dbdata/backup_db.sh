@@ -24,9 +24,9 @@ if [ "$REPLY" != "yes" ]; then
 fi
 
 echo "Ensuring database container is up..."
-docker compose up -d db
+docker-compose up -d db
 
 echo "Dumping database '${database_name}' to file '${data_file}'."
-docker compose exec --no-TTY db pg_dump ${database_name} > ${data_file}
+docker-compose exec --no-TTY db pg_dump ${database_name} > ${data_file}
 
 echo "Complete."
