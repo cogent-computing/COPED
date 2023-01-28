@@ -31,7 +31,7 @@ django.setup()
 import logging
 
 # Uncomment pagecount limit for testing purposes
-CLOSESPIDER_PAGECOUNT = 50
+# CLOSESPIDER_PAGECOUNT = 50
 
 BOT_NAME = "ukri"
 
