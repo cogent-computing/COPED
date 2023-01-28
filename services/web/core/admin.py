@@ -295,6 +295,7 @@ class UserAdminConfig(UserAdmin):
     list_filter = (
         "is_active",
         "is_staff",
+        "is_superuser",
         "is_contributor",
         "date_joined",
         "last_login",
@@ -309,6 +310,7 @@ class UserAdminConfig(UserAdmin):
         "last_login",
         "is_active",
         "is_staff",
+        "is_superuser",
         "is_contributor",
     )
     fieldsets = (
@@ -318,7 +320,7 @@ class UserAdminConfig(UserAdmin):
                 "fields": ("email", "first_name", "last_name"),
             },
         ),
-        ("Permissions", {"fields": ("is_staff", "is_active", "is_contributor")}),
+        ("Permissions", {"fields": ("is_staff", "is_superuser", "is_active", "is_contributor")}),
     )
     add_fieldsets = (
         (
