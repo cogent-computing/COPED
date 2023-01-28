@@ -23,7 +23,8 @@
 <section>
   {% if dashboard_url %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.min.js"></script>
-  <iframe src="{{dashboard_url}}" width="100%"  style="overflow:hidden;" onload="iFrameResize({}, this)" frameBorder="0"></iframe>
+  <iframe src="{{dashboard_url}}" width="100%" style="overflow:hidden;" onload="iFrameResize({}, this)"
+    frameBorder="0"></iframe>
   {% endif %}
 </section>
 <!-- Icons Grid-->
@@ -31,7 +32,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-4">
-        <a class="btn text-center" href="/users/">
+        <a class="btn text-center" href="/people/">
           <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
             <div class="features-icons-icon d-flex">
               <i class="fas fa-users m-auto text-success fa-7x"></i>
@@ -79,12 +80,9 @@
 <section class="showcase">
   <div class="container-fluid p-0">
     <div class="row no-gutters">
-      <div
-        class="col-lg-6 order-lg-2 text-white showcase-img"
-        style="
+      <div class="col-lg-6 order-lg-2 text-white showcase-img" style="
           background-image: url('{% static 'assets/img/graph_of_funding.png' %}');
-        "
-      ></div>
+        "></div>
       <div class="col-lg-6 order-lg-1 my-auto showcase-text">
         <h2>Graph Representation of Projects</h2>
         <p class="lead mb-0">
@@ -97,12 +95,9 @@
       </div>
     </div>
     <div class="row no-gutters">
-      <div
-        class="col-lg-6 text-white showcase-img"
-        style="
+      <div class="col-lg-6 text-white showcase-img" style="
           background-image: url('{% static 'assets/img/vis-map_simple_big.png' %}');
-        "
-      ></div>
+        "></div>
       <div class="col-lg-6 my-auto showcase-text">
         <h2>Projects and Organisations Map across the UK</h2>
         <p class="lead mb-0">
