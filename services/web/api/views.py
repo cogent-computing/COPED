@@ -26,7 +26,7 @@ def api_root(request, format=None):
 
 
 class OrganisationList(generics.ListCreateAPIView):
-    queryset = Organisation.objects.all()
+    queryset = Organisation.objects.all().order_by("-id")
     serializer_class = OrganisationSerializer
 
 
@@ -36,7 +36,7 @@ class OrganisationDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class PersonList(generics.ListCreateAPIView):
-    queryset = Person.objects.all()
+    queryset = Person.objects.all().order_by("-id")
     serializer_class = PersonSerializer
 
 
@@ -46,7 +46,7 @@ class PersonDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ProjectList(generics.ListCreateAPIView):
-    queryset = Project.objects.all()
+    queryset = Project.objects.all().order_by("-id")
     serializer_class = ProjectSerializer
 
 
