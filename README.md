@@ -1,4 +1,7 @@
-> [How to contact the CoPED team.](https://github.com/cogent-computing/COPED/discussions/23)
+> **Warning**  
+> **DEPRECATED**  
+> CoPED is now hosted and managed by the [Energy Systems Catapult](https://es.catapult.org.uk/) at https://coped.energy  
+> The codebase has been migrated to https://gitlab.com/es-catapult-public/coped
 
 # COPED: Catalogue of Projects on Energy Data
 
